@@ -1,0 +1,65 @@
+{
+  "existing": {
+    "playlist": {
+      "PLAYLIST00": {
+        "created_at": "s78",
+        "description": "s79",
+        "id": "PLAYLIST00",
+        "is_public": false,
+        "is_smart": true,
+        "name": "s7d",
+        "owner": "s7e",
+        "smart_criterion": {},
+        "song": [],
+        "song_count": "s81",
+        "song_id": "SONG01",
+        "updated_at": "s83"
+      },
+      "PLAYLIST01": {
+        "created_at": "sf0",
+        "description": "sf1",
+        "id": "PLAYLIST01",
+        "is_public": false,
+        "is_smart": true,
+        "name": "sf5",
+        "owner": "sf6",
+        "smart_criterion": {},
+        "song": [],
+        "song_count": "sf9",
+        "song_id": "SONG01",
+        "updated_at": "sfb"
+      },
+      "PLAYLIST02": {
+        "created_at": "s168",
+        "description": "s169",
+        "id": "PLAYLIST02",
+        "is_public": false,
+        "is_smart": true,
+        "name": "s16d",
+        "owner": "s16e",
+        "smart_criterion": {},
+        "song": [],
+        "song_count": "s171",
+        "song_id": "SONG01",
+        "updated_at": "s173"
+      }
+    }
+  },
+  "new": {
+    "playlist": {
+      "playlist_ref01": {
+        "created_at": "s1e0",
+        "description": "s1e1",
+        "is_public": false,
+        "is_smart": true,
+        "name": "s1e5",
+        "owner": "s1e6",
+        "smart_criterion": {},
+        "song": [],
+        "song_count": "s1e9",
+        "song_id": "SONG01",
+        "updated_at": "s1eb"
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+# Entity: offline_download
+
+main: kit: entity: offline_download: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "song_id"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "offline_download"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/offline/downloads"
+          parts: [
+            "offline"
+            "downloads"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

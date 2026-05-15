@@ -1,0 +1,81 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 8
+  metrics: count: path: 11
+  metrics: count: method: 16
+
+  entity: listening_room: {
+    path: "/listening-rooms": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/listening-rooms/{roomId}": {
+      rename: param: "roomId": *"id"
+      op: load: method: *GET
+    }
+    path: "/listening-rooms/{roomId}/join": {
+      action: "join": {}
+      rename: param: "roomId": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: music: {
+    path: "/offline/downloads": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: offline_download: {
+    path: "/offline/downloads": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: playlist: {
+    path: "/playlists": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/playlists/{playlistId}": {
+      rename: param: "playlistId": *"id"
+      op: load: method: *GET
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+    }
+    path: "/playlists/{playlistId}/songs": {
+      action: "song": {}
+      rename: param: "playlistId": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: search: {
+    path: "/search": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: song: {
+    path: "/songs/{songId}": {
+      rename: param: "songId": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: stream: {
+    path: "/songs/{songId}/stream": {
+      rename: param: "songId": *"song_id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: video: {
+    path: "/songs/{songId}/video": {
+      rename: param: "songId": *"song_id"
+      op: load: method: *GET
+    }
+  }
+
+}

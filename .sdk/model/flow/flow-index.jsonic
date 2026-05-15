@@ -1,0 +1,10 @@
+# Flows
+
+@"BasicListeningRoomFlow.jsonic"
+@"BasicMusicFlow.jsonic"
+@"BasicOfflineDownloadFlow.jsonic"
+@"BasicPlaylistFlow.jsonic"
+@"BasicSearchFlow.jsonic"
+@"BasicSongFlow.jsonic"
+@"BasicStreamFlow.jsonic"
+@"BasicVideoFlow.jsonic"

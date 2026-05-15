@@ -1,0 +1,52 @@
+# BasicListeningRoomFlow
+
+main: kit: flow: BasicListeningRoomFlow:
+{
+  entity: "listening_room",
+  kind: "basic",
+  name: "BasicListeningRoomFlow",
+  step: [
+    {
+      input: {
+        ref: "listening_room_ref01"
+      }
+
+      op: "create"
+    }
+
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "listening_room_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "listening_room_ref01",
+        srcdatavar: "listening_room_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "listening_room01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-listening_room_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicListeningRoomFlow"
+}

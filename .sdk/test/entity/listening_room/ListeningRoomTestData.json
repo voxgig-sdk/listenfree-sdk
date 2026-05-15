@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "listening_room": {
+      "LISTENING_ROOM00": {
+        "created_at": "s64",
+        "current_song": {},
+        "description": "s66",
+        "host": "s67",
+        "id": "LISTENING_ROOM00",
+        "is_public": false,
+        "max_participant": "s6a",
+        "name": "s6b",
+        "participant": [],
+        "queue": []
+      },
+      "LISTENING_ROOM01": {
+        "created_at": "sc8",
+        "current_song": {},
+        "description": "sca",
+        "host": "scb",
+        "id": "LISTENING_ROOM01",
+        "is_public": false,
+        "max_participant": "sce",
+        "name": "scf",
+        "participant": [],
+        "queue": []
+      },
+      "LISTENING_ROOM02": {
+        "created_at": "s12c",
+        "current_song": {},
+        "description": "s12e",
+        "host": "s12f",
+        "id": "LISTENING_ROOM02",
+        "is_public": false,
+        "max_participant": "s132",
+        "name": "s133",
+        "participant": [],
+        "queue": []
+      }
+    }
+  },
+  "new": {
+    "listening_room": {
+      "listening_room_ref01": {
+        "created_at": "s190",
+        "current_song": {},
+        "description": "s192",
+        "host": "s193",
+        "is_public": false,
+        "max_participant": "s196",
+        "name": "s197",
+        "participant": [],
+        "queue": []
+      }
+    }
+  }
+}

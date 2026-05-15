@@ -1,0 +1,41 @@
+{
+  "existing": {
+    "music": {
+      "MUSIC00": {
+        "downloaded_at": "s3c",
+        "expires_at": "s3d",
+        "id": "MUSIC00",
+        "progress": "s3f",
+        "song": {},
+        "status": "s41"
+      },
+      "MUSIC01": {
+        "downloaded_at": "s78",
+        "expires_at": "s79",
+        "id": "MUSIC01",
+        "progress": "s7b",
+        "song": {},
+        "status": "s7d"
+      },
+      "MUSIC02": {
+        "downloaded_at": "sb4",
+        "expires_at": "sb5",
+        "id": "MUSIC02",
+        "progress": "sb7",
+        "song": {},
+        "status": "sb9"
+      }
+    }
+  },
+  "new": {
+    "music": {
+      "music_ref01": {
+        "downloaded_at": "sf0",
+        "expires_at": "sf1",
+        "progress": "sf3",
+        "song": {},
+        "status": "sf5"
+      }
+    }
+  }
+}

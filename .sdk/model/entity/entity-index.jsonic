@@ -1,0 +1,10 @@
+# Entity Models
+
+@"listening_room.jsonic"
+@"music.jsonic"
+@"offline_download.jsonic"
+@"playlist.jsonic"
+@"search.jsonic"
+@"song.jsonic"
+@"stream.jsonic"
+@"video.jsonic"

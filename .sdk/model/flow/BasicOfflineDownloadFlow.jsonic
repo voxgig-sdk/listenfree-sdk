@@ -1,0 +1,18 @@
+# BasicOfflineDownloadFlow
+
+main: kit: flow: BasicOfflineDownloadFlow:
+{
+  entity: "offline_download",
+  kind: "basic",
+  name: "BasicOfflineDownloadFlow",
+  step: [
+    {
+      input: {
+        ref: "offline_download_ref01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicOfflineDownloadFlow"
+}

@@ -1,0 +1,53 @@
+{
+  "existing": {
+    "song": {
+      "SONG00": {
+        "album": "s5a",
+        "artist": "s5b",
+        "cover_art": "s5c",
+        "duration": "s5d",
+        "genre": [],
+        "has_video": false,
+        "id": "SONG00",
+        "release_date": "s61",
+        "title": "s62"
+      },
+      "SONG01": {
+        "album": "sb4",
+        "artist": "sb5",
+        "cover_art": "sb6",
+        "duration": "sb7",
+        "genre": [],
+        "has_video": false,
+        "id": "SONG01",
+        "release_date": "sbb",
+        "title": "sbc"
+      },
+      "SONG02": {
+        "album": "s10e",
+        "artist": "s10f",
+        "cover_art": "s110",
+        "duration": "s111",
+        "genre": [],
+        "has_video": false,
+        "id": "SONG02",
+        "release_date": "s115",
+        "title": "s116"
+      }
+    }
+  },
+  "new": {
+    "song": {
+      "song_ref01": {
+        "album": "s168",
+        "artist": "s169",
+        "cover_art": "s16a",
+        "duration": "s16b",
+        "genre": [],
+        "has_video": false,
+        "release_date": "s16f",
+        "title": "s170"
+      }
+    }
+  }
+}

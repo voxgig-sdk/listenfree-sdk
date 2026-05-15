@@ -1,0 +1,22 @@
+# BasicMusicFlow
+
+main: kit: flow: BasicMusicFlow:
+{
+  entity: "music",
+  kind: "basic",
+  name: "BasicMusicFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "music_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicMusicFlow"
+}

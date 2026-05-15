@@ -1,0 +1,1373 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ListenFree API",
+    "description": "ListenFree API provides a platform for fast, ad-free music streaming, allowing users to create smart playlists, enjoy collaborative listening rooms, and access video previews of songs. The API supports offline playback and prioritizes user privacy, making it a reliable choice for music enthusiasts.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://listenfree.in/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://listenfree.in/api",
+      "description": "ListenFree API Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "music",
+      "description": "Music streaming operations"
+    },
+    {
+      "name": "playlists",
+      "description": "Playlist management"
+    },
+    {
+      "name": "listening-rooms",
+      "description": "Collaborative listening rooms"
+    },
+    {
+      "name": "search",
+      "description": "Search for music content"
+    }
+  ],
+  "paths": {
+    "/search": {
+      "get": {
+        "summary": "Search for music",
+        "description": "Search for songs, artists, albums, and playlists on ListenFree",
+        "operationId": "searchMusic",
+        "tags": [
+          "search",
+          "music"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search query string",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example": "imagine dragons"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Type of content to search for",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "song",
+                "artist",
+                "album",
+                "playlist",
+                "all"
+              ],
+              "default": "all"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number of results to skip for pagination",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/songs/{songId}": {
+      "get": {
+        "summary": "Get song details",
+        "description": "Retrieve detailed information about a specific song",
+        "operationId": "getSong",
+        "tags": [
+          "music"
+        ],
+        "parameters": [
+          {
+            "name": "songId",
+            "in": "path",
+            "description": "Unique identifier of the song",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Song details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Song"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Song not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/songs/{songId}/stream": {
+      "get": {
+        "summary": "Stream a song",
+        "description": "Get streaming URL for a song with ad-free playback",
+        "operationId": "streamSong",
+        "tags": [
+          "music"
+        ],
+        "parameters": [
+          {
+            "name": "songId",
+            "in": "path",
+            "description": "Unique identifier of the song",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "quality",
+            "in": "query",
+            "description": "Audio quality preference",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ],
+              "default": "high"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stream URL retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Song not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/songs/{songId}/video": {
+      "get": {
+        "summary": "Get song video preview",
+        "description": "Retrieve video preview URL for a song",
+        "operationId": "getSongVideo",
+        "tags": [
+          "music"
+        ],
+        "parameters": [
+          {
+            "name": "songId",
+            "in": "path",
+            "description": "Unique identifier of the song",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Video preview URL retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Video not available for this song",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playlists": {
+      "get": {
+        "summary": "List user playlists",
+        "description": "Retrieve all playlists for the authenticated user",
+        "operationId": "listPlaylists",
+        "tags": [
+          "playlists"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of playlists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "playlists": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Playlist"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a playlist",
+        "description": "Create a new smart playlist",
+        "operationId": "createPlaylist",
+        "tags": [
+          "playlists"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePlaylistRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Playlist created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Playlist"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playlists/{playlistId}": {
+      "get": {
+        "summary": "Get playlist details",
+        "description": "Retrieve detailed information about a specific playlist",
+        "operationId": "getPlaylist",
+        "tags": [
+          "playlists"
+        ],
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Unique identifier of the playlist",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Playlist details retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Playlist"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update playlist",
+        "description": "Update playlist details or content",
+        "operationId": "updatePlaylist",
+        "tags": [
+          "playlists"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Unique identifier of the playlist",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePlaylistRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Playlist updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Playlist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete playlist",
+        "description": "Delete a playlist",
+        "operationId": "deletePlaylist",
+        "tags": [
+          "playlists"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Unique identifier of the playlist",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Playlist deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playlists/{playlistId}/songs": {
+      "post": {
+        "summary": "Add song to playlist",
+        "description": "Add a song to a playlist",
+        "operationId": "addSongToPlaylist",
+        "tags": [
+          "playlists"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Unique identifier of the playlist",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "songId"
+                ],
+                "properties": {
+                  "songId": {
+                    "type": "string",
+                    "description": "ID of the song to add"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Song added to playlist successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Playlist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist or song not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listening-rooms": {
+      "get": {
+        "summary": "List listening rooms",
+        "description": "Retrieve all available collaborative listening rooms",
+        "operationId": "listListeningRooms",
+        "tags": [
+          "listening-rooms"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of rooms to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of listening rooms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rooms": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ListeningRoom"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create listening room",
+        "description": "Create a new collaborative listening room",
+        "operationId": "createListeningRoom",
+        "tags": [
+          "listening-rooms"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateListeningRoomRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Listening room created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListeningRoom"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listening-rooms/{roomId}": {
+      "get": {
+        "summary": "Get listening room details",
+        "description": "Retrieve details about a specific listening room",
+        "operationId": "getListeningRoom",
+        "tags": [
+          "listening-rooms"
+        ],
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "Unique identifier of the listening room",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listening room details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListeningRoom"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Listening room not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listening-rooms/{roomId}/join": {
+      "post": {
+        "summary": "Join listening room",
+        "description": "Join a collaborative listening room",
+        "operationId": "joinListeningRoom",
+        "tags": [
+          "listening-rooms"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "Unique identifier of the listening room",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully joined the room",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListeningRoom"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Listening room not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/offline/downloads": {
+      "get": {
+        "summary": "List offline downloads",
+        "description": "Retrieve list of songs available for offline playback",
+        "operationId": "listOfflineDownloads",
+        "tags": [
+          "music"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of downloaded songs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "downloads": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OfflineDownload"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Download song for offline playback",
+        "description": "Add a song to offline downloads",
+        "operationId": "downloadSongOffline",
+        "tags": [
+          "music"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "songId"
+                ],
+                "properties": {
+                  "songId": {
+                    "type": "string",
+                    "description": "ID of the song to download"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Song queued for offline download",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfflineDownload"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Song not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT authentication token"
+      }
+    },
+    "schemas": {
+      "Song": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the song"
+          },
+          "title": {
+            "type": "string",
+            "description": "Song title"
+          },
+          "artist": {
+            "type": "string",
+            "description": "Artist name"
+          },
+          "album": {
+            "type": "string",
+            "description": "Album name"
+          },
+          "duration": {
+            "type": "integer",
+            "description": "Duration in seconds"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Release date"
+          },
+          "genres": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Music genres"
+          },
+          "coverArt": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to cover art image"
+          },
+          "hasVideo": {
+            "type": "boolean",
+            "description": "Whether video preview is available"
+          }
+        }
+      },
+      "SearchResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "object",
+            "properties": {
+              "songs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Song"
+                }
+              },
+              "artists": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "image": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  }
+                }
+              },
+              "albums": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "artist": {
+                      "type": "string"
+                    },
+                    "coverArt": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  }
+                }
+              },
+              "playlists": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Playlist"
+                }
+              }
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of results"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Current offset"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Results per page"
+          }
+        }
+      },
+      "StreamResponse": {
+        "type": "object",
+        "properties": {
+          "streamUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL for streaming the song"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration time of the stream URL"
+          },
+          "quality": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "description": "Audio quality"
+          },
+          "bitrate": {
+            "type": "integer",
+            "description": "Audio bitrate in kbps"
+          }
+        }
+      },
+      "VideoResponse": {
+        "type": "object",
+        "properties": {
+          "videoUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL for video preview"
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Video thumbnail URL"
+          },
+          "duration": {
+            "type": "integer",
+            "description": "Video duration in seconds"
+          }
+        }
+      },
+      "Playlist": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the playlist"
+          },
+          "name": {
+            "type": "string",
+            "description": "Playlist name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Playlist description"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User ID of playlist owner"
+          },
+          "isPublic": {
+            "type": "boolean",
+            "description": "Whether playlist is public"
+          },
+          "isSmart": {
+            "type": "boolean",
+            "description": "Whether playlist is a smart playlist"
+          },
+          "songs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Song"
+            }
+          },
+          "songCount": {
+            "type": "integer",
+            "description": "Number of songs in playlist"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp"
+          }
+        }
+      },
+      "CreatePlaylistRequest": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Playlist name",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "description": "Playlist description",
+            "maxLength": 500
+          },
+          "isPublic": {
+            "type": "boolean",
+            "description": "Whether playlist should be public",
+            "default": false
+          },
+          "isSmart": {
+            "type": "boolean",
+            "description": "Whether to create a smart playlist",
+            "default": false
+          },
+          "smartCriteria": {
+            "type": "object",
+            "description": "Criteria for smart playlist generation",
+            "properties": {
+              "genres": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "artists": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "minDuration": {
+                "type": "integer"
+              },
+              "maxDuration": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "UpdatePlaylistRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Playlist name",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "description": "Playlist description",
+            "maxLength": 500
+          },
+          "isPublic": {
+            "type": "boolean",
+            "description": "Whether playlist should be public"
+          }
+        }
+      },
+      "ListeningRoom": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the listening room"
+          },
+          "name": {
+            "type": "string",
+            "description": "Room name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Room description"
+          },
+          "host": {
+            "type": "string",
+            "description": "User ID of room host"
+          },
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "currentSong": {
+            "$ref": "#/components/schemas/Song"
+          },
+          "queue": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Song"
+            }
+          },
+          "maxParticipants": {
+            "type": "integer",
+            "description": "Maximum number of participants"
+          },
+          "isPublic": {
+            "type": "boolean",
+            "description": "Whether room is public"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateListeningRoomRequest": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Room name",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "description": "Room description",
+            "maxLength": 500
+          },
+          "maxParticipants": {
+            "type": "integer",
+            "description": "Maximum number of participants",
+            "minimum": 2,
+            "maximum": 100,
+            "default": 10
+          },
+          "isPublic": {
+            "type": "boolean",
+            "description": "Whether room should be public",
+            "default": true
+          }
+        }
+      },
+      "OfflineDownload": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Download ID"
+          },
+          "song": {
+            "$ref": "#/components/schemas/Song"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "downloading",
+              "completed",
+              "failed"
+            ],
+            "description": "Download status"
+          },
+          "progress": {
+            "type": "integer",
+            "description": "Download progress percentage",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "downloadedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Download completion timestamp"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Offline availability expiration"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "code": {
+            "type": "string",
+            "description": "Error code"
+          },
+          "details": {
+            "type": "object",
+            "description": "Additional error details"
+          }
+        }
+      }
+    }
+  }
+}

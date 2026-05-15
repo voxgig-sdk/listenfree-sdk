@@ -1,0 +1,68 @@
+# Entity: music
+
+main: kit: entity: music: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "downloaded_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "expires_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "progress"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "song"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "status"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "music"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/offline/downloads"
+          parts: [
+            "offline"
+            "downloads"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

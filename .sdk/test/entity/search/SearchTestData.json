@@ -1,0 +1,34 @@
+{
+  "existing": {
+    "search": {
+      "SEARCH00": {
+        "limit": "s28",
+        "offset": "s29",
+        "result": {},
+        "total": "s2b"
+      },
+      "SEARCH01": {
+        "limit": "s50",
+        "offset": "s51",
+        "result": {},
+        "total": "s53"
+      },
+      "SEARCH02": {
+        "limit": "s78",
+        "offset": "s79",
+        "result": {},
+        "total": "s7b"
+      }
+    }
+  },
+  "new": {
+    "search": {
+      "search_ref01": {
+        "limit": "sa0",
+        "offset": "sa1",
+        "result": {},
+        "total": "sa3"
+      }
+    }
+  }
+}

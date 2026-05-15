@@ -1,0 +1,32 @@
+# BasicStreamFlow
+
+main: kit: flow: BasicStreamFlow:
+{
+  entity: "stream",
+  kind: "basic",
+  name: "BasicStreamFlow",
+  step: [
+    {
+      input: {
+        ref: "stream_ref01",
+        srcdatavar: "stream_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "stream01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-stream_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicStreamFlow"
+}

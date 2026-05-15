@@ -1,0 +1,22 @@
+{
+  "existing": {
+    "offline_download": {
+      "OFFLINE_DOWNLOAD00": {
+        "song_id": "SONG01"
+      },
+      "OFFLINE_DOWNLOAD01": {
+        "song_id": "SONG01"
+      },
+      "OFFLINE_DOWNLOAD02": {
+        "song_id": "SONG01"
+      }
+    }
+  },
+  "new": {
+    "offline_download": {
+      "offline_download_ref01": {
+        "song_id": "SONG01"
+      }
+    }
+  }
+}

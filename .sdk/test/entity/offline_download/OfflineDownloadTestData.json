@@ -2,13 +2,16 @@
   "existing": {
     "offline_download": {
       "OFFLINE_DOWNLOAD00": {
-        "song_id": "SONG01"
+        "song_id": "SONG01",
+        "id": "OFFLINE_DOWNLOAD00"
       },
       "OFFLINE_DOWNLOAD01": {
-        "song_id": "SONG01"
+        "song_id": "SONG01",
+        "id": "OFFLINE_DOWNLOAD01"
       },
       "OFFLINE_DOWNLOAD02": {
-        "song_id": "SONG01"
+        "song_id": "SONG01",
+        "id": "OFFLINE_DOWNLOAD02"
       }
     }
   },

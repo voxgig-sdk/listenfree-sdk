@@ -5,19 +5,22 @@
         "duration": "s1e",
         "thumbnail_url": "s1f",
         "video_url": "s20",
-        "song_id": "SONG01"
+        "song_id": "SONG01",
+        "id": "VIDEO00"
       },
       "VIDEO01": {
         "duration": "s3c",
         "thumbnail_url": "s3d",
         "video_url": "s3e",
-        "song_id": "SONG01"
+        "song_id": "SONG01",
+        "id": "VIDEO01"
       },
       "VIDEO02": {
         "duration": "s5a",
         "thumbnail_url": "s5b",
         "video_url": "s5c",
-        "song_id": "SONG01"
+        "song_id": "SONG01",
+        "id": "VIDEO02"
       }
     }
   },

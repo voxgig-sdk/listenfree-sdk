@@ -6,21 +6,24 @@
         "expires_at": "s29",
         "quality": "s2a",
         "stream_url": "s2b",
-        "song_id": "SONG01"
+        "song_id": "SONG01",
+        "id": "STREAM00"
       },
       "STREAM01": {
         "bitrate": "s50",
         "expires_at": "s51",
         "quality": "s52",
         "stream_url": "s53",
-        "song_id": "SONG01"
+        "song_id": "SONG01",
+        "id": "STREAM01"
       },
       "STREAM02": {
         "bitrate": "s78",
         "expires_at": "s79",
         "quality": "s7a",
         "stream_url": "s7b",
-        "song_id": "SONG01"
+        "song_id": "SONG01",
+        "id": "STREAM02"
       }
     }
   },

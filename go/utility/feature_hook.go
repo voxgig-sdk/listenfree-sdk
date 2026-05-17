@@ -3,7 +3,7 @@ package utility
 import (
 	"reflect"
 
-	"github.com/voxgig-sdk/listenfree-sdk/core"
+	"github.com/voxgig-sdk/listenfree-sdk/go/core"
 )
 
 func featureHookUtil(ctx *core.Context, name string) {

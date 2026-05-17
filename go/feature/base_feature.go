@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/listenfree-sdk/core"
+	"github.com/voxgig-sdk/listenfree-sdk/go/core"
 )
 
 type BaseFeature struct {

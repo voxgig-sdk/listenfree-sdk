@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/listenfree-sdk"
-	"github.com/voxgig-sdk/listenfree-sdk/core"
+	sdk "github.com/voxgig-sdk/listenfree-sdk/go"
+	"github.com/voxgig-sdk/listenfree-sdk/go/core"
 )
 
 func TestStreamDirect(t *testing.T) {

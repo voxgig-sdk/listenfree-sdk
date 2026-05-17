@@ -5,19 +5,22 @@
         "limit": "s28",
         "offset": "s29",
         "result": {},
-        "total": "s2b"
+        "total": "s2b",
+        "id": "SEARCH00"
       },
       "SEARCH01": {
         "limit": "s50",
         "offset": "s51",
         "result": {},
-        "total": "s53"
+        "total": "s53",
+        "id": "SEARCH01"
       },
       "SEARCH02": {
         "limit": "s78",
         "offset": "s79",
         "result": {},
-        "total": "s7b"
+        "total": "s7b",
+        "id": "SEARCH02"
       }
     }
   },

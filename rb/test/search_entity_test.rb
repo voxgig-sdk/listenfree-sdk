@@ -82,7 +82,6 @@ def search_basic_setup(extra)
     "LISTENFREE_TEST_SEARCH_ENTID" => idmap,
     "LISTENFREE_TEST_LIVE" => "FALSE",
     "LISTENFREE_TEST_EXPLAIN" => "FALSE",
-    "LISTENFREE_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +93,6 @@ def search_basic_setup(extra)
   if env["LISTENFREE_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["LISTENFREE_APIKEY"],
       },
       extra || {},
     ])

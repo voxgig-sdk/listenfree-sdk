@@ -92,7 +92,6 @@ def _music_basic_setup(extra):
         "LISTENFREE_TEST_MUSIC_ENTID": idmap,
         "LISTENFREE_TEST_LIVE": "FALSE",
         "LISTENFREE_TEST_EXPLAIN": "FALSE",
-        "LISTENFREE_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +102,6 @@ def _music_basic_setup(extra):
     if env.get("LISTENFREE_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("LISTENFREE_APIKEY"),
             },
             extra or {},
         ])

@@ -128,7 +128,6 @@ function basicSetup(extra?: any) {
     'LISTENFREE_TEST_LISTENING_ROOM_ENTID': idmap,
     'LISTENFREE_TEST_LIVE': 'FALSE',
     'LISTENFREE_TEST_EXPLAIN': 'FALSE',
-    'LISTENFREE_APIKEY': 'NONE',
   })
 
   idmap = env['LISTENFREE_TEST_LISTENING_ROOM_ENTID']
@@ -138,7 +137,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new ListenfreeSDK(merge([
       {
-        apikey: env.LISTENFREE_APIKEY,
       },
       extra
     ]))

@@ -72,14 +72,12 @@ function video_direct_setup(mockres)
   local env = runner.env_override({
     ["LISTENFREE_TEST_VIDEO_ENTID"] = {},
     ["LISTENFREE_TEST_LIVE"] = "FALSE",
-    ["LISTENFREE_APIKEY"] = "NONE",
   })
 
   local live = env["LISTENFREE_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["LISTENFREE_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

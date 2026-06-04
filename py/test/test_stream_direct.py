@@ -69,14 +69,12 @@ def _stream_direct_setup(mockres):
     env = runner.env_override({
         "LISTENFREE_TEST_STREAM_ENTID": {},
         "LISTENFREE_TEST_LIVE": "FALSE",
-        "LISTENFREE_APIKEY": "NONE",
     })
 
     live = env.get("LISTENFREE_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("LISTENFREE_APIKEY"),
         }
         client = ListenfreeSDK(merged_opts)
         return {

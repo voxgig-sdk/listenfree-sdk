@@ -23,12 +23,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from listenfree_sdk import ListenfreeSDK
 
-client = ListenfreeSDK({
-    "apikey": os.environ.get("LISTENFREE_APIKEY"),
-})
+client = ListenfreeSDK({})
 ```
 
 ### 2. List listeningrooms
@@ -138,7 +135,6 @@ Create a `.env.local` file at the project root:
 
 ```
 LISTENFREE_TEST_LIVE=TRUE
-LISTENFREE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -162,7 +158,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

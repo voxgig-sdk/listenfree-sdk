@@ -100,7 +100,6 @@ def listening_room_basic_setup(extra)
     "LISTENFREE_TEST_LISTENING_ROOM_ENTID" => idmap,
     "LISTENFREE_TEST_LIVE" => "FALSE",
     "LISTENFREE_TEST_EXPLAIN" => "FALSE",
-    "LISTENFREE_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -112,7 +111,6 @@ def listening_room_basic_setup(extra)
   if env["LISTENFREE_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["LISTENFREE_APIKEY"],
       },
       extra || {},
     ])

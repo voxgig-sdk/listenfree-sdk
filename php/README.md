@@ -10,7 +10,7 @@ The PHP SDK for the Listenfree API — an entity-oriented client using PHP conve
 
 ## Install
 ```bash
-composer require voxgig/listenfree-sdk
+composer require voxgig-sdk/listenfree
 ```
 
 

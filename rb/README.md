@@ -10,13 +10,13 @@ The Ruby SDK for the Listenfree API — an entity-oriented client using idiomati
 
 ## Install
 ```bash
-gem install listenfree-sdk
+gem install voxgig-sdk-listenfree
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "listenfree-sdk"
+gem "voxgig-sdk-listenfree"
 ```
 
 Then run:

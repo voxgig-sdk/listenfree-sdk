@@ -10,7 +10,7 @@ The Lua SDK for the Listenfree API — an entity-oriented client using Lua conve
 
 ## Install
 ```bash
-luarocks install listenfree-sdk
+luarocks install voxgig-sdk-listenfree
 ```
 
 If the module is not yet published, add the source directory to

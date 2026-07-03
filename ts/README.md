@@ -10,7 +10,7 @@ The TypeScript SDK for the Listenfree API — a type-safe, entity-oriented clien
 
 ## Install
 ```bash
-npm install listenfree
+npm install @voxgig-sdk/listenfree
 ```
 ## Tutorial: your first API call
 

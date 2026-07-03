@@ -1,8 +1,17 @@
 {
   "name": "voxgig-sdk/listenfree",
-  "description": "Listenfree SDK for PHP",
+  "description": "Unofficial generated PHP SDK for the ListenFree public API. Not affiliated with or endorsed by the upstream API provider.",
   "type": "library",
+  "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "listenfree"],
+  "homepage": "https://github.com/voxgig-sdk/listenfree-sdk",
   "license": "MIT",
+  "authors": [
+    { "name": "Voxgig", "homepage": "https://voxgig.com" }
+  ],
+  "support": {
+    "issues": "https://github.com/voxgig-sdk/listenfree-sdk/issues",
+    "source": "https://github.com/voxgig-sdk/listenfree-sdk"
+  },
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.2"

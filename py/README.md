@@ -10,7 +10,7 @@ The Python SDK for the Listenfree API — an entity-oriented client following Py
 
 ## Install
 ```bash
-pip install listenfree-sdk
+pip install voxgig-sdk-listenfree
 ```
 
 Or install from source:

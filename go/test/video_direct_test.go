@@ -117,12 +117,14 @@ func videoDirectSetup(mockres any) *videoDirectSetupResult {
 	env := envOverride(map[string]any{
 		"LISTENFREE_TEST_VIDEO_ENTID": map[string]any{},
 		"LISTENFREE_TEST_LIVE":    "FALSE",
+		"LISTENFREE_APIKEY":       "NONE",
 	})
 
 	live := env["LISTENFREE_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["LISTENFREE_APIKEY"],
 		}
 		client := sdk.NewListenfreeSDK(mergedOpts)
 

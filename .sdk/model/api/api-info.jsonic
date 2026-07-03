@@ -16,31 +16,7 @@ main: {
       ]
       title: "ListenFree API"
       version: "1.0.0"
-      tagline: "Ad-free music streaming with playlists, collaborative listening rooms, and offline downloads"
-      homepage: "https://listenfree.in/"
-      docs_url: "https://listenfree.in/api"
-      about_md: `[ListenFree](https://listenfree.in/) is an ad-free music streaming service that exposes an HTTP API at \`https://listenfree.in/api\`. The service focuses on uninterrupted playback alongside features for curated playlists, shared listening sessions, and offline access.
-
-What you get from the API:
-
-- Song search and streaming endpoints for individual tracks
-- Playlist resources for organising collections of songs
-- Listening room resources for shared/collaborative playback
-- Offline download support for cached playback
-- Short video previews associated with songs
-
-Operational notes: the [freepublicapis.com listing](https://freepublicapis.com/listenfree-api) reports CORS enabled and sub-300ms average response times. No authentication or rate-limit details are documented on the public landing pages.`
-      entity_desc: {
-        listening_room: "Shared/collaborative playback sessions where multiple listeners can join the same queue."
-        music: "General music resources exposed by the API."
-        offline_download: "Endpoints supporting cached/offline playback of tracks."
-        playlist: "User-curated collections of songs."
-        search: "Lookup endpoints for finding songs, playlists, or other resources."
-        song: "Individual music track resources."
-        stream: "Audio streaming endpoints for playing tracks."
-        video: "Short video previews associated with songs."
-      }
-      auth: false
     }
   }
 }
+

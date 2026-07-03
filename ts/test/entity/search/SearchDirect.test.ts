@@ -78,12 +78,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'LISTENFREE_TEST_SEARCH_ENTID': {},
     'LISTENFREE_TEST_LIVE': 'FALSE',
+    'LISTENFREE_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.LISTENFREE_TEST_LIVE
 
   if (live) {
     const client = new ListenfreeSDK({
+      apikey: env.LISTENFREE_APIKEY,
     })
 
     let idmap: any = env['LISTENFREE_TEST_SEARCH_ENTID']

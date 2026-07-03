@@ -1,6 +1,11 @@
 # Listenfree PHP SDK
 
-The PHP SDK for the Listenfree API. Provides an entity-oriented interface using PHP conventions.
+
+
+The PHP SDK for the Listenfree API — an entity-oriented client using PHP conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -20,13 +25,15 @@ loading a specific record.
 <?php
 require_once 'listenfree_sdk.php';
 
-$client = new ListenfreeSDK([]);
+$client = new ListenfreeSDK([
+    "apikey" => getenv("LISTENFREE_APIKEY"),
+]);
 ```
 
 ### 2. List listeningrooms
 
 ```php
-[$result, $err] = $client->ListeningRoom(null)->list(null, null);
+[$result, $err] = $client->ListeningRoom()->list();
 if ($err) { throw new \Exception($err); }
 
 if (is_array($result)) {
@@ -40,7 +47,7 @@ if (is_array($result)) {
 ### 3. Load a listeningroom
 
 ```php
-[$result, $err] = $client->ListeningRoom(null)->load(["id" => "example_id"], null);
+[$result, $err] = $client->ListeningRoom()->load(["id" => "example_id"]);
 if ($err) { throw new \Exception($err); }
 print_r($result);
 ```
@@ -49,7 +56,7 @@ print_r($result);
 
 ```php
 // Create
-[$created, $_] = $client->ListeningRoom(null)->create(["name" => "Example"], null);
+[$created, $_] = $client->ListeningRoom()->create(["name" => "Example"]);
 
 ```
 
@@ -94,11 +101,9 @@ print_r($fetchdef["headers"]);
 Create a mock client for unit testing — no server required:
 
 ```php
-$client = ListenfreeSDK::test(null, null);
+$client = ListenfreeSDK::test();
 
-[$result, $err] = $client->Listenfree(null)->load(
-    ["id" => "test01"], null
-);
+[$result, $err] = $client->Listenfree()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -133,6 +138,7 @@ Create a `.env.local` file at the project root:
 
 ```
 LISTENFREE_TEST_LIVE=TRUE
+LISTENFREE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -155,6 +161,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

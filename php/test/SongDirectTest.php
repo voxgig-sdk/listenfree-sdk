@@ -77,12 +77,14 @@ function song_direct_setup($mockres)
     $env = Runner::env_override([
         "LISTENFREE_TEST_SONG_ENTID" => [],
         "LISTENFREE_TEST_LIVE" => "FALSE",
+        "LISTENFREE_APIKEY" => "NONE",
     ]);
 
     $live = $env["LISTENFREE_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
+            "apikey" => $env["LISTENFREE_APIKEY"],
         ];
         $client = new ListenfreeSDK($merged_opts);
         return [

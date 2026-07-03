@@ -20,6 +20,9 @@ class ListenfreeConfig
             ],
             "options" => [
                 "base" => "https://listenfree.in/api",
+                "auth" => [
+                    "prefix" => "Bearer",
+                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -38,55 +41,56 @@ class ListenfreeConfig
         'listening_room' => [
           'fields' => [
             [
+              'active' => true,
               'name' => 'created_at',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 0,
             ],
             [
+              'active' => true,
               'name' => 'current_song',
               'req' => false,
               'type' => '`$OBJECT`',
-              'active' => true,
               'index$' => 1,
             ],
             [
+              'active' => true,
               'name' => 'description',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 2,
             ],
             [
+              'active' => true,
               'name' => 'host',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 3,
             ],
             [
+              'active' => true,
               'name' => 'id',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 4,
             ],
             [
+              'active' => true,
               'name' => 'is_public',
               'req' => false,
               'type' => '`$BOOLEAN`',
-              'active' => true,
               'index$' => 5,
             ],
             [
+              'active' => true,
               'name' => 'max_participant',
               'req' => false,
               'type' => '`$INTEGER`',
-              'active' => true,
               'index$' => 6,
             ],
             [
+              'active' => true,
               'name' => 'name',
               'op' => [
                 'create' => [
@@ -96,39 +100,40 @@ class ListenfreeConfig
               ],
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 7,
             ],
             [
+              'active' => true,
               'name' => 'participant',
               'req' => false,
               'type' => '`$ARRAY`',
-              'active' => true,
               'index$' => 8,
             ],
             [
+              'active' => true,
               'name' => 'queue',
               'req' => false,
               'type' => '`$ARRAY`',
-              'active' => true,
               'index$' => 9,
             ],
           ],
           'name' => 'listening_room',
           'op' => [
             'create' => [
+              'input' => 'data',
               'name' => 'create',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'params' => [
                       [
+                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'room_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -154,42 +159,42 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
                 [
+                  'active' => true,
+                  'args' => [],
                   'method' => 'POST',
                   'orig' => '/listening-rooms',
                   'parts' => [
                     'listening-rooms',
                   ],
+                  'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
-                  'args' => [],
-                  'select' => [],
                   'index$' => 1,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'create',
             ],
             'list' => [
+              'input' => 'data',
               'name' => 'list',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'query' => [
                       [
+                        'active' => true,
                         'example' => 20,
                         'kind' => 'query',
                         'name' => 'limit',
                         'orig' => 'limit',
                         'reqd' => false,
                         'type' => '`$INTEGER`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -207,26 +212,26 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'list',
             ],
             'load' => [
+              'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'params' => [
                       [
+                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'room_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -250,11 +255,9 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'load',
             ],
           ],
@@ -265,71 +268,71 @@ class ListenfreeConfig
         'music' => [
           'fields' => [
             [
+              'active' => true,
               'name' => 'downloaded_at',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 0,
             ],
             [
+              'active' => true,
               'name' => 'expires_at',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 1,
             ],
             [
+              'active' => true,
               'name' => 'id',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 2,
             ],
             [
+              'active' => true,
               'name' => 'progress',
               'req' => false,
               'type' => '`$INTEGER`',
-              'active' => true,
               'index$' => 3,
             ],
             [
+              'active' => true,
               'name' => 'song',
               'req' => false,
               'type' => '`$OBJECT`',
-              'active' => true,
               'index$' => 4,
             ],
             [
+              'active' => true,
               'name' => 'status',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 5,
             ],
           ],
           'name' => 'music',
           'op' => [
             'list' => [
+              'input' => 'data',
               'name' => 'list',
               'points' => [
                 [
+                  'active' => true,
+                  'args' => [],
                   'method' => 'GET',
                   'orig' => '/offline/downloads',
                   'parts' => [
                     'offline',
                     'downloads',
                   ],
+                  'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
-                  'args' => [],
-                  'select' => [],
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'list',
             ],
           ],
@@ -340,36 +343,36 @@ class ListenfreeConfig
         'offline_download' => [
           'fields' => [
             [
+              'active' => true,
               'name' => 'song_id',
               'req' => true,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 0,
             ],
           ],
           'name' => 'offline_download',
           'op' => [
             'create' => [
+              'input' => 'data',
               'name' => 'create',
               'points' => [
                 [
+                  'active' => true,
+                  'args' => [],
                   'method' => 'POST',
                   'orig' => '/offline/downloads',
                   'parts' => [
                     'offline',
                     'downloads',
                   ],
+                  'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
-                  'args' => [],
-                  'select' => [],
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'create',
             ],
           ],
@@ -380,41 +383,42 @@ class ListenfreeConfig
         'playlist' => [
           'fields' => [
             [
+              'active' => true,
               'name' => 'created_at',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 0,
             ],
             [
+              'active' => true,
               'name' => 'description',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 1,
             ],
             [
+              'active' => true,
               'name' => 'id',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 2,
             ],
             [
+              'active' => true,
               'name' => 'is_public',
               'req' => false,
               'type' => '`$BOOLEAN`',
-              'active' => true,
               'index$' => 3,
             ],
             [
+              'active' => true,
               'name' => 'is_smart',
               'req' => false,
               'type' => '`$BOOLEAN`',
-              'active' => true,
               'index$' => 4,
             ],
             [
+              'active' => true,
               'name' => 'name',
               'op' => [
                 'create' => [
@@ -424,67 +428,68 @@ class ListenfreeConfig
               ],
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 5,
             ],
             [
+              'active' => true,
               'name' => 'owner',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 6,
             ],
             [
+              'active' => true,
               'name' => 'smart_criterion',
               'req' => false,
               'type' => '`$OBJECT`',
-              'active' => true,
               'index$' => 7,
             ],
             [
+              'active' => true,
               'name' => 'song',
               'req' => false,
               'type' => '`$ARRAY`',
-              'active' => true,
               'index$' => 8,
             ],
             [
+              'active' => true,
               'name' => 'song_count',
               'req' => false,
               'type' => '`$INTEGER`',
-              'active' => true,
               'index$' => 9,
             ],
             [
+              'active' => true,
               'name' => 'song_id',
               'req' => true,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 10,
             ],
             [
+              'active' => true,
               'name' => 'updated_at',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 11,
             ],
           ],
           'name' => 'playlist',
           'op' => [
             'create' => [
+              'input' => 'data',
               'name' => 'create',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'params' => [
                       [
+                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'playlist_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -510,63 +515,63 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
                 [
+                  'active' => true,
+                  'args' => [],
                   'method' => 'POST',
                   'orig' => '/playlists',
                   'parts' => [
                     'playlists',
                   ],
+                  'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
-                  'args' => [],
-                  'select' => [],
                   'index$' => 1,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'create',
             ],
             'list' => [
+              'input' => 'data',
               'name' => 'list',
               'points' => [
                 [
+                  'active' => true,
+                  'args' => [],
                   'method' => 'GET',
                   'orig' => '/playlists',
                   'parts' => [
                     'playlists',
                   ],
+                  'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
-                  'args' => [],
-                  'select' => [],
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'list',
             ],
             'load' => [
+              'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'params' => [
                       [
+                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'playlist_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -590,26 +595,26 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'load',
             ],
             'remove' => [
+              'input' => 'data',
               'name' => 'remove',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'params' => [
                       [
+                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'playlist_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -633,26 +638,26 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'remove',
             ],
             'update' => [
+              'input' => 'data',
               'name' => 'update',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'params' => [
                       [
+                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'playlist_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -676,11 +681,9 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'update',
             ],
           ],
@@ -691,77 +694,79 @@ class ListenfreeConfig
         'search' => [
           'fields' => [
             [
+              'active' => true,
               'name' => 'limit',
               'req' => false,
               'type' => '`$INTEGER`',
-              'active' => true,
               'index$' => 0,
             ],
             [
+              'active' => true,
               'name' => 'offset',
               'req' => false,
               'type' => '`$INTEGER`',
-              'active' => true,
               'index$' => 1,
             ],
             [
+              'active' => true,
               'name' => 'result',
               'req' => false,
               'type' => '`$OBJECT`',
-              'active' => true,
               'index$' => 2,
             ],
             [
+              'active' => true,
               'name' => 'total',
               'req' => false,
               'type' => '`$INTEGER`',
-              'active' => true,
               'index$' => 3,
             ],
           ],
           'name' => 'search',
           'op' => [
             'load' => [
+              'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'query' => [
                       [
+                        'active' => true,
                         'example' => 20,
                         'kind' => 'query',
                         'name' => 'limit',
                         'orig' => 'limit',
                         'reqd' => false,
                         'type' => '`$INTEGER`',
-                        'active' => true,
                       ],
                       [
+                        'active' => true,
                         'example' => 0,
                         'kind' => 'query',
                         'name' => 'offset',
                         'orig' => 'offset',
                         'reqd' => false,
                         'type' => '`$INTEGER`',
-                        'active' => true,
                       ],
                       [
+                        'active' => true,
                         'example' => 'imagine dragons',
                         'kind' => 'query',
                         'name' => 'q',
                         'orig' => 'q',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                       [
+                        'active' => true,
                         'example' => 'all',
                         'kind' => 'query',
                         'name' => 'type',
                         'orig' => 'type',
                         'reqd' => false,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -782,11 +787,9 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'load',
             ],
           ],
@@ -797,84 +800,86 @@ class ListenfreeConfig
         'song' => [
           'fields' => [
             [
+              'active' => true,
               'name' => 'album',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 0,
             ],
             [
+              'active' => true,
               'name' => 'artist',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 1,
             ],
             [
+              'active' => true,
               'name' => 'cover_art',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 2,
             ],
             [
+              'active' => true,
               'name' => 'duration',
               'req' => false,
               'type' => '`$INTEGER`',
-              'active' => true,
               'index$' => 3,
             ],
             [
+              'active' => true,
               'name' => 'genre',
               'req' => false,
               'type' => '`$ARRAY`',
-              'active' => true,
               'index$' => 4,
             ],
             [
+              'active' => true,
               'name' => 'has_video',
               'req' => false,
               'type' => '`$BOOLEAN`',
-              'active' => true,
               'index$' => 5,
             ],
             [
+              'active' => true,
               'name' => 'id',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 6,
             ],
             [
+              'active' => true,
               'name' => 'release_date',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 7,
             ],
             [
+              'active' => true,
               'name' => 'title',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 8,
             ],
           ],
           'name' => 'song',
           'op' => [
             'load' => [
+              'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'params' => [
                       [
+                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'song_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -898,11 +903,9 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'load',
             ],
           ],
@@ -913,60 +916,62 @@ class ListenfreeConfig
         'stream' => [
           'fields' => [
             [
+              'active' => true,
               'name' => 'bitrate',
               'req' => false,
               'type' => '`$INTEGER`',
-              'active' => true,
               'index$' => 0,
             ],
             [
+              'active' => true,
               'name' => 'expires_at',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 1,
             ],
             [
+              'active' => true,
               'name' => 'quality',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 2,
             ],
             [
+              'active' => true,
               'name' => 'stream_url',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 3,
             ],
           ],
           'name' => 'stream',
           'op' => [
             'load' => [
+              'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'params' => [
                       [
+                        'active' => true,
                         'kind' => 'param',
                         'name' => 'song_id',
                         'orig' => 'song_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                     'query' => [
                       [
+                        'active' => true,
                         'example' => 'high',
                         'kind' => 'query',
                         'name' => 'quality',
                         'orig' => 'quality',
                         'reqd' => false,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -992,11 +997,9 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'load',
             ],
           ],
@@ -1011,42 +1014,44 @@ class ListenfreeConfig
         'video' => [
           'fields' => [
             [
+              'active' => true,
               'name' => 'duration',
               'req' => false,
               'type' => '`$INTEGER`',
-              'active' => true,
               'index$' => 0,
             ],
             [
+              'active' => true,
               'name' => 'thumbnail_url',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 1,
             ],
             [
+              'active' => true,
               'name' => 'video_url',
               'req' => false,
               'type' => '`$STRING`',
-              'active' => true,
               'index$' => 2,
             ],
           ],
           'name' => 'video',
           'op' => [
             'load' => [
+              'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
+                  'active' => true,
                   'args' => [
                     'params' => [
                       [
+                        'active' => true,
                         'kind' => 'param',
                         'name' => 'song_id',
                         'orig' => 'song_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'active' => true,
                       ],
                     ],
                   ],
@@ -1071,11 +1076,9 @@ class ListenfreeConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'active' => true,
                   'index$' => 0,
                 ],
               ],
-              'input' => 'data',
               'key$' => 'load',
             ],
           ],

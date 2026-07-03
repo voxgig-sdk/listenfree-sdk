@@ -197,6 +197,7 @@ func playlistBasicSetup(extra map[string]any) *entityTestSetup {
 		"LISTENFREE_TEST_PLAYLIST_ENTID": idmap,
 		"LISTENFREE_TEST_LIVE":      "FALSE",
 		"LISTENFREE_TEST_EXPLAIN":   "FALSE",
+		"LISTENFREE_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["LISTENFREE_TEST_PLAYLIST_ENTID"])
@@ -207,6 +208,7 @@ func playlistBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["LISTENFREE_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["LISTENFREE_APIKEY"],
 			},
 			extra,
 		})

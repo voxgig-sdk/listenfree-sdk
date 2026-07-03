@@ -1,22 +1,8 @@
 # Listenfree SDK
 
-Ad-free music streaming with playlists, collaborative listening rooms, and offline downloads
+ListenFree API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About ListenFree API
-
-[ListenFree](https://listenfree.in/) is an ad-free music streaming service that exposes an HTTP API at `https://listenfree.in/api`. The service focuses on uninterrupted playback alongside features for curated playlists, shared listening sessions, and offline access.
-
-What you get from the API:
-
-- Song search and streaming endpoints for individual tracks
-- Playlist resources for organising collections of songs
-- Listening room resources for shared/collaborative playback
-- Offline download support for cached playback
-- Short video previews associated with songs
-
-Operational notes: the [freepublicapis.com listing](https://freepublicapis.com/listenfree-api) reports CORS enabled and sub-300ms average response times. No authentication or rate-limit details are documented on the public landing pages.
 
 ## Try it
 
@@ -50,29 +36,31 @@ gem install listenfree-sdk
 luarocks install listenfree-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { ListenfreeSDK } from 'listenfree'
 
-const client = new ListenfreeSDK({})
+const client = new ListenfreeSDK({
+  apikey: process.env.LISTENFREE_APIKEY,
+})
 
 // List all listeningrooms
 const listeningrooms = await client.ListeningRoom().list()
+console.log(listeningrooms.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -102,14 +90,14 @@ The API exposes 8 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **ListeningRoom** | Shared/collaborative playback sessions where multiple listeners can join the same queue. | `/listening-rooms/{roomId}/join` |
-| **Music** | General music resources exposed by the API. | `/offline/downloads` |
-| **OfflineDownload** | Endpoints supporting cached/offline playback of tracks. | `/offline/downloads` |
-| **Playlist** | User-curated collections of songs. | `/playlists/{playlistId}/songs` |
-| **Search** | Lookup endpoints for finding songs, playlists, or other resources. | `/search` |
-| **Song** | Individual music track resources. | `/songs/{songId}` |
-| **Stream** | Audio streaming endpoints for playing tracks. | `/songs/{songId}/stream` |
-| **Video** | Short video previews associated with songs. | `/songs/{songId}/video` |
+| **ListeningRoom** |  | `/listening-rooms/{roomId}/join` |
+| **Music** |  | `/offline/downloads` |
+| **OfflineDownload** |  | `/offline/downloads` |
+| **Playlist** |  | `/playlists/{playlistId}/songs` |
+| **Search** |  | `/search` |
+| **Song** |  | `/songs/{songId}` |
+| **Stream** |  | `/songs/{songId}/stream` |
+| **Video** |  | `/songs/{songId}/video` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -119,17 +107,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from listenfree_sdk import ListenfreeSDK
 
-client = ListenfreeSDK({})
+client = ListenfreeSDK({
+    "apikey": os.environ.get("LISTENFREE_APIKEY"),
+})
 
 # List all listeningrooms
-listeningrooms, err = client.ListeningRoom(None).list(None, None)
+listeningrooms, err = client.ListeningRoom().list()
+print(listeningrooms)
 
 # Load a specific listeningroom
-listeningroom, err = client.ListeningRoom(None).load(
-    {"id": "example_id"}, None
-)
+listeningroom, err = client.ListeningRoom().load({"id": "example_id"})
+print(listeningroom)
 ```
 
 ### PHP
@@ -138,15 +129,17 @@ listeningroom, err = client.ListeningRoom(None).load(
 <?php
 require_once 'listenfree_sdk.php';
 
-$client = new ListenfreeSDK([]);
+$client = new ListenfreeSDK([
+    "apikey" => getenv("LISTENFREE_APIKEY"),
+]);
 
 // List all listeningrooms
-[$listeningrooms, $err] = $client->ListeningRoom(null)->list(null, null);
+[$listeningrooms, $err] = $client->ListeningRoom()->list();
+print_r($listeningrooms);
 
 // Load a specific listeningroom
-[$listeningroom, $err] = $client->ListeningRoom(null)->load(
-    ["id" => "example_id"], null
-);
+[$listeningroom, $err] = $client->ListeningRoom()->load(["id" => "example_id"]);
+print_r($listeningroom);
 ```
 
 ### Golang
@@ -154,10 +147,13 @@ $client = new ListenfreeSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/listenfree-sdk/go"
 
-client := sdk.NewListenfreeSDK(map[string]any{})
+client := sdk.NewListenfreeSDK(map[string]any{
+    "apikey": os.Getenv("LISTENFREE_APIKEY"),
+})
 
 // List all listeningrooms
 listeningrooms, err := client.ListeningRoom(nil).List(nil, nil)
+fmt.Println(listeningrooms)
 ```
 
 ### Ruby
@@ -165,15 +161,17 @@ listeningrooms, err := client.ListeningRoom(nil).List(nil, nil)
 ```ruby
 require_relative "Listenfree_sdk"
 
-client = ListenfreeSDK.new({})
+client = ListenfreeSDK.new({
+  "apikey" => ENV["LISTENFREE_APIKEY"],
+})
 
 # List all listeningrooms
-listeningrooms, err = client.ListeningRoom(nil).list(nil, nil)
+listeningrooms, err = client.ListeningRoom().list
+puts listeningrooms
 
 # Load a specific listeningroom
-listeningroom, err = client.ListeningRoom(nil).load(
-  { "id" => "example_id" }, nil
-)
+listeningroom, err = client.ListeningRoom().load({ "id" => "example_id" })
+puts listeningroom
 ```
 
 ### Lua
@@ -181,15 +179,17 @@ listeningroom, err = client.ListeningRoom(nil).load(
 ```lua
 local sdk = require("listenfree_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("LISTENFREE_APIKEY"),
+})
 
 -- List all listeningrooms
-local listeningrooms, err = client:ListeningRoom(nil):list(nil, nil)
+local listeningrooms, err = client:ListeningRoom():list()
+print(listeningrooms)
 
 -- Load a specific listeningroom
-local listeningroom, err = client:ListeningRoom(nil):load(
-  { id = "example_id" }, nil
-)
+local listeningroom, err = client:ListeningRoom():load({ id = "example_id" })
+print(listeningroom)
 ```
 
 ## Unit testing in offline mode
@@ -208,25 +208,21 @@ const result = await client.ListeningRoom().load({ id: 'test01' })
 ### Python
 
 ```python
-client = ListenfreeSDK.test(None, None)
-result, err = client.ListeningRoom(None).load(
-    {"id": "test01"}, None
-)
+client = ListenfreeSDK.test()
+result, err = client.ListeningRoom().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = ListenfreeSDK::test(null, null);
-[$result, $err] = $client->ListeningRoom(null)->load(
-    ["id" => "test01"], null
-);
+$client = ListenfreeSDK::test();
+[$result, $err] = $client->ListeningRoom()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.ListeningRoom(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -235,19 +231,15 @@ result, err := client.ListeningRoom(nil).Load(
 ### Ruby
 
 ```ruby
-client = ListenfreeSDK.test(nil, nil)
-result, err = client.ListeningRoom(nil).load(
-  { "id" => "test01" }, nil
-)
+client = ListenfreeSDK.test
+result, err = client.ListeningRoom().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:ListeningRoom(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:ListeningRoom():load({ id = "test01" })
 ```
 
 ## How it works
@@ -351,11 +343,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the ListenFree API
-
-- Upstream: [https://listenfree.in/](https://listenfree.in/)
-- API docs: [https://listenfree.in/api](https://listenfree.in/api)
 
 ---
 

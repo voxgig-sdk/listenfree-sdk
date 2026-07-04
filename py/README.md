@@ -34,24 +34,28 @@ client = ListenfreeSDK({
 })
 ```
 
-### 2. List listeningrooms
+### 2. List listeningroom records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.listeningroom.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    listeningrooms = client.ListeningRoom().list({})
+    for listeningroom in listeningrooms:
+        print(listeningroom)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
 ### 3. Load a listeningroom
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.listeningroom.load({"id": "example_id"})
-    print(result)
+    listeningroom = client.ListeningRoom().load({"id": "example_id"})
+    print(listeningroom)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -59,8 +63,8 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create
-created = client.listeningroom.create({"name": "Example"})
+# Create — returns the bare created record (a dict)
+created = client.ListeningRoom().create({"name": "Example"})
 
 ```
 
@@ -107,8 +111,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = ListenfreeSDK.test()
 
-result = client.listeningroom.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+listeningroom = client.ListeningRoom().load({"id": "test01"})
+# listeningroom contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -188,7 +193,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `ListeningRoom` | `(data) -> ListeningRoomEntity` | Create a ListeningRoom entity instance. |
 | `Music` | `(data) -> MusicEntity` | Create a Music entity instance. |
-| `OfflineDownload` | `(data) -> OfflineDownloadEntity` | Create a OfflineDownload entity instance. |
+| `OfflineDownload` | `(data) -> OfflineDownloadEntity` | Create an OfflineDownload entity instance. |
 | `Playlist` | `(data) -> PlaylistEntity` | Create a Playlist entity instance. |
 | `Search` | `(data) -> SearchEntity` | Create a Search entity instance. |
 | `Song` | `(data) -> SongEntity` | Create a Song entity instance. |
@@ -361,7 +366,7 @@ API path: `/songs/{songId}/video`
 
 ### ListeningRoom
 
-Create an instance: `const listening_room = client.listening_room`
+Create an instance: `listening_room = client.ListeningRoom()`
 
 #### Operations
 
@@ -388,27 +393,27 @@ Create an instance: `const listening_room = client.listening_room`
 
 #### Example: Load
 
-```ts
-const listening_room = await client.listening_room.load({ id: 'listening_room_id' })
+```python
+listening_room = client.ListeningRoom().load({"id": "listening_room_id"})
 ```
 
 #### Example: List
 
-```ts
-const listening_rooms = await client.listening_room.list()
+```python
+listening_rooms = client.ListeningRoom().list({})
 ```
 
 #### Example: Create
 
-```ts
-const listening_room = await client.listening_room.create({
+```python
+listening_room = client.ListeningRoom().create({
 })
 ```
 
 
 ### Music
 
-Create an instance: `const music = client.music`
+Create an instance: `music = client.Music()`
 
 #### Operations
 
@@ -429,14 +434,14 @@ Create an instance: `const music = client.music`
 
 #### Example: List
 
-```ts
-const musics = await client.music.list()
+```python
+musics = client.Music().list({})
 ```
 
 
 ### OfflineDownload
 
-Create an instance: `const offline_download = client.offline_download`
+Create an instance: `offline_download = client.OfflineDownload()`
 
 #### Operations
 
@@ -452,16 +457,16 @@ Create an instance: `const offline_download = client.offline_download`
 
 #### Example: Create
 
-```ts
-const offline_download = await client.offline_download.create({
-  song_id: /* `$STRING` */,
+```python
+offline_download = client.OfflineDownload().create({
+    "song_id": ...,  # `$STRING`
 })
 ```
 
 
 ### Playlist
 
-Create an instance: `const playlist = client.playlist`
+Create an instance: `playlist = client.Playlist()`
 
 #### Operations
 
@@ -492,28 +497,28 @@ Create an instance: `const playlist = client.playlist`
 
 #### Example: Load
 
-```ts
-const playlist = await client.playlist.load({ id: 'playlist_id' })
+```python
+playlist = client.Playlist().load({"id": "playlist_id"})
 ```
 
 #### Example: List
 
-```ts
-const playlists = await client.playlist.list()
+```python
+playlists = client.Playlist().list({})
 ```
 
 #### Example: Create
 
-```ts
-const playlist = await client.playlist.create({
-  song_id: /* `$STRING` */,
+```python
+playlist = client.Playlist().create({
+    "song_id": ...,  # `$STRING`
 })
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `search = client.Search()`
 
 #### Operations
 
@@ -532,14 +537,14 @@ Create an instance: `const search = client.search`
 
 #### Example: Load
 
-```ts
-const search = await client.search.load({ id: 'search_id' })
+```python
+search = client.Search().load({"id": "search_id"})
 ```
 
 
 ### Song
 
-Create an instance: `const song = client.song`
+Create an instance: `song = client.Song()`
 
 #### Operations
 
@@ -563,14 +568,14 @@ Create an instance: `const song = client.song`
 
 #### Example: Load
 
-```ts
-const song = await client.song.load({ id: 'song_id' })
+```python
+song = client.Song().load({"id": "song_id"})
 ```
 
 
 ### Stream
 
-Create an instance: `const stream = client.stream`
+Create an instance: `stream = client.Stream()`
 
 #### Operations
 
@@ -589,14 +594,14 @@ Create an instance: `const stream = client.stream`
 
 #### Example: Load
 
-```ts
-const stream = await client.stream.load({ id: 'stream_id' })
+```python
+stream = client.Stream().load({"id": "stream_id"})
 ```
 
 
 ### Video
 
-Create an instance: `const video = client.video`
+Create an instance: `video = client.Video()`
 
 #### Operations
 
@@ -614,8 +619,8 @@ Create an instance: `const video = client.video`
 
 #### Example: Load
 
-```ts
-const video = await client.video.load({ id: 'video_id' })
+```python
+video = client.Video().load({"id": "video_id"})
 ```
 
 
@@ -689,7 +694,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-listeningroom = client.listeningroom
+listeningroom = client.ListeningRoom()
 listeningroom.load({"id": "example_id"})
 
 # listeningroom.data_get() now returns the loaded listeningroom data

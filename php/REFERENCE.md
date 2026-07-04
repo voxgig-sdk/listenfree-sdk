@@ -114,7 +114,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## ListeningRoomEntity
 
 ```php
-$listening_room = $client->listening_room();
+$listening_room = $client->ListeningRoom();
 ```
 
 ### Fields
@@ -154,7 +154,7 @@ $listening_room = $client->listening_room();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->listening_room()->create([
+$result = $client->ListeningRoom()->create([
 ]);
 ```
 
@@ -163,7 +163,7 @@ $result = $client->listening_room()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->listening_room()->list([]);
+$results = $client->ListeningRoom()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -171,7 +171,7 @@ $results = $client->listening_room()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->listening_room()->load(["id" => "listening_room_id"]);
+$result = $client->ListeningRoom()->load(["id" => "listening_room_id"]);
 ```
 
 ### Common Methods
@@ -207,7 +207,7 @@ Return the entity name.
 ## MusicEntity
 
 ```php
-$music = $client->music();
+$music = $client->Music();
 ```
 
 ### Fields
@@ -228,7 +228,7 @@ $music = $client->music();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->music()->list([]);
+$results = $client->Music()->list([]);
 ```
 
 ### Common Methods
@@ -264,7 +264,7 @@ Return the entity name.
 ## OfflineDownloadEntity
 
 ```php
-$offline_download = $client->offline_download();
+$offline_download = $client->OfflineDownload();
 ```
 
 ### Fields
@@ -280,7 +280,7 @@ $offline_download = $client->offline_download();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->offline_download()->create([
+$result = $client->OfflineDownload()->create([
   "song_id" => /* `$STRING` */,
 ]);
 ```
@@ -318,7 +318,7 @@ Return the entity name.
 ## PlaylistEntity
 
 ```php
-$playlist = $client->playlist();
+$playlist = $client->Playlist();
 ```
 
 ### Fields
@@ -362,7 +362,7 @@ $playlist = $client->playlist();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->playlist()->create([
+$result = $client->Playlist()->create([
   "song_id" => /* `$STRING` */,
 ]);
 ```
@@ -372,7 +372,7 @@ $result = $client->playlist()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->playlist()->list([]);
+$results = $client->Playlist()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -380,7 +380,7 @@ $results = $client->playlist()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->playlist()->load(["id" => "playlist_id"]);
+$result = $client->Playlist()->load(["id" => "playlist_id"]);
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -388,7 +388,7 @@ $result = $client->playlist()->load(["id" => "playlist_id"]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->playlist()->remove(["id" => "playlist_id"]);
+$result = $client->Playlist()->remove(["id" => "playlist_id"]);
 ```
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
@@ -396,7 +396,7 @@ $result = $client->playlist()->remove(["id" => "playlist_id"]);
 Update an existing entity. The data must include the entity `id`. Throws on error.
 
 ```php
-$result = $client->playlist()->update([
+$result = $client->Playlist()->update([
   "id" => "playlist_id",
   // Fields to update
 ]);
@@ -435,7 +435,7 @@ Return the entity name.
 ## SearchEntity
 
 ```php
-$search = $client->search();
+$search = $client->Search();
 ```
 
 ### Fields
@@ -454,7 +454,7 @@ $search = $client->search();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->search()->load(["id" => "search_id"]);
+$result = $client->Search()->load(["id" => "search_id"]);
 ```
 
 ### Common Methods
@@ -490,7 +490,7 @@ Return the entity name.
 ## SongEntity
 
 ```php
-$song = $client->song();
+$song = $client->Song();
 ```
 
 ### Fields
@@ -514,7 +514,7 @@ $song = $client->song();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->song()->load(["id" => "song_id"]);
+$result = $client->Song()->load(["id" => "song_id"]);
 ```
 
 ### Common Methods
@@ -550,7 +550,7 @@ Return the entity name.
 ## StreamEntity
 
 ```php
-$stream = $client->stream();
+$stream = $client->Stream();
 ```
 
 ### Fields
@@ -569,7 +569,7 @@ $stream = $client->stream();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->stream()->load(["id" => "stream_id"]);
+$result = $client->Stream()->load(["id" => "stream_id"]);
 ```
 
 ### Common Methods
@@ -605,7 +605,7 @@ Return the entity name.
 ## VideoEntity
 
 ```php
-$video = $client->video();
+$video = $client->Video();
 ```
 
 ### Fields
@@ -623,7 +623,7 @@ $video = $client->video();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->video()->load(["id" => "video_id"]);
+$result = $client->Video()->load(["id" => "video_id"]);
 ```
 
 ### Common Methods

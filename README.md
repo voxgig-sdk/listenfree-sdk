@@ -28,9 +28,11 @@ const client = new ListenfreeSDK({
   apikey: process.env.LISTENFREE_APIKEY,
 })
 
-// List all listeningrooms
-const listeningrooms = await client.listeningroom.list()
-console.log(listeningrooms.data)
+// List all listeningrooms (returns ListeningRoom[])
+const listeningrooms = await client.ListeningRoom().list()
+for (const listeningroom of listeningrooms) {
+  console.log(listeningroom)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -95,12 +97,13 @@ client = ListenfreeSDK({
     "apikey": os.environ.get("LISTENFREE_APIKEY"),
 })
 
-# List all listeningrooms
-listeningrooms = client.listeningroom.list()
-print(listeningrooms)
+# List all listeningrooms (returns a list, raises on error)
+listeningrooms = client.ListeningRoom().list({})
+for listeningroom in listeningrooms:
+    print(listeningroom)
 
-# Load a specific listeningroom
-listeningroom = client.listeningroom.load({"id": "example_id"})
+# Load a specific listeningroom (returns the record, raises on error)
+listeningroom = client.ListeningRoom().load({"id": "example_id"})
 print(listeningroom)
 ```
 
@@ -114,12 +117,12 @@ $client = new ListenfreeSDK([
     "apikey" => getenv("LISTENFREE_APIKEY"),
 ]);
 
-// List all listeningrooms (throws on error)
-$listeningrooms = $client->listeningroom()->list();
+// List all listeningrooms (returns an array; throws on error)
+$listeningrooms = $client->ListeningRoom()->list();
 print_r($listeningrooms);
 
-// Load a specific listeningroom
-$listeningroom = $client->listeningroom()->load(["id" => "example_id"]);
+// Load a specific listeningroom (returns the bare record; throws on error)
+$listeningroom = $client->ListeningRoom()->load(["id" => "example_id"]);
 print_r($listeningroom);
 ```
 
@@ -146,12 +149,12 @@ client = ListenfreeSDK.new({
   "apikey" => ENV["LISTENFREE_APIKEY"],
 })
 
-# List all listeningrooms
-listeningrooms = client.listeningroom.list
+# List all listeningrooms (returns an Array; raises on error)
+listeningrooms = client.ListeningRoom.list
 puts listeningrooms
 
-# Load a specific listeningroom
-listeningroom = client.listeningroom.load({ "id" => "example_id" })
+# Load a specific listeningroom (returns the bare record; raises on error)
+listeningroom = client.ListeningRoom.load({ "id" => "example_id" })
 puts listeningroom
 ```
 
@@ -165,11 +168,11 @@ local client = sdk.new({
 })
 
 -- List all listeningrooms
-local listeningrooms, err = client:listeningroom():list()
+local listeningrooms, err = client:ListeningRoom():list()
 print(listeningrooms)
 
 -- Load a specific listeningroom
-local listeningroom, err = client:listeningroom():load({ id = "example_id" })
+local listeningroom, err = client:ListeningRoom():load({ id = "example_id" })
 print(listeningroom)
 ```
 
@@ -182,22 +185,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = ListenfreeSDK.test()
-const result = await client.listeningroom.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const listeningroom = await client.ListeningRoom().load({ id: 'test01' })
+// listeningroom is a bare ListeningRoom populated with mock data
+console.log(listeningroom)
 ```
 
 ### Python
 
 ```python
 client = ListenfreeSDK.test()
-result = client.listeningroom.load({"id": "test01"})
+listeningroom = client.ListeningRoom().load({"id": "test01"})
+print(listeningroom)
 ```
 
 ### PHP
 
 ```php
-$client = ListenfreeSDK::test();
-$result = $client->listeningroom()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = ListenfreeSDK::test([
+    "entity" => ["listeningroom" => ["test01" => ["id" => "test01"]]],
+]);
+$listeningroom = $client->ListeningRoom()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -212,15 +220,18 @@ result, err := client.ListeningRoom(nil).Load(
 ### Ruby
 
 ```ruby
-client = ListenfreeSDK.test
-result = client.listeningroom.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = ListenfreeSDK.test({
+  "entity" => { "listeningroom" => { "test01" => { "id" => "test01" } } },
+})
+listeningroom = client.ListeningRoom.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:listeningroom():load({ id = "test01" })
+local result, err = client:ListeningRoom():load({ id = "test01" })
 ```
 
 ## How it works
@@ -268,6 +279,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

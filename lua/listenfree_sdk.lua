@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:listening_room():list() / client:listening_room():load({ id = ... })
-function ListenfreeSDK:listening_room(data)
+-- Idiomatic facade: client:ListeningRoom():list() / client:ListeningRoom():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ListenfreeSDK:ListeningRoom(data)
   local EntityMod = require("entity.listening_room_entity")
   if data == nil then
     if self._listening_room == nil then
@@ -256,15 +257,10 @@ function ListenfreeSDK:listening_room(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:listening_room() instead.
-function ListenfreeSDK:ListeningRoom(data)
-  local EntityMod = require("entity.listening_room_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:music():list() / client:music():load({ id = ... })
-function ListenfreeSDK:music(data)
+-- Idiomatic facade: client:Music():list() / client:Music():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ListenfreeSDK:Music(data)
   local EntityMod = require("entity.music_entity")
   if data == nil then
     if self._music == nil then
@@ -275,15 +271,10 @@ function ListenfreeSDK:music(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:music() instead.
-function ListenfreeSDK:Music(data)
-  local EntityMod = require("entity.music_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:offline_download():list() / client:offline_download():load({ id = ... })
-function ListenfreeSDK:offline_download(data)
+-- Idiomatic facade: client:OfflineDownload():list() / client:OfflineDownload():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ListenfreeSDK:OfflineDownload(data)
   local EntityMod = require("entity.offline_download_entity")
   if data == nil then
     if self._offline_download == nil then
@@ -294,15 +285,10 @@ function ListenfreeSDK:offline_download(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:offline_download() instead.
-function ListenfreeSDK:OfflineDownload(data)
-  local EntityMod = require("entity.offline_download_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:playlist():list() / client:playlist():load({ id = ... })
-function ListenfreeSDK:playlist(data)
+-- Idiomatic facade: client:Playlist():list() / client:Playlist():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ListenfreeSDK:Playlist(data)
   local EntityMod = require("entity.playlist_entity")
   if data == nil then
     if self._playlist == nil then
@@ -313,15 +299,10 @@ function ListenfreeSDK:playlist(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:playlist() instead.
-function ListenfreeSDK:Playlist(data)
-  local EntityMod = require("entity.playlist_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:search():list() / client:search():load({ id = ... })
-function ListenfreeSDK:search(data)
+-- Idiomatic facade: client:Search():list() / client:Search():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ListenfreeSDK:Search(data)
   local EntityMod = require("entity.search_entity")
   if data == nil then
     if self._search == nil then
@@ -332,15 +313,10 @@ function ListenfreeSDK:search(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:search() instead.
-function ListenfreeSDK:Search(data)
-  local EntityMod = require("entity.search_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:song():list() / client:song():load({ id = ... })
-function ListenfreeSDK:song(data)
+-- Idiomatic facade: client:Song():list() / client:Song():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ListenfreeSDK:Song(data)
   local EntityMod = require("entity.song_entity")
   if data == nil then
     if self._song == nil then
@@ -351,15 +327,10 @@ function ListenfreeSDK:song(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:song() instead.
-function ListenfreeSDK:Song(data)
-  local EntityMod = require("entity.song_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:stream():list() / client:stream():load({ id = ... })
-function ListenfreeSDK:stream(data)
+-- Idiomatic facade: client:Stream():list() / client:Stream():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ListenfreeSDK:Stream(data)
   local EntityMod = require("entity.stream_entity")
   if data == nil then
     if self._stream == nil then
@@ -370,15 +341,10 @@ function ListenfreeSDK:stream(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:stream() instead.
-function ListenfreeSDK:Stream(data)
-  local EntityMod = require("entity.stream_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:video():list() / client:video():load({ id = ... })
-function ListenfreeSDK:video(data)
+-- Idiomatic facade: client:Video():list() / client:Video():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ListenfreeSDK:Video(data)
   local EntityMod = require("entity.video_entity")
   if data == nil then
     if self._video == nil then
@@ -386,12 +352,6 @@ function ListenfreeSDK:video(data)
     end
     return self._video
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:video() instead.
-function ListenfreeSDK:Video(data)
-  local EntityMod = require("entity.video_entity")
   return EntityMod.new(self, data)
 end
 

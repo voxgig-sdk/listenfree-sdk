@@ -233,10 +233,10 @@ class ListenfreeSDK
 
     private $_listening_room = null;
 
-    // Idiomatic facade: $client->listening_room()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias ListeningRoom() (PHP method
-    // names are case-insensitive).
-    public function listening_room($data = null)
+    // Canonical facade: $client->ListeningRoom()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->listening_room()
+    // resolves here too.
+    public function ListeningRoom($data = null)
     {
         require_once __DIR__ . '/entity/listening_room_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class ListenfreeSDK
 
     private $_music = null;
 
-    // Idiomatic facade: $client->music()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Music() (PHP method
-    // names are case-insensitive).
-    public function music($data = null)
+    // Canonical facade: $client->Music()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->music()
+    // resolves here too.
+    public function Music($data = null)
     {
         require_once __DIR__ . '/entity/music_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class ListenfreeSDK
 
     private $_offline_download = null;
 
-    // Idiomatic facade: $client->offline_download()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias OfflineDownload() (PHP method
-    // names are case-insensitive).
-    public function offline_download($data = null)
+    // Canonical facade: $client->OfflineDownload()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->offline_download()
+    // resolves here too.
+    public function OfflineDownload($data = null)
     {
         require_once __DIR__ . '/entity/offline_download_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class ListenfreeSDK
 
     private $_playlist = null;
 
-    // Idiomatic facade: $client->playlist()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Playlist() (PHP method
-    // names are case-insensitive).
-    public function playlist($data = null)
+    // Canonical facade: $client->Playlist()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->playlist()
+    // resolves here too.
+    public function Playlist($data = null)
     {
         require_once __DIR__ . '/entity/playlist_entity.php';
         if ($data === null) {
@@ -305,10 +305,10 @@ class ListenfreeSDK
 
     private $_search = null;
 
-    // Idiomatic facade: $client->search()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Search() (PHP method
-    // names are case-insensitive).
-    public function search($data = null)
+    // Canonical facade: $client->Search()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->search()
+    // resolves here too.
+    public function Search($data = null)
     {
         require_once __DIR__ . '/entity/search_entity.php';
         if ($data === null) {
@@ -323,10 +323,10 @@ class ListenfreeSDK
 
     private $_song = null;
 
-    // Idiomatic facade: $client->song()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Song() (PHP method
-    // names are case-insensitive).
-    public function song($data = null)
+    // Canonical facade: $client->Song()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->song()
+    // resolves here too.
+    public function Song($data = null)
     {
         require_once __DIR__ . '/entity/song_entity.php';
         if ($data === null) {
@@ -341,10 +341,10 @@ class ListenfreeSDK
 
     private $_stream = null;
 
-    // Idiomatic facade: $client->stream()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Stream() (PHP method
-    // names are case-insensitive).
-    public function stream($data = null)
+    // Canonical facade: $client->Stream()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->stream()
+    // resolves here too.
+    public function Stream($data = null)
     {
         require_once __DIR__ . '/entity/stream_entity.php';
         if ($data === null) {
@@ -359,10 +359,10 @@ class ListenfreeSDK
 
     private $_video = null;
 
-    // Idiomatic facade: $client->video()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Video() (PHP method
-    // names are case-insensitive).
-    public function video($data = null)
+    // Canonical facade: $client->Video()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->video()
+    // resolves here too.
+    public function Video($data = null)
     {
         require_once __DIR__ . '/entity/video_entity.php';
         if ($data === null) {

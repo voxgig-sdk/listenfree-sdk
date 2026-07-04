@@ -115,7 +115,7 @@ same parameters as `direct()`. Raises on error.
 ## ListeningRoomEntity
 
 ```ruby
-listening_room = client.listening_room
+listening_room = client.ListeningRoom
 ```
 
 ### Fields
@@ -155,7 +155,7 @@ listening_room = client.listening_room
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.listening_room.create({
+result = client.ListeningRoom.create({
 })
 ```
 
@@ -164,7 +164,7 @@ result = client.listening_room.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.listening_room.list(nil)
+results = client.ListeningRoom.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -172,7 +172,7 @@ results = client.listening_room.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.listening_room.load({ "id" => "listening_room_id" })
+result = client.ListeningRoom.load({ "id" => "listening_room_id" })
 ```
 
 ### Common Methods
@@ -208,7 +208,7 @@ Return the entity name.
 ## MusicEntity
 
 ```ruby
-music = client.music
+music = client.Music
 ```
 
 ### Fields
@@ -229,7 +229,7 @@ music = client.music
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.music.list(nil)
+results = client.Music.list(nil)
 ```
 
 ### Common Methods
@@ -265,7 +265,7 @@ Return the entity name.
 ## OfflineDownloadEntity
 
 ```ruby
-offline_download = client.offline_download
+offline_download = client.OfflineDownload
 ```
 
 ### Fields
@@ -281,7 +281,7 @@ offline_download = client.offline_download
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.offline_download.create({
+result = client.OfflineDownload.create({
   "song_id" => # `$STRING`,
 })
 ```
@@ -319,7 +319,7 @@ Return the entity name.
 ## PlaylistEntity
 
 ```ruby
-playlist = client.playlist
+playlist = client.Playlist
 ```
 
 ### Fields
@@ -363,7 +363,7 @@ playlist = client.playlist
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.playlist.create({
+result = client.Playlist.create({
   "song_id" => # `$STRING`,
 })
 ```
@@ -373,7 +373,7 @@ result = client.playlist.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.playlist.list(nil)
+results = client.Playlist.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -381,7 +381,7 @@ results = client.playlist.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.playlist.load({ "id" => "playlist_id" })
+result = client.Playlist.load({ "id" => "playlist_id" })
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -389,7 +389,7 @@ result = client.playlist.load({ "id" => "playlist_id" })
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.playlist.remove({ "id" => "playlist_id" })
+result = client.Playlist.remove({ "id" => "playlist_id" })
 ```
 
 #### `update(reqdata, ctrl = nil) -> result`
@@ -397,7 +397,7 @@ result = client.playlist.remove({ "id" => "playlist_id" })
 Update an existing entity. The data must include the entity `id`. Raises on error.
 
 ```ruby
-result = client.playlist.update({
+result = client.Playlist.update({
   "id" => "playlist_id",
   # Fields to update
 })
@@ -436,7 +436,7 @@ Return the entity name.
 ## SearchEntity
 
 ```ruby
-search = client.search
+search = client.Search
 ```
 
 ### Fields
@@ -455,7 +455,7 @@ search = client.search
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.search.load({ "id" => "search_id" })
+result = client.Search.load({ "id" => "search_id" })
 ```
 
 ### Common Methods
@@ -491,7 +491,7 @@ Return the entity name.
 ## SongEntity
 
 ```ruby
-song = client.song
+song = client.Song
 ```
 
 ### Fields
@@ -515,7 +515,7 @@ song = client.song
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.song.load({ "id" => "song_id" })
+result = client.Song.load({ "id" => "song_id" })
 ```
 
 ### Common Methods
@@ -551,7 +551,7 @@ Return the entity name.
 ## StreamEntity
 
 ```ruby
-stream = client.stream
+stream = client.Stream
 ```
 
 ### Fields
@@ -570,7 +570,7 @@ stream = client.stream
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.stream.load({ "id" => "stream_id" })
+result = client.Stream.load({ "id" => "stream_id" })
 ```
 
 ### Common Methods
@@ -606,7 +606,7 @@ Return the entity name.
 ## VideoEntity
 
 ```ruby
-video = client.video
+video = client.Video
 ```
 
 ### Fields
@@ -624,7 +624,7 @@ video = client.video
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.video.load({ "id" => "video_id" })
+result = client.Video.load({ "id" => "video_id" })
 ```
 
 ### Common Methods

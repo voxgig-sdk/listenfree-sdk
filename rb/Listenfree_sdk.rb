@@ -208,104 +208,56 @@ class ListenfreeSDK
   end
 
 
-  # Idiomatic facade: client.listening_room.list / client.listening_room.load({ "id" => ... })
-  def listening_room
-    require_relative 'entity/listening_room_entity'
-    @listening_room ||= ListeningRoomEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.listening_room instead.
+  # Canonical facade: client.ListeningRoom.list / client.ListeningRoom.load({ "id" => ... })
   def ListeningRoom(data = nil)
     require_relative 'entity/listening_room_entity'
     ListeningRoomEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.music.list / client.music.load({ "id" => ... })
-  def music
-    require_relative 'entity/music_entity'
-    @music ||= MusicEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.music instead.
+  # Canonical facade: client.Music.list / client.Music.load({ "id" => ... })
   def Music(data = nil)
     require_relative 'entity/music_entity'
     MusicEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.offline_download.list / client.offline_download.load({ "id" => ... })
-  def offline_download
-    require_relative 'entity/offline_download_entity'
-    @offline_download ||= OfflineDownloadEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.offline_download instead.
+  # Canonical facade: client.OfflineDownload.list / client.OfflineDownload.load({ "id" => ... })
   def OfflineDownload(data = nil)
     require_relative 'entity/offline_download_entity'
     OfflineDownloadEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.playlist.list / client.playlist.load({ "id" => ... })
-  def playlist
-    require_relative 'entity/playlist_entity'
-    @playlist ||= PlaylistEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.playlist instead.
+  # Canonical facade: client.Playlist.list / client.Playlist.load({ "id" => ... })
   def Playlist(data = nil)
     require_relative 'entity/playlist_entity'
     PlaylistEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.search.list / client.search.load({ "id" => ... })
-  def search
-    require_relative 'entity/search_entity'
-    @search ||= SearchEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.search instead.
+  # Canonical facade: client.Search.list / client.Search.load({ "id" => ... })
   def Search(data = nil)
     require_relative 'entity/search_entity'
     SearchEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.song.list / client.song.load({ "id" => ... })
-  def song
-    require_relative 'entity/song_entity'
-    @song ||= SongEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.song instead.
+  # Canonical facade: client.Song.list / client.Song.load({ "id" => ... })
   def Song(data = nil)
     require_relative 'entity/song_entity'
     SongEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.stream.list / client.stream.load({ "id" => ... })
-  def stream
-    require_relative 'entity/stream_entity'
-    @stream ||= StreamEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.stream instead.
+  # Canonical facade: client.Stream.list / client.Stream.load({ "id" => ... })
   def Stream(data = nil)
     require_relative 'entity/stream_entity'
     StreamEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.video.list / client.video.load({ "id" => ... })
-  def video
-    require_relative 'entity/video_entity'
-    @video ||= VideoEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.video instead.
+  # Canonical facade: client.Video.list / client.Video.load({ "id" => ... })
   def Video(data = nil)
     require_relative 'entity/video_entity'
     VideoEntity.new(self, data)

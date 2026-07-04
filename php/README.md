@@ -31,18 +31,16 @@ $client = new ListenfreeSDK([
 ]);
 ```
 
-### 2. List listeningrooms
+### 2. List listeningroom records
 
 ```php
 try {
-    $result = $client->listeningroom()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of ListeningRoom records — iterate directly.
+    $listeningrooms = $client->ListeningRoom()->list();
+    foreach ($listeningrooms as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -51,9 +49,10 @@ try {
 
 ```php
 try {
-    $result = $client->listeningroom()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare ListeningRoom record (throws on error).
+    $listeningroom = $client->ListeningRoom()->load(["id" => "example_id"]);
+    print_r($listeningroom);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -61,8 +60,8 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// Create
-$created = $client->listeningroom()->create(["name" => "Example"]);
+// create() returns the bare created ListeningRoom record.
+$created = $client->ListeningRoom()->create(["name" => "Example"]);
 
 ```
 
@@ -107,13 +106,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = ListenfreeSDK::test();
+$client = ListenfreeSDK::test([
+    "entity" => ["listeningroom" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->listeningroom()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$listeningroom = $client->ListeningRoom()->load(["id" => "test01"]);
+print_r($listeningroom);
 ```
 
 ### Use a custom fetch function
@@ -196,7 +199,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `ListeningRoom` | `($data): ListeningRoomEntity` | Create a ListeningRoom entity instance. |
 | `Music` | `($data): MusicEntity` | Create a Music entity instance. |
-| `OfflineDownload` | `($data): OfflineDownloadEntity` | Create a OfflineDownload entity instance. |
+| `OfflineDownload` | `($data): OfflineDownloadEntity` | Create an OfflineDownload entity instance. |
 | `Playlist` | `($data): PlaylistEntity` | Create a Playlist entity instance. |
 | `Search` | `($data): SearchEntity` | Create a Search entity instance. |
 | `Song` | `($data): SongEntity` | Create a Song entity instance. |
@@ -369,7 +372,7 @@ API path: `/songs/{songId}/video`
 
 ### ListeningRoom
 
-Create an instance: `const listening_room = client.listening_room`
+Create an instance: `$listening_room = $client->ListeningRoom();`
 
 #### Operations
 
@@ -396,27 +399,29 @@ Create an instance: `const listening_room = client.listening_room`
 
 #### Example: Load
 
-```ts
-const listening_room = await client.listening_room.load({ id: 'listening_room_id' })
+```php
+// load() returns the bare ListeningRoom record (throws on error).
+$listening_room = $client->ListeningRoom()->load(["id" => "listening_room_id"]);
 ```
 
 #### Example: List
 
-```ts
-const listening_rooms = await client.listening_room.list()
+```php
+// list() returns an array of ListeningRoom records (throws on error).
+$listening_rooms = $client->ListeningRoom()->list();
 ```
 
 #### Example: Create
 
-```ts
-const listening_room = await client.listening_room.create({
-})
+```php
+$listening_room = $client->ListeningRoom()->create([
+]);
 ```
 
 
 ### Music
 
-Create an instance: `const music = client.music`
+Create an instance: `$music = $client->Music();`
 
 #### Operations
 
@@ -437,14 +442,15 @@ Create an instance: `const music = client.music`
 
 #### Example: List
 
-```ts
-const musics = await client.music.list()
+```php
+// list() returns an array of Music records (throws on error).
+$musics = $client->Music()->list();
 ```
 
 
 ### OfflineDownload
 
-Create an instance: `const offline_download = client.offline_download`
+Create an instance: `$offline_download = $client->OfflineDownload();`
 
 #### Operations
 
@@ -460,16 +466,16 @@ Create an instance: `const offline_download = client.offline_download`
 
 #### Example: Create
 
-```ts
-const offline_download = await client.offline_download.create({
-  song_id: /* `$STRING` */,
-})
+```php
+$offline_download = $client->OfflineDownload()->create([
+    "song_id" => null, // `$STRING`
+]);
 ```
 
 
 ### Playlist
 
-Create an instance: `const playlist = client.playlist`
+Create an instance: `$playlist = $client->Playlist();`
 
 #### Operations
 
@@ -500,28 +506,30 @@ Create an instance: `const playlist = client.playlist`
 
 #### Example: Load
 
-```ts
-const playlist = await client.playlist.load({ id: 'playlist_id' })
+```php
+// load() returns the bare Playlist record (throws on error).
+$playlist = $client->Playlist()->load(["id" => "playlist_id"]);
 ```
 
 #### Example: List
 
-```ts
-const playlists = await client.playlist.list()
+```php
+// list() returns an array of Playlist records (throws on error).
+$playlists = $client->Playlist()->list();
 ```
 
 #### Example: Create
 
-```ts
-const playlist = await client.playlist.create({
-  song_id: /* `$STRING` */,
-})
+```php
+$playlist = $client->Playlist()->create([
+    "song_id" => null, // `$STRING`
+]);
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `$search = $client->Search();`
 
 #### Operations
 
@@ -540,14 +548,15 @@ Create an instance: `const search = client.search`
 
 #### Example: Load
 
-```ts
-const search = await client.search.load({ id: 'search_id' })
+```php
+// load() returns the bare Search record (throws on error).
+$search = $client->Search()->load(["id" => "search_id"]);
 ```
 
 
 ### Song
 
-Create an instance: `const song = client.song`
+Create an instance: `$song = $client->Song();`
 
 #### Operations
 
@@ -571,14 +580,15 @@ Create an instance: `const song = client.song`
 
 #### Example: Load
 
-```ts
-const song = await client.song.load({ id: 'song_id' })
+```php
+// load() returns the bare Song record (throws on error).
+$song = $client->Song()->load(["id" => "song_id"]);
 ```
 
 
 ### Stream
 
-Create an instance: `const stream = client.stream`
+Create an instance: `$stream = $client->Stream();`
 
 #### Operations
 
@@ -597,14 +607,15 @@ Create an instance: `const stream = client.stream`
 
 #### Example: Load
 
-```ts
-const stream = await client.stream.load({ id: 'stream_id' })
+```php
+// load() returns the bare Stream record (throws on error).
+$stream = $client->Stream()->load(["id" => "stream_id"]);
 ```
 
 
 ### Video
 
-Create an instance: `const video = client.video`
+Create an instance: `$video = $client->Video();`
 
 #### Operations
 
@@ -622,8 +633,9 @@ Create an instance: `const video = client.video`
 
 #### Example: Load
 
-```ts
-const video = await client.video.load({ id: 'video_id' })
+```php
+// load() returns the bare Video record (throws on error).
+$video = $client->Video()->load(["id" => "video_id"]);
 ```
 
 
@@ -698,7 +710,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$listeningroom = $client->listeningroom();
+$listeningroom = $client->ListeningRoom();
 $listeningroom->load(["id" => "example_id"]);
 
 // $listeningroom->dataGet() now returns the loaded listeningroom data

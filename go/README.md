@@ -30,7 +30,12 @@ go mod edit -replace github.com/voxgig-sdk/listenfree-sdk/go=../listenfree-sdk/g
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
@@ -38,61 +43,37 @@ package main
 import (
     "fmt"
     "os"
-
     sdk "github.com/voxgig-sdk/listenfree-sdk/go"
-    "github.com/voxgig-sdk/listenfree-sdk/go/core"
 )
 
 func main() {
     client := sdk.NewListenfreeSDK(map[string]any{
         "apikey": os.Getenv("LISTENFREE_APIKEY"),
     })
-```
 
-### 2. List listeningrooms
-
-```go
-    result, err := client.ListeningRoom(nil).List(nil, nil)
+    // List listeningroom records — the value is the array of records itself.
+    listeningrooms, err := client.ListeningRoom(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-
-    rm := core.ToMapAny(result)
-    if rm["ok"] == true {
-        for _, item := range rm["data"].([]any) {
-            p := core.ToMapAny(item)
-            fmt.Println(p["id"], p["name"])
-        }
+    for _, item := range listeningrooms.([]any) {
+        fmt.Println(item)
     }
-```
 
-### 3. Load a listeningroom
-
-```go
-    result, err = client.ListeningRoom(nil).Load(
-        map[string]any{"id": "example_id"}, nil,
-    )
+    // Load a single listeningroom — the value is the loaded record.
+    listeningroom, err := client.ListeningRoom(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
+    fmt.Println(listeningroom)
 
-    rm = core.ToMapAny(result)
-    if rm["ok"] == true {
-        fmt.Println(rm["data"])
+    // Create a listeningroom.
+    created, err := client.ListeningRoom(nil).Create(map[string]any{"name": "Example"}, nil)
+    if err != nil {
+        panic(err)
     }
+    fmt.Println(created)
 }
-```
-
-### 4. Create, update, and remove
-
-```go
-// Create
-created, _ := client.ListeningRoom(nil).Create(
-    map[string]any{"name": "Example"}, nil,
-)
-cm := core.ToMapAny(created)
-newID := core.ToMapAny(cm["data"])["id"]
-
 ```
 
 
@@ -142,10 +123,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.ListeningRoom(nil).Load(
+listeningroom, err := client.ListeningRoom(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(listeningroom) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -226,7 +210,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
 | `ListeningRoom` | `(data map[string]any) ListenfreeEntity` | Create a ListeningRoom entity instance. |
 | `Music` | `(data map[string]any) ListenfreeEntity` | Create a Music entity instance. |
-| `OfflineDownload` | `(data map[string]any) ListenfreeEntity` | Create a OfflineDownload entity instance. |
+| `OfflineDownload` | `(data map[string]any) ListenfreeEntity` | Create an OfflineDownload entity instance. |
 | `Playlist` | `(data map[string]any) ListenfreeEntity` | Create a Playlist entity instance. |
 | `Search` | `(data map[string]any) ListenfreeEntity` | Create a Search entity instance. |
 | `Song` | `(data map[string]any) ListenfreeEntity` | Create a Song entity instance. |
@@ -251,17 +235,24 @@ All entities implement the `ListenfreeEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    listeningroom, err := client.ListeningRoom(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // listeningroom is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -421,13 +412,21 @@ Create an instance: `listening_room := client.ListeningRoom(nil)`
 #### Example: Load
 
 ```go
-result, err := client.ListeningRoom(nil).Load(map[string]any{"id": "listening_room_id"}, nil)
+listening_room, err := client.ListeningRoom(nil).Load(map[string]any{"id": "listening_room_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(listening_room) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.ListeningRoom(nil).List(nil, nil)
+listening_rooms, err := client.ListeningRoom(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(listening_rooms) // the array of records
 ```
 
 #### Example: Create
@@ -462,7 +461,11 @@ Create an instance: `music := client.Music(nil)`
 #### Example: List
 
 ```go
-results, err := client.Music(nil).List(nil, nil)
+musics, err := client.Music(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(musics) // the array of records
 ```
 
 
@@ -525,13 +528,21 @@ Create an instance: `playlist := client.Playlist(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Playlist(nil).Load(map[string]any{"id": "playlist_id"}, nil)
+playlist, err := client.Playlist(nil).Load(map[string]any{"id": "playlist_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(playlist) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Playlist(nil).List(nil, nil)
+playlists, err := client.Playlist(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(playlists) // the array of records
 ```
 
 #### Example: Create
@@ -565,7 +576,11 @@ Create an instance: `search := client.Search(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Search(nil).Load(map[string]any{"id": "search_id"}, nil)
+search, err := client.Search(nil).Load(map[string]any{"id": "search_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(search) // the loaded record
 ```
 
 
@@ -596,7 +611,11 @@ Create an instance: `song := client.Song(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Song(nil).Load(map[string]any{"id": "song_id"}, nil)
+song, err := client.Song(nil).Load(map[string]any{"id": "song_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(song) // the loaded record
 ```
 
 
@@ -622,7 +641,11 @@ Create an instance: `stream := client.Stream(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Stream(nil).Load(map[string]any{"id": "stream_id"}, nil)
+stream, err := client.Stream(nil).Load(map[string]any{"id": "stream_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(stream) // the loaded record
 ```
 
 
@@ -647,7 +670,11 @@ Create an instance: `video := client.Video(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Video(nil).Load(map[string]any{"id": "video_id"}, nil)
+video, err := client.Video(nil).Load(map[string]any{"id": "video_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(video) // the loaded record
 ```
 
 

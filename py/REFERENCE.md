@@ -109,7 +109,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## ListeningRoomEntity
 
 ```python
-listening_room = client.listening_room
+listening_room = client.ListeningRoom()
 ```
 
 ### Fields
@@ -149,7 +149,7 @@ listening_room = client.listening_room
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.listening_room.create({
+result = client.ListeningRoom().create({
 })
 ```
 
@@ -158,7 +158,9 @@ result = client.listening_room.create({
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.listening_room.list({})
+results = client.ListeningRoom().list({})
+for listening_room in results:
+    print(listening_room)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -166,7 +168,7 @@ results = client.listening_room.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.listening_room.load({"id": "listening_room_id"})
+result = client.ListeningRoom().load({"id": "listening_room_id"})
 ```
 
 ### Common Methods
@@ -201,7 +203,7 @@ Return the entity name.
 ## MusicEntity
 
 ```python
-music = client.music
+music = client.Music()
 ```
 
 ### Fields
@@ -222,7 +224,9 @@ music = client.music
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.music.list({})
+results = client.Music().list({})
+for music in results:
+    print(music)
 ```
 
 ### Common Methods
@@ -257,7 +261,7 @@ Return the entity name.
 ## OfflineDownloadEntity
 
 ```python
-offline_download = client.offline_download
+offline_download = client.OfflineDownload()
 ```
 
 ### Fields
@@ -273,8 +277,8 @@ offline_download = client.offline_download
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.offline_download.create({
-    "song_id": # `$STRING`,
+result = client.OfflineDownload().create({
+    "song_id": ...,  # `$STRING`
 })
 ```
 
@@ -310,7 +314,7 @@ Return the entity name.
 ## PlaylistEntity
 
 ```python
-playlist = client.playlist
+playlist = client.Playlist()
 ```
 
 ### Fields
@@ -354,8 +358,8 @@ playlist = client.playlist
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.playlist.create({
-    "song_id": # `$STRING`,
+result = client.Playlist().create({
+    "song_id": ...,  # `$STRING`
 })
 ```
 
@@ -364,7 +368,9 @@ result = client.playlist.create({
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.playlist.list({})
+results = client.Playlist().list({})
+for playlist in results:
+    print(playlist)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -372,7 +378,7 @@ results = client.playlist.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.playlist.load({"id": "playlist_id"})
+result = client.Playlist().load({"id": "playlist_id"})
 ```
 
 #### `remove(reqmatch, ctrl=None) -> dict`
@@ -380,7 +386,7 @@ result = client.playlist.load({"id": "playlist_id"})
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.playlist.remove({"id": "playlist_id"})
+result = client.Playlist().remove({"id": "playlist_id"})
 ```
 
 #### `update(reqdata, ctrl=None) -> dict`
@@ -388,7 +394,7 @@ result = client.playlist.remove({"id": "playlist_id"})
 Update an existing entity. The data must include the entity `id`. Returns the updated entity data and raises on error.
 
 ```python
-result = client.playlist.update({
+result = client.Playlist().update({
     "id": "playlist_id",
     # Fields to update
 })
@@ -426,7 +432,7 @@ Return the entity name.
 ## SearchEntity
 
 ```python
-search = client.search
+search = client.Search()
 ```
 
 ### Fields
@@ -445,7 +451,7 @@ search = client.search
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.search.load({"id": "search_id"})
+result = client.Search().load({"id": "search_id"})
 ```
 
 ### Common Methods
@@ -480,7 +486,7 @@ Return the entity name.
 ## SongEntity
 
 ```python
-song = client.song
+song = client.Song()
 ```
 
 ### Fields
@@ -504,7 +510,7 @@ song = client.song
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.song.load({"id": "song_id"})
+result = client.Song().load({"id": "song_id"})
 ```
 
 ### Common Methods
@@ -539,7 +545,7 @@ Return the entity name.
 ## StreamEntity
 
 ```python
-stream = client.stream
+stream = client.Stream()
 ```
 
 ### Fields
@@ -558,7 +564,7 @@ stream = client.stream
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.stream.load({"id": "stream_id"})
+result = client.Stream().load({"id": "stream_id"})
 ```
 
 ### Common Methods
@@ -593,7 +599,7 @@ Return the entity name.
 ## VideoEntity
 
 ```python
-video = client.video
+video = client.Video()
 ```
 
 ### Fields
@@ -611,7 +617,7 @@ video = client.video
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.video.load({"id": "video_id"})
+result = client.Video().load({"id": "video_id"})
 ```
 
 ### Common Methods

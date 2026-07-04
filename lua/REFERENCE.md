@@ -112,7 +112,7 @@ same parameters as `direct()`.
 ## ListeningRoomEntity
 
 ```lua
-local listening_room = client:listening_room(nil)
+local listening_room = client:ListeningRoom(nil)
 ```
 
 ### Fields
@@ -152,7 +152,7 @@ local listening_room = client:listening_room(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:listening_room():create({
+local result, err = client:ListeningRoom():create({
 })
 ```
 
@@ -161,7 +161,7 @@ local result, err = client:listening_room():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:listening_room():list()
+local results, err = client:ListeningRoom():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -169,7 +169,7 @@ local results, err = client:listening_room():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:listening_room():load({ id = "listening_room_id" })
+local result, err = client:ListeningRoom():load({ id = "listening_room_id" })
 ```
 
 ### Common Methods
@@ -205,7 +205,7 @@ Return the entity name.
 ## MusicEntity
 
 ```lua
-local music = client:music(nil)
+local music = client:Music(nil)
 ```
 
 ### Fields
@@ -226,7 +226,7 @@ local music = client:music(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:music():list()
+local results, err = client:Music():list()
 ```
 
 ### Common Methods
@@ -262,7 +262,7 @@ Return the entity name.
 ## OfflineDownloadEntity
 
 ```lua
-local offline_download = client:offline_download(nil)
+local offline_download = client:OfflineDownload(nil)
 ```
 
 ### Fields
@@ -278,7 +278,7 @@ local offline_download = client:offline_download(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:offline_download():create({
+local result, err = client:OfflineDownload():create({
   song_id = --[[ `$STRING` ]],
 })
 ```
@@ -316,7 +316,7 @@ Return the entity name.
 ## PlaylistEntity
 
 ```lua
-local playlist = client:playlist(nil)
+local playlist = client:Playlist(nil)
 ```
 
 ### Fields
@@ -360,7 +360,7 @@ local playlist = client:playlist(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:playlist():create({
+local result, err = client:Playlist():create({
   song_id = --[[ `$STRING` ]],
 })
 ```
@@ -370,7 +370,7 @@ local result, err = client:playlist():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:playlist():list()
+local results, err = client:Playlist():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -378,7 +378,7 @@ local results, err = client:playlist():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:playlist():load({ id = "playlist_id" })
+local result, err = client:Playlist():load({ id = "playlist_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -386,7 +386,7 @@ local result, err = client:playlist():load({ id = "playlist_id" })
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:playlist():remove({ id = "playlist_id" })
+local result, err = client:Playlist():remove({ id = "playlist_id" })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -394,7 +394,7 @@ local result, err = client:playlist():remove({ id = "playlist_id" })
 Update an existing entity. The data must include the entity `id`.
 
 ```lua
-local result, err = client:playlist():update({
+local result, err = client:Playlist():update({
   id = "playlist_id",
   -- Fields to update
 })
@@ -433,7 +433,7 @@ Return the entity name.
 ## SearchEntity
 
 ```lua
-local search = client:search(nil)
+local search = client:Search(nil)
 ```
 
 ### Fields
@@ -452,7 +452,7 @@ local search = client:search(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:search():load({ id = "search_id" })
+local result, err = client:Search():load({ id = "search_id" })
 ```
 
 ### Common Methods
@@ -488,7 +488,7 @@ Return the entity name.
 ## SongEntity
 
 ```lua
-local song = client:song(nil)
+local song = client:Song(nil)
 ```
 
 ### Fields
@@ -512,7 +512,7 @@ local song = client:song(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:song():load({ id = "song_id" })
+local result, err = client:Song():load({ id = "song_id" })
 ```
 
 ### Common Methods
@@ -548,7 +548,7 @@ Return the entity name.
 ## StreamEntity
 
 ```lua
-local stream = client:stream(nil)
+local stream = client:Stream(nil)
 ```
 
 ### Fields
@@ -567,7 +567,7 @@ local stream = client:stream(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:stream():load({ id = "stream_id" })
+local result, err = client:Stream():load({ id = "stream_id" })
 ```
 
 ### Common Methods
@@ -603,7 +603,7 @@ Return the entity name.
 ## VideoEntity
 
 ```lua
-local video = client:video(nil)
+local video = client:Video(nil)
 ```
 
 ### Fields
@@ -621,7 +621,7 @@ local video = client:video(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:video():load({ id = "video_id" })
+local result, err = client:Video():load({ id = "video_id" })
 ```
 
 ### Common Methods

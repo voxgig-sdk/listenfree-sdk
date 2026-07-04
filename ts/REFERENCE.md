@@ -194,7 +194,7 @@ Alias for `ListenfreeSDK.test()`.
 ## ListeningRoomEntity
 
 ```ts
-const listening_room = client.listening_room
+const listening_room = client.ListeningRoom()
 ```
 
 ### Fields
@@ -234,7 +234,7 @@ const listening_room = client.listening_room
 Create a new entity with the given data.
 
 ```ts
-const result = await client.listening_room.create({
+const result = await client.ListeningRoom().create({
 })
 ```
 
@@ -243,7 +243,7 @@ const result = await client.listening_room.create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.listening_room.list()
+const results = await client.ListeningRoom().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -251,7 +251,7 @@ const results = await client.listening_room.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.listening_room.load({ id: 'listening_room_id' })
+const result = await client.ListeningRoom().load({ id: 'listening_room_id' })
 ```
 
 ### Common Methods
@@ -285,7 +285,7 @@ Return a copy of the entity options.
 ## MusicEntity
 
 ```ts
-const music = client.music
+const music = client.Music()
 ```
 
 ### Fields
@@ -306,7 +306,7 @@ const music = client.music
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.music.list()
+const results = await client.Music().list()
 ```
 
 ### Common Methods
@@ -340,7 +340,7 @@ Return a copy of the entity options.
 ## OfflineDownloadEntity
 
 ```ts
-const offline_download = client.offline_download
+const offline_download = client.OfflineDownload()
 ```
 
 ### Fields
@@ -356,7 +356,7 @@ const offline_download = client.offline_download
 Create a new entity with the given data.
 
 ```ts
-const result = await client.offline_download.create({
+const result = await client.OfflineDownload().create({
   song_id: /* `$STRING` */,
 })
 ```
@@ -392,7 +392,7 @@ Return a copy of the entity options.
 ## PlaylistEntity
 
 ```ts
-const playlist = client.playlist
+const playlist = client.Playlist()
 ```
 
 ### Fields
@@ -436,7 +436,7 @@ const playlist = client.playlist
 Create a new entity with the given data.
 
 ```ts
-const result = await client.playlist.create({
+const result = await client.Playlist().create({
   song_id: /* `$STRING` */,
 })
 ```
@@ -446,7 +446,7 @@ const result = await client.playlist.create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.playlist.list()
+const results = await client.Playlist().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -454,7 +454,7 @@ const results = await client.playlist.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.playlist.load({ id: 'playlist_id' })
+const result = await client.Playlist().load({ id: 'playlist_id' })
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -462,7 +462,7 @@ const result = await client.playlist.load({ id: 'playlist_id' })
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.playlist.remove({ id: 'playlist_id' })
+const result = await client.Playlist().remove({ id: 'playlist_id' })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -470,7 +470,7 @@ const result = await client.playlist.remove({ id: 'playlist_id' })
 Update an existing entity. The data must include the entity `id`.
 
 ```ts
-const result = await client.playlist.update({
+const result = await client.Playlist().update({
   id: 'playlist_id',
   // Fields to update
 })
@@ -507,7 +507,7 @@ Return a copy of the entity options.
 ## SearchEntity
 
 ```ts
-const search = client.search
+const search = client.Search()
 ```
 
 ### Fields
@@ -526,7 +526,7 @@ const search = client.search
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.search.load({ id: 'search_id' })
+const result = await client.Search().load({ id: 'search_id' })
 ```
 
 ### Common Methods
@@ -560,7 +560,7 @@ Return a copy of the entity options.
 ## SongEntity
 
 ```ts
-const song = client.song
+const song = client.Song()
 ```
 
 ### Fields
@@ -584,7 +584,7 @@ const song = client.song
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.song.load({ id: 'song_id' })
+const result = await client.Song().load({ id: 'song_id' })
 ```
 
 ### Common Methods
@@ -618,7 +618,7 @@ Return a copy of the entity options.
 ## StreamEntity
 
 ```ts
-const stream = client.stream
+const stream = client.Stream()
 ```
 
 ### Fields
@@ -637,7 +637,7 @@ const stream = client.stream
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.stream.load({ id: 'stream_id' })
+const result = await client.Stream().load({ id: 'stream_id' })
 ```
 
 ### Common Methods
@@ -671,7 +671,7 @@ Return a copy of the entity options.
 ## VideoEntity
 
 ```ts
-const video = client.video
+const video = client.Video()
 ```
 
 ### Fields
@@ -689,7 +689,7 @@ const video = client.video
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.video.load({ id: 'video_id' })
+const result = await client.Video().load({ id: 'video_id' })
 ```
 
 ### Common Methods

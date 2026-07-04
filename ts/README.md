@@ -30,33 +30,36 @@ const client = new ListenfreeSDK({
 })
 ```
 
-### 2. List listeningrooms
+### 2. List listeningroom records
+
+`list()` resolves to an array of ListeningRoom objects — iterate it directly:
 
 ```ts
-const result = await client.listeningroom.list()
+const listeningrooms = await client.ListeningRoom().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const listeningroom of listeningrooms) {
+  console.log(listeningroom)
 }
 ```
 
 ### 3. Load a listeningroom
 
-```ts
-const result = await client.listeningroom.load({ id: 'example_id' })
+`load()` returns the entity directly and throws on failure:
 
-if (result.ok) {
-  console.log(result.data)
+```ts
+try {
+  const listeningroom = await client.ListeningRoom().load({ id: 'example_id' })
+  console.log(listeningroom)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
 ### 4. Create, update, and remove
 
 ```ts
-// Create
-const created = await client.listeningroom.create({
+// Create — returns the created ListeningRoom
+const created = await client.ListeningRoom().create({
   name: 'Example',
 })
 
@@ -76,6 +79,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -104,9 +110,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ListenfreeSDK.test()
 
-const result = await client.listeningroom.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const listeningroom = await client.ListeningRoom().load({ id: 'test01' })
+// listeningroom is a bare entity populated with mock response data
+console.log(listeningroom)
 ```
 
 You can also use the instance method:
@@ -121,7 +127,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.listeningroom
+const entity = client.ListeningRoom()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -205,7 +211,7 @@ new ListenfreeSDK(options?: {
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `ListeningRoom(data?)` | `ListeningRoomEntity` | Create a ListeningRoom entity instance. |
 | `Music(data?)` | `MusicEntity` | Create a Music entity instance. |
-| `OfflineDownload(data?)` | `OfflineDownloadEntity` | Create a OfflineDownload entity instance. |
+| `OfflineDownload(data?)` | `OfflineDownloadEntity` | Create an OfflineDownload entity instance. |
 | `Playlist(data?)` | `PlaylistEntity` | Create a Playlist entity instance. |
 | `Search(data?)` | `SearchEntity` | Create a Search entity instance. |
 | `Song(data?)` | `SongEntity` | Create a Song entity instance. |
@@ -227,29 +233,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): ListenfreeSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -409,7 +416,7 @@ API path: `/songs/{songId}/video`
 
 ### ListeningRoom
 
-Create an instance: `const listening_room = client.listening_room`
+Create an instance: `const listening_room = client.ListeningRoom()`
 
 #### Operations
 
@@ -437,26 +444,26 @@ Create an instance: `const listening_room = client.listening_room`
 #### Example: Load
 
 ```ts
-const listening_room = await client.listening_room.load({ id: 'listening_room_id' })
+const listening_room = await client.ListeningRoom().load({ id: 'listening_room_id' })
 ```
 
 #### Example: List
 
 ```ts
-const listening_rooms = await client.listening_room.list()
+const listening_rooms = await client.ListeningRoom().list()
 ```
 
 #### Example: Create
 
 ```ts
-const listening_room = await client.listening_room.create({
+const listening_room = await client.ListeningRoom().create({
 })
 ```
 
 
 ### Music
 
-Create an instance: `const music = client.music`
+Create an instance: `const music = client.Music()`
 
 #### Operations
 
@@ -478,13 +485,13 @@ Create an instance: `const music = client.music`
 #### Example: List
 
 ```ts
-const musics = await client.music.list()
+const musics = await client.Music().list()
 ```
 
 
 ### OfflineDownload
 
-Create an instance: `const offline_download = client.offline_download`
+Create an instance: `const offline_download = client.OfflineDownload()`
 
 #### Operations
 
@@ -501,7 +508,7 @@ Create an instance: `const offline_download = client.offline_download`
 #### Example: Create
 
 ```ts
-const offline_download = await client.offline_download.create({
+const offline_download = await client.OfflineDownload().create({
   song_id: /* `$STRING` */,
 })
 ```
@@ -509,7 +516,7 @@ const offline_download = await client.offline_download.create({
 
 ### Playlist
 
-Create an instance: `const playlist = client.playlist`
+Create an instance: `const playlist = client.Playlist()`
 
 #### Operations
 
@@ -541,19 +548,19 @@ Create an instance: `const playlist = client.playlist`
 #### Example: Load
 
 ```ts
-const playlist = await client.playlist.load({ id: 'playlist_id' })
+const playlist = await client.Playlist().load({ id: 'playlist_id' })
 ```
 
 #### Example: List
 
 ```ts
-const playlists = await client.playlist.list()
+const playlists = await client.Playlist().list()
 ```
 
 #### Example: Create
 
 ```ts
-const playlist = await client.playlist.create({
+const playlist = await client.Playlist().create({
   song_id: /* `$STRING` */,
 })
 ```
@@ -561,7 +568,7 @@ const playlist = await client.playlist.create({
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `const search = client.Search()`
 
 #### Operations
 
@@ -581,13 +588,13 @@ Create an instance: `const search = client.search`
 #### Example: Load
 
 ```ts
-const search = await client.search.load({ id: 'search_id' })
+const search = await client.Search().load({ id: 'search_id' })
 ```
 
 
 ### Song
 
-Create an instance: `const song = client.song`
+Create an instance: `const song = client.Song()`
 
 #### Operations
 
@@ -612,13 +619,13 @@ Create an instance: `const song = client.song`
 #### Example: Load
 
 ```ts
-const song = await client.song.load({ id: 'song_id' })
+const song = await client.Song().load({ id: 'song_id' })
 ```
 
 
 ### Stream
 
-Create an instance: `const stream = client.stream`
+Create an instance: `const stream = client.Stream()`
 
 #### Operations
 
@@ -638,13 +645,13 @@ Create an instance: `const stream = client.stream`
 #### Example: Load
 
 ```ts
-const stream = await client.stream.load({ id: 'stream_id' })
+const stream = await client.Stream().load({ id: 'stream_id' })
 ```
 
 
 ### Video
 
-Create an instance: `const video = client.video`
+Create an instance: `const video = client.Video()`
 
 #### Operations
 
@@ -663,7 +670,7 @@ Create an instance: `const video = client.video`
 #### Example: Load
 
 ```ts
-const video = await client.video.load({ id: 'video_id' })
+const video = await client.Video().load({ id: 'video_id' })
 ```
 
 
@@ -734,7 +741,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const listeningroom = client.listeningroom
+const listeningroom = client.ListeningRoom()
 await listeningroom.load({ id: "example_id" })
 
 // listeningroom.data() now returns the loaded listeningroom data

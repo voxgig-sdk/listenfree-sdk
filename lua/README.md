@@ -33,33 +33,34 @@ local client = sdk.new({
 })
 ```
 
-### 2. List listeningrooms
+### 2. List listeningroom records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:listeningroom():list()
+local listeningrooms, err = client:ListeningRoom():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(listeningrooms) do
+  print(item["id"], item["name"])
 end
 ```
 
 ### 3. Load a listeningroom
 
 ```lua
-local result, err = client:listeningroom():load({ id = "example_id" })
+local listeningroom, err = client:ListeningRoom():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(listeningroom)
 ```
 
 ### 4. Create, update, and remove
 
 ```lua
 -- Create
-local created, _ = client:listeningroom():create({ name = "Example" })
+local created, err = client:ListeningRoom():create({ name = "Example" })
+if err then error(err) end
 
 ```
 
@@ -106,8 +107,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:listeningroom():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:ListeningRoom():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -189,7 +190,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `ListeningRoom` | `(data) -> ListeningRoomEntity` | Create a ListeningRoom entity instance. |
 | `Music` | `(data) -> MusicEntity` | Create a Music entity instance. |
-| `OfflineDownload` | `(data) -> OfflineDownloadEntity` | Create a OfflineDownload entity instance. |
+| `OfflineDownload` | `(data) -> OfflineDownloadEntity` | Create an OfflineDownload entity instance. |
 | `Playlist` | `(data) -> PlaylistEntity` | Create a Playlist entity instance. |
 | `Search` | `(data) -> SearchEntity` | Create a Search entity instance. |
 | `Song` | `(data) -> SongEntity` | Create a Song entity instance. |
@@ -216,17 +217,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local listening_room, err = client:ListeningRoom():load({ id = "example_id" })
+    if err then error(err) end
+    -- listening_room is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -358,7 +364,7 @@ API path: `/songs/{songId}/video`
 
 ### ListeningRoom
 
-Create an instance: `const listening_room = client.listening_room`
+Create an instance: `local listening_room = client:ListeningRoom(nil)`
 
 #### Operations
 
@@ -385,27 +391,27 @@ Create an instance: `const listening_room = client.listening_room`
 
 #### Example: Load
 
-```ts
-const listening_room = await client.listening_room.load({ id: 'listening_room_id' })
+```lua
+local listening_room, err = client:ListeningRoom():load({ id = "listening_room_id" })
 ```
 
 #### Example: List
 
-```ts
-const listening_rooms = await client.listening_room.list()
+```lua
+local listening_rooms, err = client:ListeningRoom():list()
 ```
 
 #### Example: Create
 
-```ts
-const listening_room = await client.listening_room.create({
+```lua
+local listening_room, err = client:ListeningRoom():create({
 })
 ```
 
 
 ### Music
 
-Create an instance: `const music = client.music`
+Create an instance: `local music = client:Music(nil)`
 
 #### Operations
 
@@ -426,14 +432,14 @@ Create an instance: `const music = client.music`
 
 #### Example: List
 
-```ts
-const musics = await client.music.list()
+```lua
+local musics, err = client:Music():list()
 ```
 
 
 ### OfflineDownload
 
-Create an instance: `const offline_download = client.offline_download`
+Create an instance: `local offline_download = client:OfflineDownload(nil)`
 
 #### Operations
 
@@ -449,16 +455,16 @@ Create an instance: `const offline_download = client.offline_download`
 
 #### Example: Create
 
-```ts
-const offline_download = await client.offline_download.create({
-  song_id: /* `$STRING` */,
+```lua
+local offline_download, err = client:OfflineDownload():create({
+  song_id = nil, -- `$STRING`
 })
 ```
 
 
 ### Playlist
 
-Create an instance: `const playlist = client.playlist`
+Create an instance: `local playlist = client:Playlist(nil)`
 
 #### Operations
 
@@ -489,28 +495,28 @@ Create an instance: `const playlist = client.playlist`
 
 #### Example: Load
 
-```ts
-const playlist = await client.playlist.load({ id: 'playlist_id' })
+```lua
+local playlist, err = client:Playlist():load({ id = "playlist_id" })
 ```
 
 #### Example: List
 
-```ts
-const playlists = await client.playlist.list()
+```lua
+local playlists, err = client:Playlist():list()
 ```
 
 #### Example: Create
 
-```ts
-const playlist = await client.playlist.create({
-  song_id: /* `$STRING` */,
+```lua
+local playlist, err = client:Playlist():create({
+  song_id = nil, -- `$STRING`
 })
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `local search = client:Search(nil)`
 
 #### Operations
 
@@ -529,14 +535,14 @@ Create an instance: `const search = client.search`
 
 #### Example: Load
 
-```ts
-const search = await client.search.load({ id: 'search_id' })
+```lua
+local search, err = client:Search():load({ id = "search_id" })
 ```
 
 
 ### Song
 
-Create an instance: `const song = client.song`
+Create an instance: `local song = client:Song(nil)`
 
 #### Operations
 
@@ -560,14 +566,14 @@ Create an instance: `const song = client.song`
 
 #### Example: Load
 
-```ts
-const song = await client.song.load({ id: 'song_id' })
+```lua
+local song, err = client:Song():load({ id = "song_id" })
 ```
 
 
 ### Stream
 
-Create an instance: `const stream = client.stream`
+Create an instance: `local stream = client:Stream(nil)`
 
 #### Operations
 
@@ -586,14 +592,14 @@ Create an instance: `const stream = client.stream`
 
 #### Example: Load
 
-```ts
-const stream = await client.stream.load({ id: 'stream_id' })
+```lua
+local stream, err = client:Stream():load({ id = "stream_id" })
 ```
 
 
 ### Video
 
-Create an instance: `const video = client.video`
+Create an instance: `local video = client:Video(nil)`
 
 #### Operations
 
@@ -611,8 +617,8 @@ Create an instance: `const video = client.video`
 
 #### Example: Load
 
-```ts
-const video = await client.video.load({ id: 'video_id' })
+```lua
+local video, err = client:Video():load({ id = "video_id" })
 ```
 
 
@@ -687,7 +693,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local listeningroom = client:listeningroom()
+local listeningroom = client:ListeningRoom()
 listeningroom:load({ id = "example_id" })
 
 -- listeningroom:data_get() now returns the loaded listeningroom data

@@ -4,188 +4,173 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class ListeningRoom:
-    created_at: Optional[str] = None
-    current_song: Optional[dict] = None
-    description: Optional[str] = None
-    host: Optional[str] = None
-    id: Optional[str] = None
-    is_public: Optional[bool] = None
-    max_participant: Optional[int] = None
-    name: Optional[str] = None
-    participant: Optional[list] = None
-    queue: Optional[list] = None
+class ListeningRoom(TypedDict, total=False):
+    created_at: str
+    current_song: dict
+    description: str
+    host: str
+    id: str
+    is_public: bool
+    max_participant: int
+    name: str
+    participant: list
+    queue: list
 
 
-@dataclass
-class ListeningRoomLoadMatch:
+class ListeningRoomLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class ListeningRoomListMatch:
-    created_at: Optional[str] = None
-    current_song: Optional[dict] = None
-    description: Optional[str] = None
-    host: Optional[str] = None
-    id: Optional[str] = None
-    is_public: Optional[bool] = None
-    max_participant: Optional[int] = None
-    name: Optional[str] = None
-    participant: Optional[list] = None
-    queue: Optional[list] = None
+class ListeningRoomListMatch(TypedDict, total=False):
+    created_at: str
+    current_song: dict
+    description: str
+    host: str
+    id: str
+    is_public: bool
+    max_participant: int
+    name: str
+    participant: list
+    queue: list
 
 
-@dataclass
-class ListeningRoomCreateData:
+class ListeningRoomCreateData(TypedDict):
     id: str
 
 
-@dataclass
-class Music:
-    downloaded_at: Optional[str] = None
-    expires_at: Optional[str] = None
-    id: Optional[str] = None
-    progress: Optional[int] = None
-    song: Optional[dict] = None
-    status: Optional[str] = None
+class Music(TypedDict, total=False):
+    downloaded_at: str
+    expires_at: str
+    id: str
+    progress: int
+    song: dict
+    status: str
 
 
-@dataclass
-class MusicListMatch:
-    downloaded_at: Optional[str] = None
-    expires_at: Optional[str] = None
-    id: Optional[str] = None
-    progress: Optional[int] = None
-    song: Optional[dict] = None
-    status: Optional[str] = None
+class MusicListMatch(TypedDict, total=False):
+    downloaded_at: str
+    expires_at: str
+    id: str
+    progress: int
+    song: dict
+    status: str
 
 
-@dataclass
-class OfflineDownload:
+class OfflineDownload(TypedDict):
     song_id: str
 
 
-@dataclass
-class OfflineDownloadCreateData:
-    song_id: Optional[str] = None
-
-
-@dataclass
-class Playlist:
-    song_id: str
-    created_at: Optional[str] = None
-    description: Optional[str] = None
-    id: Optional[str] = None
-    is_public: Optional[bool] = None
-    is_smart: Optional[bool] = None
-    name: Optional[str] = None
-    owner: Optional[str] = None
-    smart_criterion: Optional[dict] = None
-    song: Optional[list] = None
-    song_count: Optional[int] = None
-    updated_at: Optional[str] = None
-
-
-@dataclass
-class PlaylistLoadMatch:
-    id: str
-
-
-@dataclass
-class PlaylistListMatch:
-    created_at: Optional[str] = None
-    description: Optional[str] = None
-    id: Optional[str] = None
-    is_public: Optional[bool] = None
-    is_smart: Optional[bool] = None
-    name: Optional[str] = None
-    owner: Optional[str] = None
-    smart_criterion: Optional[dict] = None
-    song: Optional[list] = None
-    song_count: Optional[int] = None
-    song_id: Optional[str] = None
-    updated_at: Optional[str] = None
-
-
-@dataclass
-class PlaylistCreateData:
-    id: str
-
-
-@dataclass
-class PlaylistUpdateData:
-    id: str
-
-
-@dataclass
-class PlaylistRemoveMatch:
-    id: str
-
-
-@dataclass
-class Search:
-    limit: Optional[int] = None
-    offset: Optional[int] = None
-    result: Optional[dict] = None
-    total: Optional[int] = None
-
-
-@dataclass
-class SearchLoadMatch:
-    limit: Optional[int] = None
-    offset: Optional[int] = None
-    result: Optional[dict] = None
-    total: Optional[int] = None
-
-
-@dataclass
-class Song:
-    album: Optional[str] = None
-    artist: Optional[str] = None
-    cover_art: Optional[str] = None
-    duration: Optional[int] = None
-    genre: Optional[list] = None
-    has_video: Optional[bool] = None
-    id: Optional[str] = None
-    release_date: Optional[str] = None
-    title: Optional[str] = None
-
-
-@dataclass
-class SongLoadMatch:
-    id: str
-
-
-@dataclass
-class Stream:
-    bitrate: Optional[int] = None
-    expires_at: Optional[str] = None
-    quality: Optional[str] = None
-    stream_url: Optional[str] = None
-
-
-@dataclass
-class StreamLoadMatch:
+class OfflineDownloadCreateData(TypedDict, total=False):
     song_id: str
 
 
-@dataclass
-class Video:
-    duration: Optional[int] = None
-    thumbnail_url: Optional[str] = None
-    video_url: Optional[str] = None
-
-
-@dataclass
-class VideoLoadMatch:
+class PlaylistRequired(TypedDict):
     song_id: str
 
+
+class Playlist(PlaylistRequired, total=False):
+    created_at: str
+    description: str
+    id: str
+    is_public: bool
+    is_smart: bool
+    name: str
+    owner: str
+    smart_criterion: dict
+    song: list
+    song_count: int
+    updated_at: str
+
+
+class PlaylistLoadMatch(TypedDict):
+    id: str
+
+
+class PlaylistListMatch(TypedDict, total=False):
+    created_at: str
+    description: str
+    id: str
+    is_public: bool
+    is_smart: bool
+    name: str
+    owner: str
+    smart_criterion: dict
+    song: list
+    song_count: int
+    song_id: str
+    updated_at: str
+
+
+class PlaylistCreateData(TypedDict):
+    id: str
+
+
+class PlaylistUpdateData(TypedDict):
+    id: str
+
+
+class PlaylistRemoveMatch(TypedDict):
+    id: str
+
+
+class Search(TypedDict, total=False):
+    limit: int
+    offset: int
+    result: dict
+    total: int
+
+
+class SearchLoadMatch(TypedDict, total=False):
+    limit: int
+    offset: int
+    result: dict
+    total: int
+
+
+class Song(TypedDict, total=False):
+    album: str
+    artist: str
+    cover_art: str
+    duration: int
+    genre: list
+    has_video: bool
+    id: str
+    release_date: str
+    title: str
+
+
+class SongLoadMatch(TypedDict):
+    id: str
+
+
+class Stream(TypedDict, total=False):
+    bitrate: int
+    expires_at: str
+    quality: str
+    stream_url: str
+
+
+class StreamLoadMatch(TypedDict):
+    song_id: str
+
+
+class Video(TypedDict, total=False):
+    duration: int
+    thumbnail_url: str
+    video_url: str
+
+
+class VideoLoadMatch(TypedDict):
+    song_id: str

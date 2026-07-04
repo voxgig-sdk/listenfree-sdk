@@ -30,16 +30,14 @@ client = ListenfreeSDK.new({
 })
 ```
 
-### 2. List listeningrooms
+### 2. List listeningroom records
 
 ```ruby
 begin
-  result = client.listeningroom.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of ListeningRoom records — iterate directly.
+  listeningrooms = client.ListeningRoom.list
+  listeningrooms.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -50,8 +48,9 @@ end
 
 ```ruby
 begin
-  result = client.listeningroom.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare ListeningRoom record (raises on error).
+  listeningroom = client.ListeningRoom.load({ "id" => "example_id" })
+  puts listeningroom
 rescue => err
   warn "load failed: #{err}"
 end
@@ -60,8 +59,8 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# Create
-created = client.listeningroom.create({ "name" => "Example" })
+# create returns the bare created ListeningRoom record.
+created = client.ListeningRoom.create({ "name" => "Example" })
 
 ```
 
@@ -106,13 +105,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = ListenfreeSDK.test
+client = ListenfreeSDK.test({
+  "entity" => { "listeningroom" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.listeningroom.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+listeningroom = client.ListeningRoom.load({ "id" => "test01" })
+puts listeningroom
 ```
 
 ### Use a custom fetch function
@@ -192,7 +195,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `ListeningRoom` | `(data) -> ListeningRoomEntity` | Create a ListeningRoom entity instance. |
 | `Music` | `(data) -> MusicEntity` | Create a Music entity instance. |
-| `OfflineDownload` | `(data) -> OfflineDownloadEntity` | Create a OfflineDownload entity instance. |
+| `OfflineDownload` | `(data) -> OfflineDownloadEntity` | Create an OfflineDownload entity instance. |
 | `Playlist` | `(data) -> PlaylistEntity` | Create a Playlist entity instance. |
 | `Search` | `(data) -> SearchEntity` | Create a Search entity instance. |
 | `Song` | `(data) -> SongEntity` | Create a Song entity instance. |
@@ -364,7 +367,7 @@ API path: `/songs/{songId}/video`
 
 ### ListeningRoom
 
-Create an instance: `const listening_room = client.listening_room`
+Create an instance: `listening_room = client.ListeningRoom`
 
 #### Operations
 
@@ -391,27 +394,29 @@ Create an instance: `const listening_room = client.listening_room`
 
 #### Example: Load
 
-```ts
-const listening_room = await client.listening_room.load({ id: 'listening_room_id' })
+```ruby
+# load returns the bare ListeningRoom record (raises on error).
+listening_room = client.ListeningRoom.load({ "id" => "listening_room_id" })
 ```
 
 #### Example: List
 
-```ts
-const listening_rooms = await client.listening_room.list()
+```ruby
+# list returns an Array of ListeningRoom records (raises on error).
+listening_rooms = client.ListeningRoom.list
 ```
 
 #### Example: Create
 
-```ts
-const listening_room = await client.listening_room.create({
+```ruby
+listening_room = client.ListeningRoom.create({
 })
 ```
 
 
 ### Music
 
-Create an instance: `const music = client.music`
+Create an instance: `music = client.Music`
 
 #### Operations
 
@@ -432,14 +437,15 @@ Create an instance: `const music = client.music`
 
 #### Example: List
 
-```ts
-const musics = await client.music.list()
+```ruby
+# list returns an Array of Music records (raises on error).
+musics = client.Music.list
 ```
 
 
 ### OfflineDownload
 
-Create an instance: `const offline_download = client.offline_download`
+Create an instance: `offline_download = client.OfflineDownload`
 
 #### Operations
 
@@ -455,16 +461,16 @@ Create an instance: `const offline_download = client.offline_download`
 
 #### Example: Create
 
-```ts
-const offline_download = await client.offline_download.create({
-  song_id: /* `$STRING` */,
+```ruby
+offline_download = client.OfflineDownload.create({
+  "song_id" => nil, # `$STRING`
 })
 ```
 
 
 ### Playlist
 
-Create an instance: `const playlist = client.playlist`
+Create an instance: `playlist = client.Playlist`
 
 #### Operations
 
@@ -495,28 +501,30 @@ Create an instance: `const playlist = client.playlist`
 
 #### Example: Load
 
-```ts
-const playlist = await client.playlist.load({ id: 'playlist_id' })
+```ruby
+# load returns the bare Playlist record (raises on error).
+playlist = client.Playlist.load({ "id" => "playlist_id" })
 ```
 
 #### Example: List
 
-```ts
-const playlists = await client.playlist.list()
+```ruby
+# list returns an Array of Playlist records (raises on error).
+playlists = client.Playlist.list
 ```
 
 #### Example: Create
 
-```ts
-const playlist = await client.playlist.create({
-  song_id: /* `$STRING` */,
+```ruby
+playlist = client.Playlist.create({
+  "song_id" => nil, # `$STRING`
 })
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `search = client.Search`
 
 #### Operations
 
@@ -535,14 +543,15 @@ Create an instance: `const search = client.search`
 
 #### Example: Load
 
-```ts
-const search = await client.search.load({ id: 'search_id' })
+```ruby
+# load returns the bare Search record (raises on error).
+search = client.Search.load({ "id" => "search_id" })
 ```
 
 
 ### Song
 
-Create an instance: `const song = client.song`
+Create an instance: `song = client.Song`
 
 #### Operations
 
@@ -566,14 +575,15 @@ Create an instance: `const song = client.song`
 
 #### Example: Load
 
-```ts
-const song = await client.song.load({ id: 'song_id' })
+```ruby
+# load returns the bare Song record (raises on error).
+song = client.Song.load({ "id" => "song_id" })
 ```
 
 
 ### Stream
 
-Create an instance: `const stream = client.stream`
+Create an instance: `stream = client.Stream`
 
 #### Operations
 
@@ -592,14 +602,15 @@ Create an instance: `const stream = client.stream`
 
 #### Example: Load
 
-```ts
-const stream = await client.stream.load({ id: 'stream_id' })
+```ruby
+# load returns the bare Stream record (raises on error).
+stream = client.Stream.load({ "id" => "stream_id" })
 ```
 
 
 ### Video
 
-Create an instance: `const video = client.video`
+Create an instance: `video = client.Video`
 
 #### Operations
 
@@ -617,8 +628,9 @@ Create an instance: `const video = client.video`
 
 #### Example: Load
 
-```ts
-const video = await client.video.load({ id: 'video_id' })
+```ruby
+# load returns the bare Video record (raises on error).
+video = client.Video.load({ "id" => "video_id" })
 ```
 
 
@@ -693,7 +705,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-listeningroom = client.listeningroom
+listeningroom = client.ListeningRoom
 listeningroom.load({ "id" => "example_id" })
 
 # listeningroom.data_get now returns the loaded listeningroom data

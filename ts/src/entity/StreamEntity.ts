@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Stream,
+  StreamLoadMatch,
+} from '../ListenfreeTypes'
 
 // TODO: needs Entity superclass
-class StreamEntity extends ListenfreeEntityBase {
+class StreamEntity extends ListenfreeEntityBase<Stream> {
 
   constructor(client: ListenfreeSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class StreamEntity extends ListenfreeEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: StreamLoadMatch, ctrl?: Control): Promise<Stream> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class StreamEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Stream> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

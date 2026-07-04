@@ -13,6 +13,9 @@ require_relative 'config'
 require_relative 'feature/base_feature'
 require_relative 'features'
 
+# Load typed models (Struct value objects).
+require_relative 'Listenfree_types'
+
 
 class ListenfreeSDK
   attr_accessor :mode, :features, :options
@@ -131,7 +134,7 @@ class ListenfreeSDK
     end
 
     _, err = utility.prepare_auth.call(ctx)
-    return nil, err if err
+    raise err if err
 
     utility.make_fetch_def.call(ctx)
   end
@@ -139,8 +142,14 @@ class ListenfreeSDK
   def direct(fetchargs = {})
     utility = @_utility
 
-    fetchdef, err = prepare(fetchargs)
-    return { "ok" => false, "err" => err }, nil if err
+    # direct() is the raw-HTTP escape hatch: it always returns a result hash
+    # ({ "ok" => ..., ... }) and never raises. prepare() raises on error, so
+    # trap that and surface it in the hash.
+    begin
+      fetchdef = prepare(fetchargs)
+    rescue ListenfreeError => err
+      return { "ok" => false, "err" => err }
+    end
 
     fetchargs ||= {}
     ctrl = ListenfreeHelpers.to_map(VoxgigStruct.getprop(fetchargs, "ctrl")) || {}
@@ -153,13 +162,13 @@ class ListenfreeSDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err }, nil if fetch_err
+    return { "ok" => false, "err" => fetch_err } if fetch_err
 
     if fetched.nil?
       return {
         "ok" => false,
         "err" => ctx.make_error("direct_no_response", "response: undefined"),
-      }, nil
+      }
     end
 
     if fetched.is_a?(Hash)
@@ -189,58 +198,114 @@ class ListenfreeSDK
         "status" => status,
         "headers" => headers,
         "data" => json_data,
-      }, nil
+      }
     end
 
     return {
       "ok" => false,
       "err" => ctx.make_error("direct_invalid", "invalid response type"),
-    }, nil
+    }
   end
 
 
+  # Idiomatic facade: client.listening_room.list / client.listening_room.load({ "id" => ... })
+  def listening_room
+    require_relative 'entity/listening_room_entity'
+    @listening_room ||= ListeningRoomEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.listening_room instead.
   def ListeningRoom(data = nil)
     require_relative 'entity/listening_room_entity'
     ListeningRoomEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.music.list / client.music.load({ "id" => ... })
+  def music
+    require_relative 'entity/music_entity'
+    @music ||= MusicEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.music instead.
   def Music(data = nil)
     require_relative 'entity/music_entity'
     MusicEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.offline_download.list / client.offline_download.load({ "id" => ... })
+  def offline_download
+    require_relative 'entity/offline_download_entity'
+    @offline_download ||= OfflineDownloadEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.offline_download instead.
   def OfflineDownload(data = nil)
     require_relative 'entity/offline_download_entity'
     OfflineDownloadEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.playlist.list / client.playlist.load({ "id" => ... })
+  def playlist
+    require_relative 'entity/playlist_entity'
+    @playlist ||= PlaylistEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.playlist instead.
   def Playlist(data = nil)
     require_relative 'entity/playlist_entity'
     PlaylistEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.search.list / client.search.load({ "id" => ... })
+  def search
+    require_relative 'entity/search_entity'
+    @search ||= SearchEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.search instead.
   def Search(data = nil)
     require_relative 'entity/search_entity'
     SearchEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.song.list / client.song.load({ "id" => ... })
+  def song
+    require_relative 'entity/song_entity'
+    @song ||= SongEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.song instead.
   def Song(data = nil)
     require_relative 'entity/song_entity'
     SongEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.stream.list / client.stream.load({ "id" => ... })
+  def stream
+    require_relative 'entity/stream_entity'
+    @stream ||= StreamEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.stream instead.
   def Stream(data = nil)
     require_relative 'entity/stream_entity'
     StreamEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.video.list / client.video.load({ "id" => ... })
+  def video
+    require_relative 'entity/video_entity'
+    @video ||= VideoEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.video instead.
   def Video(data = nil)
     require_relative 'entity/video_entity'
     VideoEntity.new(self, data)

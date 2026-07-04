@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch SongLoadMatch
+---@param ctrl? table
+---@return Song
+---@return string? err
 function SongEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

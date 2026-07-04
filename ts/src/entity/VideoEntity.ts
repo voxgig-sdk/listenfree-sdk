@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Video,
+  VideoLoadMatch,
+} from '../ListenfreeTypes'
 
 // TODO: needs Entity superclass
-class VideoEntity extends ListenfreeEntityBase {
+class VideoEntity extends ListenfreeEntityBase<Video> {
 
   constructor(client: ListenfreeSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class VideoEntity extends ListenfreeEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: VideoLoadMatch, ctrl?: Control): Promise<Video> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class VideoEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Video> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

@@ -244,48 +244,152 @@ end
 
 
 
+-- Idiomatic facade: client:listening_room():list() / client:listening_room():load({ id = ... })
+function ListenfreeSDK:listening_room(data)
+  local EntityMod = require("entity.listening_room_entity")
+  if data == nil then
+    if self._listening_room == nil then
+      self._listening_room = EntityMod.new(self, nil)
+    end
+    return self._listening_room
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:listening_room() instead.
 function ListenfreeSDK:ListeningRoom(data)
   local EntityMod = require("entity.listening_room_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:music():list() / client:music():load({ id = ... })
+function ListenfreeSDK:music(data)
+  local EntityMod = require("entity.music_entity")
+  if data == nil then
+    if self._music == nil then
+      self._music = EntityMod.new(self, nil)
+    end
+    return self._music
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:music() instead.
 function ListenfreeSDK:Music(data)
   local EntityMod = require("entity.music_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:offline_download():list() / client:offline_download():load({ id = ... })
+function ListenfreeSDK:offline_download(data)
+  local EntityMod = require("entity.offline_download_entity")
+  if data == nil then
+    if self._offline_download == nil then
+      self._offline_download = EntityMod.new(self, nil)
+    end
+    return self._offline_download
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:offline_download() instead.
 function ListenfreeSDK:OfflineDownload(data)
   local EntityMod = require("entity.offline_download_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:playlist():list() / client:playlist():load({ id = ... })
+function ListenfreeSDK:playlist(data)
+  local EntityMod = require("entity.playlist_entity")
+  if data == nil then
+    if self._playlist == nil then
+      self._playlist = EntityMod.new(self, nil)
+    end
+    return self._playlist
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:playlist() instead.
 function ListenfreeSDK:Playlist(data)
   local EntityMod = require("entity.playlist_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:search():list() / client:search():load({ id = ... })
+function ListenfreeSDK:search(data)
+  local EntityMod = require("entity.search_entity")
+  if data == nil then
+    if self._search == nil then
+      self._search = EntityMod.new(self, nil)
+    end
+    return self._search
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:search() instead.
 function ListenfreeSDK:Search(data)
   local EntityMod = require("entity.search_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:song():list() / client:song():load({ id = ... })
+function ListenfreeSDK:song(data)
+  local EntityMod = require("entity.song_entity")
+  if data == nil then
+    if self._song == nil then
+      self._song = EntityMod.new(self, nil)
+    end
+    return self._song
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:song() instead.
 function ListenfreeSDK:Song(data)
   local EntityMod = require("entity.song_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:stream():list() / client:stream():load({ id = ... })
+function ListenfreeSDK:stream(data)
+  local EntityMod = require("entity.stream_entity")
+  if data == nil then
+    if self._stream == nil then
+      self._stream = EntityMod.new(self, nil)
+    end
+    return self._stream
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:stream() instead.
 function ListenfreeSDK:Stream(data)
   local EntityMod = require("entity.stream_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:video():list() / client:video():load({ id = ... })
+function ListenfreeSDK:video(data)
+  local EntityMod = require("entity.video_entity")
+  if data == nil then
+    if self._video == nil then
+      self._video = EntityMod.new(self, nil)
+    end
+    return self._video
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:video() instead.
 function ListenfreeSDK:Video(data)
   local EntityMod = require("entity.video_entity")
   return EntityMod.new(self, data)

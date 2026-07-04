@@ -51,8 +51,7 @@ class TestSongEntity:
         song_ref01_match_dt0 = {
             "id": song_ref01_data["id"],
         }
-        song_ref01_data_dt0_loaded, err = song_ref01_ent.load(song_ref01_match_dt0, None)
-        assert err is None
+        song_ref01_data_dt0_loaded = song_ref01_ent.load(song_ref01_match_dt0, None)
         song_ref01_data_dt0_load_result = helpers.to_map(song_ref01_data_dt0_loaded)
         assert song_ref01_data_dt0_load_result is not None
         assert song_ref01_data_dt0_load_result["id"] == song_ref01_data["id"]

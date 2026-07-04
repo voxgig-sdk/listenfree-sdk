@@ -9,11 +9,9 @@ The Python SDK for the Listenfree API — an entity-oriented client following Py
 
 
 ## Install
-```bash
-pip install voxgig-sdk-listenfree
-```
-
-Or install from source:
+This package is not yet published to PyPI. Install it from the GitHub
+release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/listenfree-sdk/releases)) or
+from a source checkout:
 
 ```bash
 pip install -e .
@@ -39,30 +37,30 @@ client = ListenfreeSDK({
 ### 2. List listeningrooms
 
 ```python
-result, err = client.ListeningRoom().list()
-if err:
-    raise Exception(err)
-
-if isinstance(result, list):
+try:
+    result = client.listeningroom.list()
     for item in result:
         d = item.data_get()
         print(d["id"], d["name"])
+except Exception as err:
+    print(f"list failed: {err}")
 ```
 
 ### 3. Load a listeningroom
 
 ```python
-result, err = client.ListeningRoom().load({"id": "example_id"})
-if err:
-    raise Exception(err)
-print(result)
+try:
+    result = client.listeningroom.load({"id": "example_id"})
+    print(result)
+except Exception as err:
+    print(f"load failed: {err}")
 ```
 
 ### 4. Create, update, and remove
 
 ```python
 # Create
-created, _ = client.ListeningRoom().create({"name": "Example"})
+created = client.listeningroom.create({"name": "Example"})
 
 ```
 
@@ -74,29 +72,28 @@ created, _ = client.ListeningRoom().create({"name": "Example"})
 For endpoints not covered by entity methods:
 
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
+else:
+    print(result["err"])     # error value
 ```
 
 ### Prepare a request without sending it
 
 ```python
-fetchdef, err = client.prepare({
+# prepare() returns the fetch definition and raises on error.
+fetchdef = client.prepare({
     "path": "/api/resource/{id}",
     "method": "DELETE",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 print(fetchdef["url"])
 print(fetchdef["method"])
@@ -110,7 +107,7 @@ Create a mock client for unit testing — no server required:
 ```python
 client = ListenfreeSDK.test()
 
-result, err = client.Listenfree().load({"id": "test01"})
+result = client.listeningroom.load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -187,8 +184,8 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | --- | --- | --- |
 | `options_map` | `() -> dict` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> (dict, err)` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> (dict, err)` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `ListeningRoom` | `(data) -> ListeningRoomEntity` | Create a ListeningRoom entity instance. |
 | `Music` | `(data) -> MusicEntity` | Create a Music entity instance. |
 | `OfflineDownload` | `(data) -> OfflineDownloadEntity` | Create a OfflineDownload entity instance. |
@@ -204,11 +201,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> (any, err)` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> (any, err)` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> (any, err)` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> (any, err)` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> (any, err)` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -218,8 +215,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`dict` with these keys:
+Entity operations return the bare result data (a `dict` for single-entity
+ops, a `list` for `list`) and raise on error. Wrap calls in
+`try`/`except` to handle failures.
+
+The `direct()` escape hatch never raises — it returns a result `dict`
+you branch on via `result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -360,7 +361,7 @@ API path: `/songs/{songId}/video`
 
 ### ListeningRoom
 
-Create an instance: `const listening_room = client.ListeningRoom()`
+Create an instance: `const listening_room = client.listening_room`
 
 #### Operations
 
@@ -388,26 +389,26 @@ Create an instance: `const listening_room = client.ListeningRoom()`
 #### Example: Load
 
 ```ts
-const listening_room = await client.ListeningRoom().load({ id: 'listening_room_id' })
+const listening_room = await client.listening_room.load({ id: 'listening_room_id' })
 ```
 
 #### Example: List
 
 ```ts
-const listening_rooms = await client.ListeningRoom().list()
+const listening_rooms = await client.listening_room.list()
 ```
 
 #### Example: Create
 
 ```ts
-const listening_room = await client.ListeningRoom().create({
+const listening_room = await client.listening_room.create({
 })
 ```
 
 
 ### Music
 
-Create an instance: `const music = client.Music()`
+Create an instance: `const music = client.music`
 
 #### Operations
 
@@ -429,13 +430,13 @@ Create an instance: `const music = client.Music()`
 #### Example: List
 
 ```ts
-const musics = await client.Music().list()
+const musics = await client.music.list()
 ```
 
 
 ### OfflineDownload
 
-Create an instance: `const offline_download = client.OfflineDownload()`
+Create an instance: `const offline_download = client.offline_download`
 
 #### Operations
 
@@ -452,7 +453,7 @@ Create an instance: `const offline_download = client.OfflineDownload()`
 #### Example: Create
 
 ```ts
-const offline_download = await client.OfflineDownload().create({
+const offline_download = await client.offline_download.create({
   song_id: /* `$STRING` */,
 })
 ```
@@ -460,7 +461,7 @@ const offline_download = await client.OfflineDownload().create({
 
 ### Playlist
 
-Create an instance: `const playlist = client.Playlist()`
+Create an instance: `const playlist = client.playlist`
 
 #### Operations
 
@@ -492,19 +493,19 @@ Create an instance: `const playlist = client.Playlist()`
 #### Example: Load
 
 ```ts
-const playlist = await client.Playlist().load({ id: 'playlist_id' })
+const playlist = await client.playlist.load({ id: 'playlist_id' })
 ```
 
 #### Example: List
 
 ```ts
-const playlists = await client.Playlist().list()
+const playlists = await client.playlist.list()
 ```
 
 #### Example: Create
 
 ```ts
-const playlist = await client.Playlist().create({
+const playlist = await client.playlist.create({
   song_id: /* `$STRING` */,
 })
 ```
@@ -512,7 +513,7 @@ const playlist = await client.Playlist().create({
 
 ### Search
 
-Create an instance: `const search = client.Search()`
+Create an instance: `const search = client.search`
 
 #### Operations
 
@@ -532,13 +533,13 @@ Create an instance: `const search = client.Search()`
 #### Example: Load
 
 ```ts
-const search = await client.Search().load({ id: 'search_id' })
+const search = await client.search.load({ id: 'search_id' })
 ```
 
 
 ### Song
 
-Create an instance: `const song = client.Song()`
+Create an instance: `const song = client.song`
 
 #### Operations
 
@@ -563,13 +564,13 @@ Create an instance: `const song = client.Song()`
 #### Example: Load
 
 ```ts
-const song = await client.Song().load({ id: 'song_id' })
+const song = await client.song.load({ id: 'song_id' })
 ```
 
 
 ### Stream
 
-Create an instance: `const stream = client.Stream()`
+Create an instance: `const stream = client.stream`
 
 #### Operations
 
@@ -589,13 +590,13 @@ Create an instance: `const stream = client.Stream()`
 #### Example: Load
 
 ```ts
-const stream = await client.Stream().load({ id: 'stream_id' })
+const stream = await client.stream.load({ id: 'stream_id' })
 ```
 
 
 ### Video
 
-Create an instance: `const video = client.Video()`
+Create an instance: `const video = client.video`
 
 #### Operations
 
@@ -614,7 +615,7 @@ Create an instance: `const video = client.Video()`
 #### Example: Load
 
 ```ts
-const video = await client.Video().load({ id: 'video_id' })
+const video = await client.video.load({ id: 'video_id' })
 ```
 
 
@@ -688,11 +689,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-moon = client.Moon()
-moon.load({"planet_id": "earth", "id": "luna"})
+listeningroom = client.listeningroom
+listeningroom.load({"id": "example_id"})
 
-# moon.data_get() now returns the loaded moon data
-# moon.match_get() returns the last match criteria
+# listeningroom.data_get() now returns the loaded listeningroom data
+# listeningroom.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

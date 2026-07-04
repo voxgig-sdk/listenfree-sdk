@@ -49,8 +49,7 @@ class TestVideoEntity:
         # LOAD
         video_ref01_ent = client.Video(None)
         video_ref01_match_dt0 = {}
-        video_ref01_data_dt0_loaded, err = video_ref01_ent.load(video_ref01_match_dt0, None)
-        assert err is None
+        video_ref01_data_dt0_loaded = video_ref01_ent.load(video_ref01_match_dt0, None)
         assert video_ref01_data_dt0_loaded is not None
 
 

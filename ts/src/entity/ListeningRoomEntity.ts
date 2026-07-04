@@ -14,9 +14,15 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  ListeningRoom,
+  ListeningRoomLoadMatch,
+  ListeningRoomListMatch,
+  ListeningRoomCreateData,
+} from '../ListenfreeTypes'
 
 // TODO: needs Entity superclass
-class ListeningRoomEntity extends ListenfreeEntityBase {
+class ListeningRoomEntity extends ListenfreeEntityBase<ListeningRoom> {
 
   constructor(client: ListenfreeSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +38,7 @@ class ListeningRoomEntity extends ListenfreeEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: ListeningRoomLoadMatch, ctrl?: Control): Promise<ListeningRoom> {
 
     const utility = this._utility
 
@@ -136,14 +142,16 @@ class ListeningRoomEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<ListeningRoom> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: ListeningRoomListMatch, ctrl?: Control): Promise<ListeningRoom[]> {
 
     const utility = this._utility
 
@@ -243,14 +251,16 @@ class ListeningRoomEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<ListeningRoom[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: ListeningRoomCreateData, ctrl?: Control): Promise<ListeningRoom> {
 
     const utility = this._utility
     const {
@@ -349,7 +359,9 @@ class ListeningRoomEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<ListeningRoom> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

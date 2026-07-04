@@ -83,6 +83,10 @@ end
 
 
 
+---@param reqdata OfflineDownloadCreateData
+---@param ctrl? table
+---@return OfflineDownload
+---@return string? err
 function OfflineDownloadEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

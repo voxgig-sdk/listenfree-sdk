@@ -42,8 +42,7 @@ class StreamEntityTest < Minitest::Test
     # LOAD
     stream_ref01_ent = client.Stream(nil)
     stream_ref01_match_dt0 = {}
-    stream_ref01_data_dt0_loaded, err = stream_ref01_ent.load(stream_ref01_match_dt0, nil)
-    assert_nil err
+    stream_ref01_data_dt0_loaded = stream_ref01_ent.load(stream_ref01_match_dt0, nil)
     assert !stream_ref01_data_dt0_loaded.nil?
 
   end

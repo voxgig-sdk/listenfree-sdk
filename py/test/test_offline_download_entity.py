@@ -44,9 +44,7 @@ class TestOfflineDownloadEntity:
         offline_download_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.offline_download"), "offline_download_ref01"))
 
-        offline_download_ref01_data_result, err = offline_download_ref01_ent.create(offline_download_ref01_data, None)
-        assert err is None
-        offline_download_ref01_data = helpers.to_map(offline_download_ref01_data_result)
+        offline_download_ref01_data = helpers.to_map(offline_download_ref01_ent.create(offline_download_ref01_data, None))
         assert offline_download_ref01_data is not None
 
 

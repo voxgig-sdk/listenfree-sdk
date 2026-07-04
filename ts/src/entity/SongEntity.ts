@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Song,
+  SongLoadMatch,
+} from '../ListenfreeTypes'
 
 // TODO: needs Entity superclass
-class SongEntity extends ListenfreeEntityBase {
+class SongEntity extends ListenfreeEntityBase<Song> {
 
   constructor(client: ListenfreeSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class SongEntity extends ListenfreeEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: SongLoadMatch, ctrl?: Control): Promise<Song> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class SongEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Song> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

@@ -245,41 +245,65 @@ func (sdk *ListenfreeSDK) Direct(fetchargs map[string]any) (map[string]any, erro
 }
 
 
+// ListeningRoom returns a ListeningRoom entity bound to this client.
+// Idiomatic usage: client.ListeningRoom(nil).List(nil, nil) or
+// client.ListeningRoom(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ListenfreeSDK) ListeningRoom(data map[string]any) ListenfreeEntity {
 	return NewListeningRoomEntityFunc(sdk, data)
 }
 
 
+// Music returns a Music entity bound to this client.
+// Idiomatic usage: client.Music(nil).List(nil, nil) or
+// client.Music(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ListenfreeSDK) Music(data map[string]any) ListenfreeEntity {
 	return NewMusicEntityFunc(sdk, data)
 }
 
 
+// OfflineDownload returns a OfflineDownload entity bound to this client.
+// Idiomatic usage: client.OfflineDownload(nil).List(nil, nil) or
+// client.OfflineDownload(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ListenfreeSDK) OfflineDownload(data map[string]any) ListenfreeEntity {
 	return NewOfflineDownloadEntityFunc(sdk, data)
 }
 
 
+// Playlist returns a Playlist entity bound to this client.
+// Idiomatic usage: client.Playlist(nil).List(nil, nil) or
+// client.Playlist(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ListenfreeSDK) Playlist(data map[string]any) ListenfreeEntity {
 	return NewPlaylistEntityFunc(sdk, data)
 }
 
 
+// Search returns a Search entity bound to this client.
+// Idiomatic usage: client.Search(nil).List(nil, nil) or
+// client.Search(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ListenfreeSDK) Search(data map[string]any) ListenfreeEntity {
 	return NewSearchEntityFunc(sdk, data)
 }
 
 
+// Song returns a Song entity bound to this client.
+// Idiomatic usage: client.Song(nil).List(nil, nil) or
+// client.Song(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ListenfreeSDK) Song(data map[string]any) ListenfreeEntity {
 	return NewSongEntityFunc(sdk, data)
 }
 
 
+// Stream returns a Stream entity bound to this client.
+// Idiomatic usage: client.Stream(nil).List(nil, nil) or
+// client.Stream(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ListenfreeSDK) Stream(data map[string]any) ListenfreeEntity {
 	return NewStreamEntityFunc(sdk, data)
 }
 
 
+// Video returns a Video entity bound to this client.
+// Idiomatic usage: client.Video(nil).List(nil, nil) or
+// client.Video(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ListenfreeSDK) Video(data map[string]any) ListenfreeEntity {
 	return NewVideoEntityFunc(sdk, data)
 }

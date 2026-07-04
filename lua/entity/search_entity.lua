@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch SearchLoadMatch
+---@param ctrl? table
+---@return Search
+---@return string? err
 function SearchEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

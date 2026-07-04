@@ -50,8 +50,7 @@ class TestMusicEntity:
         music_ref01_ent = client.Music(None)
         music_ref01_match = {}
 
-        music_ref01_list_result, err = music_ref01_ent.list(music_ref01_match, None)
-        assert err is None
+        music_ref01_list_result = music_ref01_ent.list(music_ref01_match, None)
         assert isinstance(music_ref01_list_result, list)
 
 

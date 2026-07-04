@@ -42,8 +42,7 @@ class VideoEntityTest < Minitest::Test
     # LOAD
     video_ref01_ent = client.Video(nil)
     video_ref01_match_dt0 = {}
-    video_ref01_data_dt0_loaded, err = video_ref01_ent.load(video_ref01_match_dt0, nil)
-    assert_nil err
+    video_ref01_data_dt0_loaded = video_ref01_ent.load(video_ref01_match_dt0, nil)
     assert !video_ref01_data_dt0_loaded.nil?
 
   end

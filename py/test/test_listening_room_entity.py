@@ -44,17 +44,14 @@ class TestListeningRoomEntity:
         listening_room_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.listening_room"), "listening_room_ref01"))
 
-        listening_room_ref01_data_result, err = listening_room_ref01_ent.create(listening_room_ref01_data, None)
-        assert err is None
-        listening_room_ref01_data = helpers.to_map(listening_room_ref01_data_result)
+        listening_room_ref01_data = helpers.to_map(listening_room_ref01_ent.create(listening_room_ref01_data, None))
         assert listening_room_ref01_data is not None
         assert listening_room_ref01_data["id"] is not None
 
         # LIST
         listening_room_ref01_match = {}
 
-        listening_room_ref01_list_result, err = listening_room_ref01_ent.list(listening_room_ref01_match, None)
-        assert err is None
+        listening_room_ref01_list_result = listening_room_ref01_ent.list(listening_room_ref01_match, None)
         assert isinstance(listening_room_ref01_list_result, list)
 
         found_item = vs.select(
@@ -66,8 +63,7 @@ class TestListeningRoomEntity:
         listening_room_ref01_match_dt0 = {
             "id": listening_room_ref01_data["id"],
         }
-        listening_room_ref01_data_dt0_loaded, err = listening_room_ref01_ent.load(listening_room_ref01_match_dt0, None)
-        assert err is None
+        listening_room_ref01_data_dt0_loaded = listening_room_ref01_ent.load(listening_room_ref01_match_dt0, None)
         listening_room_ref01_data_dt0_load_result = helpers.to_map(listening_room_ref01_data_dt0_loaded)
         assert listening_room_ref01_data_dt0_load_result is not None
         assert listening_room_ref01_data_dt0_load_result["id"] == listening_room_ref01_data["id"]

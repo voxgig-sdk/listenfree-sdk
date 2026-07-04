@@ -43,8 +43,7 @@ class OfflineDownloadEntityTest extends TestCase
         $offline_download_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.offline_download"), "offline_download_ref01"));
 
-        [$offline_download_ref01_data_result, $err] = $offline_download_ref01_ent->create($offline_download_ref01_data, null);
-        $this->assertNull($err);
+        $offline_download_ref01_data_result = $offline_download_ref01_ent->create($offline_download_ref01_data, null);
         $offline_download_ref01_data = Helpers::to_map($offline_download_ref01_data_result);
         $this->assertNotNull($offline_download_ref01_data);
 

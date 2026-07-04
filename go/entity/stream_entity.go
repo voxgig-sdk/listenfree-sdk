@@ -85,6 +85,27 @@ func (e *StreamEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Stream; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *StreamEntity) DataTyped(data ...Stream) Stream {
+	if len(data) > 0 {
+		return typedFrom[Stream](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Stream](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Stream (all fields
+// optional at the wire level).
+func (e *StreamEntity) MatchTyped(match ...Stream) Stream {
+	if len(match) > 0 {
+		return typedFrom[Stream](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Stream](e.Match())
+}
+
 
 func (e *StreamEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -109,6 +130,17 @@ func (e *StreamEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, 
 			}
 		}
 	})
+}
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// StreamLoadMatch and returns an Stream. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *StreamEntity) LoadTyped(reqmatch StreamLoadMatch, ctrl map[string]any) (Stream, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Stream{}, err
+	}
+	return typedFrom[Stream](res), nil
 }
 
 

@@ -45,6 +45,7 @@ class SongEntity
     end
   end
 
+  # @return [Song, Hash] the current Song data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class SongEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Song fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Song.
+  #
+  # @param reqmatch [SongLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Song, Hash] the loaded Song; raises ListenfreeError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

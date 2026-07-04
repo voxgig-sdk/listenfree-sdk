@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch StreamLoadMatch
+---@param ctrl? table
+---@return Stream
+---@return string? err
 function StreamEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

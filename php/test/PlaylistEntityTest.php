@@ -43,8 +43,7 @@ class PlaylistEntityTest extends TestCase
         $playlist_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.playlist"), "playlist_ref01"));
 
-        [$playlist_ref01_data_result, $err] = $playlist_ref01_ent->create($playlist_ref01_data, null);
-        $this->assertNull($err);
+        $playlist_ref01_data_result = $playlist_ref01_ent->create($playlist_ref01_data, null);
         $playlist_ref01_data = Helpers::to_map($playlist_ref01_data_result);
         $this->assertNotNull($playlist_ref01_data);
         $this->assertNotNull($playlist_ref01_data["id"]);
@@ -52,8 +51,7 @@ class PlaylistEntityTest extends TestCase
         // LIST
         $playlist_ref01_match = [];
 
-        [$playlist_ref01_list_result, $err] = $playlist_ref01_ent->list($playlist_ref01_match, null);
-        $this->assertNull($err);
+        $playlist_ref01_list_result = $playlist_ref01_ent->list($playlist_ref01_match, null);
         $this->assertIsArray($playlist_ref01_list_result);
 
         $found_item = sdk_select(
@@ -70,8 +68,7 @@ class PlaylistEntityTest extends TestCase
         $playlist_ref01_markdef_up0_value = "Mark01-playlist_ref01_" . $setup["now"];
         $playlist_ref01_data_up0_up[$playlist_ref01_markdef_up0_name] = $playlist_ref01_markdef_up0_value;
 
-        [$playlist_ref01_resdata_up0_result, $err] = $playlist_ref01_ent->update($playlist_ref01_data_up0_up, null);
-        $this->assertNull($err);
+        $playlist_ref01_resdata_up0_result = $playlist_ref01_ent->update($playlist_ref01_data_up0_up, null);
         $playlist_ref01_resdata_up0 = Helpers::to_map($playlist_ref01_resdata_up0_result);
         $this->assertNotNull($playlist_ref01_resdata_up0);
         $this->assertEquals($playlist_ref01_resdata_up0["id"], $playlist_ref01_data_up0_up["id"]);
@@ -81,8 +78,7 @@ class PlaylistEntityTest extends TestCase
         $playlist_ref01_match_dt0 = [
             "id" => $playlist_ref01_data["id"],
         ];
-        [$playlist_ref01_data_dt0_loaded, $err] = $playlist_ref01_ent->load($playlist_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $playlist_ref01_data_dt0_loaded = $playlist_ref01_ent->load($playlist_ref01_match_dt0, null);
         $playlist_ref01_data_dt0_load_result = Helpers::to_map($playlist_ref01_data_dt0_loaded);
         $this->assertNotNull($playlist_ref01_data_dt0_load_result);
         $this->assertEquals($playlist_ref01_data_dt0_load_result["id"], $playlist_ref01_data["id"]);
@@ -91,14 +87,12 @@ class PlaylistEntityTest extends TestCase
         $playlist_ref01_match_rm0 = [
             "id" => $playlist_ref01_data["id"],
         ];
-        [$_, $err] = $playlist_ref01_ent->remove($playlist_ref01_match_rm0, null);
-        $this->assertNull($err);
+        $playlist_ref01_ent->remove($playlist_ref01_match_rm0, null);
 
         // LIST
         $playlist_ref01_match_rt0 = [];
 
-        [$playlist_ref01_list_rt0_result, $err] = $playlist_ref01_ent->list($playlist_ref01_match_rt0, null);
-        $this->assertNull($err);
+        $playlist_ref01_list_rt0_result = $playlist_ref01_ent->list($playlist_ref01_match_rt0, null);
         $this->assertIsArray($playlist_ref01_list_rt0_result);
 
         $not_found_item = sdk_select(

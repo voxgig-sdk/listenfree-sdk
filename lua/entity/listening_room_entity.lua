@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch ListeningRoomLoadMatch
+---@param ctrl? table
+---@return ListeningRoom
+---@return string? err
 function ListeningRoomEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch ListeningRoomListMatch
+---@param ctrl? table
+---@return ListeningRoom[]
+---@return string? err
 function ListeningRoomEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -126,6 +134,10 @@ end
 
 
 
+---@param reqdata ListeningRoomCreateData
+---@param ctrl? table
+---@return ListeningRoom
+---@return string? err
 function ListeningRoomEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

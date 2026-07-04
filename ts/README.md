@@ -9,9 +9,12 @@ The TypeScript SDK for the Listenfree API — a type-safe, entity-oriented clien
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/listenfree
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/listenfree-sdk/releases](https://github.com/voxgig-sdk/listenfree-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,7 +23,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { ListenfreeSDK } from 'listenfree'
+import { ListenfreeSDK } from '@voxgig-sdk/listenfree'
 
 const client = new ListenfreeSDK({
   apikey: process.env.LISTENFREE_APIKEY,
@@ -30,7 +33,7 @@ const client = new ListenfreeSDK({
 ### 2. List listeningrooms
 
 ```ts
-const result = await client.ListeningRoom().list()
+const result = await client.listeningroom.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -42,7 +45,7 @@ if (result.ok) {
 ### 3. Load a listeningroom
 
 ```ts
-const result = await client.ListeningRoom().load({ id: 'example_id' })
+const result = await client.listeningroom.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -53,7 +56,7 @@ if (result.ok) {
 
 ```ts
 // Create
-const created = await client.ListeningRoom().create({
+const created = await client.listeningroom.create({
   name: 'Example',
 })
 
@@ -101,7 +104,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ListenfreeSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.listeningroom.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -118,7 +121,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.listeningroom
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -406,7 +409,7 @@ API path: `/songs/{songId}/video`
 
 ### ListeningRoom
 
-Create an instance: `const listening_room = client.ListeningRoom()`
+Create an instance: `const listening_room = client.listening_room`
 
 #### Operations
 
@@ -434,26 +437,26 @@ Create an instance: `const listening_room = client.ListeningRoom()`
 #### Example: Load
 
 ```ts
-const listening_room = await client.ListeningRoom().load({ id: 'listening_room_id' })
+const listening_room = await client.listening_room.load({ id: 'listening_room_id' })
 ```
 
 #### Example: List
 
 ```ts
-const listening_rooms = await client.ListeningRoom().list()
+const listening_rooms = await client.listening_room.list()
 ```
 
 #### Example: Create
 
 ```ts
-const listening_room = await client.ListeningRoom().create({
+const listening_room = await client.listening_room.create({
 })
 ```
 
 
 ### Music
 
-Create an instance: `const music = client.Music()`
+Create an instance: `const music = client.music`
 
 #### Operations
 
@@ -475,13 +478,13 @@ Create an instance: `const music = client.Music()`
 #### Example: List
 
 ```ts
-const musics = await client.Music().list()
+const musics = await client.music.list()
 ```
 
 
 ### OfflineDownload
 
-Create an instance: `const offline_download = client.OfflineDownload()`
+Create an instance: `const offline_download = client.offline_download`
 
 #### Operations
 
@@ -498,7 +501,7 @@ Create an instance: `const offline_download = client.OfflineDownload()`
 #### Example: Create
 
 ```ts
-const offline_download = await client.OfflineDownload().create({
+const offline_download = await client.offline_download.create({
   song_id: /* `$STRING` */,
 })
 ```
@@ -506,7 +509,7 @@ const offline_download = await client.OfflineDownload().create({
 
 ### Playlist
 
-Create an instance: `const playlist = client.Playlist()`
+Create an instance: `const playlist = client.playlist`
 
 #### Operations
 
@@ -538,19 +541,19 @@ Create an instance: `const playlist = client.Playlist()`
 #### Example: Load
 
 ```ts
-const playlist = await client.Playlist().load({ id: 'playlist_id' })
+const playlist = await client.playlist.load({ id: 'playlist_id' })
 ```
 
 #### Example: List
 
 ```ts
-const playlists = await client.Playlist().list()
+const playlists = await client.playlist.list()
 ```
 
 #### Example: Create
 
 ```ts
-const playlist = await client.Playlist().create({
+const playlist = await client.playlist.create({
   song_id: /* `$STRING` */,
 })
 ```
@@ -558,7 +561,7 @@ const playlist = await client.Playlist().create({
 
 ### Search
 
-Create an instance: `const search = client.Search()`
+Create an instance: `const search = client.search`
 
 #### Operations
 
@@ -578,13 +581,13 @@ Create an instance: `const search = client.Search()`
 #### Example: Load
 
 ```ts
-const search = await client.Search().load({ id: 'search_id' })
+const search = await client.search.load({ id: 'search_id' })
 ```
 
 
 ### Song
 
-Create an instance: `const song = client.Song()`
+Create an instance: `const song = client.song`
 
 #### Operations
 
@@ -609,13 +612,13 @@ Create an instance: `const song = client.Song()`
 #### Example: Load
 
 ```ts
-const song = await client.Song().load({ id: 'song_id' })
+const song = await client.song.load({ id: 'song_id' })
 ```
 
 
 ### Stream
 
-Create an instance: `const stream = client.Stream()`
+Create an instance: `const stream = client.stream`
 
 #### Operations
 
@@ -635,13 +638,13 @@ Create an instance: `const stream = client.Stream()`
 #### Example: Load
 
 ```ts
-const stream = await client.Stream().load({ id: 'stream_id' })
+const stream = await client.stream.load({ id: 'stream_id' })
 ```
 
 
 ### Video
 
-Create an instance: `const video = client.Video()`
+Create an instance: `const video = client.video`
 
 #### Operations
 
@@ -660,7 +663,7 @@ Create an instance: `const video = client.Video()`
 #### Example: Load
 
 ```ts
-const video = await client.Video().load({ id: 'video_id' })
+const video = await client.video.load({ id: 'video_id' })
 ```
 
 
@@ -721,7 +724,7 @@ listenfree/
 Import the SDK from the package root:
 
 ```ts
-import { ListenfreeSDK } from 'listenfree'
+import { ListenfreeSDK } from '@voxgig-sdk/listenfree'
 ```
 
 ### Entity state
@@ -731,11 +734,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const listeningroom = client.listeningroom
+await listeningroom.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// listeningroom.data() now returns the loaded listeningroom data
+// listeningroom.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

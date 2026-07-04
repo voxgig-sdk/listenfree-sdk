@@ -49,8 +49,7 @@ class TestStreamEntity:
         # LOAD
         stream_ref01_ent = client.Stream(None)
         stream_ref01_match_dt0 = {}
-        stream_ref01_data_dt0_loaded, err = stream_ref01_ent.load(stream_ref01_match_dt0, None)
-        assert err is None
+        stream_ref01_data_dt0_loaded = stream_ref01_ent.load(stream_ref01_match_dt0, None)
         assert stream_ref01_data_dt0_loaded is not None
 
 

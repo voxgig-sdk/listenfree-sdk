@@ -172,7 +172,8 @@ class Config {
                     "name": "id",
                     "orig": "room_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -270,7 +271,8 @@ class Config {
                     "name": "id",
                     "orig": "room_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -528,7 +530,8 @@ class Config {
                     "name": "id",
                     "orig": "playlist_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -610,7 +613,8 @@ class Config {
                     "name": "id",
                     "orig": "playlist_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -653,7 +657,8 @@ class Config {
                     "name": "id",
                     "orig": "playlist_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -696,7 +701,8 @@ class Config {
                     "name": "id",
                     "orig": "playlist_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -918,7 +924,8 @@ class Config {
                     "name": "id",
                     "orig": "song_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -999,7 +1006,8 @@ class Config {
                     "name": "song_id",
                     "orig": "song_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [
@@ -1090,7 +1098,8 @@ class Config {
                     "name": "song_id",
                     "orig": "song_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },

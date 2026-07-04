@@ -49,8 +49,7 @@ class TestSearchEntity:
         # LOAD
         search_ref01_ent = client.Search(None)
         search_ref01_match_dt0 = {}
-        search_ref01_data_dt0_loaded, err = search_ref01_ent.load(search_ref01_match_dt0, None)
-        assert err is None
+        search_ref01_data_dt0_loaded = search_ref01_ent.load(search_ref01_match_dt0, None)
         assert search_ref01_data_dt0_loaded is not None
 
 

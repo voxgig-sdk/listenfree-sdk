@@ -144,16 +144,23 @@ class ListenfreeSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class ListenfreeSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,50 +212,138 @@ class ListenfreeSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def listening_room(self):
+        """Idiomatic facade: client.listening_room.list() / client.listening_room.load({"id": ...})."""
+        from entity.listening_room_entity import ListeningRoomEntity
+        cached = getattr(self, "_listening_room", None)
+        if cached is None:
+            cached = ListeningRoomEntity(self, None)
+            self._listening_room = cached
+        return cached
 
     def ListeningRoom(self, data=None):
+        # Deprecated: use client.listening_room instead.
         from entity.listening_room_entity import ListeningRoomEntity
         return ListeningRoomEntity(self, data)
 
 
+    @property
+    def music(self):
+        """Idiomatic facade: client.music.list() / client.music.load({"id": ...})."""
+        from entity.music_entity import MusicEntity
+        cached = getattr(self, "_music", None)
+        if cached is None:
+            cached = MusicEntity(self, None)
+            self._music = cached
+        return cached
+
     def Music(self, data=None):
+        # Deprecated: use client.music instead.
         from entity.music_entity import MusicEntity
         return MusicEntity(self, data)
 
 
+    @property
+    def offline_download(self):
+        """Idiomatic facade: client.offline_download.list() / client.offline_download.load({"id": ...})."""
+        from entity.offline_download_entity import OfflineDownloadEntity
+        cached = getattr(self, "_offline_download", None)
+        if cached is None:
+            cached = OfflineDownloadEntity(self, None)
+            self._offline_download = cached
+        return cached
+
     def OfflineDownload(self, data=None):
+        # Deprecated: use client.offline_download instead.
         from entity.offline_download_entity import OfflineDownloadEntity
         return OfflineDownloadEntity(self, data)
 
 
+    @property
+    def playlist(self):
+        """Idiomatic facade: client.playlist.list() / client.playlist.load({"id": ...})."""
+        from entity.playlist_entity import PlaylistEntity
+        cached = getattr(self, "_playlist", None)
+        if cached is None:
+            cached = PlaylistEntity(self, None)
+            self._playlist = cached
+        return cached
+
     def Playlist(self, data=None):
+        # Deprecated: use client.playlist instead.
         from entity.playlist_entity import PlaylistEntity
         return PlaylistEntity(self, data)
 
 
+    @property
+    def search(self):
+        """Idiomatic facade: client.search.list() / client.search.load({"id": ...})."""
+        from entity.search_entity import SearchEntity
+        cached = getattr(self, "_search", None)
+        if cached is None:
+            cached = SearchEntity(self, None)
+            self._search = cached
+        return cached
+
     def Search(self, data=None):
+        # Deprecated: use client.search instead.
         from entity.search_entity import SearchEntity
         return SearchEntity(self, data)
 
 
+    @property
+    def song(self):
+        """Idiomatic facade: client.song.list() / client.song.load({"id": ...})."""
+        from entity.song_entity import SongEntity
+        cached = getattr(self, "_song", None)
+        if cached is None:
+            cached = SongEntity(self, None)
+            self._song = cached
+        return cached
+
     def Song(self, data=None):
+        # Deprecated: use client.song instead.
         from entity.song_entity import SongEntity
         return SongEntity(self, data)
 
 
+    @property
+    def stream(self):
+        """Idiomatic facade: client.stream.list() / client.stream.load({"id": ...})."""
+        from entity.stream_entity import StreamEntity
+        cached = getattr(self, "_stream", None)
+        if cached is None:
+            cached = StreamEntity(self, None)
+            self._stream = cached
+        return cached
+
     def Stream(self, data=None):
+        # Deprecated: use client.stream instead.
         from entity.stream_entity import StreamEntity
         return StreamEntity(self, data)
 
 
+    @property
+    def video(self):
+        """Idiomatic facade: client.video.list() / client.video.load({"id": ...})."""
+        from entity.video_entity import VideoEntity
+        cached = getattr(self, "_video", None)
+        if cached is None:
+            cached = VideoEntity(self, None)
+            self._video = cached
+        return cached
+
     def Video(self, data=None):
+        # Deprecated: use client.video instead.
         from entity.video_entity import VideoEntity
         return VideoEntity(self, data)
 

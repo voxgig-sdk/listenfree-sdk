@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch PlaylistLoadMatch
+---@param ctrl? table
+---@return Playlist
+---@return string? err
 function PlaylistEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch PlaylistListMatch
+---@param ctrl? table
+---@return Playlist[]
+---@return string? err
 function PlaylistEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -126,6 +134,10 @@ end
 
 
 
+---@param reqdata PlaylistCreateData
+---@param ctrl? table
+---@return Playlist
+---@return string? err
 function PlaylistEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -148,6 +160,10 @@ end
 
 
 
+---@param reqdata PlaylistUpdateData
+---@param ctrl? table
+---@return Playlist
+---@return string? err
 function PlaylistEntity:update(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -173,6 +189,10 @@ end
 
 
 
+---@param reqmatch PlaylistRemoveMatch
+---@param ctrl? table
+---@return Playlist
+---@return string? err
 function PlaylistEntity:remove(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

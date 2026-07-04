@@ -45,6 +45,7 @@ class ListeningRoomEntity
     end
   end
 
+  # @return [ListeningRoom, Hash] the current ListeningRoom data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class ListeningRoomEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of ListeningRoom fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single ListeningRoom.
+  #
+  # @param reqmatch [ListeningRoomLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [ListeningRoom, Hash] the loaded ListeningRoom; raises ListenfreeError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class ListeningRoomEntity
 
 
   
+  # List ListeningRoom items matching the given filter.
+  #
+  # @param reqmatch [ListeningRoomListMatch, Hash, nil] match filter (any subset of ListeningRoom fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<ListeningRoom>, Array] the matching ListeningRoom items; raises ListenfreeError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -106,6 +118,11 @@ class ListeningRoomEntity
 
 
   
+  # Create a new ListeningRoom.
+  #
+  # @param reqdata [ListeningRoomCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [ListeningRoom, Hash] the created ListeningRoom; raises ListenfreeError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

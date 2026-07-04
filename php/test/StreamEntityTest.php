@@ -49,8 +49,7 @@ class StreamEntityTest extends TestCase
         // LOAD
         $stream_ref01_ent = $client->Stream(null);
         $stream_ref01_match_dt0 = [];
-        [$stream_ref01_data_dt0_loaded, $err] = $stream_ref01_ent->load($stream_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $stream_ref01_data_dt0_loaded = $stream_ref01_ent->load($stream_ref01_match_dt0, null);
         $this->assertNotNull($stream_ref01_data_dt0_loaded);
 
     }

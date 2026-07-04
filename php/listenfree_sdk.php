@@ -103,7 +103,7 @@ class ListenfreeSDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class ListenfreeSDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class ListenfreeSDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,73 +216,161 @@ class ListenfreeSDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function ListeningRoom($data = null)
+    private $_listening_room = null;
+
+    // Idiomatic facade: $client->listening_room()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias ListeningRoom() (PHP method
+    // names are case-insensitive).
+    public function listening_room($data = null)
     {
         require_once __DIR__ . '/entity/listening_room_entity.php';
+        if ($data === null) {
+            if ($this->_listening_room === null) {
+                $this->_listening_room = new ListeningRoomEntity($this, null);
+            }
+            return $this->_listening_room;
+        }
         return new ListeningRoomEntity($this, $data);
     }
 
 
-    public function Music($data = null)
+    private $_music = null;
+
+    // Idiomatic facade: $client->music()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Music() (PHP method
+    // names are case-insensitive).
+    public function music($data = null)
     {
         require_once __DIR__ . '/entity/music_entity.php';
+        if ($data === null) {
+            if ($this->_music === null) {
+                $this->_music = new MusicEntity($this, null);
+            }
+            return $this->_music;
+        }
         return new MusicEntity($this, $data);
     }
 
 
-    public function OfflineDownload($data = null)
+    private $_offline_download = null;
+
+    // Idiomatic facade: $client->offline_download()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias OfflineDownload() (PHP method
+    // names are case-insensitive).
+    public function offline_download($data = null)
     {
         require_once __DIR__ . '/entity/offline_download_entity.php';
+        if ($data === null) {
+            if ($this->_offline_download === null) {
+                $this->_offline_download = new OfflineDownloadEntity($this, null);
+            }
+            return $this->_offline_download;
+        }
         return new OfflineDownloadEntity($this, $data);
     }
 
 
-    public function Playlist($data = null)
+    private $_playlist = null;
+
+    // Idiomatic facade: $client->playlist()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Playlist() (PHP method
+    // names are case-insensitive).
+    public function playlist($data = null)
     {
         require_once __DIR__ . '/entity/playlist_entity.php';
+        if ($data === null) {
+            if ($this->_playlist === null) {
+                $this->_playlist = new PlaylistEntity($this, null);
+            }
+            return $this->_playlist;
+        }
         return new PlaylistEntity($this, $data);
     }
 
 
-    public function Search($data = null)
+    private $_search = null;
+
+    // Idiomatic facade: $client->search()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Search() (PHP method
+    // names are case-insensitive).
+    public function search($data = null)
     {
         require_once __DIR__ . '/entity/search_entity.php';
+        if ($data === null) {
+            if ($this->_search === null) {
+                $this->_search = new SearchEntity($this, null);
+            }
+            return $this->_search;
+        }
         return new SearchEntity($this, $data);
     }
 
 
-    public function Song($data = null)
+    private $_song = null;
+
+    // Idiomatic facade: $client->song()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Song() (PHP method
+    // names are case-insensitive).
+    public function song($data = null)
     {
         require_once __DIR__ . '/entity/song_entity.php';
+        if ($data === null) {
+            if ($this->_song === null) {
+                $this->_song = new SongEntity($this, null);
+            }
+            return $this->_song;
+        }
         return new SongEntity($this, $data);
     }
 
 
-    public function Stream($data = null)
+    private $_stream = null;
+
+    // Idiomatic facade: $client->stream()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Stream() (PHP method
+    // names are case-insensitive).
+    public function stream($data = null)
     {
         require_once __DIR__ . '/entity/stream_entity.php';
+        if ($data === null) {
+            if ($this->_stream === null) {
+                $this->_stream = new StreamEntity($this, null);
+            }
+            return $this->_stream;
+        }
         return new StreamEntity($this, $data);
     }
 
 
-    public function Video($data = null)
+    private $_video = null;
+
+    // Idiomatic facade: $client->video()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Video() (PHP method
+    // names are case-insensitive).
+    public function video($data = null)
     {
         require_once __DIR__ . '/entity/video_entity.php';
+        if ($data === null) {
+            if ($this->_video === null) {
+                $this->_video = new VideoEntity($this, null);
+            }
+            return $this->_video;
+        }
         return new VideoEntity($this, $data);
     }
 

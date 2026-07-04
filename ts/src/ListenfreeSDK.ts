@@ -9,6 +9,8 @@ import { SongEntity } from './entity/SongEntity'
 import { StreamEntity } from './entity/StreamEntity'
 import { VideoEntity } from './entity/VideoEntity'
 
+export type * from './ListenfreeTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -209,48 +211,112 @@ class ListenfreeSDK {
 
 
 
+  _listening_room?: ListeningRoomEntity
+
+  // Idiomatic facade: `client.listening_room.list()` / `client.listening_room.load({ id })`.
+  get listening_room(): ListeningRoomEntity {
+    return (this._listening_room ??= new ListeningRoomEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.listening_room` instead. */
   ListeningRoom(data?: any) {
     const self = this
     return new ListeningRoomEntity(self,data)
   }
 
 
+  _music?: MusicEntity
+
+  // Idiomatic facade: `client.music.list()` / `client.music.load({ id })`.
+  get music(): MusicEntity {
+    return (this._music ??= new MusicEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.music` instead. */
   Music(data?: any) {
     const self = this
     return new MusicEntity(self,data)
   }
 
 
+  _offline_download?: OfflineDownloadEntity
+
+  // Idiomatic facade: `client.offline_download.list()` / `client.offline_download.load({ id })`.
+  get offline_download(): OfflineDownloadEntity {
+    return (this._offline_download ??= new OfflineDownloadEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.offline_download` instead. */
   OfflineDownload(data?: any) {
     const self = this
     return new OfflineDownloadEntity(self,data)
   }
 
 
+  _playlist?: PlaylistEntity
+
+  // Idiomatic facade: `client.playlist.list()` / `client.playlist.load({ id })`.
+  get playlist(): PlaylistEntity {
+    return (this._playlist ??= new PlaylistEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.playlist` instead. */
   Playlist(data?: any) {
     const self = this
     return new PlaylistEntity(self,data)
   }
 
 
+  _search?: SearchEntity
+
+  // Idiomatic facade: `client.search.list()` / `client.search.load({ id })`.
+  get search(): SearchEntity {
+    return (this._search ??= new SearchEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.search` instead. */
   Search(data?: any) {
     const self = this
     return new SearchEntity(self,data)
   }
 
 
+  _song?: SongEntity
+
+  // Idiomatic facade: `client.song.list()` / `client.song.load({ id })`.
+  get song(): SongEntity {
+    return (this._song ??= new SongEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.song` instead. */
   Song(data?: any) {
     const self = this
     return new SongEntity(self,data)
   }
 
 
+  _stream?: StreamEntity
+
+  // Idiomatic facade: `client.stream.list()` / `client.stream.load({ id })`.
+  get stream(): StreamEntity {
+    return (this._stream ??= new StreamEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.stream` instead. */
   Stream(data?: any) {
     const self = this
     return new StreamEntity(self,data)
   }
 
 
+  _video?: VideoEntity
+
+  // Idiomatic facade: `client.video.list()` / `client.video.load({ id })`.
+  get video(): VideoEntity {
+    return (this._video ??= new VideoEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.video` instead. */
   Video(data?: any) {
     const self = this
     return new VideoEntity(self,data)

@@ -50,8 +50,7 @@ class MusicEntityTest extends TestCase
         $music_ref01_ent = $client->Music(null);
         $music_ref01_match = [];
 
-        [$music_ref01_list_result, $err] = $music_ref01_ent->list($music_ref01_match, null);
-        $this->assertNull($err);
+        $music_ref01_list_result = $music_ref01_ent->list($music_ref01_match, null);
         $this->assertIsArray($music_ref01_list_result);
 
     }

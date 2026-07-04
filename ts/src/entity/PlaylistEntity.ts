@@ -14,9 +14,17 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Playlist,
+  PlaylistLoadMatch,
+  PlaylistListMatch,
+  PlaylistCreateData,
+  PlaylistUpdateData,
+  PlaylistRemoveMatch,
+} from '../ListenfreeTypes'
 
 // TODO: needs Entity superclass
-class PlaylistEntity extends ListenfreeEntityBase {
+class PlaylistEntity extends ListenfreeEntityBase<Playlist> {
 
   constructor(client: ListenfreeSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +40,7 @@ class PlaylistEntity extends ListenfreeEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: PlaylistLoadMatch, ctrl?: Control): Promise<Playlist> {
 
     const utility = this._utility
 
@@ -136,14 +144,16 @@ class PlaylistEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Playlist> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: PlaylistListMatch, ctrl?: Control): Promise<Playlist[]> {
 
     const utility = this._utility
 
@@ -243,14 +253,16 @@ class PlaylistEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Playlist[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: PlaylistCreateData, ctrl?: Control): Promise<Playlist> {
 
     const utility = this._utility
     const {
@@ -349,14 +361,16 @@ class PlaylistEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Playlist> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async update(this: any, reqdata?: any, ctrl?: Control) {
+  async update(this: any, reqdata?: PlaylistUpdateData, ctrl?: Control): Promise<Playlist> {
 
     const utility = this._utility
 
@@ -461,14 +475,16 @@ class PlaylistEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Playlist> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async remove(this: any, reqmatch?: any, ctrl?: Control) {
+  async remove(this: any, reqmatch?: PlaylistRemoveMatch, ctrl?: Control): Promise<Playlist> {
 
     const utility = this._utility
 
@@ -573,7 +589,9 @@ class PlaylistEntity extends ListenfreeEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Playlist> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

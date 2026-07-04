@@ -36,8 +36,7 @@ class PlaylistEntityTest < Minitest::Test
     playlist_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.playlist"), "playlist_ref01"))
 
-    playlist_ref01_data_result, err = playlist_ref01_ent.create(playlist_ref01_data, nil)
-    assert_nil err
+    playlist_ref01_data_result = playlist_ref01_ent.create(playlist_ref01_data, nil)
     playlist_ref01_data = Helpers.to_map(playlist_ref01_data_result)
     assert !playlist_ref01_data.nil?
     assert !playlist_ref01_data["id"].nil?
@@ -45,8 +44,7 @@ class PlaylistEntityTest < Minitest::Test
     # LIST
     playlist_ref01_match = {}
 
-    playlist_ref01_list_result, err = playlist_ref01_ent.list(playlist_ref01_match, nil)
-    assert_nil err
+    playlist_ref01_list_result = playlist_ref01_ent.list(playlist_ref01_match, nil)
     assert playlist_ref01_list_result.is_a?(Array)
 
     found_item = Vs.select(
@@ -63,8 +61,7 @@ class PlaylistEntityTest < Minitest::Test
     playlist_ref01_markdef_up0_value = "Mark01-playlist_ref01_#{setup[:now]}"
     playlist_ref01_data_up0_up[playlist_ref01_markdef_up0_name] = playlist_ref01_markdef_up0_value
 
-    playlist_ref01_resdata_up0_result, err = playlist_ref01_ent.update(playlist_ref01_data_up0_up, nil)
-    assert_nil err
+    playlist_ref01_resdata_up0_result = playlist_ref01_ent.update(playlist_ref01_data_up0_up, nil)
     playlist_ref01_resdata_up0 = Helpers.to_map(playlist_ref01_resdata_up0_result)
     assert !playlist_ref01_resdata_up0.nil?
     assert_equal playlist_ref01_resdata_up0["id"], playlist_ref01_data_up0_up["id"]
@@ -74,8 +71,7 @@ class PlaylistEntityTest < Minitest::Test
     playlist_ref01_match_dt0 = {
       "id" => playlist_ref01_data["id"],
     }
-    playlist_ref01_data_dt0_loaded, err = playlist_ref01_ent.load(playlist_ref01_match_dt0, nil)
-    assert_nil err
+    playlist_ref01_data_dt0_loaded = playlist_ref01_ent.load(playlist_ref01_match_dt0, nil)
     playlist_ref01_data_dt0_load_result = Helpers.to_map(playlist_ref01_data_dt0_loaded)
     assert !playlist_ref01_data_dt0_load_result.nil?
     assert_equal playlist_ref01_data_dt0_load_result["id"], playlist_ref01_data["id"]
@@ -84,14 +80,12 @@ class PlaylistEntityTest < Minitest::Test
     playlist_ref01_match_rm0 = {
       "id" => playlist_ref01_data["id"],
     }
-    _, err = playlist_ref01_ent.remove(playlist_ref01_match_rm0, nil)
-    assert_nil err
+    playlist_ref01_ent.remove(playlist_ref01_match_rm0, nil)
 
     # LIST
     playlist_ref01_match_rt0 = {}
 
-    playlist_ref01_list_rt0_result, err = playlist_ref01_ent.list(playlist_ref01_match_rt0, nil)
-    assert_nil err
+    playlist_ref01_list_rt0_result = playlist_ref01_ent.list(playlist_ref01_match_rt0, nil)
     assert playlist_ref01_list_rt0_result.is_a?(Array)
 
     not_found_item = Vs.select(

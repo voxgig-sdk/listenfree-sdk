@@ -85,6 +85,27 @@ func (e *SearchEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Search; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *SearchEntity) DataTyped(data ...Search) Search {
+	if len(data) > 0 {
+		return typedFrom[Search](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Search](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Search (all fields
+// optional at the wire level).
+func (e *SearchEntity) MatchTyped(match ...Search) Search {
+	if len(match) > 0 {
+		return typedFrom[Search](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Search](e.Match())
+}
+
 
 func (e *SearchEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -109,6 +130,17 @@ func (e *SearchEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, 
 			}
 		}
 	})
+}
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// SearchLoadMatch and returns an Search. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *SearchEntity) LoadTyped(reqmatch SearchLoadMatch, ctrl map[string]any) (Search, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Search{}, err
+	}
+	return typedFrom[Search](res), nil
 }
 
 

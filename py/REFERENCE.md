@@ -82,9 +82,9 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs=None) -> tuple`
+#### `direct(fetchargs=None) -> dict`
 
-Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
+Make a direct HTTP request to any API endpoint. Returns a result `dict` with `ok`, `status`, `headers`, and `data` (or `err` on failure). This escape hatch never raises — branch on `result["ok"]`.
 
 **Parameters:**
 
@@ -97,11 +97,11 @@ Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
 | `fetchargs["headers"]` | `dict` | Request headers (merged with defaults). |
 | `fetchargs["body"]` | `any` | Request body (dicts are JSON-serialized). |
 
-**Returns:** `(result_dict, err)`
+**Returns:** `result_dict`
 
-#### `prepare(fetchargs=None) -> tuple`
+#### `prepare(fetchargs=None) -> dict`
 
-Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
+Prepare a fetch definition without sending. Returns the `fetchdef` and raises on error.
 
 
 ---
@@ -109,7 +109,7 @@ Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
 ## ListeningRoomEntity
 
 ```python
-listening_room = client.ListeningRoom()
+listening_room = client.listening_room
 ```
 
 ### Fields
@@ -144,29 +144,29 @@ listening_room = client.ListeningRoom()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.ListeningRoom().create({
+result = client.listening_room.create({
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.ListeningRoom().list({})
+results = client.listening_room.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.ListeningRoom().load({"id": "listening_room_id"})
+result = client.listening_room.load({"id": "listening_room_id"})
 ```
 
 ### Common Methods
@@ -201,7 +201,7 @@ Return the entity name.
 ## MusicEntity
 
 ```python
-music = client.Music()
+music = client.music
 ```
 
 ### Fields
@@ -217,12 +217,12 @@ music = client.Music()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Music().list({})
+results = client.music.list({})
 ```
 
 ### Common Methods
@@ -257,7 +257,7 @@ Return the entity name.
 ## OfflineDownloadEntity
 
 ```python
-offline_download = client.OfflineDownload()
+offline_download = client.offline_download
 ```
 
 ### Fields
@@ -268,12 +268,12 @@ offline_download = client.OfflineDownload()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.OfflineDownload().create({
+result = client.offline_download.create({
     "song_id": # `$STRING`,
 })
 ```
@@ -310,7 +310,7 @@ Return the entity name.
 ## PlaylistEntity
 
 ```python
-playlist = client.Playlist()
+playlist = client.playlist
 ```
 
 ### Fields
@@ -349,46 +349,46 @@ playlist = client.Playlist()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.Playlist().create({
+result = client.playlist.create({
     "song_id": # `$STRING`,
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Playlist().list({})
+results = client.playlist.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Playlist().load({"id": "playlist_id"})
+result = client.playlist.load({"id": "playlist_id"})
 ```
 
-#### `remove(reqmatch, ctrl=None) -> tuple`
+#### `remove(reqmatch, ctrl=None) -> dict`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result, err = client.Playlist().remove({"id": "playlist_id"})
+result = client.playlist.remove({"id": "playlist_id"})
 ```
 
-#### `update(reqdata, ctrl=None) -> tuple`
+#### `update(reqdata, ctrl=None) -> dict`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity data and raises on error.
 
 ```python
-result, err = client.Playlist().update({
+result = client.playlist.update({
     "id": "playlist_id",
     # Fields to update
 })
@@ -426,7 +426,7 @@ Return the entity name.
 ## SearchEntity
 
 ```python
-search = client.Search()
+search = client.search
 ```
 
 ### Fields
@@ -440,12 +440,12 @@ search = client.Search()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Search().load({"id": "search_id"})
+result = client.search.load({"id": "search_id"})
 ```
 
 ### Common Methods
@@ -480,7 +480,7 @@ Return the entity name.
 ## SongEntity
 
 ```python
-song = client.Song()
+song = client.song
 ```
 
 ### Fields
@@ -499,12 +499,12 @@ song = client.Song()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Song().load({"id": "song_id"})
+result = client.song.load({"id": "song_id"})
 ```
 
 ### Common Methods
@@ -539,7 +539,7 @@ Return the entity name.
 ## StreamEntity
 
 ```python
-stream = client.Stream()
+stream = client.stream
 ```
 
 ### Fields
@@ -553,12 +553,12 @@ stream = client.Stream()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Stream().load({"id": "stream_id"})
+result = client.stream.load({"id": "stream_id"})
 ```
 
 ### Common Methods
@@ -593,7 +593,7 @@ Return the entity name.
 ## VideoEntity
 
 ```python
-video = client.Video()
+video = client.video
 ```
 
 ### Fields
@@ -606,12 +606,12 @@ video = client.Video()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Video().load({"id": "video_id"})
+result = client.video.load({"id": "video_id"})
 ```
 
 ### Common Methods

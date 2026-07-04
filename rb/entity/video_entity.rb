@@ -45,6 +45,7 @@ class VideoEntity
     end
   end
 
+  # @return [Video, Hash] the current Video data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class VideoEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Video fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Video.
+  #
+  # @param reqmatch [VideoLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Video, Hash] the loaded Video; raises ListenfreeError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

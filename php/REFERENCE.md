@@ -84,7 +84,10 @@ Return a copy of the SDK utility object.
 
 #### `direct(array $fetchargs = []): array`
 
-Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
+Make a direct HTTP request to any API endpoint. This is the raw-HTTP escape
+hatch: it does **not** throw. It returns a result array
+`["ok" => bool, "status" => int, "headers" => array, "data" => mixed]`, or
+`["ok" => false, "err" => \Exception]` on failure. Branch on `$result["ok"]`.
 
 **Parameters:**
 
@@ -98,11 +101,12 @@ Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
 | `$fetchargs["body"]` | `mixed` | Request body (arrays are JSON-serialized). |
 | `$fetchargs["ctrl"]` | `array` | Control options. |
 
-**Returns:** `array [$result, $err]`
+**Returns:** `array` — the result dict (see above); never throws.
 
-#### `prepare(array $fetchargs = []): array`
+#### `prepare(array $fetchargs = []): mixed`
 
-Prepare a fetch definition without sending the request. Returns `[$fetchdef, $err]`.
+Prepare a fetch definition without sending the request. Returns the
+`$fetchdef` array. Throws on error.
 
 
 ---
@@ -110,7 +114,7 @@ Prepare a fetch definition without sending the request. Returns `[$fetchdef, $er
 ## ListeningRoomEntity
 
 ```php
-$listening_room = $client->ListeningRoom();
+$listening_room = $client->listening_room();
 ```
 
 ### Fields
@@ -145,29 +149,29 @@ $listening_room = $client->ListeningRoom();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->ListeningRoom()->create([
+$result = $client->listening_room()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->ListeningRoom()->list([]);
+$results = $client->listening_room()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->ListeningRoom()->load(["id" => "listening_room_id"]);
+$result = $client->listening_room()->load(["id" => "listening_room_id"]);
 ```
 
 ### Common Methods
@@ -203,7 +207,7 @@ Return the entity name.
 ## MusicEntity
 
 ```php
-$music = $client->Music();
+$music = $client->music();
 ```
 
 ### Fields
@@ -219,12 +223,12 @@ $music = $client->Music();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Music()->list([]);
+$results = $client->music()->list([]);
 ```
 
 ### Common Methods
@@ -260,7 +264,7 @@ Return the entity name.
 ## OfflineDownloadEntity
 
 ```php
-$offline_download = $client->OfflineDownload();
+$offline_download = $client->offline_download();
 ```
 
 ### Fields
@@ -271,12 +275,12 @@ $offline_download = $client->OfflineDownload();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->OfflineDownload()->create([
+$result = $client->offline_download()->create([
   "song_id" => /* `$STRING` */,
 ]);
 ```
@@ -314,7 +318,7 @@ Return the entity name.
 ## PlaylistEntity
 
 ```php
-$playlist = $client->Playlist();
+$playlist = $client->playlist();
 ```
 
 ### Fields
@@ -353,46 +357,46 @@ $playlist = $client->Playlist();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Playlist()->create([
+$result = $client->playlist()->create([
   "song_id" => /* `$STRING` */,
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Playlist()->list([]);
+$results = $client->playlist()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Playlist()->load(["id" => "playlist_id"]);
+$result = $client->playlist()->load(["id" => "playlist_id"]);
 ```
 
-#### `remove(array $reqmatch, ?array $ctrl = null): array`
+#### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Playlist()->remove(["id" => "playlist_id"]);
+$result = $client->playlist()->remove(["id" => "playlist_id"]);
 ```
 
-#### `update(array $reqdata, ?array $ctrl = null): array`
+#### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Throws on error.
 
 ```php
-[$result, $err] = $client->Playlist()->update([
+$result = $client->playlist()->update([
   "id" => "playlist_id",
   // Fields to update
 ]);
@@ -431,7 +435,7 @@ Return the entity name.
 ## SearchEntity
 
 ```php
-$search = $client->Search();
+$search = $client->search();
 ```
 
 ### Fields
@@ -445,12 +449,12 @@ $search = $client->Search();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Search()->load(["id" => "search_id"]);
+$result = $client->search()->load(["id" => "search_id"]);
 ```
 
 ### Common Methods
@@ -486,7 +490,7 @@ Return the entity name.
 ## SongEntity
 
 ```php
-$song = $client->Song();
+$song = $client->song();
 ```
 
 ### Fields
@@ -505,12 +509,12 @@ $song = $client->Song();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Song()->load(["id" => "song_id"]);
+$result = $client->song()->load(["id" => "song_id"]);
 ```
 
 ### Common Methods
@@ -546,7 +550,7 @@ Return the entity name.
 ## StreamEntity
 
 ```php
-$stream = $client->Stream();
+$stream = $client->stream();
 ```
 
 ### Fields
@@ -560,12 +564,12 @@ $stream = $client->Stream();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Stream()->load(["id" => "stream_id"]);
+$result = $client->stream()->load(["id" => "stream_id"]);
 ```
 
 ### Common Methods
@@ -601,7 +605,7 @@ Return the entity name.
 ## VideoEntity
 
 ```php
-$video = $client->Video();
+$video = $client->video();
 ```
 
 ### Fields
@@ -614,12 +618,12 @@ $video = $client->Video();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Video()->load(["id" => "video_id"]);
+$result = $client->video()->load(["id" => "video_id"]);
 ```
 
 ### Common Methods

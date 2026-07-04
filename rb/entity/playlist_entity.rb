@@ -45,6 +45,7 @@ class PlaylistEntity
     end
   end
 
+  # @return [Playlist, Hash] the current Playlist data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class PlaylistEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Playlist fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Playlist.
+  #
+  # @param reqmatch [PlaylistLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Playlist, Hash] the loaded Playlist; raises ListenfreeError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class PlaylistEntity
 
 
   
+  # List Playlist items matching the given filter.
+  #
+  # @param reqmatch [PlaylistListMatch, Hash, nil] match filter (any subset of Playlist fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Playlist>, Array] the matching Playlist items; raises ListenfreeError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -106,6 +118,11 @@ class PlaylistEntity
 
 
   
+  # Create a new Playlist.
+  #
+  # @param reqdata [PlaylistCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Playlist, Hash] the created Playlist; raises ListenfreeError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -128,6 +145,11 @@ class PlaylistEntity
 
 
   
+  # Update an existing Playlist.
+  #
+  # @param reqdata [PlaylistUpdateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Playlist, Hash] the updated Playlist; raises ListenfreeError on failure
   def update(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -151,6 +173,11 @@ class PlaylistEntity
 
 
   
+  # Remove an Playlist matching the given criteria.
+  #
+  # @param reqmatch [PlaylistRemoveMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Playlist, Hash] the removed Playlist; raises ListenfreeError on failure
   def remove(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

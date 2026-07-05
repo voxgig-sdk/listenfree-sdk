@@ -116,31 +116,31 @@ listening_room = client.ListeningRoom()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `current_song` | ``$OBJECT`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `host` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `max_participant` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `participant` | ``$ARRAY`` | No |  |
-| `queue` | ``$ARRAY`` | No |  |
+| `created_at` | `str` | No |  |
+| `current_song` | `dict` | No |  |
+| `description` | `str` | No |  |
+| `host` | `str` | No |  |
+| `id` | `str` | No |  |
+| `is_public` | `bool` | No |  |
+| `max_participant` | `int` | No |  |
+| `name` | `str` | No |  |
+| `participant` | `list` | No |  |
+| `queue` | `list` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
-| `current_song` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `host` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `max_participant` | - | - | - | - | - |
-| `name` | - | - | Yes | - | - |
-| `participant` | - | - | - | - | - |
-| `queue` | - | - | - | - | - |
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `created_at` | - | - | - |
+| `current_song` | - | - | - |
+| `description` | - | - | - |
+| `host` | - | - | - |
+| `id` | - | - | - |
+| `is_public` | - | - | - |
+| `max_participant` | - | - | - |
+| `name` | - | - | Yes |
+| `participant` | - | - | - |
+| `queue` | - | - | - |
 
 ### Operations
 
@@ -153,12 +153,12 @@ result = client.ListeningRoom().create({
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.ListeningRoom().list({})
+results = client.ListeningRoom().list()
 for listening_room in results:
     print(listening_room)
 ```
@@ -210,21 +210,21 @@ music = client.Music()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `progress` | ``$INTEGER`` | No |  |
-| `song` | ``$OBJECT`` | No |  |
-| `status` | ``$STRING`` | No |  |
+| `downloaded_at` | `str` | No |  |
+| `expires_at` | `str` | No |  |
+| `id` | `str` | No |  |
+| `progress` | `int` | No |  |
+| `song` | `dict` | No |  |
+| `status` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Music().list({})
+results = client.Music().list()
 for music in results:
     print(music)
 ```
@@ -268,7 +268,7 @@ offline_download = client.OfflineDownload()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | ``$STRING`` | Yes |  |
+| `song_id` | `str` | Yes |  |
 
 ### Operations
 
@@ -278,7 +278,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.OfflineDownload().create({
-    "song_id": ...,  # `$STRING`
+    "song_id": "example",  # str
 })
 ```
 
@@ -321,18 +321,18 @@ playlist = client.Playlist()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `is_smart` | ``$BOOLEAN`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `owner` | ``$STRING`` | No |  |
-| `smart_criterion` | ``$OBJECT`` | No |  |
-| `song` | ``$ARRAY`` | No |  |
-| `song_count` | ``$INTEGER`` | No |  |
-| `song_id` | ``$STRING`` | Yes |  |
-| `updated_at` | ``$STRING`` | No |  |
+| `created_at` | `str` | No |  |
+| `description` | `str` | No |  |
+| `id` | `str` | No |  |
+| `is_public` | `bool` | No |  |
+| `is_smart` | `bool` | No |  |
+| `name` | `str` | No |  |
+| `owner` | `str` | No |  |
+| `smart_criterion` | `dict` | No |  |
+| `song` | `list` | No |  |
+| `song_count` | `int` | No |  |
+| `song_id` | `str` | Yes |  |
+| `updated_at` | `str` | No |  |
 
 ### Field Usage by Operation
 
@@ -359,16 +359,16 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Playlist().create({
-    "song_id": ...,  # `$STRING`
+    "song_id": "example",  # str
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Playlist().list({})
+results = client.Playlist().list()
 for playlist in results:
     print(playlist)
 ```
@@ -439,10 +439,10 @@ search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | ``$INTEGER`` | No |  |
-| `offset` | ``$INTEGER`` | No |  |
-| `result` | ``$OBJECT`` | No |  |
-| `total` | ``$INTEGER`` | No |  |
+| `limit` | `int` | No |  |
+| `offset` | `int` | No |  |
+| `result` | `dict` | No |  |
+| `total` | `int` | No |  |
 
 ### Operations
 
@@ -451,7 +451,7 @@ search = client.Search()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Search().load({"id": "search_id"})
+result = client.Search().load()
 ```
 
 ### Common Methods
@@ -493,15 +493,15 @@ song = client.Song()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | ``$STRING`` | No |  |
-| `artist` | ``$STRING`` | No |  |
-| `cover_art` | ``$STRING`` | No |  |
-| `duration` | ``$INTEGER`` | No |  |
-| `genre` | ``$ARRAY`` | No |  |
-| `has_video` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `release_date` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `album` | `str` | No |  |
+| `artist` | `str` | No |  |
+| `cover_art` | `str` | No |  |
+| `duration` | `int` | No |  |
+| `genre` | `list` | No |  |
+| `has_video` | `bool` | No |  |
+| `id` | `str` | No |  |
+| `release_date` | `str` | No |  |
+| `title` | `str` | No |  |
 
 ### Operations
 
@@ -552,10 +552,10 @@ stream = client.Stream()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `quality` | ``$STRING`` | No |  |
-| `stream_url` | ``$STRING`` | No |  |
+| `bitrate` | `int` | No |  |
+| `expires_at` | `str` | No |  |
+| `quality` | `str` | No |  |
+| `stream_url` | `str` | No |  |
 
 ### Operations
 
@@ -564,7 +564,7 @@ stream = client.Stream()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Stream().load({"id": "stream_id"})
+result = client.Stream().load()
 ```
 
 ### Common Methods
@@ -606,9 +606,9 @@ video = client.Video()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `duration` | ``$INTEGER`` | No |  |
-| `thumbnail_url` | ``$STRING`` | No |  |
-| `video_url` | ``$STRING`` | No |  |
+| `duration` | `int` | No |  |
+| `thumbnail_url` | `str` | No |  |
+| `video_url` | `str` | No |  |
 
 ### Operations
 
@@ -617,7 +617,7 @@ video = client.Video()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Video().load({"id": "video_id"})
+result = client.Video().load()
 ```
 
 ### Common Methods

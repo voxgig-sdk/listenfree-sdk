@@ -4,6 +4,8 @@
 
 The Lua SDK for the Listenfree API — an entity-oriented client using Lua conventions.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:ListeningRoom()` — each with the same small set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -43,7 +45,7 @@ local listeningrooms, err = client:ListeningRoom():list()
 if err then error(err) end
 
 for _, item in ipairs(listeningrooms) do
-  print(item["id"], item["name"])
+  print(item["id"], item["created_at"])
 end
 ```
 
@@ -59,9 +61,31 @@ print(listeningroom)
 
 ```lua
 -- Create
-local created, err = client:ListeningRoom():create({ name = "Example" })
+local created, err = client:ListeningRoom():create({  })
 if err then error(err) end
 
+```
+
+
+## Error handling
+
+Entity operations return `(value, err)`. Check `err` before using
+the value:
+
+```lua
+local listeningrooms, err = client:ListeningRoom():list()
+if err then error(err) end
+```
+
+`direct` follows the same `(value, err)` convention:
+
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example_id" },
+})
+if err then error(err) end
 ```
 
 
@@ -107,8 +131,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:ListeningRoom():load({ id = "test01" })
--- result is the loaded data; err is set on failure
+local result, err = client:ListeningRoom():list()
+-- result is the returned data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -378,16 +402,16 @@ Create an instance: `local listening_room = client:ListeningRoom(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `current_song` | ``$OBJECT`` |  |
-| `description` | ``$STRING`` |  |
-| `host` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `max_participant` | ``$INTEGER`` |  |
-| `name` | ``$STRING`` |  |
-| `participant` | ``$ARRAY`` |  |
-| `queue` | ``$ARRAY`` |  |
+| `created_at` | `string` |  |
+| `current_song` | `table` |  |
+| `description` | `string` |  |
+| `host` | `string` |  |
+| `id` | `string` |  |
+| `is_public` | `boolean` |  |
+| `max_participant` | `number` |  |
+| `name` | `string` |  |
+| `participant` | `table` |  |
+| `queue` | `table` |  |
 
 #### Example: Load
 
@@ -423,12 +447,12 @@ Create an instance: `local music = client:Music(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `progress` | ``$INTEGER`` |  |
-| `song` | ``$OBJECT`` |  |
-| `status` | ``$STRING`` |  |
+| `downloaded_at` | `string` |  |
+| `expires_at` | `string` |  |
+| `id` | `string` |  |
+| `progress` | `number` |  |
+| `song` | `table` |  |
+| `status` | `string` |  |
 
 #### Example: List
 
@@ -451,13 +475,13 @@ Create an instance: `local offline_download = client:OfflineDownload(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | ``$STRING`` |  |
+| `song_id` | `string` |  |
 
 #### Example: Create
 
 ```lua
 local offline_download, err = client:OfflineDownload():create({
-  song_id = nil, -- `$STRING`
+  song_id = nil, -- string
 })
 ```
 
@@ -480,18 +504,18 @@ Create an instance: `local playlist = client:Playlist(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `is_smart` | ``$BOOLEAN`` |  |
-| `name` | ``$STRING`` |  |
-| `owner` | ``$STRING`` |  |
-| `smart_criterion` | ``$OBJECT`` |  |
-| `song` | ``$ARRAY`` |  |
-| `song_count` | ``$INTEGER`` |  |
-| `song_id` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `id` | `string` |  |
+| `is_public` | `boolean` |  |
+| `is_smart` | `boolean` |  |
+| `name` | `string` |  |
+| `owner` | `string` |  |
+| `smart_criterion` | `table` |  |
+| `song` | `table` |  |
+| `song_count` | `number` |  |
+| `song_id` | `string` |  |
+| `updated_at` | `string` |  |
 
 #### Example: Load
 
@@ -509,7 +533,7 @@ local playlists, err = client:Playlist():list()
 
 ```lua
 local playlist, err = client:Playlist():create({
-  song_id = nil, -- `$STRING`
+  song_id = nil, -- string
 })
 ```
 
@@ -528,15 +552,15 @@ Create an instance: `local search = client:Search(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | ``$INTEGER`` |  |
-| `offset` | ``$INTEGER`` |  |
-| `result` | ``$OBJECT`` |  |
-| `total` | ``$INTEGER`` |  |
+| `limit` | `number` |  |
+| `offset` | `number` |  |
+| `result` | `table` |  |
+| `total` | `number` |  |
 
 #### Example: Load
 
 ```lua
-local search, err = client:Search():load({ id = "search_id" })
+local search, err = client:Search():load()
 ```
 
 
@@ -554,15 +578,15 @@ Create an instance: `local song = client:Song(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | ``$STRING`` |  |
-| `artist` | ``$STRING`` |  |
-| `cover_art` | ``$STRING`` |  |
-| `duration` | ``$INTEGER`` |  |
-| `genre` | ``$ARRAY`` |  |
-| `has_video` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `release_date` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `album` | `string` |  |
+| `artist` | `string` |  |
+| `cover_art` | `string` |  |
+| `duration` | `number` |  |
+| `genre` | `table` |  |
+| `has_video` | `boolean` |  |
+| `id` | `string` |  |
+| `release_date` | `string` |  |
+| `title` | `string` |  |
 
 #### Example: Load
 
@@ -585,15 +609,15 @@ Create an instance: `local stream = client:Stream(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `quality` | ``$STRING`` |  |
-| `stream_url` | ``$STRING`` |  |
+| `bitrate` | `number` |  |
+| `expires_at` | `string` |  |
+| `quality` | `string` |  |
+| `stream_url` | `string` |  |
 
 #### Example: Load
 
 ```lua
-local stream, err = client:Stream():load({ id = "stream_id" })
+local stream, err = client:Stream():load()
 ```
 
 
@@ -611,23 +635,27 @@ Create an instance: `local video = client:Video(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `duration` | ``$INTEGER`` |  |
-| `thumbnail_url` | ``$STRING`` |  |
-| `video_url` | ``$STRING`` |  |
+| `duration` | `number` |  |
+| `thumbnail_url` | `string` |  |
+| `video_url` | `string` |  |
 
 #### Example: Load
 
 ```lua
-local video, err = client:Video():load({ id = "video_id" })
+local video, err = client:Video():load()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -644,8 +672,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -689,14 +718,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
 local listeningroom = client:ListeningRoom()
-listeningroom:load({ id = "example_id" })
+listeningroom:list()
 
--- listeningroom:data_get() now returns the loaded listeningroom data
+-- listeningroom:data_get() now returns the listeningroom data from the last list
 -- listeningroom:match_get() returns the last match criteria
 ```
 

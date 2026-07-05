@@ -4,6 +4,11 @@
 
 The Python SDK for the Listenfree API — an entity-oriented client following Pythonic conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.ListeningRoom()` — each
+carrying a small, uniform set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL
+paths and query strings. You work with named resources and verbs, which
+keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -41,7 +46,7 @@ error — iterate it directly.
 
 ```python
 try:
-    listeningrooms = client.ListeningRoom().list({})
+    listeningrooms = client.ListeningRoom().list()
     for listeningroom in listeningrooms:
         print(listeningroom)
 except Exception as err:
@@ -64,8 +69,36 @@ except Exception as err:
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.ListeningRoom().create({"name": "Example"})
+created = client.ListeningRoom().create({})
 
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so wrap them in `try` / `except`:
+
+```python
+try:
+    listeningrooms = client.ListeningRoom().list()
+    print(listeningrooms)
+except Exception as err:
+    print(f"list failed: {err}")
+```
+
+`direct()` does **not** raise — it returns the result envelope. Branch
+on `ok`; on failure `status` holds the HTTP status (for error responses)
+and `err` holds a transport error, so read both defensively:
+
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example_id"},
+})
+
+if not result["ok"]:
+    print("request failed:", result.get("status"), result.get("err"))
 ```
 
 
@@ -86,7 +119,10 @@ if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
 else:
-    print(result["err"])     # error value
+    # A non-2xx response carries status + data (the error body); a
+    # transport-level failure carries err instead. Only one is present, so
+    # read both with .get() rather than indexing a key that may be absent.
+    print(result.get("status"), result.get("err"))
 ```
 
 ### Prepare a request without sending it
@@ -112,7 +148,7 @@ Create a mock client for unit testing — no server required:
 client = ListenfreeSDK.test()
 
 # Entity ops return the bare record and raise on error.
-listeningroom = client.ListeningRoom().load({"id": "test01"})
+listeningroom = client.ListeningRoom().list()
 # listeningroom contains the mock response record
 ```
 
@@ -373,23 +409,23 @@ Create an instance: `listening_room = client.ListeningRoom()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `current_song` | ``$OBJECT`` |  |
-| `description` | ``$STRING`` |  |
-| `host` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `max_participant` | ``$INTEGER`` |  |
-| `name` | ``$STRING`` |  |
-| `participant` | ``$ARRAY`` |  |
-| `queue` | ``$ARRAY`` |  |
+| `created_at` | `str` |  |
+| `current_song` | `dict` |  |
+| `description` | `str` |  |
+| `host` | `str` |  |
+| `id` | `str` |  |
+| `is_public` | `bool` |  |
+| `max_participant` | `int` |  |
+| `name` | `str` |  |
+| `participant` | `list` |  |
+| `queue` | `list` |  |
 
 #### Example: Load
 
@@ -400,7 +436,7 @@ listening_room = client.ListeningRoom().load({"id": "listening_room_id"})
 #### Example: List
 
 ```python
-listening_rooms = client.ListeningRoom().list({})
+listening_rooms = client.ListeningRoom().list()
 ```
 
 #### Example: Create
@@ -419,23 +455,23 @@ Create an instance: `music = client.Music()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `progress` | ``$INTEGER`` |  |
-| `song` | ``$OBJECT`` |  |
-| `status` | ``$STRING`` |  |
+| `downloaded_at` | `str` |  |
+| `expires_at` | `str` |  |
+| `id` | `str` |  |
+| `progress` | `int` |  |
+| `song` | `dict` |  |
+| `status` | `str` |  |
 
 #### Example: List
 
 ```python
-musics = client.Music().list({})
+musics = client.Music().list()
 ```
 
 
@@ -453,13 +489,13 @@ Create an instance: `offline_download = client.OfflineDownload()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | ``$STRING`` |  |
+| `song_id` | `str` |  |
 
 #### Example: Create
 
 ```python
 offline_download = client.OfflineDownload().create({
-    "song_id": ...,  # `$STRING`
+    "song_id": "example",  # str
 })
 ```
 
@@ -473,7 +509,7 @@ Create an instance: `playlist = client.Playlist()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 | `remove(match)` | Remove the matching entity. |
 | `update(data)` | Update an existing entity. |
@@ -482,18 +518,18 @@ Create an instance: `playlist = client.Playlist()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `is_smart` | ``$BOOLEAN`` |  |
-| `name` | ``$STRING`` |  |
-| `owner` | ``$STRING`` |  |
-| `smart_criterion` | ``$OBJECT`` |  |
-| `song` | ``$ARRAY`` |  |
-| `song_count` | ``$INTEGER`` |  |
-| `song_id` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
+| `created_at` | `str` |  |
+| `description` | `str` |  |
+| `id` | `str` |  |
+| `is_public` | `bool` |  |
+| `is_smart` | `bool` |  |
+| `name` | `str` |  |
+| `owner` | `str` |  |
+| `smart_criterion` | `dict` |  |
+| `song` | `list` |  |
+| `song_count` | `int` |  |
+| `song_id` | `str` |  |
+| `updated_at` | `str` |  |
 
 #### Example: Load
 
@@ -504,14 +540,14 @@ playlist = client.Playlist().load({"id": "playlist_id"})
 #### Example: List
 
 ```python
-playlists = client.Playlist().list({})
+playlists = client.Playlist().list()
 ```
 
 #### Example: Create
 
 ```python
 playlist = client.Playlist().create({
-    "song_id": ...,  # `$STRING`
+    "song_id": "example",  # str
 })
 ```
 
@@ -530,15 +566,15 @@ Create an instance: `search = client.Search()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | ``$INTEGER`` |  |
-| `offset` | ``$INTEGER`` |  |
-| `result` | ``$OBJECT`` |  |
-| `total` | ``$INTEGER`` |  |
+| `limit` | `int` |  |
+| `offset` | `int` |  |
+| `result` | `dict` |  |
+| `total` | `int` |  |
 
 #### Example: Load
 
 ```python
-search = client.Search().load({"id": "search_id"})
+search = client.Search().load()
 ```
 
 
@@ -556,15 +592,15 @@ Create an instance: `song = client.Song()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | ``$STRING`` |  |
-| `artist` | ``$STRING`` |  |
-| `cover_art` | ``$STRING`` |  |
-| `duration` | ``$INTEGER`` |  |
-| `genre` | ``$ARRAY`` |  |
-| `has_video` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `release_date` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `album` | `str` |  |
+| `artist` | `str` |  |
+| `cover_art` | `str` |  |
+| `duration` | `int` |  |
+| `genre` | `list` |  |
+| `has_video` | `bool` |  |
+| `id` | `str` |  |
+| `release_date` | `str` |  |
+| `title` | `str` |  |
 
 #### Example: Load
 
@@ -587,15 +623,15 @@ Create an instance: `stream = client.Stream()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `quality` | ``$STRING`` |  |
-| `stream_url` | ``$STRING`` |  |
+| `bitrate` | `int` |  |
+| `expires_at` | `str` |  |
+| `quality` | `str` |  |
+| `stream_url` | `str` |  |
 
 #### Example: Load
 
 ```python
-stream = client.Stream().load({"id": "stream_id"})
+stream = client.Stream().load()
 ```
 
 
@@ -613,23 +649,27 @@ Create an instance: `video = client.Video()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `duration` | ``$INTEGER`` |  |
-| `thumbnail_url` | ``$STRING`` |  |
-| `video_url` | ``$STRING`` |  |
+| `duration` | `int` |  |
+| `thumbnail_url` | `str` |  |
+| `video_url` | `str` |  |
 
 #### Example: Load
 
 ```python
-video = client.Video().load({"id": "video_id"})
+video = client.Video().load()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -646,8 +686,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return tuple.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -690,14 +731,14 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
 listeningroom = client.ListeningRoom()
-listeningroom.load({"id": "example_id"})
+listeningroom.list()
 
-# listeningroom.data_get() now returns the loaded listeningroom data
+# listeningroom.data_get() now returns the listeningroom data from the last list
 # listeningroom.match_get() returns the last match criteria
 ```
 

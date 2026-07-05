@@ -72,7 +72,7 @@ class OfflineDownload(TypedDict):
     song_id: str
 
 
-class OfflineDownloadCreateData(TypedDict, total=False):
+class OfflineDownloadCreateData(TypedDict):
     song_id: str
 
 

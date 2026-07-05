@@ -221,49 +221,49 @@ class ListenfreeSDK:
 
 
     def ListeningRoom(self, data=None) -> "ListeningRoomEntity":
-        """Entity factory: client.ListeningRoom().list({}) / client.ListeningRoom().load({"id": ...})."""
+        """Entity factory: client.ListeningRoom().list() / client.ListeningRoom().load({"id": ...})."""
         from entity.listening_room_entity import ListeningRoomEntity
         return ListeningRoomEntity(self, data)
 
 
     def Music(self, data=None) -> "MusicEntity":
-        """Entity factory: client.Music().list({}) / client.Music().load({"id": ...})."""
+        """Entity factory: client.Music().list() / client.Music().load({"id": ...})."""
         from entity.music_entity import MusicEntity
         return MusicEntity(self, data)
 
 
     def OfflineDownload(self, data=None) -> "OfflineDownloadEntity":
-        """Entity factory: client.OfflineDownload().list({}) / client.OfflineDownload().load({"id": ...})."""
+        """Entity factory: client.OfflineDownload().list() / client.OfflineDownload().load({"id": ...})."""
         from entity.offline_download_entity import OfflineDownloadEntity
         return OfflineDownloadEntity(self, data)
 
 
     def Playlist(self, data=None) -> "PlaylistEntity":
-        """Entity factory: client.Playlist().list({}) / client.Playlist().load({"id": ...})."""
+        """Entity factory: client.Playlist().list() / client.Playlist().load({"id": ...})."""
         from entity.playlist_entity import PlaylistEntity
         return PlaylistEntity(self, data)
 
 
     def Search(self, data=None) -> "SearchEntity":
-        """Entity factory: client.Search().list({}) / client.Search().load({"id": ...})."""
+        """Entity factory: client.Search().list() / client.Search().load({"id": ...})."""
         from entity.search_entity import SearchEntity
         return SearchEntity(self, data)
 
 
     def Song(self, data=None) -> "SongEntity":
-        """Entity factory: client.Song().list({}) / client.Song().load({"id": ...})."""
+        """Entity factory: client.Song().list() / client.Song().load({"id": ...})."""
         from entity.song_entity import SongEntity
         return SongEntity(self, data)
 
 
     def Stream(self, data=None) -> "StreamEntity":
-        """Entity factory: client.Stream().list({}) / client.Stream().load({"id": ...})."""
+        """Entity factory: client.Stream().list() / client.Stream().load({"id": ...})."""
         from entity.stream_entity import StreamEntity
         return StreamEntity(self, data)
 
 
     def Video(self, data=None) -> "VideoEntity":
-        """Entity factory: client.Video().list({}) / client.Video().load({"id": ...})."""
+        """Entity factory: client.Video().list() / client.Video().load({"id": ...})."""
         from entity.video_entity import VideoEntity
         return VideoEntity(self, data)
 

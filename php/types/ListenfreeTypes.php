@@ -33,7 +33,7 @@ class ListeningRoomLoadMatch
     public string $id;
 }
 
-/** Match filter for ListeningRoom#list (any subset of ListeningRoom fields). */
+/** Request payload for ListeningRoom#list. */
 class ListeningRoomListMatch
 {
     public ?string $created_at = null;
@@ -65,7 +65,7 @@ class Music
     public ?string $status = null;
 }
 
-/** Match filter for Music#list (any subset of Music fields). */
+/** Request payload for Music#list. */
 class MusicListMatch
 {
     public ?string $downloaded_at = null;
@@ -82,10 +82,10 @@ class OfflineDownload
     public string $song_id;
 }
 
-/** Match filter for OfflineDownload#create (any subset of OfflineDownload fields). */
+/** Request payload for OfflineDownload#create. */
 class OfflineDownloadCreateData
 {
-    public ?string $song_id = null;
+    public string $song_id;
 }
 
 /** Playlist entity data model. */
@@ -111,7 +111,7 @@ class PlaylistLoadMatch
     public string $id;
 }
 
-/** Match filter for Playlist#list (any subset of Playlist fields). */
+/** Request payload for Playlist#list. */
 class PlaylistListMatch
 {
     public ?string $created_at = null;
@@ -155,7 +155,7 @@ class Search
     public ?int $total = null;
 }
 
-/** Match filter for Search#load (any subset of Search fields). */
+/** Request payload for Search#load. */
 class SearchLoadMatch
 {
     public ?int $limit = null;

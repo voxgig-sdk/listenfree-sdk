@@ -27,8 +27,7 @@ type ListeningRoomLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// ListeningRoomListMatch mirrors the listening_room fields as an all-optional match
-// filter (Go analog of Partial<ListeningRoom>).
+// ListeningRoomListMatch is the typed request payload for ListeningRoom.ListTyped.
 type ListeningRoomListMatch struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	CurrentSong *map[string]any `json:"current_song,omitempty"`
@@ -57,8 +56,7 @@ type Music struct {
 	Status *string `json:"status,omitempty"`
 }
 
-// MusicListMatch mirrors the music fields as an all-optional match
-// filter (Go analog of Partial<Music>).
+// MusicListMatch is the typed request payload for Music.ListTyped.
 type MusicListMatch struct {
 	DownloadedAt *string `json:"downloaded_at,omitempty"`
 	ExpiresAt *string `json:"expires_at,omitempty"`
@@ -73,10 +71,9 @@ type OfflineDownload struct {
 	SongId string `json:"song_id"`
 }
 
-// OfflineDownloadCreateData mirrors the offline_download fields as an all-optional match
-// filter (Go analog of Partial<OfflineDownload>).
+// OfflineDownloadCreateData is the typed request payload for OfflineDownload.CreateTyped.
 type OfflineDownloadCreateData struct {
-	SongId *string `json:"song_id,omitempty"`
+	SongId string `json:"song_id"`
 }
 
 // Playlist is the typed data model for the playlist entity.
@@ -100,8 +97,7 @@ type PlaylistLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// PlaylistListMatch mirrors the playlist fields as an all-optional match
-// filter (Go analog of Partial<Playlist>).
+// PlaylistListMatch is the typed request payload for Playlist.ListTyped.
 type PlaylistListMatch struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -140,8 +136,7 @@ type Search struct {
 	Total *int `json:"total,omitempty"`
 }
 
-// SearchLoadMatch mirrors the search fields as an all-optional match
-// filter (Go analog of Partial<Search>).
+// SearchLoadMatch is the typed request payload for Search.LoadTyped.
 type SearchLoadMatch struct {
 	Limit *int `json:"limit,omitempty"`
 	Offset *int `json:"offset,omitempty"`

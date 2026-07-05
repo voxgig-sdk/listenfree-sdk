@@ -79,12 +79,12 @@ describe('PlaylistEntity', async () => {
     playlist_ref01_data_up0.id = playlist_ref01_data.id
 
     const playlist_ref01_markdef_up0 = { name: 'created_at', value: 'Mark01-playlist_ref01_' + setup.now }
-    playlist_ref01_data_up0 [playlist_ref01_markdef_up0.name] = playlist_ref01_markdef_up0.value
+    ;(playlist_ref01_data_up0 as any)[playlist_ref01_markdef_up0.name] = playlist_ref01_markdef_up0.value
 
     const playlist_ref01_resdata_up0 = await playlist_ref01_ent.update(playlist_ref01_data_up0)
     assert(playlist_ref01_resdata_up0.id === playlist_ref01_data_up0.id)
 
-    assert(playlist_ref01_resdata_up0[playlist_ref01_markdef_up0.name] === playlist_ref01_markdef_up0.value)
+    assert((playlist_ref01_resdata_up0 as any)[playlist_ref01_markdef_up0.name] === playlist_ref01_markdef_up0.value)
 
 
     // LOAD

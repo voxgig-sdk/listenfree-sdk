@@ -4,6 +4,8 @@
 
 The Golang SDK for the Listenfree API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.ListeningRoom(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -61,19 +63,48 @@ func main() {
     }
 
     // Load a single listeningroom — the value is the loaded record.
-    listeningroom, err := client.ListeningRoom(nil).Load(map[string]any{"id": "example_id"}, nil)
+    listeningroom, err := client.ListeningRoom(nil).Load(map[string]any{"id": "example"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(listeningroom)
 
     // Create a listeningroom.
-    created, err := client.ListeningRoom(nil).Create(map[string]any{"name": "Example"}, nil)
+    created, err := client.ListeningRoom(nil).Create(map[string]any{}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(created)
 }
+```
+
+
+## Error handling
+
+Every entity operation returns `(value, error)`. Check `err` before
+using the value — there is no exception to catch:
+
+```go
+listeningrooms, err := client.ListeningRoom(nil).List(nil, nil)
+if err != nil {
+    // handle err
+    return
+}
+_ = listeningrooms
+```
+
+`Direct` follows the same `(value, error)` convention:
+
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
+    "method": "GET",
+    "params": map[string]any{"id": "example_id"},
+})
+if err != nil {
+    // handle err
+}
+_ = result
 ```
 
 
@@ -123,13 +154,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-listeningroom, err := client.ListeningRoom(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+listeningroom, err := client.ListeningRoom(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(listeningroom) // the loaded mock data
+fmt.Println(listeningroom) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -247,9 +278,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    listeningroom, err := client.ListeningRoom(nil).Load(map[string]any{"id": "example_id"}, nil)
+    listeningroom, err := client.ListeningRoom(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // listeningroom is the loaded record
+    // listeningroom is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -398,16 +429,16 @@ Create an instance: `listening_room := client.ListeningRoom(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `current_song` | ``$OBJECT`` |  |
-| `description` | ``$STRING`` |  |
-| `host` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `max_participant` | ``$INTEGER`` |  |
-| `name` | ``$STRING`` |  |
-| `participant` | ``$ARRAY`` |  |
-| `queue` | ``$ARRAY`` |  |
+| `created_at` | `string` |  |
+| `current_song` | `map[string]any` |  |
+| `description` | `string` |  |
+| `host` | `string` |  |
+| `id` | `string` |  |
+| `is_public` | `bool` |  |
+| `max_participant` | `int` |  |
+| `name` | `string` |  |
+| `participant` | `[]any` |  |
+| `queue` | `[]any` |  |
 
 #### Example: Load
 
@@ -451,12 +482,12 @@ Create an instance: `music := client.Music(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `progress` | ``$INTEGER`` |  |
-| `song` | ``$OBJECT`` |  |
-| `status` | ``$STRING`` |  |
+| `downloaded_at` | `string` |  |
+| `expires_at` | `string` |  |
+| `id` | `string` |  |
+| `progress` | `int` |  |
+| `song` | `map[string]any` |  |
+| `status` | `string` |  |
 
 #### Example: List
 
@@ -483,13 +514,13 @@ Create an instance: `offline_download := client.OfflineDownload(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | ``$STRING`` |  |
+| `song_id` | `string` |  |
 
 #### Example: Create
 
 ```go
 result, err := client.OfflineDownload(nil).Create(map[string]any{
-    "song_id": /* `$STRING` */,
+    "song_id": /* string */,
 }, nil)
 ```
 
@@ -512,18 +543,18 @@ Create an instance: `playlist := client.Playlist(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `is_smart` | ``$BOOLEAN`` |  |
-| `name` | ``$STRING`` |  |
-| `owner` | ``$STRING`` |  |
-| `smart_criterion` | ``$OBJECT`` |  |
-| `song` | ``$ARRAY`` |  |
-| `song_count` | ``$INTEGER`` |  |
-| `song_id` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `id` | `string` |  |
+| `is_public` | `bool` |  |
+| `is_smart` | `bool` |  |
+| `name` | `string` |  |
+| `owner` | `string` |  |
+| `smart_criterion` | `map[string]any` |  |
+| `song` | `[]any` |  |
+| `song_count` | `int` |  |
+| `song_id` | `string` |  |
+| `updated_at` | `string` |  |
 
 #### Example: Load
 
@@ -549,7 +580,7 @@ fmt.Println(playlists) // the array of records
 
 ```go
 result, err := client.Playlist(nil).Create(map[string]any{
-    "song_id": /* `$STRING` */,
+    "song_id": /* string */,
 }, nil)
 ```
 
@@ -568,15 +599,15 @@ Create an instance: `search := client.Search(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | ``$INTEGER`` |  |
-| `offset` | ``$INTEGER`` |  |
-| `result` | ``$OBJECT`` |  |
-| `total` | ``$INTEGER`` |  |
+| `limit` | `int` |  |
+| `offset` | `int` |  |
+| `result` | `map[string]any` |  |
+| `total` | `int` |  |
 
 #### Example: Load
 
 ```go
-search, err := client.Search(nil).Load(map[string]any{"id": "search_id"}, nil)
+search, err := client.Search(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
@@ -598,15 +629,15 @@ Create an instance: `song := client.Song(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | ``$STRING`` |  |
-| `artist` | ``$STRING`` |  |
-| `cover_art` | ``$STRING`` |  |
-| `duration` | ``$INTEGER`` |  |
-| `genre` | ``$ARRAY`` |  |
-| `has_video` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `release_date` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `album` | `string` |  |
+| `artist` | `string` |  |
+| `cover_art` | `string` |  |
+| `duration` | `int` |  |
+| `genre` | `[]any` |  |
+| `has_video` | `bool` |  |
+| `id` | `string` |  |
+| `release_date` | `string` |  |
+| `title` | `string` |  |
 
 #### Example: Load
 
@@ -633,15 +664,15 @@ Create an instance: `stream := client.Stream(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `quality` | ``$STRING`` |  |
-| `stream_url` | ``$STRING`` |  |
+| `bitrate` | `int` |  |
+| `expires_at` | `string` |  |
+| `quality` | `string` |  |
+| `stream_url` | `string` |  |
 
 #### Example: Load
 
 ```go
-stream, err := client.Stream(nil).Load(map[string]any{"id": "stream_id"}, nil)
+stream, err := client.Stream(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
@@ -663,14 +694,14 @@ Create an instance: `video := client.Video(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `duration` | ``$INTEGER`` |  |
-| `thumbnail_url` | ``$STRING`` |  |
-| `video_url` | ``$STRING`` |  |
+| `duration` | `int` |  |
+| `thumbnail_url` | `string` |  |
+| `video_url` | `string` |  |
 
 #### Example: Load
 
 ```go
-video, err := client.Video(nil).Load(map[string]any{"id": "video_id"}, nil)
+video, err := client.Video(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
@@ -678,12 +709,16 @@ fmt.Println(video) // the loaded record
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -700,9 +735,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller. An unexpected panic triggers the
-`PreUnexpected` hook.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -743,14 +778,14 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
 listeningroom := client.ListeningRoom(nil)
-listeningroom.Load(map[string]any{"id": "example_id"}, nil)
+listeningroom.List(nil, nil)
 
-// listeningroom.Data() now returns the loaded listeningroom data
+// listeningroom.Data() now returns the listeningroom data from the last list
 // listeningroom.Match() returns the last match criteria
 ```
 

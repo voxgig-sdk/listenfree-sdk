@@ -62,7 +62,7 @@ ListeningRoomLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for ListeningRoom#list (any subset of ListeningRoom fields).
+# Request payload for ListeningRoom#list.
 #
 # @!attribute [rw] created_at
 #   @return [String, nil]
@@ -145,7 +145,7 @@ Music = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Music#list (any subset of Music fields).
+# Request payload for Music#list.
 #
 # @!attribute [rw] downloaded_at
 #   @return [String, nil]
@@ -183,10 +183,10 @@ OfflineDownload = Struct.new(
   keyword_init: true
 )
 
-# Match filter for OfflineDownload#create (any subset of OfflineDownload fields).
+# Request payload for OfflineDownload#create.
 #
 # @!attribute [rw] song_id
-#   @return [String, nil]
+#   @return [String]
 OfflineDownloadCreateData = Struct.new(
   :song_id,
   keyword_init: true
@@ -254,7 +254,7 @@ PlaylistLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Playlist#list (any subset of Playlist fields).
+# Request payload for Playlist#list.
 #
 # @!attribute [rw] created_at
 #   @return [String, nil]
@@ -355,7 +355,7 @@ Search = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Search#load (any subset of Search fields).
+# Request payload for Search#load.
 #
 # @!attribute [rw] limit
 #   @return [Integer, nil]

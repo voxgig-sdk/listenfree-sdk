@@ -4,6 +4,8 @@
 
 The Ruby SDK for the Listenfree API — an entity-oriented client using idiomatic Ruby conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.ListeningRoom` — with named operations (`list`/`load`/`create`/`update`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -37,7 +39,7 @@ begin
   # list returns an Array of ListeningRoom records — iterate directly.
   listeningrooms = client.ListeningRoom.list
   listeningrooms.each do |item|
-    puts "#{item["id"]} #{item["name"]}"
+    puts "#{item["id"]} #{item["created_at"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -60,8 +62,35 @@ end
 
 ```ruby
 # create returns the bare created ListeningRoom record.
-created = client.ListeningRoom.create({ "name" => "Example" })
+created = client.ListeningRoom.create({  })
 
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so rescue them:
+
+```ruby
+begin
+  listeningrooms = client.ListeningRoom.list()
+rescue => err
+  warn "list failed: #{err}"
+end
+```
+
+`direct` does **not** raise — it returns the result hash. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```ruby
+result = client.direct({
+  "path" => "/api/resource/{id}",
+  "method" => "GET",
+  "params" => { "id" => "example_id" },
+})
+
+warn "request failed: #{result["err"] || "HTTP #{result["status"]}"}" unless result["ok"]
 ```
 
 
@@ -82,7 +111,9 @@ if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
 else
-  warn result["err"]
+  # On an HTTP error status there is no err (only a transport failure sets
+  # it), so fall back to the status code.
+  warn(result["err"] || "HTTP #{result["status"]}")
 end
 ```
 
@@ -113,8 +144,8 @@ client = ListenfreeSDK.test({
   "entity" => { "listeningroom" => { "test01" => { "id" => "test01" } } },
 })
 
-# load returns the bare mock record (raises on error).
-listeningroom = client.ListeningRoom.load({ "id" => "test01" })
+# Entity ops return the bare mock record (raises on error).
+listeningroom = client.ListeningRoom.list()
 puts listeningroom
 ```
 
@@ -209,7 +240,7 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
 | `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
 | `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
@@ -381,16 +412,16 @@ Create an instance: `listening_room = client.ListeningRoom`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `current_song` | ``$OBJECT`` |  |
-| `description` | ``$STRING`` |  |
-| `host` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `max_participant` | ``$INTEGER`` |  |
-| `name` | ``$STRING`` |  |
-| `participant` | ``$ARRAY`` |  |
-| `queue` | ``$ARRAY`` |  |
+| `created_at` | `String` |  |
+| `current_song` | `Hash` |  |
+| `description` | `String` |  |
+| `host` | `String` |  |
+| `id` | `String` |  |
+| `is_public` | `Boolean` |  |
+| `max_participant` | `Integer` |  |
+| `name` | `String` |  |
+| `participant` | `Array` |  |
+| `queue` | `Array` |  |
 
 #### Example: Load
 
@@ -428,12 +459,12 @@ Create an instance: `music = client.Music`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `progress` | ``$INTEGER`` |  |
-| `song` | ``$OBJECT`` |  |
-| `status` | ``$STRING`` |  |
+| `downloaded_at` | `String` |  |
+| `expires_at` | `String` |  |
+| `id` | `String` |  |
+| `progress` | `Integer` |  |
+| `song` | `Hash` |  |
+| `status` | `String` |  |
 
 #### Example: List
 
@@ -457,13 +488,13 @@ Create an instance: `offline_download = client.OfflineDownload`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | ``$STRING`` |  |
+| `song_id` | `String` |  |
 
 #### Example: Create
 
 ```ruby
 offline_download = client.OfflineDownload.create({
-  "song_id" => nil, # `$STRING`
+  "song_id" => "example", # String
 })
 ```
 
@@ -486,18 +517,18 @@ Create an instance: `playlist = client.Playlist`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `is_smart` | ``$BOOLEAN`` |  |
-| `name` | ``$STRING`` |  |
-| `owner` | ``$STRING`` |  |
-| `smart_criterion` | ``$OBJECT`` |  |
-| `song` | ``$ARRAY`` |  |
-| `song_count` | ``$INTEGER`` |  |
-| `song_id` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
+| `created_at` | `String` |  |
+| `description` | `String` |  |
+| `id` | `String` |  |
+| `is_public` | `Boolean` |  |
+| `is_smart` | `Boolean` |  |
+| `name` | `String` |  |
+| `owner` | `String` |  |
+| `smart_criterion` | `Hash` |  |
+| `song` | `Array` |  |
+| `song_count` | `Integer` |  |
+| `song_id` | `String` |  |
+| `updated_at` | `String` |  |
 
 #### Example: Load
 
@@ -517,7 +548,7 @@ playlists = client.Playlist.list
 
 ```ruby
 playlist = client.Playlist.create({
-  "song_id" => nil, # `$STRING`
+  "song_id" => "example", # String
 })
 ```
 
@@ -536,16 +567,16 @@ Create an instance: `search = client.Search`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | ``$INTEGER`` |  |
-| `offset` | ``$INTEGER`` |  |
-| `result` | ``$OBJECT`` |  |
-| `total` | ``$INTEGER`` |  |
+| `limit` | `Integer` |  |
+| `offset` | `Integer` |  |
+| `result` | `Hash` |  |
+| `total` | `Integer` |  |
 
 #### Example: Load
 
 ```ruby
 # load returns the bare Search record (raises on error).
-search = client.Search.load({ "id" => "search_id" })
+search = client.Search.load()
 ```
 
 
@@ -563,15 +594,15 @@ Create an instance: `song = client.Song`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | ``$STRING`` |  |
-| `artist` | ``$STRING`` |  |
-| `cover_art` | ``$STRING`` |  |
-| `duration` | ``$INTEGER`` |  |
-| `genre` | ``$ARRAY`` |  |
-| `has_video` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `release_date` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `album` | `String` |  |
+| `artist` | `String` |  |
+| `cover_art` | `String` |  |
+| `duration` | `Integer` |  |
+| `genre` | `Array` |  |
+| `has_video` | `Boolean` |  |
+| `id` | `String` |  |
+| `release_date` | `String` |  |
+| `title` | `String` |  |
 
 #### Example: Load
 
@@ -595,16 +626,16 @@ Create an instance: `stream = client.Stream`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `quality` | ``$STRING`` |  |
-| `stream_url` | ``$STRING`` |  |
+| `bitrate` | `Integer` |  |
+| `expires_at` | `String` |  |
+| `quality` | `String` |  |
+| `stream_url` | `String` |  |
 
 #### Example: Load
 
 ```ruby
 # load returns the bare Stream record (raises on error).
-stream = client.Stream.load({ "id" => "stream_id" })
+stream = client.Stream.load()
 ```
 
 
@@ -622,24 +653,28 @@ Create an instance: `video = client.Video`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `duration` | ``$INTEGER`` |  |
-| `thumbnail_url` | ``$STRING`` |  |
-| `video_url` | ``$STRING`` |  |
+| `duration` | `Integer` |  |
+| `thumbnail_url` | `String` |  |
+| `video_url` | `String` |  |
 
 #### Example: Load
 
 ```ruby
 # load returns the bare Video record (raises on error).
-video = client.Video.load({ "id" => "video_id" })
+video = client.Video.load()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -656,8 +691,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -701,14 +737,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
 listeningroom = client.ListeningRoom
-listeningroom.load({ "id" => "example_id" })
+listeningroom.list()
 
-# listeningroom.data_get now returns the loaded listeningroom data
+# listeningroom.data_get now returns the listeningroom data from the last list
 # listeningroom.match_get returns the last match criteria
 ```
 

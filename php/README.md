@@ -4,6 +4,8 @@
 
 The PHP SDK for the Listenfree API — an entity-oriented client using PHP conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->ListeningRoom()` — with named operations (`list`/`load`/`create`/`update`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -38,7 +40,7 @@ try {
     // list() returns an array of ListeningRoom records — iterate directly.
     $listeningrooms = $client->ListeningRoom()->list();
     foreach ($listeningrooms as $item) {
-        echo $item["id"] . " " . $item["name"] . "\n";
+        echo $item["id"] . " " . $item["created_at"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -61,8 +63,39 @@ try {
 
 ```php
 // create() returns the bare created ListeningRoom record.
-$created = $client->ListeningRoom()->create(["name" => "Example"]);
+$created = $client->ListeningRoom()->create([]);
 
+```
+
+
+## Error handling
+
+Entity operations throw a `\Throwable` on failure, so wrap them in
+`try` / `catch`:
+
+```php
+try {
+    $listeningrooms = $client->ListeningRoom()->list();
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
+`direct()` does **not** throw — it returns the result array. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```php
+$result = $client->direct([
+    "path" => "/api/resource/{id}",
+    "method" => "GET",
+    "params" => ["id" => "example_id"],
+]);
+
+if (! $result["ok"]) {
+    $err = $result["err"] ?? null;
+    echo "request failed: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
+}
 ```
 
 
@@ -85,7 +118,10 @@ if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
 } else {
-    echo "Error: " . $result["err"]->getMessage();
+    // On an HTTP error status there is no err (only a transport failure sets
+    // it), so fall back to the status code.
+    $err = $result["err"] ?? null;
+    echo "Error: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -114,8 +150,8 @@ $client = ListenfreeSDK::test([
     "entity" => ["listeningroom" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// load() returns the bare mock record (throws on error).
-$listeningroom = $client->ListeningRoom()->load(["id" => "test01"]);
+// Entity ops return the bare mock record (throws on error).
+$listeningroom = $client->ListeningRoom()->list();
 print_r($listeningroom);
 ```
 
@@ -213,7 +249,7 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `($reqmatch, $ctrl): array` | List entities matching the criteria. |
+| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
 | `create` | `($reqdata, $ctrl): array` | Create a new entity. |
 | `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
 | `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
@@ -386,16 +422,16 @@ Create an instance: `$listening_room = $client->ListeningRoom();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `current_song` | ``$OBJECT`` |  |
-| `description` | ``$STRING`` |  |
-| `host` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `max_participant` | ``$INTEGER`` |  |
-| `name` | ``$STRING`` |  |
-| `participant` | ``$ARRAY`` |  |
-| `queue` | ``$ARRAY`` |  |
+| `created_at` | `string` |  |
+| `current_song` | `array` |  |
+| `description` | `string` |  |
+| `host` | `string` |  |
+| `id` | `string` |  |
+| `is_public` | `bool` |  |
+| `max_participant` | `int` |  |
+| `name` | `string` |  |
+| `participant` | `array` |  |
+| `queue` | `array` |  |
 
 #### Example: Load
 
@@ -433,12 +469,12 @@ Create an instance: `$music = $client->Music();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `progress` | ``$INTEGER`` |  |
-| `song` | ``$OBJECT`` |  |
-| `status` | ``$STRING`` |  |
+| `downloaded_at` | `string` |  |
+| `expires_at` | `string` |  |
+| `id` | `string` |  |
+| `progress` | `int` |  |
+| `song` | `array` |  |
+| `status` | `string` |  |
 
 #### Example: List
 
@@ -462,13 +498,13 @@ Create an instance: `$offline_download = $client->OfflineDownload();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | ``$STRING`` |  |
+| `song_id` | `string` |  |
 
 #### Example: Create
 
 ```php
 $offline_download = $client->OfflineDownload()->create([
-    "song_id" => null, // `$STRING`
+    "song_id" => null, // string
 ]);
 ```
 
@@ -491,18 +527,18 @@ Create an instance: `$playlist = $client->Playlist();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `is_smart` | ``$BOOLEAN`` |  |
-| `name` | ``$STRING`` |  |
-| `owner` | ``$STRING`` |  |
-| `smart_criterion` | ``$OBJECT`` |  |
-| `song` | ``$ARRAY`` |  |
-| `song_count` | ``$INTEGER`` |  |
-| `song_id` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `id` | `string` |  |
+| `is_public` | `bool` |  |
+| `is_smart` | `bool` |  |
+| `name` | `string` |  |
+| `owner` | `string` |  |
+| `smart_criterion` | `array` |  |
+| `song` | `array` |  |
+| `song_count` | `int` |  |
+| `song_id` | `string` |  |
+| `updated_at` | `string` |  |
 
 #### Example: Load
 
@@ -522,7 +558,7 @@ $playlists = $client->Playlist()->list();
 
 ```php
 $playlist = $client->Playlist()->create([
-    "song_id" => null, // `$STRING`
+    "song_id" => null, // string
 ]);
 ```
 
@@ -541,16 +577,16 @@ Create an instance: `$search = $client->Search();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | ``$INTEGER`` |  |
-| `offset` | ``$INTEGER`` |  |
-| `result` | ``$OBJECT`` |  |
-| `total` | ``$INTEGER`` |  |
+| `limit` | `int` |  |
+| `offset` | `int` |  |
+| `result` | `array` |  |
+| `total` | `int` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare Search record (throws on error).
-$search = $client->Search()->load(["id" => "search_id"]);
+$search = $client->Search()->load();
 ```
 
 
@@ -568,15 +604,15 @@ Create an instance: `$song = $client->Song();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | ``$STRING`` |  |
-| `artist` | ``$STRING`` |  |
-| `cover_art` | ``$STRING`` |  |
-| `duration` | ``$INTEGER`` |  |
-| `genre` | ``$ARRAY`` |  |
-| `has_video` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `release_date` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `album` | `string` |  |
+| `artist` | `string` |  |
+| `cover_art` | `string` |  |
+| `duration` | `int` |  |
+| `genre` | `array` |  |
+| `has_video` | `bool` |  |
+| `id` | `string` |  |
+| `release_date` | `string` |  |
+| `title` | `string` |  |
 
 #### Example: Load
 
@@ -600,16 +636,16 @@ Create an instance: `$stream = $client->Stream();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `quality` | ``$STRING`` |  |
-| `stream_url` | ``$STRING`` |  |
+| `bitrate` | `int` |  |
+| `expires_at` | `string` |  |
+| `quality` | `string` |  |
+| `stream_url` | `string` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare Stream record (throws on error).
-$stream = $client->Stream()->load(["id" => "stream_id"]);
+$stream = $client->Stream()->load();
 ```
 
 
@@ -627,24 +663,28 @@ Create an instance: `$video = $client->Video();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `duration` | ``$INTEGER`` |  |
-| `thumbnail_url` | ``$STRING`` |  |
-| `video_url` | ``$STRING`` |  |
+| `duration` | `int` |  |
+| `thumbnail_url` | `string` |  |
+| `video_url` | `string` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare Video record (throws on error).
-$video = $client->Video()->load(["id" => "video_id"]);
+$video = $client->Video()->load();
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -661,8 +701,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return array.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -706,15 +747,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
 $listeningroom = $client->ListeningRoom();
-$listeningroom->load(["id" => "example_id"]);
+$listeningroom->list();
 
-// $listeningroom->dataGet() now returns the loaded listeningroom data
-// $listeningroom->matchGet() returns the last match criteria
+// $listeningroom->data_get() now returns the listeningroom data from the last list
+// $listeningroom->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

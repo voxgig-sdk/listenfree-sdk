@@ -74,11 +74,11 @@ Create a new `StreamEntity` instance. Pass `null` for no initial data.
 
 Create a new `VideoEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): ListenfreeUtility`
 
 Return a copy of the SDK utility object.
 
@@ -121,31 +121,31 @@ $listening_room = $client->ListeningRoom();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `current_song` | ``$OBJECT`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `host` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `max_participant` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `participant` | ``$ARRAY`` | No |  |
-| `queue` | ``$ARRAY`` | No |  |
+| `created_at` | `string` | No |  |
+| `current_song` | `array` | No |  |
+| `description` | `string` | No |  |
+| `host` | `string` | No |  |
+| `id` | `string` | No |  |
+| `is_public` | `bool` | No |  |
+| `max_participant` | `int` | No |  |
+| `name` | `string` | No |  |
+| `participant` | `array` | No |  |
+| `queue` | `array` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
-| `current_song` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `host` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `max_participant` | - | - | - | - | - |
-| `name` | - | - | Yes | - | - |
-| `participant` | - | - | - | - | - |
-| `queue` | - | - | - | - | - |
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `created_at` | - | - | - |
+| `current_song` | - | - | - |
+| `description` | - | - | - |
+| `host` | - | - | - |
+| `id` | - | - | - |
+| `is_public` | - | - | - |
+| `max_participant` | - | - | - |
+| `name` | - | - | Yes |
+| `participant` | - | - | - |
+| `queue` | - | - | - |
 
 ### Operations
 
@@ -158,12 +158,12 @@ $result = $client->ListeningRoom()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->ListeningRoom()->list([]);
+$results = $client->ListeningRoom()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -176,19 +176,19 @@ $result = $client->ListeningRoom()->load(["id" => "listening_room_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -197,7 +197,7 @@ Set the entity match criteria.
 Create a new `ListeningRoomEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -214,38 +214,38 @@ $music = $client->Music();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `progress` | ``$INTEGER`` | No |  |
-| `song` | ``$OBJECT`` | No |  |
-| `status` | ``$STRING`` | No |  |
+| `downloaded_at` | `string` | No |  |
+| `expires_at` | `string` | No |  |
+| `id` | `string` | No |  |
+| `progress` | `int` | No |  |
+| `song` | `array` | No |  |
+| `status` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Music()->list([]);
+$results = $client->Music()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -254,7 +254,7 @@ Set the entity match criteria.
 Create a new `MusicEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -271,7 +271,7 @@ $offline_download = $client->OfflineDownload();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | ``$STRING`` | Yes |  |
+| `song_id` | `string` | Yes |  |
 
 ### Operations
 
@@ -281,25 +281,25 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->OfflineDownload()->create([
-  "song_id" => /* `$STRING` */,
+  "song_id" => null, // string
 ]);
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -308,7 +308,7 @@ Set the entity match criteria.
 Create a new `OfflineDownloadEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -325,18 +325,18 @@ $playlist = $client->Playlist();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `is_smart` | ``$BOOLEAN`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `owner` | ``$STRING`` | No |  |
-| `smart_criterion` | ``$OBJECT`` | No |  |
-| `song` | ``$ARRAY`` | No |  |
-| `song_count` | ``$INTEGER`` | No |  |
-| `song_id` | ``$STRING`` | Yes |  |
-| `updated_at` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `id` | `string` | No |  |
+| `is_public` | `bool` | No |  |
+| `is_smart` | `bool` | No |  |
+| `name` | `string` | No |  |
+| `owner` | `string` | No |  |
+| `smart_criterion` | `array` | No |  |
+| `song` | `array` | No |  |
+| `song_count` | `int` | No |  |
+| `song_id` | `string` | Yes |  |
+| `updated_at` | `string` | No |  |
 
 ### Field Usage by Operation
 
@@ -363,16 +363,16 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Playlist()->create([
-  "song_id" => /* `$STRING` */,
+  "song_id" => null, // string
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Playlist()->list([]);
+$results = $client->Playlist()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -404,19 +404,19 @@ $result = $client->Playlist()->update([
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -425,7 +425,7 @@ Set the entity match criteria.
 Create a new `PlaylistEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -442,10 +442,10 @@ $search = $client->Search();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | ``$INTEGER`` | No |  |
-| `offset` | ``$INTEGER`` | No |  |
-| `result` | ``$OBJECT`` | No |  |
-| `total` | ``$INTEGER`` | No |  |
+| `limit` | `int` | No |  |
+| `offset` | `int` | No |  |
+| `result` | `array` | No |  |
+| `total` | `int` | No |  |
 
 ### Operations
 
@@ -454,24 +454,24 @@ $search = $client->Search();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Search()->load(["id" => "search_id"]);
+$result = $client->Search()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -480,7 +480,7 @@ Set the entity match criteria.
 Create a new `SearchEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -497,15 +497,15 @@ $song = $client->Song();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | ``$STRING`` | No |  |
-| `artist` | ``$STRING`` | No |  |
-| `cover_art` | ``$STRING`` | No |  |
-| `duration` | ``$INTEGER`` | No |  |
-| `genre` | ``$ARRAY`` | No |  |
-| `has_video` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `release_date` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `album` | `string` | No |  |
+| `artist` | `string` | No |  |
+| `cover_art` | `string` | No |  |
+| `duration` | `int` | No |  |
+| `genre` | `array` | No |  |
+| `has_video` | `bool` | No |  |
+| `id` | `string` | No |  |
+| `release_date` | `string` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 
@@ -519,19 +519,19 @@ $result = $client->Song()->load(["id" => "song_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -540,7 +540,7 @@ Set the entity match criteria.
 Create a new `SongEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -557,10 +557,10 @@ $stream = $client->Stream();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `quality` | ``$STRING`` | No |  |
-| `stream_url` | ``$STRING`` | No |  |
+| `bitrate` | `int` | No |  |
+| `expires_at` | `string` | No |  |
+| `quality` | `string` | No |  |
+| `stream_url` | `string` | No |  |
 
 ### Operations
 
@@ -569,24 +569,24 @@ $stream = $client->Stream();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Stream()->load(["id" => "stream_id"]);
+$result = $client->Stream()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -595,7 +595,7 @@ Set the entity match criteria.
 Create a new `StreamEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -612,9 +612,9 @@ $video = $client->Video();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `duration` | ``$INTEGER`` | No |  |
-| `thumbnail_url` | ``$STRING`` | No |  |
-| `video_url` | ``$STRING`` | No |  |
+| `duration` | `int` | No |  |
+| `thumbnail_url` | `string` | No |  |
+| `video_url` | `string` | No |  |
 
 ### Operations
 
@@ -623,24 +623,24 @@ $video = $client->Video();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Video()->load(["id" => "video_id"]);
+$result = $client->Video()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -649,7 +649,7 @@ Set the entity match criteria.
 Create a new `VideoEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

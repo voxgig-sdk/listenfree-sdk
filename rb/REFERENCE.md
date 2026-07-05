@@ -8,7 +8,7 @@ Complete API reference for the Listenfree Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'listenfree_sdk'
+require_relative 'Listenfree_sdk'
 
 client = ListenfreeSDK.new(options)
 ```
@@ -122,31 +122,31 @@ listening_room = client.ListeningRoom
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `current_song` | ``$OBJECT`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `host` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `max_participant` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `participant` | ``$ARRAY`` | No |  |
-| `queue` | ``$ARRAY`` | No |  |
+| `created_at` | `String` | No |  |
+| `current_song` | `Hash` | No |  |
+| `description` | `String` | No |  |
+| `host` | `String` | No |  |
+| `id` | `String` | No |  |
+| `is_public` | `Boolean` | No |  |
+| `max_participant` | `Integer` | No |  |
+| `name` | `String` | No |  |
+| `participant` | `Array` | No |  |
+| `queue` | `Array` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
-| `current_song` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `host` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `max_participant` | - | - | - | - | - |
-| `name` | - | - | Yes | - | - |
-| `participant` | - | - | - | - | - |
-| `queue` | - | - | - | - | - |
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `created_at` | - | - | - |
+| `current_song` | - | - | - |
+| `description` | - | - | - |
+| `host` | - | - | - |
+| `id` | - | - | - |
+| `is_public` | - | - | - |
+| `max_participant` | - | - | - |
+| `name` | - | - | Yes |
+| `participant` | - | - | - |
+| `queue` | - | - | - |
 
 ### Operations
 
@@ -159,12 +159,12 @@ result = client.ListeningRoom.create({
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.ListeningRoom.list(nil)
+results = client.ListeningRoom.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -215,21 +215,21 @@ music = client.Music
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `progress` | ``$INTEGER`` | No |  |
-| `song` | ``$OBJECT`` | No |  |
-| `status` | ``$STRING`` | No |  |
+| `downloaded_at` | `String` | No |  |
+| `expires_at` | `String` | No |  |
+| `id` | `String` | No |  |
+| `progress` | `Integer` | No |  |
+| `song` | `Hash` | No |  |
+| `status` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Music.list(nil)
+results = client.Music.list
 ```
 
 ### Common Methods
@@ -272,7 +272,7 @@ offline_download = client.OfflineDownload
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | ``$STRING`` | Yes |  |
+| `song_id` | `String` | Yes |  |
 
 ### Operations
 
@@ -282,7 +282,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.OfflineDownload.create({
-  "song_id" => # `$STRING`,
+  "song_id" => "example", # String
 })
 ```
 
@@ -326,18 +326,18 @@ playlist = client.Playlist
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `is_smart` | ``$BOOLEAN`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `owner` | ``$STRING`` | No |  |
-| `smart_criterion` | ``$OBJECT`` | No |  |
-| `song` | ``$ARRAY`` | No |  |
-| `song_count` | ``$INTEGER`` | No |  |
-| `song_id` | ``$STRING`` | Yes |  |
-| `updated_at` | ``$STRING`` | No |  |
+| `created_at` | `String` | No |  |
+| `description` | `String` | No |  |
+| `id` | `String` | No |  |
+| `is_public` | `Boolean` | No |  |
+| `is_smart` | `Boolean` | No |  |
+| `name` | `String` | No |  |
+| `owner` | `String` | No |  |
+| `smart_criterion` | `Hash` | No |  |
+| `song` | `Array` | No |  |
+| `song_count` | `Integer` | No |  |
+| `song_id` | `String` | Yes |  |
+| `updated_at` | `String` | No |  |
 
 ### Field Usage by Operation
 
@@ -364,16 +364,16 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Playlist.create({
-  "song_id" => # `$STRING`,
+  "song_id" => "example", # String
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Playlist.list(nil)
+results = client.Playlist.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -443,10 +443,10 @@ search = client.Search
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | ``$INTEGER`` | No |  |
-| `offset` | ``$INTEGER`` | No |  |
-| `result` | ``$OBJECT`` | No |  |
-| `total` | ``$INTEGER`` | No |  |
+| `limit` | `Integer` | No |  |
+| `offset` | `Integer` | No |  |
+| `result` | `Hash` | No |  |
+| `total` | `Integer` | No |  |
 
 ### Operations
 
@@ -455,7 +455,7 @@ search = client.Search
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Search.load({ "id" => "search_id" })
+result = client.Search.load()
 ```
 
 ### Common Methods
@@ -498,15 +498,15 @@ song = client.Song
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | ``$STRING`` | No |  |
-| `artist` | ``$STRING`` | No |  |
-| `cover_art` | ``$STRING`` | No |  |
-| `duration` | ``$INTEGER`` | No |  |
-| `genre` | ``$ARRAY`` | No |  |
-| `has_video` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `release_date` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `album` | `String` | No |  |
+| `artist` | `String` | No |  |
+| `cover_art` | `String` | No |  |
+| `duration` | `Integer` | No |  |
+| `genre` | `Array` | No |  |
+| `has_video` | `Boolean` | No |  |
+| `id` | `String` | No |  |
+| `release_date` | `String` | No |  |
+| `title` | `String` | No |  |
 
 ### Operations
 
@@ -558,10 +558,10 @@ stream = client.Stream
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `quality` | ``$STRING`` | No |  |
-| `stream_url` | ``$STRING`` | No |  |
+| `bitrate` | `Integer` | No |  |
+| `expires_at` | `String` | No |  |
+| `quality` | `String` | No |  |
+| `stream_url` | `String` | No |  |
 
 ### Operations
 
@@ -570,7 +570,7 @@ stream = client.Stream
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Stream.load({ "id" => "stream_id" })
+result = client.Stream.load()
 ```
 
 ### Common Methods
@@ -613,9 +613,9 @@ video = client.Video
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `duration` | ``$INTEGER`` | No |  |
-| `thumbnail_url` | ``$STRING`` | No |  |
-| `video_url` | ``$STRING`` | No |  |
+| `duration` | `Integer` | No |  |
+| `thumbnail_url` | `String` | No |  |
+| `video_url` | `String` | No |  |
 
 ### Operations
 
@@ -624,7 +624,7 @@ video = client.Video
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Video.load({ "id" => "video_id" })
+result = client.Video.load()
 ```
 
 ### Common Methods

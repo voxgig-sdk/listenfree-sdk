@@ -22,7 +22,18 @@ export interface ListeningRoomLoadMatch {
   id: string
 }
 
-export type ListeningRoomListMatch = Partial<ListeningRoom>
+export interface ListeningRoomListMatch {
+  created_at?: string
+  current_song?: Record<string, any>
+  description?: string
+  host?: string
+  id?: string
+  is_public?: boolean
+  max_participant?: number
+  name?: string
+  participant?: any[]
+  queue?: any[]
+}
 
 export interface ListeningRoomCreateData {
   id: string
@@ -37,13 +48,22 @@ export interface Music {
   status?: string
 }
 
-export type MusicListMatch = Partial<Music>
+export interface MusicListMatch {
+  downloaded_at?: string
+  expires_at?: string
+  id?: string
+  progress?: number
+  song?: Record<string, any>
+  status?: string
+}
 
 export interface OfflineDownload {
   song_id: string
 }
 
-export type OfflineDownloadCreateData = Partial<OfflineDownload>
+export interface OfflineDownloadCreateData {
+  song_id: string
+}
 
 export interface Playlist {
   created_at?: string
@@ -64,7 +84,20 @@ export interface PlaylistLoadMatch {
   id: string
 }
 
-export type PlaylistListMatch = Partial<Playlist>
+export interface PlaylistListMatch {
+  created_at?: string
+  description?: string
+  id?: string
+  is_public?: boolean
+  is_smart?: boolean
+  name?: string
+  owner?: string
+  smart_criterion?: Record<string, any>
+  song?: any[]
+  song_count?: number
+  song_id?: string
+  updated_at?: string
+}
 
 export interface PlaylistCreateData {
   id: string
@@ -85,7 +118,12 @@ export interface Search {
   total?: number
 }
 
-export type SearchLoadMatch = Partial<Search>
+export interface SearchLoadMatch {
+  limit?: number
+  offset?: number
+  result?: Record<string, any>
+  total?: number
+}
 
 export interface Song {
   album?: string

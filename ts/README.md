@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the Listenfree API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.ListeningRoom()` — each with a small set of operations (`list`, `load`, `create`, `update`, `remove`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -59,10 +64,37 @@ try {
 
 ```ts
 // Create — returns the created ListeningRoom
-const created = await client.ListeningRoom().create({
-  name: 'Example',
+const created = await client.ListeningRoom().create({})
+
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const listeningrooms = await client.ListeningRoom().list()
+  console.log(listeningrooms)
+} catch (err) {
+  console.error('list failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 ```
 
 
@@ -110,7 +142,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ListenfreeSDK.test()
 
-const listeningroom = await client.ListeningRoom().load({ id: 'test01' })
+const listeningroom = await client.ListeningRoom().list()
 // listeningroom is a bare entity populated with mock response data
 console.log(listeningroom)
 ```
@@ -129,12 +161,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.ListeningRoom()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.list()
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -238,8 +270,8 @@ All entities share the same interface.
 | `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
 | `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
 | `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): ListenfreeSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -430,16 +462,16 @@ Create an instance: `const listening_room = client.ListeningRoom()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `current_song` | ``$OBJECT`` |  |
-| `description` | ``$STRING`` |  |
-| `host` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `max_participant` | ``$INTEGER`` |  |
-| `name` | ``$STRING`` |  |
-| `participant` | ``$ARRAY`` |  |
-| `queue` | ``$ARRAY`` |  |
+| `created_at` | `string` |  |
+| `current_song` | `Record<string, any>` |  |
+| `description` | `string` |  |
+| `host` | `string` |  |
+| `id` | `string` |  |
+| `is_public` | `boolean` |  |
+| `max_participant` | `number` |  |
+| `name` | `string` |  |
+| `participant` | `any[]` |  |
+| `queue` | `any[]` |  |
 
 #### Example: Load
 
@@ -475,12 +507,12 @@ Create an instance: `const music = client.Music()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `progress` | ``$INTEGER`` |  |
-| `song` | ``$OBJECT`` |  |
-| `status` | ``$STRING`` |  |
+| `downloaded_at` | `string` |  |
+| `expires_at` | `string` |  |
+| `id` | `string` |  |
+| `progress` | `number` |  |
+| `song` | `Record<string, any>` |  |
+| `status` | `string` |  |
 
 #### Example: List
 
@@ -503,13 +535,13 @@ Create an instance: `const offline_download = client.OfflineDownload()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | ``$STRING`` |  |
+| `song_id` | `string` |  |
 
 #### Example: Create
 
 ```ts
 const offline_download = await client.OfflineDownload().create({
-  song_id: /* `$STRING` */,
+  song_id: /* string */,
 })
 ```
 
@@ -532,18 +564,18 @@ Create an instance: `const playlist = client.Playlist()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `is_public` | ``$BOOLEAN`` |  |
-| `is_smart` | ``$BOOLEAN`` |  |
-| `name` | ``$STRING`` |  |
-| `owner` | ``$STRING`` |  |
-| `smart_criterion` | ``$OBJECT`` |  |
-| `song` | ``$ARRAY`` |  |
-| `song_count` | ``$INTEGER`` |  |
-| `song_id` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `id` | `string` |  |
+| `is_public` | `boolean` |  |
+| `is_smart` | `boolean` |  |
+| `name` | `string` |  |
+| `owner` | `string` |  |
+| `smart_criterion` | `Record<string, any>` |  |
+| `song` | `any[]` |  |
+| `song_count` | `number` |  |
+| `song_id` | `string` |  |
+| `updated_at` | `string` |  |
 
 #### Example: Load
 
@@ -561,7 +593,7 @@ const playlists = await client.Playlist().list()
 
 ```ts
 const playlist = await client.Playlist().create({
-  song_id: /* `$STRING` */,
+  song_id: /* string */,
 })
 ```
 
@@ -580,15 +612,15 @@ Create an instance: `const search = client.Search()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | ``$INTEGER`` |  |
-| `offset` | ``$INTEGER`` |  |
-| `result` | ``$OBJECT`` |  |
-| `total` | ``$INTEGER`` |  |
+| `limit` | `number` |  |
+| `offset` | `number` |  |
+| `result` | `Record<string, any>` |  |
+| `total` | `number` |  |
 
 #### Example: Load
 
 ```ts
-const search = await client.Search().load({ id: 'search_id' })
+const search = await client.Search().load()
 ```
 
 
@@ -606,15 +638,15 @@ Create an instance: `const song = client.Song()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | ``$STRING`` |  |
-| `artist` | ``$STRING`` |  |
-| `cover_art` | ``$STRING`` |  |
-| `duration` | ``$INTEGER`` |  |
-| `genre` | ``$ARRAY`` |  |
-| `has_video` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `release_date` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `album` | `string` |  |
+| `artist` | `string` |  |
+| `cover_art` | `string` |  |
+| `duration` | `number` |  |
+| `genre` | `any[]` |  |
+| `has_video` | `boolean` |  |
+| `id` | `string` |  |
+| `release_date` | `string` |  |
+| `title` | `string` |  |
 
 #### Example: Load
 
@@ -637,15 +669,15 @@ Create an instance: `const stream = client.Stream()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `quality` | ``$STRING`` |  |
-| `stream_url` | ``$STRING`` |  |
+| `bitrate` | `number` |  |
+| `expires_at` | `string` |  |
+| `quality` | `string` |  |
+| `stream_url` | `string` |  |
 
 #### Example: Load
 
 ```ts
-const stream = await client.Stream().load({ id: 'stream_id' })
+const stream = await client.Stream().load()
 ```
 
 
@@ -663,23 +695,27 @@ Create an instance: `const video = client.Video()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `duration` | ``$INTEGER`` |  |
-| `thumbnail_url` | ``$STRING`` |  |
-| `video_url` | ``$STRING`` |  |
+| `duration` | `number` |  |
+| `thumbnail_url` | `string` |  |
+| `video_url` | `string` |  |
 
 #### Example: Load
 
 ```ts
-const video = await client.Video().load({ id: 'video_id' })
+const video = await client.Video().load()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -696,11 +732,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -736,16 +770,16 @@ import { ListenfreeSDK } from '@voxgig-sdk/listenfree'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const listeningroom = client.ListeningRoom()
-await listeningroom.load({ id: "example_id" })
+await listeningroom.list()
 
-// listeningroom.data() now returns the loaded listeningroom data
-// listeningroom.match() returns { id: "example_id" }
+// listeningroom.data() now returns the listeningroom data from the last `list`
+// listeningroom.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

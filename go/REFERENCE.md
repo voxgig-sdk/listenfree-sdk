@@ -126,31 +126,31 @@ listening_room := client.ListeningRoom(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `current_song` | ``$OBJECT`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `host` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `max_participant` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `participant` | ``$ARRAY`` | No |  |
-| `queue` | ``$ARRAY`` | No |  |
+| `created_at` | `string` | No |  |
+| `current_song` | `map[string]any` | No |  |
+| `description` | `string` | No |  |
+| `host` | `string` | No |  |
+| `id` | `string` | No |  |
+| `is_public` | `bool` | No |  |
+| `max_participant` | `int` | No |  |
+| `name` | `string` | No |  |
+| `participant` | `[]any` | No |  |
+| `queue` | `[]any` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
-| `current_song` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `host` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `max_participant` | - | - | - | - | - |
-| `name` | - | - | Yes | - | - |
-| `participant` | - | - | - | - | - |
-| `queue` | - | - | - | - | - |
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `created_at` | - | - | - |
+| `current_song` | - | - | - |
+| `description` | - | - | - |
+| `host` | - | - | - |
+| `id` | - | - | - |
+| `is_public` | - | - | - |
+| `max_participant` | - | - | - |
+| `name` | - | - | Yes |
+| `participant` | - | - | - |
+| `queue` | - | - | - |
 
 ### Operations
 
@@ -213,12 +213,12 @@ music := client.Music(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `progress` | ``$INTEGER`` | No |  |
-| `song` | ``$OBJECT`` | No |  |
-| `status` | ``$STRING`` | No |  |
+| `downloaded_at` | `string` | No |  |
+| `expires_at` | `string` | No |  |
+| `id` | `string` | No |  |
+| `progress` | `int` | No |  |
+| `song` | `map[string]any` | No |  |
+| `status` | `string` | No |  |
 
 ### Operations
 
@@ -264,7 +264,7 @@ offline_download := client.OfflineDownload(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | ``$STRING`` | Yes |  |
+| `song_id` | `string` | Yes |  |
 
 ### Operations
 
@@ -274,7 +274,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.OfflineDownload(nil).Create(map[string]any{
-    "song_id": /* `$STRING` */,
+    "song_id": /* string */,
 }, nil)
 ```
 
@@ -312,18 +312,18 @@ playlist := client.Playlist(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `is_smart` | ``$BOOLEAN`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `owner` | ``$STRING`` | No |  |
-| `smart_criterion` | ``$OBJECT`` | No |  |
-| `song` | ``$ARRAY`` | No |  |
-| `song_count` | ``$INTEGER`` | No |  |
-| `song_id` | ``$STRING`` | Yes |  |
-| `updated_at` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `id` | `string` | No |  |
+| `is_public` | `bool` | No |  |
+| `is_smart` | `bool` | No |  |
+| `name` | `string` | No |  |
+| `owner` | `string` | No |  |
+| `smart_criterion` | `map[string]any` | No |  |
+| `song` | `[]any` | No |  |
+| `song_count` | `int` | No |  |
+| `song_id` | `string` | Yes |  |
+| `updated_at` | `string` | No |  |
 
 ### Field Usage by Operation
 
@@ -350,7 +350,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Playlist(nil).Create(map[string]any{
-    "song_id": /* `$STRING` */,
+    "song_id": /* string */,
 }, nil)
 ```
 
@@ -423,10 +423,10 @@ search := client.Search(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | ``$INTEGER`` | No |  |
-| `offset` | ``$INTEGER`` | No |  |
-| `result` | ``$OBJECT`` | No |  |
-| `total` | ``$INTEGER`` | No |  |
+| `limit` | `int` | No |  |
+| `offset` | `int` | No |  |
+| `result` | `map[string]any` | No |  |
+| `total` | `int` | No |  |
 
 ### Operations
 
@@ -435,7 +435,7 @@ search := client.Search(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Search(nil).Load(map[string]any{"id": "search_id"}, nil)
+result, err := client.Search(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -472,15 +472,15 @@ song := client.Song(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | ``$STRING`` | No |  |
-| `artist` | ``$STRING`` | No |  |
-| `cover_art` | ``$STRING`` | No |  |
-| `duration` | ``$INTEGER`` | No |  |
-| `genre` | ``$ARRAY`` | No |  |
-| `has_video` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `release_date` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `album` | `string` | No |  |
+| `artist` | `string` | No |  |
+| `cover_art` | `string` | No |  |
+| `duration` | `int` | No |  |
+| `genre` | `[]any` | No |  |
+| `has_video` | `bool` | No |  |
+| `id` | `string` | No |  |
+| `release_date` | `string` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 
@@ -526,10 +526,10 @@ stream := client.Stream(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `quality` | ``$STRING`` | No |  |
-| `stream_url` | ``$STRING`` | No |  |
+| `bitrate` | `int` | No |  |
+| `expires_at` | `string` | No |  |
+| `quality` | `string` | No |  |
+| `stream_url` | `string` | No |  |
 
 ### Operations
 
@@ -538,7 +538,7 @@ stream := client.Stream(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Stream(nil).Load(map[string]any{"id": "stream_id"}, nil)
+result, err := client.Stream(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -575,9 +575,9 @@ video := client.Video(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `duration` | ``$INTEGER`` | No |  |
-| `thumbnail_url` | ``$STRING`` | No |  |
-| `video_url` | ``$STRING`` | No |  |
+| `duration` | `int` | No |  |
+| `thumbnail_url` | `string` | No |  |
+| `video_url` | `string` | No |  |
 
 ### Operations
 
@@ -586,7 +586,7 @@ video := client.Video(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Video(nil).Load(map[string]any{"id": "video_id"}, nil)
+result, err := client.Video(nil).Load(nil, nil)
 ```
 
 ### Common Methods

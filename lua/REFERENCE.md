@@ -119,31 +119,31 @@ local listening_room = client:ListeningRoom(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `current_song` | ``$OBJECT`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `host` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `max_participant` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `participant` | ``$ARRAY`` | No |  |
-| `queue` | ``$ARRAY`` | No |  |
+| `created_at` | `string` | No |  |
+| `current_song` | `table` | No |  |
+| `description` | `string` | No |  |
+| `host` | `string` | No |  |
+| `id` | `string` | No |  |
+| `is_public` | `boolean` | No |  |
+| `max_participant` | `number` | No |  |
+| `name` | `string` | No |  |
+| `participant` | `table` | No |  |
+| `queue` | `table` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
-| `current_song` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `host` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `max_participant` | - | - | - | - | - |
-| `name` | - | - | Yes | - | - |
-| `participant` | - | - | - | - | - |
-| `queue` | - | - | - | - | - |
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `created_at` | - | - | - |
+| `current_song` | - | - | - |
+| `description` | - | - | - |
+| `host` | - | - | - |
+| `id` | - | - | - |
+| `is_public` | - | - | - |
+| `max_participant` | - | - | - |
+| `name` | - | - | Yes |
+| `participant` | - | - | - |
+| `queue` | - | - | - |
 
 ### Operations
 
@@ -212,12 +212,12 @@ local music = client:Music(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `progress` | ``$INTEGER`` | No |  |
-| `song` | ``$OBJECT`` | No |  |
-| `status` | ``$STRING`` | No |  |
+| `downloaded_at` | `string` | No |  |
+| `expires_at` | `string` | No |  |
+| `id` | `string` | No |  |
+| `progress` | `number` | No |  |
+| `song` | `table` | No |  |
+| `status` | `string` | No |  |
 
 ### Operations
 
@@ -269,7 +269,7 @@ local offline_download = client:OfflineDownload(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | ``$STRING`` | Yes |  |
+| `song_id` | `string` | Yes |  |
 
 ### Operations
 
@@ -279,7 +279,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:OfflineDownload():create({
-  song_id = --[[ `$STRING` ]],
+  song_id = --[[ string ]],
 })
 ```
 
@@ -323,18 +323,18 @@ local playlist = client:Playlist(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `is_public` | ``$BOOLEAN`` | No |  |
-| `is_smart` | ``$BOOLEAN`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `owner` | ``$STRING`` | No |  |
-| `smart_criterion` | ``$OBJECT`` | No |  |
-| `song` | ``$ARRAY`` | No |  |
-| `song_count` | ``$INTEGER`` | No |  |
-| `song_id` | ``$STRING`` | Yes |  |
-| `updated_at` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `id` | `string` | No |  |
+| `is_public` | `boolean` | No |  |
+| `is_smart` | `boolean` | No |  |
+| `name` | `string` | No |  |
+| `owner` | `string` | No |  |
+| `smart_criterion` | `table` | No |  |
+| `song` | `table` | No |  |
+| `song_count` | `number` | No |  |
+| `song_id` | `string` | Yes |  |
+| `updated_at` | `string` | No |  |
 
 ### Field Usage by Operation
 
@@ -361,7 +361,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Playlist():create({
-  song_id = --[[ `$STRING` ]],
+  song_id = --[[ string ]],
 })
 ```
 
@@ -440,10 +440,10 @@ local search = client:Search(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | ``$INTEGER`` | No |  |
-| `offset` | ``$INTEGER`` | No |  |
-| `result` | ``$OBJECT`` | No |  |
-| `total` | ``$INTEGER`` | No |  |
+| `limit` | `number` | No |  |
+| `offset` | `number` | No |  |
+| `result` | `table` | No |  |
+| `total` | `number` | No |  |
 
 ### Operations
 
@@ -452,7 +452,7 @@ local search = client:Search(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Search():load({ id = "search_id" })
+local result, err = client:Search():load()
 ```
 
 ### Common Methods
@@ -495,15 +495,15 @@ local song = client:Song(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | ``$STRING`` | No |  |
-| `artist` | ``$STRING`` | No |  |
-| `cover_art` | ``$STRING`` | No |  |
-| `duration` | ``$INTEGER`` | No |  |
-| `genre` | ``$ARRAY`` | No |  |
-| `has_video` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `release_date` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
+| `album` | `string` | No |  |
+| `artist` | `string` | No |  |
+| `cover_art` | `string` | No |  |
+| `duration` | `number` | No |  |
+| `genre` | `table` | No |  |
+| `has_video` | `boolean` | No |  |
+| `id` | `string` | No |  |
+| `release_date` | `string` | No |  |
+| `title` | `string` | No |  |
 
 ### Operations
 
@@ -555,10 +555,10 @@ local stream = client:Stream(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bitrate` | ``$INTEGER`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `quality` | ``$STRING`` | No |  |
-| `stream_url` | ``$STRING`` | No |  |
+| `bitrate` | `number` | No |  |
+| `expires_at` | `string` | No |  |
+| `quality` | `string` | No |  |
+| `stream_url` | `string` | No |  |
 
 ### Operations
 
@@ -567,7 +567,7 @@ local stream = client:Stream(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Stream():load({ id = "stream_id" })
+local result, err = client:Stream():load()
 ```
 
 ### Common Methods
@@ -610,9 +610,9 @@ local video = client:Video(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `duration` | ``$INTEGER`` | No |  |
-| `thumbnail_url` | ``$STRING`` | No |  |
-| `video_url` | ``$STRING`` | No |  |
+| `duration` | `number` | No |  |
+| `thumbnail_url` | `string` | No |  |
+| `video_url` | `string` | No |  |
 
 ### Operations
 
@@ -621,7 +621,7 @@ local video = client:Video(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Video():load({ id = "video_id" })
+local result, err = client:Video():load()
 ```
 
 ### Common Methods

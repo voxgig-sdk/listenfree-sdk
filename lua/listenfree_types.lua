@@ -22,6 +22,16 @@
 ---@field id string
 
 ---@class ListeningRoomListMatch
+---@field created_at? string
+---@field current_song? table
+---@field description? string
+---@field host? string
+---@field id? string
+---@field is_public? boolean
+---@field max_participant? number
+---@field name? string
+---@field participant? table
+---@field queue? table
 
 ---@class ListeningRoomCreateData
 ---@field id string
@@ -35,11 +45,18 @@
 ---@field status? string
 
 ---@class MusicListMatch
+---@field downloaded_at? string
+---@field expires_at? string
+---@field id? string
+---@field progress? number
+---@field song? table
+---@field status? string
 
 ---@class OfflineDownload
 ---@field song_id string
 
 ---@class OfflineDownloadCreateData
+---@field song_id string
 
 ---@class Playlist
 ---@field created_at? string
@@ -59,6 +76,18 @@
 ---@field id string
 
 ---@class PlaylistListMatch
+---@field created_at? string
+---@field description? string
+---@field id? string
+---@field is_public? boolean
+---@field is_smart? boolean
+---@field name? string
+---@field owner? string
+---@field smart_criterion? table
+---@field song? table
+---@field song_count? number
+---@field song_id? string
+---@field updated_at? string
 
 ---@class PlaylistCreateData
 ---@field id string
@@ -76,6 +105,10 @@
 ---@field total? number
 
 ---@class SearchLoadMatch
+---@field limit? number
+---@field offset? number
+---@field result? table
+---@field total? number
 
 ---@class Song
 ---@field album? string

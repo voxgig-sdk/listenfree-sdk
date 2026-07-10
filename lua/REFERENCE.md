@@ -567,7 +567,7 @@ local stream = client:Stream(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Stream():load()
+local result, err = client:Stream():load({ song_id = "song_id" })
 ```
 
 ### Common Methods
@@ -621,7 +621,7 @@ local video = client:Video(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Video():load()
+local result, err = client:Video():load({ song_id = "song_id" })
 ```
 
 ### Common Methods

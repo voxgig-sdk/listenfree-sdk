@@ -51,7 +51,16 @@ class ListeningRoomListMatch
 /** Request payload for ListeningRoom#create. */
 class ListeningRoomCreateData
 {
-    public string $id;
+    public ?string $created_at = null;
+    public ?array $current_song = null;
+    public ?string $description = null;
+    public ?string $host = null;
+    public ?string $id = null;
+    public ?bool $is_public = null;
+    public ?int $max_participant = null;
+    public ?string $name = null;
+    public ?array $participant = null;
+    public ?array $queue = null;
 }
 
 /** Music entity data model. */
@@ -131,7 +140,18 @@ class PlaylistListMatch
 /** Request payload for Playlist#create. */
 class PlaylistCreateData
 {
-    public string $id;
+    public ?string $created_at = null;
+    public ?string $description = null;
+    public ?string $id = null;
+    public ?bool $is_public = null;
+    public ?bool $is_smart = null;
+    public ?string $name = null;
+    public ?string $owner = null;
+    public ?array $smart_criterion = null;
+    public ?array $song = null;
+    public ?int $song_count = null;
+    public string $song_id;
+    public ?string $updated_at = null;
 }
 
 /** Request payload for Playlist#update. */

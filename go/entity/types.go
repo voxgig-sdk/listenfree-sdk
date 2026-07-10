@@ -43,7 +43,16 @@ type ListeningRoomListMatch struct {
 
 // ListeningRoomCreateData is the typed request payload for ListeningRoom.CreateTyped.
 type ListeningRoomCreateData struct {
-	Id string `json:"id"`
+	CreatedAt *string `json:"created_at,omitempty"`
+	CurrentSong *map[string]any `json:"current_song,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Host *string `json:"host,omitempty"`
+	Id *string `json:"id,omitempty"`
+	IsPublic *bool `json:"is_public,omitempty"`
+	MaxParticipant *int `json:"max_participant,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Participant *[]any `json:"participant,omitempty"`
+	Queue *[]any `json:"queue,omitempty"`
 }
 
 // Music is the typed data model for the music entity.
@@ -115,7 +124,18 @@ type PlaylistListMatch struct {
 
 // PlaylistCreateData is the typed request payload for Playlist.CreateTyped.
 type PlaylistCreateData struct {
-	Id string `json:"id"`
+	CreatedAt *string `json:"created_at,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Id *string `json:"id,omitempty"`
+	IsPublic *bool `json:"is_public,omitempty"`
+	IsSmart *bool `json:"is_smart,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Owner *string `json:"owner,omitempty"`
+	SmartCriterion *map[string]any `json:"smart_criterion,omitempty"`
+	Song *[]any `json:"song,omitempty"`
+	SongCount *int `json:"song_count,omitempty"`
+	SongId string `json:"song_id"`
+	UpdatedAt *string `json:"updated_at,omitempty"`
 }
 
 // PlaylistUpdateData is the typed request payload for Playlist.UpdateTyped.

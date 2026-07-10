@@ -34,7 +34,16 @@
 ---@field queue? table
 
 ---@class ListeningRoomCreateData
----@field id string
+---@field created_at? string
+---@field current_song? table
+---@field description? string
+---@field host? string
+---@field id? string
+---@field is_public? boolean
+---@field max_participant? number
+---@field name? string
+---@field participant? table
+---@field queue? table
 
 ---@class Music
 ---@field downloaded_at? string
@@ -90,7 +99,18 @@
 ---@field updated_at? string
 
 ---@class PlaylistCreateData
----@field id string
+---@field created_at? string
+---@field description? string
+---@field id? string
+---@field is_public? boolean
+---@field is_smart? boolean
+---@field name? string
+---@field owner? string
+---@field smart_criterion? table
+---@field song? table
+---@field song_count? number
+---@field song_id string
+---@field updated_at? string
 
 ---@class PlaylistUpdateData
 ---@field id string

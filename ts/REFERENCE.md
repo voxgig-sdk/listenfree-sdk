@@ -357,7 +357,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.OfflineDownload().create({
-  song_id: /* string */,
+  song_id: 'example_song_id',
 })
 ```
 
@@ -437,7 +437,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Playlist().create({
-  song_id: /* string */,
+  song_id: 'example_song_id',
 })
 ```
 
@@ -637,7 +637,7 @@ const stream = client.Stream()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Stream().load()
+const result = await client.Stream().load({ song_id: 'song_id' })
 ```
 
 ### Common Methods
@@ -689,7 +689,7 @@ const video = client.Video()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Video().load()
+const result = await client.Video().load({ song_id: 'song_id' })
 ```
 
 ### Common Methods

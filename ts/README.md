@@ -47,14 +47,17 @@ for (const listeningroom of listeningrooms) {
 }
 ```
 
-### 3. Load a listeningroom
+### 3. Load a stream
 
+Stream is nested under song, so provide the `song_id`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const listeningroom = await client.ListeningRoom().load({ id: 'example_id' })
-  console.log(listeningroom)
+  const stream = await client.Stream().load({
+    song_id: 'example_song_id',
+  })
+  console.log(stream)
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -64,7 +67,10 @@ try {
 
 ```ts
 // Create — returns the created ListeningRoom
-const created = await client.ListeningRoom().create({})
+const created = await client.ListeningRoom().create({
+  created_at: 'example_created_at',
+  current_song: {},
+})
 
 ```
 
@@ -541,7 +547,7 @@ Create an instance: `const offline_download = client.OfflineDownload()`
 
 ```ts
 const offline_download = await client.OfflineDownload().create({
-  song_id: /* string */,
+  song_id: 'example_song_id',
 })
 ```
 
@@ -593,7 +599,7 @@ const playlists = await client.Playlist().list()
 
 ```ts
 const playlist = await client.Playlist().create({
-  song_id: /* string */,
+  song_id: 'example_song_id',
 })
 ```
 
@@ -677,7 +683,7 @@ Create an instance: `const stream = client.Stream()`
 #### Example: Load
 
 ```ts
-const stream = await client.Stream().load()
+const stream = await client.Stream().load({ song_id: 'song_id' })
 ```
 
 
@@ -702,7 +708,7 @@ Create an instance: `const video = client.Video()`
 #### Example: Load
 
 ```ts
-const video = await client.Video().load()
+const video = await client.Video().load({ song_id: 'song_id' })
 ```
 
 

@@ -49,19 +49,21 @@ for _, item in ipairs(listeningrooms) do
 end
 ```
 
-### 3. Load a listeningroom
+### 3. Load a stream
+
+Stream is nested under song, so provide the `song_id`.
 
 ```lua
-local listeningroom, err = client:ListeningRoom():load({ id = "example_id" })
+local stream, err = client:Stream():load({ song_id = "example_song_id" })
 if err then error(err) end
-print(listeningroom)
+print(stream)
 ```
 
 ### 4. Create, update, and remove
 
 ```lua
 -- Create
-local created, err = client:ListeningRoom():create({  })
+local created, err = client:ListeningRoom():create({ created_at = "example_created_at", current_song = {} })
 if err then error(err) end
 
 ```
@@ -481,7 +483,7 @@ Create an instance: `local offline_download = client:OfflineDownload(nil)`
 
 ```lua
 local offline_download, err = client:OfflineDownload():create({
-  song_id = nil, -- string
+  song_id = "example_song_id", -- string
 })
 ```
 
@@ -533,7 +535,7 @@ local playlists, err = client:Playlist():list()
 
 ```lua
 local playlist, err = client:Playlist():create({
-  song_id = nil, -- string
+  song_id = "example_song_id", -- string
 })
 ```
 
@@ -617,7 +619,7 @@ Create an instance: `local stream = client:Stream(nil)`
 #### Example: Load
 
 ```lua
-local stream, err = client:Stream():load()
+local stream, err = client:Stream():load({ song_id = "song_id" })
 ```
 
 
@@ -642,7 +644,7 @@ Create an instance: `local video = client:Video(nil)`
 #### Example: Load
 
 ```lua
-local video, err = client:Video():load()
+local video, err = client:Video():load({ song_id = "song_id" })
 ```
 
 

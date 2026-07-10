@@ -53,14 +53,15 @@ except Exception as err:
     print(f"list failed: {err}")
 ```
 
-### 3. Load a listeningroom
+### 3. Load a stream
 
+Stream is nested under song, so provide the `song_id`.
 `load()` returns the bare record (a `dict`) and raises on error.
 
 ```python
 try:
-    listeningroom = client.ListeningRoom().load({"id": "example_id"})
-    print(listeningroom)
+    stream = client.Stream().load({"song_id": "example_song_id"})
+    print(stream)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -69,7 +70,7 @@ except Exception as err:
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.ListeningRoom().create({})
+created = client.ListeningRoom().create({"created_at": "example_created_at", "current_song": {}})
 
 ```
 
@@ -495,7 +496,7 @@ Create an instance: `offline_download = client.OfflineDownload()`
 
 ```python
 offline_download = client.OfflineDownload().create({
-    "song_id": "example",  # str
+    "song_id": "example_song_id",  # str
 })
 ```
 
@@ -547,7 +548,7 @@ playlists = client.Playlist().list()
 
 ```python
 playlist = client.Playlist().create({
-    "song_id": "example",  # str
+    "song_id": "example_song_id",  # str
 })
 ```
 
@@ -631,7 +632,7 @@ Create an instance: `stream = client.Stream()`
 #### Example: Load
 
 ```python
-stream = client.Stream().load()
+stream = client.Stream().load({"song_id": "song_id"})
 ```
 
 
@@ -656,7 +657,7 @@ Create an instance: `video = client.Video()`
 #### Example: Load
 
 ```python
-video = client.Video().load()
+video = client.Video().load({"song_id": "song_id"})
 ```
 
 

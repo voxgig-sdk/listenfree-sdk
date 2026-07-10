@@ -46,13 +46,15 @@ rescue => err
 end
 ```
 
-### 3. Load a listeningroom
+### 3. Load a stream
+
+Stream is nested under song, so provide the `song_id`.
 
 ```ruby
 begin
-  # load returns the bare ListeningRoom record (raises on error).
-  listeningroom = client.ListeningRoom.load({ "id" => "example_id" })
-  puts listeningroom
+  # load returns the bare Stream record (raises on error).
+  stream = client.Stream.load({ "song_id" => "example_song_id" })
+  puts stream
 rescue => err
   warn "load failed: #{err}"
 end
@@ -62,7 +64,7 @@ end
 
 ```ruby
 # create returns the bare created ListeningRoom record.
-created = client.ListeningRoom.create({  })
+created = client.ListeningRoom.create({ "created_at" => "example_created_at", "current_song" => {} })
 
 ```
 
@@ -494,7 +496,7 @@ Create an instance: `offline_download = client.OfflineDownload`
 
 ```ruby
 offline_download = client.OfflineDownload.create({
-  "song_id" => "example", # String
+  "song_id" => "example_song_id", # String
 })
 ```
 
@@ -548,7 +550,7 @@ playlists = client.Playlist.list
 
 ```ruby
 playlist = client.Playlist.create({
-  "song_id" => "example", # String
+  "song_id" => "example_song_id", # String
 })
 ```
 
@@ -635,7 +637,7 @@ Create an instance: `stream = client.Stream`
 
 ```ruby
 # load returns the bare Stream record (raises on error).
-stream = client.Stream.load()
+stream = client.Stream.load({ "song_id" => "song_id" })
 ```
 
 
@@ -661,7 +663,7 @@ Create an instance: `video = client.Video`
 
 ```ruby
 # load returns the bare Video record (raises on error).
-video = client.Video.load()
+video = client.Video.load({ "song_id" => "song_id" })
 ```
 
 

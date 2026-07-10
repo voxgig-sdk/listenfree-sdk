@@ -569,7 +569,7 @@ $stream = $client->Stream();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Stream()->load();
+$result = $client->Stream()->load(["song_id" => "song_id"]);
 ```
 
 ### Common Methods
@@ -623,7 +623,7 @@ $video = $client->Video();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Video()->load();
+$result = $client->Video()->load(["song_id" => "song_id"]);
 ```
 
 ### Common Methods

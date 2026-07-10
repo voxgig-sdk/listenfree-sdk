@@ -53,24 +53,24 @@ func main() {
         "apikey": os.Getenv("LISTENFREE_APIKEY"),
     })
 
-    // List listeningroom records — the value is the array of records itself.
-    listeningrooms, err := client.ListeningRoom(nil).List(nil, nil)
+    // List listeningRoom records — the value is the array of records itself.
+    listeningRooms, err := client.ListeningRoom(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-    for _, item := range listeningrooms.([]any) {
+    for _, item := range listeningRooms.([]any) {
         fmt.Println(item)
     }
 
-    // Load a single listeningroom — the value is the loaded record.
-    listeningroom, err := client.ListeningRoom(nil).Load(map[string]any{"id": "example"}, nil)
+    // Load a single listeningRoom — the value is the loaded record.
+    listeningRoom, err := client.ListeningRoom(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(listeningroom)
+    fmt.Println(listeningRoom)
 
-    // Create a listeningroom.
-    created, err := client.ListeningRoom(nil).Create(map[string]any{}, nil)
+    // Create a listeningRoom.
+    created, err := client.ListeningRoom(nil).Create(map[string]any{"created_at": "example_created_at", "current_song": map[string]any{}}, nil)
     if err != nil {
         panic(err)
     }
@@ -154,13 +154,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-listeningroom, err := client.ListeningRoom(nil).List(
+listeningRoom, err := client.ListeningRoom(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(listeningroom) // the returned mock data
+fmt.Println(listeningRoom) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -278,9 +278,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    listeningroom, err := client.ListeningRoom(nil).List(map[string]any{/* fields */}, nil)
+    listeningRoom, err := client.ListeningRoom(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // listeningroom is the returned record
+    // listeningRoom is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -415,15 +415,15 @@ API path: `/songs/{songId}/video`
 
 ### ListeningRoom
 
-Create an instance: `listening_room := client.ListeningRoom(nil)`
+Create an instance: `listeningRoom := client.ListeningRoom(nil)`
 
 #### Operations
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Fields
 
@@ -443,21 +443,21 @@ Create an instance: `listening_room := client.ListeningRoom(nil)`
 #### Example: Load
 
 ```go
-listening_room, err := client.ListeningRoom(nil).Load(map[string]any{"id": "listening_room_id"}, nil)
+listeningRoom, err := client.ListeningRoom(nil).Load(map[string]any{"id": "listening_room_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(listening_room) // the loaded record
+fmt.Println(listeningRoom) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-listening_rooms, err := client.ListeningRoom(nil).List(nil, nil)
+listeningRooms, err := client.ListeningRoom(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(listening_rooms) // the array of records
+fmt.Println(listeningRooms) // the array of records
 ```
 
 #### Example: Create
@@ -465,6 +465,10 @@ fmt.Println(listening_rooms) // the array of records
 ```go
 result, err := client.ListeningRoom(nil).Create(map[string]any{
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -502,7 +506,7 @@ fmt.Println(musics) // the array of records
 
 ### OfflineDownload
 
-Create an instance: `offline_download := client.OfflineDownload(nil)`
+Create an instance: `offlineDownload := client.OfflineDownload(nil)`
 
 #### Operations
 
@@ -520,8 +524,12 @@ Create an instance: `offline_download := client.OfflineDownload(nil)`
 
 ```go
 result, err := client.OfflineDownload(nil).Create(map[string]any{
-    "song_id": /* string */,
+    "song_id": "example_song_id",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -533,11 +541,11 @@ Create an instance: `playlist := client.Playlist(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
-| `Remove(match, ctrl)` | Remove the matching entity. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Update(data, ctrl)` | Update an existing entity. |
+| `Remove(match, ctrl)` | Remove the matching entity. |
 
 #### Fields
 
@@ -580,8 +588,12 @@ fmt.Println(playlists) // the array of records
 
 ```go
 result, err := client.Playlist(nil).Create(map[string]any{
-    "song_id": /* string */,
+    "song_id": "example_song_id",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -672,7 +684,7 @@ Create an instance: `stream := client.Stream(nil)`
 #### Example: Load
 
 ```go
-stream, err := client.Stream(nil).Load(nil, nil)
+stream, err := client.Stream(nil).Load(map[string]any{"song_id": "song_id"}, nil)
 if err != nil {
     panic(err)
 }
@@ -701,7 +713,7 @@ Create an instance: `video := client.Video(nil)`
 #### Example: Load
 
 ```go
-video, err := client.Video(nil).Load(nil, nil)
+video, err := client.Video(nil).Load(map[string]any{"song_id": "song_id"}, nil)
 if err != nil {
     panic(err)
 }

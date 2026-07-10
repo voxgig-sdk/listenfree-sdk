@@ -36,7 +36,16 @@ export interface ListeningRoomListMatch {
 }
 
 export interface ListeningRoomCreateData {
-  id: string
+  created_at?: string
+  current_song?: Record<string, any>
+  description?: string
+  host?: string
+  id?: string
+  is_public?: boolean
+  max_participant?: number
+  name?: string
+  participant?: any[]
+  queue?: any[]
 }
 
 export interface Music {
@@ -100,7 +109,18 @@ export interface PlaylistListMatch {
 }
 
 export interface PlaylistCreateData {
-  id: string
+  created_at?: string
+  description?: string
+  id?: string
+  is_public?: boolean
+  is_smart?: boolean
+  name?: string
+  owner?: string
+  smart_criterion?: Record<string, any>
+  song?: any[]
+  song_count?: number
+  song_id: string
+  updated_at?: string
 }
 
 export interface PlaylistUpdateData {

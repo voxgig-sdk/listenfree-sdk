@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -1488,14 +1485,24 @@
           "url": "https://listenfree.in/"
         },
         "description": "ListenFree API provides a platform for fast, ad-free music streaming, allowing users to create smart playlists, enjoy collaborative listening rooms, and access video previews of songs. The API supports offline playback and prioritizes user privacy, making it a reliable choice for music enthusiasts.",
+        "meta_source": "https://www.freepublicapis.com",
+        "security": {
+          "in": "header",
+          "name": "Authorization",
+          "prefix": "Bearer",
+          "scheme": "bearerAuth",
+          "type": "http"
+        },
         "servers": [
           {
             "description": "ListenFree API Server",
             "url": "https://listenfree.in/api"
           }
         ],
+        "summary": "ListenFree API provides a platform for fast, ad-free music streaming, allowing users to create smart playlists, enjoy collaborative listening rooms, and access video previews of songs.",
         "title": "ListenFree API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://listenfree.in"
       },
       "option": {},
       "target": {
@@ -1548,6 +1555,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -1598,6 +1608,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

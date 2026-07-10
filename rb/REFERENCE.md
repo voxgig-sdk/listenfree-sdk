@@ -282,7 +282,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.OfflineDownload.create({
-  "song_id" => "example", # String
+  "song_id" => "example_song_id", # String
 })
 ```
 
@@ -364,7 +364,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Playlist.create({
-  "song_id" => "example", # String
+  "song_id" => "example_song_id", # String
 })
 ```
 
@@ -570,7 +570,7 @@ stream = client.Stream
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Stream.load()
+result = client.Stream.load({ "song_id" => "song_id" })
 ```
 
 ### Common Methods
@@ -624,7 +624,7 @@ video = client.Video
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Video.load()
+result = client.Video.load({ "song_id" => "song_id" })
 ```
 
 ### Common Methods

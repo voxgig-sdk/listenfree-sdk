@@ -46,8 +46,17 @@ class ListeningRoomListMatch(TypedDict, total=False):
     queue: list
 
 
-class ListeningRoomCreateData(TypedDict):
+class ListeningRoomCreateData(TypedDict, total=False):
+    created_at: str
+    current_song: dict
+    description: str
+    host: str
     id: str
+    is_public: bool
+    max_participant: int
+    name: str
+    participant: list
+    queue: list
 
 
 class Music(TypedDict, total=False):
@@ -113,8 +122,22 @@ class PlaylistListMatch(TypedDict, total=False):
     updated_at: str
 
 
-class PlaylistCreateData(TypedDict):
+class PlaylistCreateDataRequired(TypedDict):
+    song_id: str
+
+
+class PlaylistCreateData(PlaylistCreateDataRequired, total=False):
+    created_at: str
+    description: str
     id: str
+    is_public: bool
+    is_smart: bool
+    name: str
+    owner: str
+    smart_criterion: dict
+    song: list
+    song_count: int
+    updated_at: str
 
 
 class PlaylistUpdateData(TypedDict):

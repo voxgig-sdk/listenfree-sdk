@@ -109,10 +109,46 @@ ListeningRoomListMatch = Struct.new(
 
 # Request payload for ListeningRoom#create.
 #
+# @!attribute [rw] created_at
+#   @return [String, nil]
+#
+# @!attribute [rw] current_song
+#   @return [Hash, nil]
+#
+# @!attribute [rw] description
+#   @return [String, nil]
+#
+# @!attribute [rw] host
+#   @return [String, nil]
+#
 # @!attribute [rw] id
-#   @return [String]
+#   @return [String, nil]
+#
+# @!attribute [rw] is_public
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] max_participant
+#   @return [Integer, nil]
+#
+# @!attribute [rw] name
+#   @return [String, nil]
+#
+# @!attribute [rw] participant
+#   @return [Array, nil]
+#
+# @!attribute [rw] queue
+#   @return [Array, nil]
 ListeningRoomCreateData = Struct.new(
+  :created_at,
+  :current_song,
+  :description,
+  :host,
   :id,
+  :is_public,
+  :max_participant,
+  :name,
+  :participant,
+  :queue,
   keyword_init: true
 )
 
@@ -309,10 +345,54 @@ PlaylistListMatch = Struct.new(
 
 # Request payload for Playlist#create.
 #
+# @!attribute [rw] created_at
+#   @return [String, nil]
+#
+# @!attribute [rw] description
+#   @return [String, nil]
+#
 # @!attribute [rw] id
+#   @return [String, nil]
+#
+# @!attribute [rw] is_public
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] is_smart
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] name
+#   @return [String, nil]
+#
+# @!attribute [rw] owner
+#   @return [String, nil]
+#
+# @!attribute [rw] smart_criterion
+#   @return [Hash, nil]
+#
+# @!attribute [rw] song
+#   @return [Array, nil]
+#
+# @!attribute [rw] song_count
+#   @return [Integer, nil]
+#
+# @!attribute [rw] song_id
 #   @return [String]
+#
+# @!attribute [rw] updated_at
+#   @return [String, nil]
 PlaylistCreateData = Struct.new(
+  :created_at,
+  :description,
   :id,
+  :is_public,
+  :is_smart,
+  :name,
+  :owner,
+  :smart_criterion,
+  :song,
+  :song_count,
+  :song_id,
+  :updated_at,
   keyword_init: true
 )
 

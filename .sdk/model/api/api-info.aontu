@@ -8,15 +8,22 @@ main: {
         url: "https://listenfree.in/"
       }
       description: "ListenFree API provides a platform for fast, ad-free music streaming, allowing users to create smart playlists, enjoy collaborative listening rooms, and access video previews of songs. The API supports offline playback and prioritizes user privacy, making it a reliable choice for music enthusiasts."
+      security: {
+        in: "header"
+        name: "Authorization"
+        prefix: "Bearer"
+        scheme: "bearerAuth"
+        type: "http"
+      }
       servers: [
         {
           description: "ListenFree API Server"
           url: "https://listenfree.in/api"
         }
       ]
+      summary: "ListenFree API provides a platform for fast, ad-free music streaming, allowing users to create smart playlists, enjoy collaborative listening rooms, and access video previews of songs."
       title: "ListenFree API"
       version: "1.0.0"
+      website: "https://listenfree.in"
     }
   }
-}
-

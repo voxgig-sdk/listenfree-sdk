@@ -47,13 +47,15 @@ try {
 }
 ```
 
-### 3. Load a listeningroom
+### 3. Load a stream
+
+Stream is nested under song, so provide the `song_id`.
 
 ```php
 try {
-    // load() returns the bare ListeningRoom record (throws on error).
-    $listeningroom = $client->ListeningRoom()->load(["id" => "example_id"]);
-    print_r($listeningroom);
+    // load() returns the bare Stream record (throws on error).
+    $stream = $client->Stream()->load(["song_id" => "example_song_id"]);
+    print_r($stream);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -63,7 +65,7 @@ try {
 
 ```php
 // create() returns the bare created ListeningRoom record.
-$created = $client->ListeningRoom()->create([]);
+$created = $client->ListeningRoom()->create(["created_at" => "example_created_at", "current_song" => []]);
 
 ```
 
@@ -645,7 +647,7 @@ Create an instance: `$stream = $client->Stream();`
 
 ```php
 // load() returns the bare Stream record (throws on error).
-$stream = $client->Stream()->load();
+$stream = $client->Stream()->load(["song_id" => "song_id"]);
 ```
 
 
@@ -671,7 +673,7 @@ Create an instance: `$video = $client->Video();`
 
 ```php
 // load() returns the bare Video record (throws on error).
-$video = $client->Video()->load();
+$video = $client->Video()->load(["song_id" => "song_id"]);
 ```
 
 

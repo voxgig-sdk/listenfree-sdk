@@ -278,7 +278,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.OfflineDownload().create({
-    "song_id": "example",  # str
+    "song_id": "example_song_id",  # str
 })
 ```
 
@@ -359,7 +359,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Playlist().create({
-    "song_id": "example",  # str
+    "song_id": "example_song_id",  # str
 })
 ```
 
@@ -564,7 +564,7 @@ stream = client.Stream()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Stream().load()
+result = client.Stream().load({"song_id": "song_id"})
 ```
 
 ### Common Methods
@@ -617,7 +617,7 @@ video = client.Video()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Video().load()
+result = client.Video().load({"song_id": "song_id"})
 ```
 
 ### Common Methods

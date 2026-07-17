@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- Listenfree SDK exists test
 
 local sdk = require("listenfree_sdk")
 

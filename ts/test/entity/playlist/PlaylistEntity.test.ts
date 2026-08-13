@@ -62,14 +62,14 @@ describe('PlaylistEntity', async () => {
     const playlist_ref01_ent = client.Playlist()
     let playlist_ref01_data = setup.data.new.playlist['playlist_ref01']
 
-    playlist_ref01_data = await playlist_ref01_ent.create(playlist_ref01_data)
+    playlist_ref01_data = (await playlist_ref01_ent.create(playlist_ref01_data)).data()
     assert(null != playlist_ref01_data.id)
 
 
     // LIST
     const playlist_ref01_match: any = {}
 
-    const playlist_ref01_list = await playlist_ref01_ent.list(playlist_ref01_match)
+    const playlist_ref01_list = (await playlist_ref01_ent.list(playlist_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(playlist_ref01_list, { id: playlist_ref01_data.id })))
 
@@ -78,10 +78,10 @@ describe('PlaylistEntity', async () => {
     const playlist_ref01_data_up0: any = {}
     playlist_ref01_data_up0.id = playlist_ref01_data.id
 
-    const playlist_ref01_markdef_up0 = { name: 'created_at', value: 'Mark01-playlist_ref01_' + setup.now }
+    const playlist_ref01_markdef_up0 = { name: 'createdAt', value: 'Mark01-playlist_ref01_' + setup.now }
     ;(playlist_ref01_data_up0 as any)[playlist_ref01_markdef_up0.name] = playlist_ref01_markdef_up0.value
 
-    const playlist_ref01_resdata_up0 = await playlist_ref01_ent.update(playlist_ref01_data_up0)
+    const playlist_ref01_resdata_up0 = (await playlist_ref01_ent.update(playlist_ref01_data_up0)).data()
     assert(playlist_ref01_resdata_up0.id === playlist_ref01_data_up0.id)
 
     assert((playlist_ref01_resdata_up0 as any)[playlist_ref01_markdef_up0.name] === playlist_ref01_markdef_up0.value)
@@ -90,7 +90,7 @@ describe('PlaylistEntity', async () => {
     // LOAD
     const playlist_ref01_match_dt0: any = {}
     playlist_ref01_match_dt0.id = playlist_ref01_data.id
-    const playlist_ref01_data_dt0 = await playlist_ref01_ent.load(playlist_ref01_match_dt0)
+    const playlist_ref01_data_dt0 = (await playlist_ref01_ent.load(playlist_ref01_match_dt0)).data()
     assert(playlist_ref01_data_dt0.id === playlist_ref01_data.id)
 
 
@@ -102,7 +102,7 @@ describe('PlaylistEntity', async () => {
     // LIST
     const playlist_ref01_match_rt0: any = {}
 
-    const playlist_ref01_list_rt0 = await playlist_ref01_ent.list(playlist_ref01_match_rt0)
+    const playlist_ref01_list_rt0 = (await playlist_ref01_ent.list(playlist_ref01_match_rt0)).map((e: any) => e.data())
 
     assert(isempty(select(playlist_ref01_list_rt0, { id: playlist_ref01_data.id })))
 

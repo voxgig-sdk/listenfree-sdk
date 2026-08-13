@@ -56,7 +56,7 @@ except Exception as err:
 ### 3. Load a stream
 
 Stream is nested under song, so provide the `song_id`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -69,8 +69,8 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create — returns the bare created record (a dict)
-created = client.ListeningRoom().create({"created_at": "example_created_at", "current_song": {}})
+# Create — returns the ENTITY (call data_get() for the record)
+created = client.ListeningRoom().create({"createdAt": "example_createdAt", "currentSong": {}})
 
 ```
 
@@ -81,8 +81,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    listeningrooms = client.ListeningRoom().list()
-    print(listeningrooms)
+    musics = client.Music().list()
+    print(musics)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -148,9 +148,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = ListenfreeSDK.test()
 
-# Entity ops return the bare record and raise on error.
-listeningroom = client.ListeningRoom().list()
-# listeningroom contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+music = client.Music().list()
+# music contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -257,7 +258,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -279,15 +280,15 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
-| `current_song` |  |
+| `createdAt` |  |
+| `currentSong` |  |
 | `description` |  |
 | `host` |  |
 | `id` |  |
-| `is_public` |  |
-| `max_participant` |  |
+| `isPublic` |  |
+| `maxParticipants` |  |
 | `name` |  |
-| `participant` |  |
+| `participants` |  |
 | `queue` |  |
 
 Operations: Create, List, Load.
@@ -298,8 +299,8 @@ API path: `/listening-rooms/{roomId}/join`
 
 | Field | Description |
 | --- | --- |
-| `downloaded_at` |  |
-| `expires_at` |  |
+| `downloadedAt` |  |
+| `expiresAt` |  |
 | `id` |  |
 | `progress` |  |
 | `song` |  |
@@ -313,7 +314,7 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `song_id` |  |
+| `songId` |  |
 
 Operations: Create.
 
@@ -323,18 +324,18 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `id` |  |
-| `is_public` |  |
-| `is_smart` |  |
+| `isPublic` |  |
+| `isSmart` |  |
 | `name` |  |
 | `owner` |  |
-| `smart_criterion` |  |
-| `song` |  |
-| `song_count` |  |
-| `song_id` |  |
-| `updated_at` |  |
+| `smartCriteria` |  |
+| `songCount` |  |
+| `songId` |  |
+| `songs` |  |
+| `updatedAt` |  |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -344,10 +345,10 @@ API path: `/playlists/{playlistId}/songs`
 
 | Field | Description |
 | --- | --- |
-| `limit` |  |
-| `offset` |  |
-| `result` |  |
-| `total` |  |
+| `albums` |  |
+| `artists` |  |
+| `playlists` |  |
+| `songs` |  |
 
 Operations: Load.
 
@@ -359,12 +360,12 @@ API path: `/search`
 | --- | --- |
 | `album` |  |
 | `artist` |  |
-| `cover_art` |  |
+| `coverArt` |  |
 | `duration` |  |
-| `genre` |  |
-| `has_video` |  |
+| `genres` |  |
+| `hasVideo` |  |
 | `id` |  |
-| `release_date` |  |
+| `releaseDate` |  |
 | `title` |  |
 
 Operations: Load.
@@ -376,9 +377,9 @@ API path: `/songs/{songId}`
 | Field | Description |
 | --- | --- |
 | `bitrate` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `quality` |  |
-| `stream_url` |  |
+| `streamUrl` |  |
 
 Operations: Load.
 
@@ -389,8 +390,8 @@ API path: `/songs/{songId}/stream`
 | Field | Description |
 | --- | --- |
 | `duration` |  |
-| `thumbnail_url` |  |
-| `video_url` |  |
+| `thumbnailUrl` |  |
+| `videoUrl` |  |
 
 Operations: Load.
 
@@ -417,15 +418,15 @@ Create an instance: `listening_room = client.ListeningRoom()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `str` |  |
-| `current_song` | `dict` |  |
+| `createdAt` | `str` |  |
+| `currentSong` | `dict` |  |
 | `description` | `str` |  |
 | `host` | `str` |  |
 | `id` | `str` |  |
-| `is_public` | `bool` |  |
-| `max_participant` | `int` |  |
+| `isPublic` | `bool` |  |
+| `maxParticipants` | `int` |  |
 | `name` | `str` |  |
-| `participant` | `list` |  |
+| `participants` | `list` |  |
 | `queue` | `list` |  |
 
 #### Example: Load
@@ -462,8 +463,8 @@ Create an instance: `music = client.Music()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | `str` |  |
-| `expires_at` | `str` |  |
+| `downloadedAt` | `str` |  |
+| `expiresAt` | `str` |  |
 | `id` | `str` |  |
 | `progress` | `int` |  |
 | `song` | `dict` |  |
@@ -490,13 +491,13 @@ Create an instance: `offline_download = client.OfflineDownload()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | `str` |  |
+| `songId` | `str` |  |
 
 #### Example: Create
 
 ```python
 offline_download = client.OfflineDownload().create({
-    "song_id": "example_song_id",  # str
+    "songId": "example_songId",  # str
 })
 ```
 
@@ -519,18 +520,18 @@ Create an instance: `playlist = client.Playlist()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `str` |  |
+| `createdAt` | `str` |  |
 | `description` | `str` |  |
 | `id` | `str` |  |
-| `is_public` | `bool` |  |
-| `is_smart` | `bool` |  |
+| `isPublic` | `bool` |  |
+| `isSmart` | `bool` |  |
 | `name` | `str` |  |
 | `owner` | `str` |  |
-| `smart_criterion` | `dict` |  |
-| `song` | `list` |  |
-| `song_count` | `int` |  |
-| `song_id` | `str` |  |
-| `updated_at` | `str` |  |
+| `smartCriteria` | `dict` |  |
+| `songCount` | `int` |  |
+| `songId` | `str` |  |
+| `songs` | `list` |  |
+| `updatedAt` | `str` |  |
 
 #### Example: Load
 
@@ -548,7 +549,7 @@ playlists = client.Playlist().list()
 
 ```python
 playlist = client.Playlist().create({
-    "song_id": "example_song_id",  # str
+    "songId": "example_songId",  # str
 })
 ```
 
@@ -567,10 +568,10 @@ Create an instance: `search = client.Search()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | `int` |  |
-| `offset` | `int` |  |
-| `result` | `dict` |  |
-| `total` | `int` |  |
+| `albums` | `list` |  |
+| `artists` | `list` |  |
+| `playlists` | `list` |  |
+| `songs` | `list` |  |
 
 #### Example: Load
 
@@ -595,12 +596,12 @@ Create an instance: `song = client.Song()`
 | --- | --- | --- |
 | `album` | `str` |  |
 | `artist` | `str` |  |
-| `cover_art` | `str` |  |
+| `coverArt` | `str` |  |
 | `duration` | `int` |  |
-| `genre` | `list` |  |
-| `has_video` | `bool` |  |
+| `genres` | `list` |  |
+| `hasVideo` | `bool` |  |
 | `id` | `str` |  |
-| `release_date` | `str` |  |
+| `releaseDate` | `str` |  |
 | `title` | `str` |  |
 
 #### Example: Load
@@ -625,9 +626,9 @@ Create an instance: `stream = client.Stream()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bitrate` | `int` |  |
-| `expires_at` | `str` |  |
+| `expiresAt` | `str` |  |
 | `quality` | `str` |  |
-| `stream_url` | `str` |  |
+| `streamUrl` | `str` |  |
 
 #### Example: Load
 
@@ -651,8 +652,8 @@ Create an instance: `video = client.Video()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `duration` | `int` |  |
-| `thumbnail_url` | `str` |  |
-| `video_url` | `str` |  |
+| `thumbnailUrl` | `str` |  |
+| `videoUrl` | `str` |  |
 
 #### Example: Load
 
@@ -736,11 +737,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-listeningroom = client.ListeningRoom()
-listeningroom.list()
+music = client.Music()
+music.list()
 
-# listeningroom.data_get() now returns the listeningroom data from the last list
-# listeningroom.match_get() returns the last match criteria
+# music.data_get() now returns the music data from the last list
+# music.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from listenfree_sdk.utility.voxgig_struct import voxgig_struct as vs
 from listenfree_sdk import ListenfreeSDK
-from core import helpers
+from listenfree_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -52,7 +52,7 @@ class TestSongEntity:
             "id": song_ref01_data["id"],
         }
         song_ref01_data_dt0_loaded = song_ref01_ent.load(song_ref01_match_dt0, None)
-        song_ref01_data_dt0_load_result = helpers.to_map(song_ref01_data_dt0_loaded)
+        song_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(song_ref01_data_dt0_loaded))
         assert song_ref01_data_dt0_load_result is not None
         assert song_ref01_data_dt0_load_result["id"] == song_ref01_data["id"]
 

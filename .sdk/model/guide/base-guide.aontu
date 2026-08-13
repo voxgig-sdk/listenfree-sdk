@@ -9,6 +9,7 @@ guide: {
     path: "/listening-rooms": {
       op: create: method: *POST
       op: list: method: *GET
+      op: list: transform: res: *("`body.rooms`")|top
     }
     path: "/listening-rooms/{roomId}": {
       rename: param: "roomId": *"id"
@@ -24,12 +25,14 @@ guide: {
   entity: music: {
     path: "/offline/downloads": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.downloads`")|top
     }
   }
 
   entity: offline_download: {
     path: "/offline/downloads": {
       op: create: method: *POST
+      op: create: transform: res: *("`body.song`")|top
     }
   }
 
@@ -37,6 +40,7 @@ guide: {
     path: "/playlists": {
       op: create: method: *POST
       op: list: method: *GET
+      op: list: transform: res: *("`body.playlists`")|top
     }
     path: "/playlists/{playlistId}": {
       rename: param: "playlistId": *"id"
@@ -54,6 +58,7 @@ guide: {
   entity: search: {
     path: "/search": {
       op: load: method: *GET
+      op: load: transform: res: *("`body.results`")|top
     }
   }
 

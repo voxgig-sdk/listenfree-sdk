@@ -7,138 +7,149 @@
 -- edit by hand.
 
 ---@class ListeningRoom
----@field created_at? string
----@field current_song? table
+---@field createdAt? string
+---@field currentSong? table
 ---@field description? string
 ---@field host? string
 ---@field id? string
----@field is_public? boolean
----@field max_participant? number
+---@field isPublic? boolean
+---@field maxParticipants? number
 ---@field name? string
----@field participant? table
+---@field participants? table
 ---@field queue? table
 
 ---@class ListeningRoomLoadMatch
 ---@field id string
 
 ---@class ListeningRoomListMatch
----@field created_at? string
----@field current_song? table
+---@field createdAt? string
+---@field currentSong? table
 ---@field description? string
 ---@field host? string
 ---@field id? string
----@field is_public? boolean
----@field max_participant? number
+---@field isPublic? boolean
+---@field maxParticipants? number
 ---@field name? string
----@field participant? table
+---@field participants? table
 ---@field queue? table
 
 ---@class ListeningRoomCreateData
----@field created_at? string
----@field current_song? table
+---@field createdAt? string
+---@field currentSong? table
 ---@field description? string
 ---@field host? string
 ---@field id? string
----@field is_public? boolean
----@field max_participant? number
+---@field isPublic? boolean
+---@field maxParticipants? number
 ---@field name? string
----@field participant? table
+---@field participants? table
 ---@field queue? table
 
 ---@class Music
----@field downloaded_at? string
----@field expires_at? string
+---@field downloadedAt? string
+---@field expiresAt? string
 ---@field id? string
 ---@field progress? number
 ---@field song? table
 ---@field status? string
 
 ---@class MusicListMatch
----@field downloaded_at? string
----@field expires_at? string
+---@field downloadedAt? string
+---@field expiresAt? string
 ---@field id? string
 ---@field progress? number
 ---@field song? table
 ---@field status? string
 
 ---@class OfflineDownload
----@field song_id string
+---@field songId string
 
 ---@class OfflineDownloadCreateData
----@field song_id string
+---@field songId string
 
 ---@class Playlist
----@field created_at? string
+---@field createdAt? string
 ---@field description? string
 ---@field id? string
----@field is_public? boolean
----@field is_smart? boolean
+---@field isPublic? boolean
+---@field isSmart? boolean
 ---@field name? string
 ---@field owner? string
----@field smart_criterion? table
----@field song? table
----@field song_count? number
----@field song_id string
----@field updated_at? string
+---@field smartCriteria? table
+---@field songCount? number
+---@field songId string
+---@field songs? table
+---@field updatedAt? string
 
 ---@class PlaylistLoadMatch
 ---@field id string
 
 ---@class PlaylistListMatch
----@field created_at? string
+---@field createdAt? string
 ---@field description? string
 ---@field id? string
----@field is_public? boolean
----@field is_smart? boolean
+---@field isPublic? boolean
+---@field isSmart? boolean
 ---@field name? string
 ---@field owner? string
----@field smart_criterion? table
----@field song? table
----@field song_count? number
----@field song_id? string
----@field updated_at? string
+---@field smartCriteria? table
+---@field songCount? number
+---@field songId? string
+---@field songs? table
+---@field updatedAt? string
 
 ---@class PlaylistCreateData
----@field created_at? string
+---@field createdAt? string
 ---@field description? string
 ---@field id? string
----@field is_public? boolean
----@field is_smart? boolean
+---@field isPublic? boolean
+---@field isSmart? boolean
 ---@field name? string
 ---@field owner? string
----@field smart_criterion? table
----@field song? table
----@field song_count? number
----@field song_id string
----@field updated_at? string
+---@field smartCriteria? table
+---@field songCount? number
+---@field songId string
+---@field songs? table
+---@field updatedAt? string
 
 ---@class PlaylistUpdateData
 ---@field id string
+---@field createdAt? string
+---@field description? string
+---@field isPublic? boolean
+---@field isSmart? boolean
+---@field name? string
+---@field owner? string
+---@field smartCriteria? table
+---@field songCount? number
+---@field songId? string
+---@field songs? table
+---@field updatedAt? string
 
 ---@class PlaylistRemoveMatch
 ---@field id string
 
 ---@class Search
----@field limit? number
----@field offset? number
----@field result? table
----@field total? number
+---@field albums? table
+---@field artists? table
+---@field playlists? table
+---@field songs? table
 
 ---@class SearchLoadMatch
----@field limit? number
----@field offset? number
----@field result? table
----@field total? number
+---@field albums? table
+---@field artists? table
+---@field playlists? table
+---@field songs? table
 
 ---@class Song
 ---@field album? string
 ---@field artist? string
----@field cover_art? string
+---@field coverArt? string
 ---@field duration? number
----@field genre? table
----@field has_video? boolean
+---@field genres? table
+---@field hasVideo? boolean
 ---@field id? string
----@field release_date? string
+---@field releaseDate? string
 ---@field title? string
 
 ---@class SongLoadMatch
@@ -146,17 +157,17 @@
 
 ---@class Stream
 ---@field bitrate? number
----@field expires_at? string
+---@field expiresAt? string
 ---@field quality? string
----@field stream_url? string
+---@field streamUrl? string
 
 ---@class StreamLoadMatch
 ---@field song_id string
 
 ---@class Video
 ---@field duration? number
----@field thumbnail_url? string
----@field video_url? string
+---@field thumbnailUrl? string
+---@field videoUrl? string
 
 ---@class VideoLoadMatch
 ---@field song_id string

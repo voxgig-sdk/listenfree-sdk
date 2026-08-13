@@ -11,12 +11,12 @@ main: kit: entity: video: {
       type: "`$INTEGER`"
     }
     {
-      name: "thumbnail_url"
+      name: "thumbnailUrl"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "video_url"
+      name: "videoUrl"
       req: false
       type: "`$STRING`"
     }

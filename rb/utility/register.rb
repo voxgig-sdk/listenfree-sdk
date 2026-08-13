@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ ListenfreeUtility.registrar = ->(u) {
   u.prepare_params = ListenfreeUtilities::PrepareParams
   u.prepare_path = ListenfreeUtilities::PreparePath
   u.prepare_query = ListenfreeUtilities::PrepareQuery
+  u.graphql_body = ListenfreeUtilities::GraphqlBody
+  u.graphql_errors = ListenfreeUtilities::GraphqlErrors
   u.result_basic = ListenfreeUtilities::ResultBasic
   u.result_body = ListenfreeUtilities::ResultBody
   u.result_headers = ListenfreeUtilities::ResultHeaders

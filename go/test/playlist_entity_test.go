@@ -107,7 +107,7 @@ func TestPlaylistEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		playlistRef01Data = core.ToMapAny(playlistRef01DataResult)
+		playlistRef01Data = core.ToMapAny(entityData(playlistRef01DataResult))
 		if playlistRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -137,7 +137,7 @@ func TestPlaylistEntity(t *testing.T) {
 			"id": playlistRef01Data["id"],
 		}
 
-		playlistRef01MarkdefUp0Name := "created_at"
+		playlistRef01MarkdefUp0Name := "createdAt"
 		playlistRef01MarkdefUp0Value := fmt.Sprintf("Mark01-playlist_ref01_%d", setup.now)
 		playlistRef01DataUp0Up[playlistRef01MarkdefUp0Name] = playlistRef01MarkdefUp0Value
 
@@ -145,7 +145,7 @@ func TestPlaylistEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("update failed: %v", err)
 		}
-		playlistRef01ResdataUp0 := core.ToMapAny(playlistRef01ResdataUp0Result)
+		playlistRef01ResdataUp0 := core.ToMapAny(entityData(playlistRef01ResdataUp0Result))
 		if playlistRef01ResdataUp0 == nil {
 			t.Fatal("expected update result to be a map")
 		}
@@ -164,7 +164,7 @@ func TestPlaylistEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		playlistRef01DataDt0LoadResult := core.ToMapAny(playlistRef01DataDt0Loaded)
+		playlistRef01DataDt0LoadResult := core.ToMapAny(entityData(playlistRef01DataDt0Loaded))
 		if playlistRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

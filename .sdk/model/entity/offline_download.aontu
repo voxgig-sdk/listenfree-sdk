@@ -6,7 +6,7 @@ main: kit: entity: offline_download: {
 
   fields: [
     {
-      name: "song_id"
+      name: "songId"
       req: true
       type: "`$STRING`"
     }
@@ -26,7 +26,7 @@ main: kit: entity: offline_download: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.song`"
           }
         }
       ]

@@ -37,7 +37,7 @@ class OfflineDownloadEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.offline_download"), "offline_download_ref01"))
 
     offline_download_ref01_data_result = offline_download_ref01_ent.create(offline_download_ref01_data, nil)
-    offline_download_ref01_data = Helpers.to_map(offline_download_ref01_data_result)
+    offline_download_ref01_data = Helpers.to_map(offline_download_ref01_data_result.respond_to?(:data_get) ? offline_download_ref01_data_result.data_get : offline_download_ref01_data_result)
     assert !offline_download_ref01_data.nil?
 
   end

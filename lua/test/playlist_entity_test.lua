@@ -82,7 +82,7 @@ describe("PlaylistEntity", function()
 
     local playlist_ref01_data_result, err = playlist_ref01_ent:create(playlist_ref01_data, nil)
     assert.is_nil(err)
-    playlist_ref01_data = helpers.to_map(playlist_ref01_data_result)
+    playlist_ref01_data = helpers.to_map(type(playlist_ref01_data_result) == 'table' and playlist_ref01_data_result.data_get and playlist_ref01_data_result:data_get() or playlist_ref01_data_result)
     assert.is_not_nil(playlist_ref01_data)
     assert.is_not_nil(playlist_ref01_data["id"])
 
@@ -103,13 +103,13 @@ describe("PlaylistEntity", function()
       id = playlist_ref01_data["id"],
     }
 
-    local playlist_ref01_markdef_up0_name = "created_at"
+    local playlist_ref01_markdef_up0_name = "createdAt"
     local playlist_ref01_markdef_up0_value = "Mark01-playlist_ref01_" .. tostring(setup.now)
     playlist_ref01_data_up0_up[playlist_ref01_markdef_up0_name] = playlist_ref01_markdef_up0_value
 
     local playlist_ref01_resdata_up0_result, err = playlist_ref01_ent:update(playlist_ref01_data_up0_up, nil)
     assert.is_nil(err)
-    local playlist_ref01_resdata_up0 = helpers.to_map(playlist_ref01_resdata_up0_result)
+    local playlist_ref01_resdata_up0 = helpers.to_map(type(playlist_ref01_resdata_up0_result) == 'table' and playlist_ref01_resdata_up0_result.data_get and playlist_ref01_resdata_up0_result:data_get() or playlist_ref01_resdata_up0_result)
     assert.is_not_nil(playlist_ref01_resdata_up0)
     assert.are.equal(playlist_ref01_resdata_up0["id"], playlist_ref01_data_up0_up["id"])
     assert.are.equal(playlist_ref01_resdata_up0[playlist_ref01_markdef_up0_name], playlist_ref01_markdef_up0_value)
@@ -120,7 +120,7 @@ describe("PlaylistEntity", function()
     }
     local playlist_ref01_data_dt0_loaded, err = playlist_ref01_ent:load(playlist_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local playlist_ref01_data_dt0_load_result = helpers.to_map(playlist_ref01_data_dt0_loaded)
+    local playlist_ref01_data_dt0_load_result = helpers.to_map(type(playlist_ref01_data_dt0_loaded) == 'table' and playlist_ref01_data_dt0_loaded.data_get and playlist_ref01_data_dt0_loaded:data_get() or playlist_ref01_data_dt0_loaded)
     assert.is_not_nil(playlist_ref01_data_dt0_load_result)
     assert.are.equal(playlist_ref01_data_dt0_load_result["id"], playlist_ref01_data["id"])
 

@@ -6,19 +6,23 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/voxgig-sdk/listenfree-sdk/go/core"
+)
 
 // ListeningRoom is the typed data model for the listening_room entity.
 type ListeningRoom struct {
-	CreatedAt *string `json:"created_at,omitempty"`
-	CurrentSong *map[string]any `json:"current_song,omitempty"`
+	CreatedAt *string `json:"createdAt,omitempty"`
+	CurrentSong *map[string]any `json:"currentSong,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Host *string `json:"host,omitempty"`
 	Id *string `json:"id,omitempty"`
-	IsPublic *bool `json:"is_public,omitempty"`
-	MaxParticipant *int `json:"max_participant,omitempty"`
+	IsPublic *bool `json:"isPublic,omitempty"`
+	MaxParticipants *int `json:"maxParticipants,omitempty"`
 	Name *string `json:"name,omitempty"`
-	Participant *[]any `json:"participant,omitempty"`
+	Participants *[]any `json:"participants,omitempty"`
 	Queue *[]any `json:"queue,omitempty"`
 }
 
@@ -29,36 +33,36 @@ type ListeningRoomLoadMatch struct {
 
 // ListeningRoomListMatch is the typed request payload for ListeningRoom.ListTyped.
 type ListeningRoomListMatch struct {
-	CreatedAt *string `json:"created_at,omitempty"`
-	CurrentSong *map[string]any `json:"current_song,omitempty"`
+	CreatedAt *string `json:"createdAt,omitempty"`
+	CurrentSong *map[string]any `json:"currentSong,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Host *string `json:"host,omitempty"`
 	Id *string `json:"id,omitempty"`
-	IsPublic *bool `json:"is_public,omitempty"`
-	MaxParticipant *int `json:"max_participant,omitempty"`
+	IsPublic *bool `json:"isPublic,omitempty"`
+	MaxParticipants *int `json:"maxParticipants,omitempty"`
 	Name *string `json:"name,omitempty"`
-	Participant *[]any `json:"participant,omitempty"`
+	Participants *[]any `json:"participants,omitempty"`
 	Queue *[]any `json:"queue,omitempty"`
 }
 
 // ListeningRoomCreateData is the typed request payload for ListeningRoom.CreateTyped.
 type ListeningRoomCreateData struct {
-	CreatedAt *string `json:"created_at,omitempty"`
-	CurrentSong *map[string]any `json:"current_song,omitempty"`
+	CreatedAt *string `json:"createdAt,omitempty"`
+	CurrentSong *map[string]any `json:"currentSong,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Host *string `json:"host,omitempty"`
 	Id *string `json:"id,omitempty"`
-	IsPublic *bool `json:"is_public,omitempty"`
-	MaxParticipant *int `json:"max_participant,omitempty"`
+	IsPublic *bool `json:"isPublic,omitempty"`
+	MaxParticipants *int `json:"maxParticipants,omitempty"`
 	Name *string `json:"name,omitempty"`
-	Participant *[]any `json:"participant,omitempty"`
+	Participants *[]any `json:"participants,omitempty"`
 	Queue *[]any `json:"queue,omitempty"`
 }
 
 // Music is the typed data model for the music entity.
 type Music struct {
-	DownloadedAt *string `json:"downloaded_at,omitempty"`
-	ExpiresAt *string `json:"expires_at,omitempty"`
+	DownloadedAt *string `json:"downloadedAt,omitempty"`
+	ExpiresAt *string `json:"expiresAt,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Progress *int `json:"progress,omitempty"`
 	Song *map[string]any `json:"song,omitempty"`
@@ -67,8 +71,8 @@ type Music struct {
 
 // MusicListMatch is the typed request payload for Music.ListTyped.
 type MusicListMatch struct {
-	DownloadedAt *string `json:"downloaded_at,omitempty"`
-	ExpiresAt *string `json:"expires_at,omitempty"`
+	DownloadedAt *string `json:"downloadedAt,omitempty"`
+	ExpiresAt *string `json:"expiresAt,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Progress *int `json:"progress,omitempty"`
 	Song *map[string]any `json:"song,omitempty"`
@@ -77,28 +81,28 @@ type MusicListMatch struct {
 
 // OfflineDownload is the typed data model for the offline_download entity.
 type OfflineDownload struct {
-	SongId string `json:"song_id"`
+	SongId string `json:"songId"`
 }
 
 // OfflineDownloadCreateData is the typed request payload for OfflineDownload.CreateTyped.
 type OfflineDownloadCreateData struct {
-	SongId string `json:"song_id"`
+	SongId string `json:"songId"`
 }
 
 // Playlist is the typed data model for the playlist entity.
 type Playlist struct {
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *string `json:"createdAt,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Id *string `json:"id,omitempty"`
-	IsPublic *bool `json:"is_public,omitempty"`
-	IsSmart *bool `json:"is_smart,omitempty"`
+	IsPublic *bool `json:"isPublic,omitempty"`
+	IsSmart *bool `json:"isSmart,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Owner *string `json:"owner,omitempty"`
-	SmartCriterion *map[string]any `json:"smart_criterion,omitempty"`
-	Song *[]any `json:"song,omitempty"`
-	SongCount *int `json:"song_count,omitempty"`
-	SongId string `json:"song_id"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
+	SmartCriteria *map[string]any `json:"smartCriteria,omitempty"`
+	SongCount *int `json:"songCount,omitempty"`
+	SongId string `json:"songId"`
+	Songs *[]any `json:"songs,omitempty"`
+	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
 // PlaylistLoadMatch is the typed request payload for Playlist.LoadTyped.
@@ -108,39 +112,50 @@ type PlaylistLoadMatch struct {
 
 // PlaylistListMatch is the typed request payload for Playlist.ListTyped.
 type PlaylistListMatch struct {
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *string `json:"createdAt,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Id *string `json:"id,omitempty"`
-	IsPublic *bool `json:"is_public,omitempty"`
-	IsSmart *bool `json:"is_smart,omitempty"`
+	IsPublic *bool `json:"isPublic,omitempty"`
+	IsSmart *bool `json:"isSmart,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Owner *string `json:"owner,omitempty"`
-	SmartCriterion *map[string]any `json:"smart_criterion,omitempty"`
-	Song *[]any `json:"song,omitempty"`
-	SongCount *int `json:"song_count,omitempty"`
-	SongId *string `json:"song_id,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
+	SmartCriteria *map[string]any `json:"smartCriteria,omitempty"`
+	SongCount *int `json:"songCount,omitempty"`
+	SongId *string `json:"songId,omitempty"`
+	Songs *[]any `json:"songs,omitempty"`
+	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
 // PlaylistCreateData is the typed request payload for Playlist.CreateTyped.
 type PlaylistCreateData struct {
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *string `json:"createdAt,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Id *string `json:"id,omitempty"`
-	IsPublic *bool `json:"is_public,omitempty"`
-	IsSmart *bool `json:"is_smart,omitempty"`
+	IsPublic *bool `json:"isPublic,omitempty"`
+	IsSmart *bool `json:"isSmart,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Owner *string `json:"owner,omitempty"`
-	SmartCriterion *map[string]any `json:"smart_criterion,omitempty"`
-	Song *[]any `json:"song,omitempty"`
-	SongCount *int `json:"song_count,omitempty"`
-	SongId string `json:"song_id"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
+	SmartCriteria *map[string]any `json:"smartCriteria,omitempty"`
+	SongCount *int `json:"songCount,omitempty"`
+	SongId string `json:"songId"`
+	Songs *[]any `json:"songs,omitempty"`
+	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
 // PlaylistUpdateData is the typed request payload for Playlist.UpdateTyped.
 type PlaylistUpdateData struct {
 	Id string `json:"id"`
+	CreatedAt *string `json:"createdAt,omitempty"`
+	Description *string `json:"description,omitempty"`
+	IsPublic *bool `json:"isPublic,omitempty"`
+	IsSmart *bool `json:"isSmart,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Owner *string `json:"owner,omitempty"`
+	SmartCriteria *map[string]any `json:"smartCriteria,omitempty"`
+	SongCount *int `json:"songCount,omitempty"`
+	SongId *string `json:"songId,omitempty"`
+	Songs *[]any `json:"songs,omitempty"`
+	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
 // PlaylistRemoveMatch is the typed request payload for Playlist.RemoveTyped.
@@ -150,30 +165,30 @@ type PlaylistRemoveMatch struct {
 
 // Search is the typed data model for the search entity.
 type Search struct {
-	Limit *int `json:"limit,omitempty"`
-	Offset *int `json:"offset,omitempty"`
-	Result *map[string]any `json:"result,omitempty"`
-	Total *int `json:"total,omitempty"`
+	Albums *[]any `json:"albums,omitempty"`
+	Artists *[]any `json:"artists,omitempty"`
+	Playlists *[]any `json:"playlists,omitempty"`
+	Songs *[]any `json:"songs,omitempty"`
 }
 
 // SearchLoadMatch is the typed request payload for Search.LoadTyped.
 type SearchLoadMatch struct {
-	Limit *int `json:"limit,omitempty"`
-	Offset *int `json:"offset,omitempty"`
-	Result *map[string]any `json:"result,omitempty"`
-	Total *int `json:"total,omitempty"`
+	Albums *[]any `json:"albums,omitempty"`
+	Artists *[]any `json:"artists,omitempty"`
+	Playlists *[]any `json:"playlists,omitempty"`
+	Songs *[]any `json:"songs,omitempty"`
 }
 
 // Song is the typed data model for the song entity.
 type Song struct {
 	Album *string `json:"album,omitempty"`
 	Artist *string `json:"artist,omitempty"`
-	CoverArt *string `json:"cover_art,omitempty"`
+	CoverArt *string `json:"coverArt,omitempty"`
 	Duration *int `json:"duration,omitempty"`
-	Genre *[]any `json:"genre,omitempty"`
-	HasVideo *bool `json:"has_video,omitempty"`
+	Genres *[]any `json:"genres,omitempty"`
+	HasVideo *bool `json:"hasVideo,omitempty"`
 	Id *string `json:"id,omitempty"`
-	ReleaseDate *string `json:"release_date,omitempty"`
+	ReleaseDate *string `json:"releaseDate,omitempty"`
 	Title *string `json:"title,omitempty"`
 }
 
@@ -185,9 +200,9 @@ type SongLoadMatch struct {
 // Stream is the typed data model for the stream entity.
 type Stream struct {
 	Bitrate *int `json:"bitrate,omitempty"`
-	ExpiresAt *string `json:"expires_at,omitempty"`
+	ExpiresAt *string `json:"expiresAt,omitempty"`
 	Quality *string `json:"quality,omitempty"`
-	StreamUrl *string `json:"stream_url,omitempty"`
+	StreamUrl *string `json:"streamUrl,omitempty"`
 }
 
 // StreamLoadMatch is the typed request payload for Stream.LoadTyped.
@@ -198,8 +213,8 @@ type StreamLoadMatch struct {
 // Video is the typed data model for the video entity.
 type Video struct {
 	Duration *int `json:"duration,omitempty"`
-	ThumbnailUrl *string `json:"thumbnail_url,omitempty"`
-	VideoUrl *string `json:"video_url,omitempty"`
+	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+	VideoUrl *string `json:"videoUrl,omitempty"`
 }
 
 // VideoLoadMatch is the typed request payload for Video.LoadTyped.
@@ -219,12 +234,26 @@ func asMap(v any) map[string]any {
 	return out
 }
 
-// typedFrom decodes a runtime value (a map[string]any produced by the op
-// pipeline) into a typed model T via a JSON round-trip. On any error it
-// returns the zero value of T; the op's own (value, error) tuple carries the
-// real error.
+// entityData unwraps an entity to its data map.
+//
+// Operations resolve to the ENTITY, not the raw data (see AGENTS.md), and an
+// entity's fields are UNEXPORTED — marshalling one directly yields `{}`, so
+// every typed accessor would silently hand back a zero-valued struct. The
+// typed boundary therefore takes the data hop first.
+func entityData(v any) any {
+	if ent, ok := v.(core.Entity); ok {
+		return ent.Data()
+	}
+	return v
+}
+
+// typedFrom decodes a runtime value (an entity, or the map[string]any the op
+// pipeline produced) into a typed model T via a JSON round-trip. On any error
+// it returns the zero value of T; the op's own (value, error) tuple carries
+// the real error.
 func typedFrom[T any](v any) T {
 	var out T
+	v = entityData(v)
 	if v == nil {
 		return out
 	}
@@ -236,12 +265,20 @@ func typedFrom[T any](v any) T {
 	return out
 }
 
-// typedSliceFrom decodes a runtime list value ([]any of maps) into a typed
-// slice []T via a JSON round-trip, for list ops.
+// typedSliceFrom decodes a runtime list value into a typed slice []T via a
+// JSON round-trip, for list ops. `list` resolves to a slice of ENTITY
+// instances, so each element takes the data hop.
 func typedSliceFrom[T any](v any) []T {
 	var out []T
 	if v == nil {
 		return out
+	}
+	if list, ok := v.([]any); ok {
+		unwrapped := make([]any, 0, len(list))
+		for _, item := range list {
+			unwrapped = append(unwrapped, entityData(item))
+		}
+		v = unwrapped
 	}
 	b, err := json.Marshal(v)
 	if err != nil {

@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = ListenfreeSDK.test()
-const listeningrooms = await client.ListeningRoom().list()
-// listeningrooms is an array of bare ListeningRoom records populated with mock data
-console.log(listeningrooms)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = ListenfreeSDK.test({
+  entity: {
+    music: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const musics = await client.Music().list()
+// musics is an array of Music entities, populated with mock data
+// — call musics[0].data() for the record itself
+console.log(musics)
 ```
 
 ### Python
 
 ```python
 client = ListenfreeSDK.test()
-listeningrooms = client.ListeningRoom().list()
-print(listeningrooms)
+musics = client.Music().list()
+print(musics)
 ```
 
 ### PHP
@@ -57,16 +66,16 @@ print(listeningrooms)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = ListenfreeSDK::test([
-    "entity" => ["listeningroom" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["music" => ["test01" => []]],
 ]);
-$listeningrooms = $client->ListeningRoom()->list();
+$musics = $client->Music()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.ListeningRoom(nil).List(
+result, err := client.Music(nil).List(
     nil, nil,
 )
 ```
@@ -76,16 +85,16 @@ result, err := client.ListeningRoom(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = ListenfreeSDK.test({
-  "entity" => { "listeningroom" => { "test01" => { "id" => "test01" } } },
+  "entity" => { "music" => { "test01" => {} } },
 })
-listeningrooms = client.ListeningRoom.list()
+musics = client.Music.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:ListeningRoom():list()
+local results, err = client:Music():list()
 ```
 
 ## Packages
@@ -112,7 +121,7 @@ const client = new ListenfreeSDK({
   apikey: process.env.LISTENFREE_APIKEY,
 })
 
-// List all listeningrooms (returns ListeningRoom[])
+// List all listeningrooms (returns ListeningRoomEntity[] — .data() for the record)
 const listeningrooms = await client.ListeningRoom().list()
 for (const listeningroom of listeningrooms) {
   console.log(listeningroom)
@@ -163,10 +172,10 @@ The API exposes 8 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **ListeningRoom** | The ListeningRoom entity (create, list, load). | `/listening-rooms/{roomId}/join` |
+| **ListeningRoom** | The ListeningRoom entity (create, list, load). | `/listening-rooms` |
 | **Music** | The Music entity (list). | `/offline/downloads` |
 | **OfflineDownload** | The OfflineDownload entity (create). | `/offline/downloads` |
-| **Playlist** | The Playlist entity (create, list, load, remove, update). | `/playlists/{playlistId}/songs` |
+| **Playlist** | The Playlist entity (create, list, load, remove, update). | `/playlists` |
 | **Search** | The Search entity (load). | `/search` |
 | **Song** | The Song entity (load). | `/songs/{songId}` |
 | **Stream** | The Stream entity (load). | `/songs/{songId}/stream` |
@@ -211,7 +220,7 @@ $client = new ListenfreeSDK([
 $listeningrooms = $client->ListeningRoom()->list();
 print_r($listeningrooms);
 
-// Load a specific listeningroom (returns the bare record; throws on error)
+// Load a specific listeningroom (returns the ENTITY; call data_get() for the record; throws on error)
 $listeningroom = $client->ListeningRoom()->load(["id" => "example_id"]);
 print_r($listeningroom);
 ```
@@ -255,7 +264,7 @@ client = ListenfreeSDK.new({
 listeningrooms = client.ListeningRoom.list
 puts listeningrooms
 
-# Load a specific listeningroom (returns the bare record; raises on error)
+# Load a specific listeningroom (returns the ENTITY; call data_get for the record)
 listeningroom = client.ListeningRoom.load({ "id" => "example_id" })
 puts listeningroom
 ```
@@ -394,6 +403,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://listenfree.in/](https://listenfree.in/)
 

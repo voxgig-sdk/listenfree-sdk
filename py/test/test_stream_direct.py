@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from listenfree_sdk.utility.voxgig_struct import voxgig_struct as vs
 from listenfree_sdk import ListenfreeSDK
-from core import helpers
+from listenfree_sdk.core import helpers
 from test import runner
 
 

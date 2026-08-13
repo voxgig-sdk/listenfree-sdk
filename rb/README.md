@@ -39,7 +39,7 @@ begin
   # list returns an Array of ListeningRoom records — iterate directly.
   listeningrooms = client.ListeningRoom.list
   listeningrooms.each do |item|
-    puts "#{item["id"]} #{item["created_at"]}"
+    puts "#{item["id"]} #{item["createdAt"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -52,7 +52,7 @@ Stream is nested under song, so provide the `song_id`.
 
 ```ruby
 begin
-  # load returns the bare Stream record (raises on error).
+  # load returns the ENTITY — call data_get for the Stream record (raises on error).
   stream = client.Stream.load({ "song_id" => "example_song_id" })
   puts stream
 rescue => err
@@ -63,8 +63,8 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created ListeningRoom record.
-created = client.ListeningRoom.create({ "created_at" => "example_created_at", "current_song" => {} })
+# create returns the ENTITY — call data_get for the created ListeningRoom record.
+created = client.ListeningRoom.create({ "createdAt" => "example_createdAt", "currentSong" => {} })
 
 ```
 
@@ -75,7 +75,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  listeningrooms = client.ListeningRoom.list()
+  musics = client.Music.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -138,17 +138,15 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = ListenfreeSDK.test({
-  "entity" => { "listeningroom" => { "test01" => { "id" => "test01" } } },
-})
+client = ListenfreeSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-listeningroom = client.ListeningRoom.list()
-puts listeningroom
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+music = client.Music.list()
+puts music
 ```
 
 ### Use a custom fetch function
@@ -276,15 +274,15 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
-| `current_song` |  |
+| `createdAt` |  |
+| `currentSong` |  |
 | `description` |  |
 | `host` |  |
 | `id` |  |
-| `is_public` |  |
-| `max_participant` |  |
+| `isPublic` |  |
+| `maxParticipants` |  |
 | `name` |  |
-| `participant` |  |
+| `participants` |  |
 | `queue` |  |
 
 Operations: Create, List, Load.
@@ -295,8 +293,8 @@ API path: `/listening-rooms/{roomId}/join`
 
 | Field | Description |
 | --- | --- |
-| `downloaded_at` |  |
-| `expires_at` |  |
+| `downloadedAt` |  |
+| `expiresAt` |  |
 | `id` |  |
 | `progress` |  |
 | `song` |  |
@@ -310,7 +308,7 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `song_id` |  |
+| `songId` |  |
 
 Operations: Create.
 
@@ -320,18 +318,18 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `id` |  |
-| `is_public` |  |
-| `is_smart` |  |
+| `isPublic` |  |
+| `isSmart` |  |
 | `name` |  |
 | `owner` |  |
-| `smart_criterion` |  |
-| `song` |  |
-| `song_count` |  |
-| `song_id` |  |
-| `updated_at` |  |
+| `smartCriteria` |  |
+| `songCount` |  |
+| `songId` |  |
+| `songs` |  |
+| `updatedAt` |  |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -341,10 +339,10 @@ API path: `/playlists/{playlistId}/songs`
 
 | Field | Description |
 | --- | --- |
-| `limit` |  |
-| `offset` |  |
-| `result` |  |
-| `total` |  |
+| `albums` |  |
+| `artists` |  |
+| `playlists` |  |
+| `songs` |  |
 
 Operations: Load.
 
@@ -356,12 +354,12 @@ API path: `/search`
 | --- | --- |
 | `album` |  |
 | `artist` |  |
-| `cover_art` |  |
+| `coverArt` |  |
 | `duration` |  |
-| `genre` |  |
-| `has_video` |  |
+| `genres` |  |
+| `hasVideo` |  |
 | `id` |  |
-| `release_date` |  |
+| `releaseDate` |  |
 | `title` |  |
 
 Operations: Load.
@@ -373,9 +371,9 @@ API path: `/songs/{songId}`
 | Field | Description |
 | --- | --- |
 | `bitrate` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `quality` |  |
-| `stream_url` |  |
+| `streamUrl` |  |
 
 Operations: Load.
 
@@ -386,8 +384,8 @@ API path: `/songs/{songId}/stream`
 | Field | Description |
 | --- | --- |
 | `duration` |  |
-| `thumbnail_url` |  |
-| `video_url` |  |
+| `thumbnailUrl` |  |
+| `videoUrl` |  |
 
 Operations: Load.
 
@@ -414,21 +412,21 @@ Create an instance: `listening_room = client.ListeningRoom`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `String` |  |
-| `current_song` | `Hash` |  |
+| `createdAt` | `String` |  |
+| `currentSong` | `Hash` |  |
 | `description` | `String` |  |
 | `host` | `String` |  |
 | `id` | `String` |  |
-| `is_public` | `Boolean` |  |
-| `max_participant` | `Integer` |  |
+| `isPublic` | `Boolean` |  |
+| `maxParticipants` | `Integer` |  |
 | `name` | `String` |  |
-| `participant` | `Array` |  |
+| `participants` | `Array` |  |
 | `queue` | `Array` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare ListeningRoom record (raises on error).
+# load returns the ENTITY — call data_get for the ListeningRoom record (raises on error).
 listening_room = client.ListeningRoom.load({ "id" => "listening_room_id" })
 ```
 
@@ -461,8 +459,8 @@ Create an instance: `music = client.Music`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | `String` |  |
-| `expires_at` | `String` |  |
+| `downloadedAt` | `String` |  |
+| `expiresAt` | `String` |  |
 | `id` | `String` |  |
 | `progress` | `Integer` |  |
 | `song` | `Hash` |  |
@@ -490,13 +488,13 @@ Create an instance: `offline_download = client.OfflineDownload`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | `String` |  |
+| `songId` | `String` |  |
 
 #### Example: Create
 
 ```ruby
 offline_download = client.OfflineDownload.create({
-  "song_id" => "example_song_id", # String
+  "songId" => "example_songId", # String
 })
 ```
 
@@ -519,23 +517,23 @@ Create an instance: `playlist = client.Playlist`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `String` |  |
+| `createdAt` | `String` |  |
 | `description` | `String` |  |
 | `id` | `String` |  |
-| `is_public` | `Boolean` |  |
-| `is_smart` | `Boolean` |  |
+| `isPublic` | `Boolean` |  |
+| `isSmart` | `Boolean` |  |
 | `name` | `String` |  |
 | `owner` | `String` |  |
-| `smart_criterion` | `Hash` |  |
-| `song` | `Array` |  |
-| `song_count` | `Integer` |  |
-| `song_id` | `String` |  |
-| `updated_at` | `String` |  |
+| `smartCriteria` | `Hash` |  |
+| `songCount` | `Integer` |  |
+| `songId` | `String` |  |
+| `songs` | `Array` |  |
+| `updatedAt` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Playlist record (raises on error).
+# load returns the ENTITY — call data_get for the Playlist record (raises on error).
 playlist = client.Playlist.load({ "id" => "playlist_id" })
 ```
 
@@ -550,7 +548,7 @@ playlists = client.Playlist.list
 
 ```ruby
 playlist = client.Playlist.create({
-  "song_id" => "example_song_id", # String
+  "songId" => "example_songId", # String
 })
 ```
 
@@ -569,15 +567,15 @@ Create an instance: `search = client.Search`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | `Integer` |  |
-| `offset` | `Integer` |  |
-| `result` | `Hash` |  |
-| `total` | `Integer` |  |
+| `albums` | `Array` |  |
+| `artists` | `Array` |  |
+| `playlists` | `Array` |  |
+| `songs` | `Array` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Search record (raises on error).
+# load returns the ENTITY — call data_get for the Search record (raises on error).
 search = client.Search.load()
 ```
 
@@ -598,18 +596,18 @@ Create an instance: `song = client.Song`
 | --- | --- | --- |
 | `album` | `String` |  |
 | `artist` | `String` |  |
-| `cover_art` | `String` |  |
+| `coverArt` | `String` |  |
 | `duration` | `Integer` |  |
-| `genre` | `Array` |  |
-| `has_video` | `Boolean` |  |
+| `genres` | `Array` |  |
+| `hasVideo` | `Boolean` |  |
 | `id` | `String` |  |
-| `release_date` | `String` |  |
+| `releaseDate` | `String` |  |
 | `title` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Song record (raises on error).
+# load returns the ENTITY — call data_get for the Song record (raises on error).
 song = client.Song.load({ "id" => "song_id" })
 ```
 
@@ -629,14 +627,14 @@ Create an instance: `stream = client.Stream`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bitrate` | `Integer` |  |
-| `expires_at` | `String` |  |
+| `expiresAt` | `String` |  |
 | `quality` | `String` |  |
-| `stream_url` | `String` |  |
+| `streamUrl` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Stream record (raises on error).
+# load returns the ENTITY — call data_get for the Stream record (raises on error).
 stream = client.Stream.load({ "song_id" => "song_id" })
 ```
 
@@ -656,13 +654,13 @@ Create an instance: `video = client.Video`
 | Field | Type | Description |
 | --- | --- | --- |
 | `duration` | `Integer` |  |
-| `thumbnail_url` | `String` |  |
-| `video_url` | `String` |  |
+| `thumbnailUrl` | `String` |  |
+| `videoUrl` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Video record (raises on error).
+# load returns the ENTITY — call data_get for the Video record (raises on error).
 video = client.Video.load({ "song_id" => "song_id" })
 ```
 
@@ -743,11 +741,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-listeningroom = client.ListeningRoom
-listeningroom.list()
+music = client.Music
+music.list()
 
-# listeningroom.data_get now returns the listeningroom data from the last list
-# listeningroom.match_get returns the last match criteria
+# music.data_get now returns the music data from the last list
+# music.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

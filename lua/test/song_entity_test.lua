@@ -49,7 +49,7 @@ describe("SongEntity", function()
     }
     local song_ref01_data_dt0_loaded, err = song_ref01_ent:load(song_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local song_ref01_data_dt0_load_result = helpers.to_map(song_ref01_data_dt0_loaded)
+    local song_ref01_data_dt0_load_result = helpers.to_map(type(song_ref01_data_dt0_loaded) == 'table' and song_ref01_data_dt0_loaded.data_get and song_ref01_data_dt0_loaded:data_get() or song_ref01_data_dt0_loaded)
     assert.is_not_nil(song_ref01_data_dt0_load_result)
     assert.are.equal(song_ref01_data_dt0_load_result["id"], song_ref01_data["id"])
 

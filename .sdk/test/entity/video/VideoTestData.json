@@ -3,22 +3,22 @@
     "video": {
       "VIDEO00": {
         "duration": "s1e",
-        "thumbnail_url": "s1f",
-        "video_url": "s20",
+        "thumbnailUrl": "s1f",
+        "videoUrl": "s20",
         "song_id": "SONG01",
         "id": "VIDEO00"
       },
       "VIDEO01": {
         "duration": "s3c",
-        "thumbnail_url": "s3d",
-        "video_url": "s3e",
+        "thumbnailUrl": "s3d",
+        "videoUrl": "s3e",
         "song_id": "SONG01",
         "id": "VIDEO01"
       },
       "VIDEO02": {
         "duration": "s5a",
-        "thumbnail_url": "s5b",
-        "video_url": "s5c",
+        "thumbnailUrl": "s5b",
+        "videoUrl": "s5c",
         "song_id": "SONG01",
         "id": "VIDEO02"
       }
@@ -28,8 +28,8 @@
     "video": {
       "video_ref01": {
         "duration": "s78",
-        "thumbnail_url": "s79",
-        "video_url": "s7a"
+        "thumbnailUrl": "s79",
+        "videoUrl": "s7a"
       }
     }
   }

@@ -62,14 +62,14 @@ describe('ListeningRoomEntity', async () => {
     const listening_room_ref01_ent = client.ListeningRoom()
     let listening_room_ref01_data = setup.data.new.listening_room['listening_room_ref01']
 
-    listening_room_ref01_data = await listening_room_ref01_ent.create(listening_room_ref01_data)
+    listening_room_ref01_data = (await listening_room_ref01_ent.create(listening_room_ref01_data)).data()
     assert(null != listening_room_ref01_data.id)
 
 
     // LIST
     const listening_room_ref01_match: any = {}
 
-    const listening_room_ref01_list = await listening_room_ref01_ent.list(listening_room_ref01_match)
+    const listening_room_ref01_list = (await listening_room_ref01_ent.list(listening_room_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(listening_room_ref01_list, { id: listening_room_ref01_data.id })))
 
@@ -77,7 +77,7 @@ describe('ListeningRoomEntity', async () => {
     // LOAD
     const listening_room_ref01_match_dt0: any = {}
     listening_room_ref01_match_dt0.id = listening_room_ref01_data.id
-    const listening_room_ref01_data_dt0 = await listening_room_ref01_ent.load(listening_room_ref01_match_dt0)
+    const listening_room_ref01_data_dt0 = (await listening_room_ref01_ent.load(listening_room_ref01_match_dt0)).data()
     assert(listening_room_ref01_data_dt0.id === listening_room_ref01_data.id)
 
 

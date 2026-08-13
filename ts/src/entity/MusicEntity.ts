@@ -37,7 +37,7 @@ class MusicEntity extends ListenfreeEntityBase<Music> {
 
 
 
-  async list(this: any, reqmatch?: MusicListMatch, ctrl?: Control): Promise<Music[]> {
+  async list(this: any, reqmatch?: MusicListMatch, ctrl?: Control): Promise<MusicEntity[]> {
 
     const utility = this._utility
 

@@ -122,30 +122,30 @@ listening_room = client.ListeningRoom
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `String` | No |  |
-| `current_song` | `Hash` | No |  |
+| `createdAt` | `String` | No |  |
+| `currentSong` | `Hash` | No |  |
 | `description` | `String` | No |  |
 | `host` | `String` | No |  |
 | `id` | `String` | No |  |
-| `is_public` | `Boolean` | No |  |
-| `max_participant` | `Integer` | No |  |
+| `isPublic` | `Boolean` | No |  |
+| `maxParticipants` | `Integer` | No |  |
 | `name` | `String` | No |  |
-| `participant` | `Array` | No |  |
+| `participants` | `Array` | No |  |
 | `queue` | `Array` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create |
 | --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `current_song` | - | - | - |
+| `createdAt` | - | - | - |
+| `currentSong` | - | - | - |
 | `description` | - | - | - |
 | `host` | - | - | - |
 | `id` | - | - | - |
-| `is_public` | - | - | - |
-| `max_participant` | - | - | - |
+| `isPublic` | - | - | - |
+| `maxParticipants` | - | - | - |
 | `name` | - | - | Yes |
-| `participant` | - | - | - |
+| `participants` | - | - | - |
 | `queue` | - | - | - |
 
 ### Operations
@@ -215,8 +215,8 @@ music = client.Music
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | `String` | No |  |
-| `expires_at` | `String` | No |  |
+| `downloadedAt` | `String` | No |  |
+| `expiresAt` | `String` | No |  |
 | `id` | `String` | No |  |
 | `progress` | `Integer` | No |  |
 | `song` | `Hash` | No |  |
@@ -272,7 +272,7 @@ offline_download = client.OfflineDownload
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | `String` | Yes |  |
+| `songId` | `String` | Yes |  |
 
 ### Operations
 
@@ -282,7 +282,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.OfflineDownload.create({
-  "song_id" => "example_song_id", # String
+  "songId" => "example_songId", # String
 })
 ```
 
@@ -326,35 +326,35 @@ playlist = client.Playlist
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `String` | No |  |
+| `createdAt` | `String` | No |  |
 | `description` | `String` | No |  |
 | `id` | `String` | No |  |
-| `is_public` | `Boolean` | No |  |
-| `is_smart` | `Boolean` | No |  |
+| `isPublic` | `Boolean` | No |  |
+| `isSmart` | `Boolean` | No |  |
 | `name` | `String` | No |  |
 | `owner` | `String` | No |  |
-| `smart_criterion` | `Hash` | No |  |
-| `song` | `Array` | No |  |
-| `song_count` | `Integer` | No |  |
-| `song_id` | `String` | Yes |  |
-| `updated_at` | `String` | No |  |
+| `smartCriteria` | `Hash` | No |  |
+| `songCount` | `Integer` | No |  |
+| `songId` | `String` | Yes |  |
+| `songs` | `Array` | No |  |
+| `updatedAt` | `String` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `is_smart` | - | - | - | - | - |
+| `isPublic` | - | - | - | - | - |
+| `isSmart` | - | - | - | - | - |
 | `name` | - | - | Yes | - | - |
 | `owner` | - | - | - | - | - |
-| `smart_criterion` | - | - | - | - | - |
-| `song` | - | - | - | - | - |
-| `song_count` | - | - | - | - | - |
-| `song_id` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `smartCriteria` | - | - | - | - | - |
+| `songCount` | - | - | - | - | - |
+| `songId` | - | - | - | - | - |
+| `songs` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 
 ### Operations
 
@@ -364,7 +364,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Playlist.create({
-  "song_id" => "example_song_id", # String
+  "songId" => "example_songId", # String
 })
 ```
 
@@ -443,10 +443,10 @@ search = client.Search
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | `Integer` | No |  |
-| `offset` | `Integer` | No |  |
-| `result` | `Hash` | No |  |
-| `total` | `Integer` | No |  |
+| `albums` | `Array` | No |  |
+| `artists` | `Array` | No |  |
+| `playlists` | `Array` | No |  |
+| `songs` | `Array` | No |  |
 
 ### Operations
 
@@ -500,12 +500,12 @@ song = client.Song
 | --- | --- | --- | --- |
 | `album` | `String` | No |  |
 | `artist` | `String` | No |  |
-| `cover_art` | `String` | No |  |
+| `coverArt` | `String` | No |  |
 | `duration` | `Integer` | No |  |
-| `genre` | `Array` | No |  |
-| `has_video` | `Boolean` | No |  |
+| `genres` | `Array` | No |  |
+| `hasVideo` | `Boolean` | No |  |
 | `id` | `String` | No |  |
-| `release_date` | `String` | No |  |
+| `releaseDate` | `String` | No |  |
 | `title` | `String` | No |  |
 
 ### Operations
@@ -559,9 +559,9 @@ stream = client.Stream
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bitrate` | `Integer` | No |  |
-| `expires_at` | `String` | No |  |
+| `expiresAt` | `String` | No |  |
 | `quality` | `String` | No |  |
-| `stream_url` | `String` | No |  |
+| `streamUrl` | `String` | No |  |
 
 ### Operations
 
@@ -614,8 +614,8 @@ video = client.Video
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `duration` | `Integer` | No |  |
-| `thumbnail_url` | `String` | No |  |
-| `video_url` | `String` | No |  |
+| `thumbnailUrl` | `String` | No |  |
+| `videoUrl` | `String` | No |  |
 
 ### Operations
 

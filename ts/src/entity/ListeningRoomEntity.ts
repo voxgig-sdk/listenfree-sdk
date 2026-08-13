@@ -38,7 +38,7 @@ class ListeningRoomEntity extends ListenfreeEntityBase<ListeningRoom> {
 
 
 
-  async load(this: any, reqmatch?: ListeningRoomLoadMatch, ctrl?: Control): Promise<ListeningRoom> {
+  async load(this: any, reqmatch?: ListeningRoomLoadMatch, ctrl?: Control): Promise<ListeningRoomEntity> {
 
     const utility = this._utility
 
@@ -129,7 +129,15 @@ class ListeningRoomEntity extends ListenfreeEntityBase<ListeningRoom> {
         }
       }
 
-      return done(ctx)
+      const out = done(ctx)
+
+      // An operation resolves to the ENTITY, not the raw data — the record
+      // has just been absorbed into this instance and is reached through
+      // data(). `done` still runs: it completes the pipeline and raises on
+      // failure, and when throwing is disabled it hands back the error
+      // payload, which passes through unchanged. See AGENTS.md "Entity
+      // operations return ENTITIES".
+      return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err: any) {
 
@@ -151,7 +159,7 @@ class ListeningRoomEntity extends ListenfreeEntityBase<ListeningRoom> {
 
 
 
-  async list(this: any, reqmatch?: ListeningRoomListMatch, ctrl?: Control): Promise<ListeningRoom[]> {
+  async list(this: any, reqmatch?: ListeningRoomListMatch, ctrl?: Control): Promise<ListeningRoomEntity[]> {
 
     const utility = this._utility
 
@@ -260,7 +268,7 @@ class ListeningRoomEntity extends ListenfreeEntityBase<ListeningRoom> {
 
 
 
-  async create(this: any, reqdata?: ListeningRoomCreateData, ctrl?: Control): Promise<ListeningRoom> {
+  async create(this: any, reqdata?: ListeningRoomCreateData, ctrl?: Control): Promise<ListeningRoomEntity> {
 
     const utility = this._utility
     const {
@@ -346,7 +354,15 @@ class ListeningRoomEntity extends ListenfreeEntityBase<ListeningRoom> {
         }
       }
 
-      return done(ctx)
+      const out = done(ctx)
+
+      // An operation resolves to the ENTITY, not the raw data — the record
+      // has just been absorbed into this instance and is reached through
+      // data(). `done` still runs: it completes the pipeline and raises on
+      // failure, and when throwing is disabled it hands back the error
+      // payload, which passes through unchanged. See AGENTS.md "Entity
+      // operations return ENTITIES".
+      return (ctx.result && ctx.result.ok) ? this : out
     }
     catch (err: any) {
 

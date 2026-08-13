@@ -106,7 +106,7 @@ func TestListeningRoomEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		listeningRoomRef01Data = core.ToMapAny(listeningRoomRef01DataResult)
+		listeningRoomRef01Data = core.ToMapAny(entityData(listeningRoomRef01DataResult))
 		if listeningRoomRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -139,7 +139,7 @@ func TestListeningRoomEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		listeningRoomRef01DataDt0LoadResult := core.ToMapAny(listeningRoomRef01DataDt0Loaded)
+		listeningRoomRef01DataDt0LoadResult := core.ToMapAny(entityData(listeningRoomRef01DataDt0Loaded))
 		if listeningRoomRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

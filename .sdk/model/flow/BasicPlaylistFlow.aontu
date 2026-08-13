@@ -31,7 +31,7 @@ main: kit: flow: BasicPlaylistFlow:
         ref: "playlist_ref01",
         srcdatavar: "playlist_ref01_data",
         suffix: "_up0",
-        textfield: "created_at"
+        textfield: "createdAt"
       }
 
       op: "update",

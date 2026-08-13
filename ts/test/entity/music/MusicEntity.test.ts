@@ -63,7 +63,7 @@ describe('MusicEntity', async () => {
     const music_ref01_ent = client.Music()
     const music_ref01_match: any = {}
 
-    const music_ref01_list = await music_ref01_ent.list(music_ref01_match)
+    const music_ref01_list = (await music_ref01_ent.list(music_ref01_match)).map((e: any) => e.data())
 
 
   })

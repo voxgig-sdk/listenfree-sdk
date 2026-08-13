@@ -6,12 +6,12 @@ main: kit: entity: music: {
 
   fields: [
     {
-      name: "downloaded_at"
+      name: "downloadedAt"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "expires_at"
+      name: "expiresAt"
       req: false
       type: "`$STRING`"
     }
@@ -56,7 +56,7 @@ main: kit: entity: music: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.downloads`"
           }
         }
       ]

@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from listenfree_sdk.utility.voxgig_struct import voxgig_struct as vs
 from listenfree_sdk import ListenfreeSDK
-from core import helpers
+from listenfree_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -44,7 +44,7 @@ class TestOfflineDownloadEntity:
         offline_download_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.offline_download"), "offline_download_ref01"))
 
-        offline_download_ref01_data = helpers.to_map(offline_download_ref01_ent.create(offline_download_ref01_data, None))
+        offline_download_ref01_data = helpers.to_map(runner.entity_data(offline_download_ref01_ent.create(offline_download_ref01_data, None)))
         assert offline_download_ref01_data is not None
 
 

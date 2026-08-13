@@ -16,11 +16,11 @@
 import pytest
 
 from listenfree_sdk import ListenfreeSDK
-from core.error import ListenfreeError
-from core.result import ListenfreeResult
-from core.response import ListenfreeResponse
-from core.spec import ListenfreeSpec
-from feature.base_feature import ListenfreeBaseFeature
+from listenfree_sdk.core.error import ListenfreeError
+from listenfree_sdk.core.result import ListenfreeResult
+from listenfree_sdk.core.response import ListenfreeResponse
+from listenfree_sdk.core.spec import ListenfreeSpec
+from listenfree_sdk.feature.base_feature import ListenfreeBaseFeature
 
 
 def _client():

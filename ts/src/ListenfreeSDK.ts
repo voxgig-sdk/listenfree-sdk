@@ -153,8 +153,29 @@ class ListenfreeSDK {
   }
 
 
+  // Raw endpoint access is operator-controllable, like every entity op.
+  // Blocking it means denying BOTH the 'direct' and 'graphql' tokens, since
+  // either one reaches the same endpoint.
   async direct(fetchargs?: any) {
+    if (!this._options.allow.op.includes('direct')) {
+      return {
+        ok: false,
+        err: new Error('ListenfreeSDK: direct: operation not allowed by' +
+          ' SDK option allow.op value: "' + this._options.allow.op + '"'),
+      }
+    }
+
+    return this._rawRequest(fetchargs)
+  }
+
+
+  // Ungated request path shared by direct() and graphql(), each of which
+  // checks its own allow.op token first. Private, rather than a flag on
+  // fetchargs: a caller-supplied marker would let anyone opt straight back
+  // out of the gate by passing it.
+  async _rawRequest(fetchargs?: any) {
     const utility = this._utility
+
     const fetcher = utility.fetcher
     const makeContext = utility.makeContext
 
@@ -215,59 +236,129 @@ class ListenfreeSDK {
 
 
 
+  // Raw GraphQL access: the pressure valve that makes the generated
+  // surface's deliberate omissions (per-call selection sets, typed filter
+  // builders, batching, subscriptions) livable — the whole schema stays
+  // reachable.
+  //
+  // Thin wrapper over the same prepare/fetch path `direct` uses, with the
+  // one thing raw `direct` cannot do for GraphQL: a GraphQL failure rides
+  // HTTP 200 as a top-level `errors` array, so status alone would report a
+  // failed query as ok.
+  //
+  // NOTE: like `direct`, this bypasses the feature pipeline — no retry,
+  // ratelimit or paging features apply.
+  async graphql(query: string, variables?: any, ctrl?: any) {
+    const options = this._options
+
+    if (!options.allow.op.includes('graphql')) {
+      return {
+        ok: false,
+        err: new Error('ListenfreeSDK: graphql: operation not allowed by' +
+          ' SDK option allow.op value: "' + options.allow.op + '"'),
+      }
+    }
+
+    const res: any = await this._rawRequest({
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: { query, variables: variables || {} },
+      ctrl,
+    })
+
+    if (res instanceof Error) {
+      return res
+    }
+
+    // Errors are read BEFORE any status check: a GraphQL parse or validation
+    // failure comes back as HTTP 400 carrying the standard { errors: [...] }
+    // body, and the raw path represents a non-2xx as { ok: false } with no
+    // err — so returning early on status would discard the server's own
+    // diagnostics, which are the only useful part of that response.
+    const errors = null == res.data ? undefined : res.data.errors
+
+    if (null != errors && Array.isArray(errors) && 0 < errors.length) {
+      const first = errors[0] || {}
+      const err: any = new Error('ListenfreeSDK: graphql: ' +
+        (first.message || 'graphql error'))
+      err.graphql = errors
+      return { ok: false, status: res.status, headers: res.headers, err, data: res.data }
+    }
+
+    return res
+  }
+
+
+
   // Entity access: `client.ListeningRoom().list()` / `client.ListeningRoom().load({ id })`.
-  ListeningRoom(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  ListeningRoom(entopts?: Record<string, any>) {
     const self = this
-    return new ListeningRoomEntity(self,data)
+    return new ListeningRoomEntity(self, entopts)
   }
 
 
   // Entity access: `client.Music().list()` / `client.Music().load({ id })`.
-  Music(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Music(entopts?: Record<string, any>) {
     const self = this
-    return new MusicEntity(self,data)
+    return new MusicEntity(self, entopts)
   }
 
 
   // Entity access: `client.OfflineDownload().list()` / `client.OfflineDownload().load({ id })`.
-  OfflineDownload(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  OfflineDownload(entopts?: Record<string, any>) {
     const self = this
-    return new OfflineDownloadEntity(self,data)
+    return new OfflineDownloadEntity(self, entopts)
   }
 
 
   // Entity access: `client.Playlist().list()` / `client.Playlist().load({ id })`.
-  Playlist(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Playlist(entopts?: Record<string, any>) {
     const self = this
-    return new PlaylistEntity(self,data)
+    return new PlaylistEntity(self, entopts)
   }
 
 
   // Entity access: `client.Search().list()` / `client.Search().load({ id })`.
-  Search(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Search(entopts?: Record<string, any>) {
     const self = this
-    return new SearchEntity(self,data)
+    return new SearchEntity(self, entopts)
   }
 
 
   // Entity access: `client.Song().list()` / `client.Song().load({ id })`.
-  Song(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Song(entopts?: Record<string, any>) {
     const self = this
-    return new SongEntity(self,data)
+    return new SongEntity(self, entopts)
   }
 
 
   // Entity access: `client.Stream().list()` / `client.Stream().load({ id })`.
-  Stream(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Stream(entopts?: Record<string, any>) {
     const self = this
-    return new StreamEntity(self,data)
+    return new StreamEntity(self, entopts)
   }
 
 
   // Entity access: `client.Video().list()` / `client.Video().load({ id })`.
-  Video(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Video(entopts?: Record<string, any>) {
     const self = this
-    return new VideoEntity(self,data)
+    return new VideoEntity(self, entopts)
   }
 
 

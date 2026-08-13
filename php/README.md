@@ -40,7 +40,7 @@ try {
     // list() returns an array of ListeningRoom records — iterate directly.
     $listeningrooms = $client->ListeningRoom()->list();
     foreach ($listeningrooms as $item) {
-        echo $item["id"] . " " . $item["created_at"] . "\n";
+        echo $item["id"] . " " . $item["createdAt"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -53,7 +53,7 @@ Stream is nested under song, so provide the `song_id`.
 
 ```php
 try {
-    // load() returns the bare Stream record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Stream record (throws on error).
     $stream = $client->Stream()->load(["song_id" => "example_song_id"]);
     print_r($stream);
 } catch (\Throwable $err) {
@@ -64,8 +64,8 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// create() returns the bare created ListeningRoom record.
-$created = $client->ListeningRoom()->create(["created_at" => "example_created_at", "current_song" => []]);
+// create() returns the ENTITY — call data_get() for the created ListeningRoom record.
+$created = $client->ListeningRoom()->create(["createdAt" => "example_createdAt", "currentSong" => []]);
 
 ```
 
@@ -77,7 +77,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $listeningrooms = $client->ListeningRoom()->list();
+    $musics = $client->Music()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -144,17 +144,15 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = ListenfreeSDK::test([
-    "entity" => ["listeningroom" => ["test01" => ["id" => "test01"]]],
-]);
+$client = ListenfreeSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$listeningroom = $client->ListeningRoom()->list();
-print_r($listeningroom);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$music = $client->Music()->list();
+print_r($music);
 ```
 
 ### Use a custom fetch function
@@ -264,7 +262,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -286,15 +284,15 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
-| `current_song` |  |
+| `createdAt` |  |
+| `currentSong` |  |
 | `description` |  |
 | `host` |  |
 | `id` |  |
-| `is_public` |  |
-| `max_participant` |  |
+| `isPublic` |  |
+| `maxParticipants` |  |
 | `name` |  |
-| `participant` |  |
+| `participants` |  |
 | `queue` |  |
 
 Operations: Create, List, Load.
@@ -305,8 +303,8 @@ API path: `/listening-rooms/{roomId}/join`
 
 | Field | Description |
 | --- | --- |
-| `downloaded_at` |  |
-| `expires_at` |  |
+| `downloadedAt` |  |
+| `expiresAt` |  |
 | `id` |  |
 | `progress` |  |
 | `song` |  |
@@ -320,7 +318,7 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `song_id` |  |
+| `songId` |  |
 
 Operations: Create.
 
@@ -330,18 +328,18 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `id` |  |
-| `is_public` |  |
-| `is_smart` |  |
+| `isPublic` |  |
+| `isSmart` |  |
 | `name` |  |
 | `owner` |  |
-| `smart_criterion` |  |
-| `song` |  |
-| `song_count` |  |
-| `song_id` |  |
-| `updated_at` |  |
+| `smartCriteria` |  |
+| `songCount` |  |
+| `songId` |  |
+| `songs` |  |
+| `updatedAt` |  |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -351,10 +349,10 @@ API path: `/playlists/{playlistId}/songs`
 
 | Field | Description |
 | --- | --- |
-| `limit` |  |
-| `offset` |  |
-| `result` |  |
-| `total` |  |
+| `albums` |  |
+| `artists` |  |
+| `playlists` |  |
+| `songs` |  |
 
 Operations: Load.
 
@@ -366,12 +364,12 @@ API path: `/search`
 | --- | --- |
 | `album` |  |
 | `artist` |  |
-| `cover_art` |  |
+| `coverArt` |  |
 | `duration` |  |
-| `genre` |  |
-| `has_video` |  |
+| `genres` |  |
+| `hasVideo` |  |
 | `id` |  |
-| `release_date` |  |
+| `releaseDate` |  |
 | `title` |  |
 
 Operations: Load.
@@ -383,9 +381,9 @@ API path: `/songs/{songId}`
 | Field | Description |
 | --- | --- |
 | `bitrate` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `quality` |  |
-| `stream_url` |  |
+| `streamUrl` |  |
 
 Operations: Load.
 
@@ -396,8 +394,8 @@ API path: `/songs/{songId}/stream`
 | Field | Description |
 | --- | --- |
 | `duration` |  |
-| `thumbnail_url` |  |
-| `video_url` |  |
+| `thumbnailUrl` |  |
+| `videoUrl` |  |
 
 Operations: Load.
 
@@ -424,21 +422,21 @@ Create an instance: `$listening_room = $client->ListeningRoom();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
-| `current_song` | `array` |  |
+| `createdAt` | `string` |  |
+| `currentSong` | `array` |  |
 | `description` | `string` |  |
 | `host` | `string` |  |
 | `id` | `string` |  |
-| `is_public` | `bool` |  |
-| `max_participant` | `int` |  |
+| `isPublic` | `bool` |  |
+| `maxParticipants` | `int` |  |
 | `name` | `string` |  |
-| `participant` | `array` |  |
+| `participants` | `array` |  |
 | `queue` | `array` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare ListeningRoom record (throws on error).
+// load() returns the ENTITY — call data_get() for the ListeningRoom record (throws on error).
 $listening_room = $client->ListeningRoom()->load(["id" => "listening_room_id"]);
 ```
 
@@ -471,8 +469,8 @@ Create an instance: `$music = $client->Music();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | `string` |  |
-| `expires_at` | `string` |  |
+| `downloadedAt` | `string` |  |
+| `expiresAt` | `string` |  |
 | `id` | `string` |  |
 | `progress` | `int` |  |
 | `song` | `array` |  |
@@ -500,13 +498,13 @@ Create an instance: `$offline_download = $client->OfflineDownload();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | `string` |  |
+| `songId` | `string` |  |
 
 #### Example: Create
 
 ```php
 $offline_download = $client->OfflineDownload()->create([
-    "song_id" => null, // string
+    "songId" => null, // string
 ]);
 ```
 
@@ -529,23 +527,23 @@ Create an instance: `$playlist = $client->Playlist();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `description` | `string` |  |
 | `id` | `string` |  |
-| `is_public` | `bool` |  |
-| `is_smart` | `bool` |  |
+| `isPublic` | `bool` |  |
+| `isSmart` | `bool` |  |
 | `name` | `string` |  |
 | `owner` | `string` |  |
-| `smart_criterion` | `array` |  |
-| `song` | `array` |  |
-| `song_count` | `int` |  |
-| `song_id` | `string` |  |
-| `updated_at` | `string` |  |
+| `smartCriteria` | `array` |  |
+| `songCount` | `int` |  |
+| `songId` | `string` |  |
+| `songs` | `array` |  |
+| `updatedAt` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Playlist record (throws on error).
+// load() returns the ENTITY — call data_get() for the Playlist record (throws on error).
 $playlist = $client->Playlist()->load(["id" => "playlist_id"]);
 ```
 
@@ -560,7 +558,7 @@ $playlists = $client->Playlist()->list();
 
 ```php
 $playlist = $client->Playlist()->create([
-    "song_id" => null, // string
+    "songId" => null, // string
 ]);
 ```
 
@@ -579,15 +577,15 @@ Create an instance: `$search = $client->Search();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | `int` |  |
-| `offset` | `int` |  |
-| `result` | `array` |  |
-| `total` | `int` |  |
+| `albums` | `array` |  |
+| `artists` | `array` |  |
+| `playlists` | `array` |  |
+| `songs` | `array` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Search record (throws on error).
+// load() returns the ENTITY — call data_get() for the Search record (throws on error).
 $search = $client->Search()->load();
 ```
 
@@ -608,18 +606,18 @@ Create an instance: `$song = $client->Song();`
 | --- | --- | --- |
 | `album` | `string` |  |
 | `artist` | `string` |  |
-| `cover_art` | `string` |  |
+| `coverArt` | `string` |  |
 | `duration` | `int` |  |
-| `genre` | `array` |  |
-| `has_video` | `bool` |  |
+| `genres` | `array` |  |
+| `hasVideo` | `bool` |  |
 | `id` | `string` |  |
-| `release_date` | `string` |  |
+| `releaseDate` | `string` |  |
 | `title` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Song record (throws on error).
+// load() returns the ENTITY — call data_get() for the Song record (throws on error).
 $song = $client->Song()->load(["id" => "song_id"]);
 ```
 
@@ -639,14 +637,14 @@ Create an instance: `$stream = $client->Stream();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bitrate` | `int` |  |
-| `expires_at` | `string` |  |
+| `expiresAt` | `string` |  |
 | `quality` | `string` |  |
-| `stream_url` | `string` |  |
+| `streamUrl` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Stream record (throws on error).
+// load() returns the ENTITY — call data_get() for the Stream record (throws on error).
 $stream = $client->Stream()->load(["song_id" => "song_id"]);
 ```
 
@@ -666,13 +664,13 @@ Create an instance: `$video = $client->Video();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `duration` | `int` |  |
-| `thumbnail_url` | `string` |  |
-| `video_url` | `string` |  |
+| `thumbnailUrl` | `string` |  |
+| `videoUrl` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Video record (throws on error).
+// load() returns the ENTITY — call data_get() for the Video record (throws on error).
 $video = $client->Video()->load(["song_id" => "song_id"]);
 ```
 
@@ -753,11 +751,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$listeningroom = $client->ListeningRoom();
-$listeningroom->list();
+$music = $client->Music();
+$music->list();
 
-// $listeningroom->data_get() now returns the listeningroom data from the last list
-// $listeningroom->match_get() returns the last match criteria
+// $music->data_get() now returns the music data from the last list
+// $music->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

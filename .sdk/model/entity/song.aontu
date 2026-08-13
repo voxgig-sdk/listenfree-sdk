@@ -16,7 +16,7 @@ main: kit: entity: song: {
       type: "`$STRING`"
     }
     {
-      name: "cover_art"
+      name: "coverArt"
       req: false
       type: "`$STRING`"
     }
@@ -26,12 +26,12 @@ main: kit: entity: song: {
       type: "`$INTEGER`"
     }
     {
-      name: "genre"
+      name: "genres"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "has_video"
+      name: "hasVideo"
       req: false
       type: "`$BOOLEAN`"
     }
@@ -41,7 +41,7 @@ main: kit: entity: song: {
       type: "`$STRING`"
     }
     {
-      name: "release_date"
+      name: "releaseDate"
       req: false
       type: "`$STRING`"
     }

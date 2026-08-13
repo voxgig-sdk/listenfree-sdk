@@ -36,14 +36,14 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "created_at",
+						"name": "createdAt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 0,
 					},
 					map[string]any{
 						"active": true,
-						"name": "current_song",
+						"name": "currentSong",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 1,
@@ -71,14 +71,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "is_public",
+						"name": "isPublic",
 						"req": false,
 						"type": "`$BOOLEAN`",
 						"index$": 5,
 					},
 					map[string]any{
 						"active": true,
-						"name": "max_participant",
+						"name": "maxParticipants",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 6,
@@ -98,7 +98,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "participant",
+						"name": "participants",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 8,
@@ -131,6 +131,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/listening-rooms/{roomId}/join",
 								"parts": []any{
@@ -158,6 +159,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/listening-rooms",
 								"parts": []any{
@@ -171,7 +173,6 @@ func MakeConfig() map[string]any {
 								"index$": 1,
 							},
 						},
-						"key$": "create",
 					},
 					"list": map[string]any{
 						"input": "data",
@@ -192,6 +193,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/listening-rooms",
 								"parts": []any{
@@ -204,12 +206,11 @@ func MakeConfig() map[string]any {
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.rooms`",
 								},
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -230,6 +231,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/listening-rooms/{roomId}",
 								"parts": []any{
@@ -253,7 +255,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -264,14 +265,14 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "downloaded_at",
+						"name": "downloadedAt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 0,
 					},
 					map[string]any{
 						"active": true,
-						"name": "expires_at",
+						"name": "expiresAt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 1,
@@ -314,6 +315,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/offline/downloads",
 								"parts": []any{
@@ -323,12 +325,11 @@ func MakeConfig() map[string]any {
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.downloads`",
 								},
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -339,7 +340,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "song_id",
+						"name": "songId",
 						"req": true,
 						"type": "`$STRING`",
 						"index$": 0,
@@ -354,6 +355,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/offline/downloads",
 								"parts": []any{
@@ -363,12 +365,11 @@ func MakeConfig() map[string]any {
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.song`",
 								},
 								"index$": 0,
 							},
 						},
-						"key$": "create",
 					},
 				},
 				"relations": map[string]any{
@@ -379,7 +380,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "created_at",
+						"name": "createdAt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 0,
@@ -400,14 +401,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "is_public",
+						"name": "isPublic",
 						"req": false,
 						"type": "`$BOOLEAN`",
 						"index$": 3,
 					},
 					map[string]any{
 						"active": true,
-						"name": "is_smart",
+						"name": "isSmart",
 						"req": false,
 						"type": "`$BOOLEAN`",
 						"index$": 4,
@@ -434,35 +435,35 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "smart_criterion",
+						"name": "smartCriteria",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 7,
 					},
 					map[string]any{
 						"active": true,
-						"name": "song",
+						"name": "songCount",
 						"req": false,
-						"type": "`$ARRAY`",
+						"type": "`$INTEGER`",
 						"index$": 8,
 					},
 					map[string]any{
 						"active": true,
-						"name": "song_count",
-						"req": false,
-						"type": "`$INTEGER`",
+						"name": "songId",
+						"req": true,
+						"type": "`$STRING`",
 						"index$": 9,
 					},
 					map[string]any{
 						"active": true,
-						"name": "song_id",
-						"req": true,
-						"type": "`$STRING`",
+						"name": "songs",
+						"req": false,
+						"type": "`$ARRAY`",
 						"index$": 10,
 					},
 					map[string]any{
 						"active": true,
-						"name": "updated_at",
+						"name": "updatedAt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 11,
@@ -488,6 +489,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/playlists/{playlistId}/songs",
 								"parts": []any{
@@ -515,6 +517,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/playlists",
 								"parts": []any{
@@ -528,7 +531,6 @@ func MakeConfig() map[string]any {
 								"index$": 1,
 							},
 						},
-						"key$": "create",
 					},
 					"list": map[string]any{
 						"input": "data",
@@ -537,6 +539,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/playlists",
 								"parts": []any{
@@ -545,12 +548,11 @@ func MakeConfig() map[string]any {
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.playlists`",
 								},
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -571,6 +573,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/playlists/{playlistId}",
 								"parts": []any{
@@ -594,7 +597,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 					"remove": map[string]any{
 						"input": "data",
@@ -615,6 +617,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "DELETE",
 								"orig": "/playlists/{playlistId}",
 								"parts": []any{
@@ -638,7 +641,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "remove",
 					},
 					"update": map[string]any{
 						"input": "data",
@@ -659,6 +661,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "PUT",
 								"orig": "/playlists/{playlistId}",
 								"parts": []any{
@@ -682,7 +685,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "update",
 					},
 				},
 				"relations": map[string]any{
@@ -693,30 +695,30 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "limit",
+						"name": "albums",
 						"req": false,
-						"type": "`$INTEGER`",
+						"type": "`$ARRAY`",
 						"index$": 0,
 					},
 					map[string]any{
 						"active": true,
-						"name": "offset",
+						"name": "artists",
 						"req": false,
-						"type": "`$INTEGER`",
+						"type": "`$ARRAY`",
 						"index$": 1,
 					},
 					map[string]any{
 						"active": true,
-						"name": "result",
+						"name": "playlists",
 						"req": false,
-						"type": "`$OBJECT`",
+						"type": "`$ARRAY`",
 						"index$": 2,
 					},
 					map[string]any{
 						"active": true,
-						"name": "total",
+						"name": "songs",
 						"req": false,
-						"type": "`$INTEGER`",
+						"type": "`$ARRAY`",
 						"index$": 3,
 					},
 				},
@@ -768,6 +770,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/search",
 								"parts": []any{
@@ -783,12 +786,11 @@ func MakeConfig() map[string]any {
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.results`",
 								},
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -813,7 +815,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "cover_art",
+						"name": "coverArt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 2,
@@ -827,14 +829,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "genre",
+						"name": "genres",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 4,
 					},
 					map[string]any{
 						"active": true,
-						"name": "has_video",
+						"name": "hasVideo",
 						"req": false,
 						"type": "`$BOOLEAN`",
 						"index$": 5,
@@ -848,7 +850,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "release_date",
+						"name": "releaseDate",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 7,
@@ -882,6 +884,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/songs/{songId}",
 								"parts": []any{
@@ -905,7 +908,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -923,7 +925,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "expires_at",
+						"name": "expiresAt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 1,
@@ -937,7 +939,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "stream_url",
+						"name": "streamUrl",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 3,
@@ -975,6 +977,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/songs/{songId}/stream",
 								"parts": []any{
@@ -1000,7 +1003,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -1022,14 +1024,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "thumbnail_url",
+						"name": "thumbnailUrl",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 1,
 					},
 					map[string]any{
 						"active": true,
-						"name": "video_url",
+						"name": "videoUrl",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 2,
@@ -1056,6 +1058,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/songs/{songId}/video",
 								"parts": []any{
@@ -1080,7 +1083,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{

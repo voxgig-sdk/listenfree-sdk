@@ -45,7 +45,7 @@ class SongEntityTest < Minitest::Test
       "id" => song_ref01_data["id"],
     }
     song_ref01_data_dt0_loaded = song_ref01_ent.load(song_ref01_match_dt0, nil)
-    song_ref01_data_dt0_load_result = Helpers.to_map(song_ref01_data_dt0_loaded)
+    song_ref01_data_dt0_load_result = Helpers.to_map(song_ref01_data_dt0_loaded.respond_to?(:data_get) ? song_ref01_data_dt0_loaded.data_get : song_ref01_data_dt0_loaded)
     assert !song_ref01_data_dt0_load_result.nil?
     assert_equal song_ref01_data_dt0_load_result["id"], song_ref01_data["id"]
 

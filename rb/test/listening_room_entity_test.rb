@@ -73,7 +73,7 @@ class ListeningRoomEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.listening_room"), "listening_room_ref01"))
 
     listening_room_ref01_data_result = listening_room_ref01_ent.create(listening_room_ref01_data, nil)
-    listening_room_ref01_data = Helpers.to_map(listening_room_ref01_data_result)
+    listening_room_ref01_data = Helpers.to_map(listening_room_ref01_data_result.respond_to?(:data_get) ? listening_room_ref01_data_result.data_get : listening_room_ref01_data_result)
     assert !listening_room_ref01_data.nil?
     assert !listening_room_ref01_data["id"].nil?
 
@@ -93,7 +93,7 @@ class ListeningRoomEntityTest < Minitest::Test
       "id" => listening_room_ref01_data["id"],
     }
     listening_room_ref01_data_dt0_loaded = listening_room_ref01_ent.load(listening_room_ref01_match_dt0, nil)
-    listening_room_ref01_data_dt0_load_result = Helpers.to_map(listening_room_ref01_data_dt0_loaded)
+    listening_room_ref01_data_dt0_load_result = Helpers.to_map(listening_room_ref01_data_dt0_loaded.respond_to?(:data_get) ? listening_room_ref01_data_dt0_loaded.data_get : listening_room_ref01_data_dt0_loaded)
     assert !listening_room_ref01_data_dt0_load_result.nil?
     assert_equal listening_room_ref01_data_dt0_load_result["id"], listening_room_ref01_data["id"]
 

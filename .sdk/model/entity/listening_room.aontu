@@ -6,12 +6,12 @@ main: kit: entity: listening_room: {
 
   fields: [
     {
-      name: "created_at"
+      name: "createdAt"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "current_song"
+      name: "currentSong"
       req: false
       type: "`$OBJECT`"
     }
@@ -31,12 +31,12 @@ main: kit: entity: listening_room: {
       type: "`$STRING`"
     }
     {
-      name: "is_public"
+      name: "isPublic"
       req: false
       type: "`$BOOLEAN`"
     }
     {
-      name: "max_participant"
+      name: "maxParticipants"
       req: false
       type: "`$INTEGER`"
     }
@@ -52,7 +52,7 @@ main: kit: entity: listening_room: {
       type: "`$STRING`"
     }
     {
-      name: "participant"
+      name: "participants"
       req: false
       type: "`$ARRAY`"
     }
@@ -149,7 +149,7 @@ main: kit: entity: listening_room: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.rooms`"
           }
         }
       ]

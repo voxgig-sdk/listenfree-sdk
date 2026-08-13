@@ -82,7 +82,7 @@ describe("ListeningRoomEntity", function()
 
     local listening_room_ref01_data_result, err = listening_room_ref01_ent:create(listening_room_ref01_data, nil)
     assert.is_nil(err)
-    listening_room_ref01_data = helpers.to_map(listening_room_ref01_data_result)
+    listening_room_ref01_data = helpers.to_map(type(listening_room_ref01_data_result) == 'table' and listening_room_ref01_data_result.data_get and listening_room_ref01_data_result:data_get() or listening_room_ref01_data_result)
     assert.is_not_nil(listening_room_ref01_data)
     assert.is_not_nil(listening_room_ref01_data["id"])
 
@@ -104,7 +104,7 @@ describe("ListeningRoomEntity", function()
     }
     local listening_room_ref01_data_dt0_loaded, err = listening_room_ref01_ent:load(listening_room_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local listening_room_ref01_data_dt0_load_result = helpers.to_map(listening_room_ref01_data_dt0_loaded)
+    local listening_room_ref01_data_dt0_load_result = helpers.to_map(type(listening_room_ref01_data_dt0_loaded) == 'table' and listening_room_ref01_data_dt0_loaded.data_get and listening_room_ref01_data_dt0_loaded:data_get() or listening_room_ref01_data_dt0_loaded)
     assert.is_not_nil(listening_room_ref01_data_dt0_load_result)
     assert.are.equal(listening_room_ref01_data_dt0_load_result["id"], listening_room_ref01_data["id"])
 

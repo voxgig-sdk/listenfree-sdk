@@ -15,15 +15,15 @@ declare(strict_types=1);
 /** ListeningRoom entity data model. */
 class ListeningRoom
 {
-    public ?string $created_at = null;
-    public ?array $current_song = null;
+    public ?string $createdAt = null;
+    public ?array $currentSong = null;
     public ?string $description = null;
     public ?string $host = null;
     public ?string $id = null;
-    public ?bool $is_public = null;
-    public ?int $max_participant = null;
+    public ?bool $isPublic = null;
+    public ?int $maxParticipants = null;
     public ?string $name = null;
-    public ?array $participant = null;
+    public ?array $participants = null;
     public ?array $queue = null;
 }
 
@@ -36,38 +36,38 @@ class ListeningRoomLoadMatch
 /** Request payload for ListeningRoom#list. */
 class ListeningRoomListMatch
 {
-    public ?string $created_at = null;
-    public ?array $current_song = null;
+    public ?string $createdAt = null;
+    public ?array $currentSong = null;
     public ?string $description = null;
     public ?string $host = null;
     public ?string $id = null;
-    public ?bool $is_public = null;
-    public ?int $max_participant = null;
+    public ?bool $isPublic = null;
+    public ?int $maxParticipants = null;
     public ?string $name = null;
-    public ?array $participant = null;
+    public ?array $participants = null;
     public ?array $queue = null;
 }
 
 /** Request payload for ListeningRoom#create. */
 class ListeningRoomCreateData
 {
-    public ?string $created_at = null;
-    public ?array $current_song = null;
+    public ?string $createdAt = null;
+    public ?array $currentSong = null;
     public ?string $description = null;
     public ?string $host = null;
     public ?string $id = null;
-    public ?bool $is_public = null;
-    public ?int $max_participant = null;
+    public ?bool $isPublic = null;
+    public ?int $maxParticipants = null;
     public ?string $name = null;
-    public ?array $participant = null;
+    public ?array $participants = null;
     public ?array $queue = null;
 }
 
 /** Music entity data model. */
 class Music
 {
-    public ?string $downloaded_at = null;
-    public ?string $expires_at = null;
+    public ?string $downloadedAt = null;
+    public ?string $expiresAt = null;
     public ?string $id = null;
     public ?int $progress = null;
     public ?array $song = null;
@@ -77,8 +77,8 @@ class Music
 /** Request payload for Music#list. */
 class MusicListMatch
 {
-    public ?string $downloaded_at = null;
-    public ?string $expires_at = null;
+    public ?string $downloadedAt = null;
+    public ?string $expiresAt = null;
     public ?string $id = null;
     public ?int $progress = null;
     public ?array $song = null;
@@ -88,30 +88,30 @@ class MusicListMatch
 /** OfflineDownload entity data model. */
 class OfflineDownload
 {
-    public string $song_id;
+    public string $songId;
 }
 
 /** Request payload for OfflineDownload#create. */
 class OfflineDownloadCreateData
 {
-    public string $song_id;
+    public string $songId;
 }
 
 /** Playlist entity data model. */
 class Playlist
 {
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $description = null;
     public ?string $id = null;
-    public ?bool $is_public = null;
-    public ?bool $is_smart = null;
+    public ?bool $isPublic = null;
+    public ?bool $isSmart = null;
     public ?string $name = null;
     public ?string $owner = null;
-    public ?array $smart_criterion = null;
-    public ?array $song = null;
-    public ?int $song_count = null;
-    public string $song_id;
-    public ?string $updated_at = null;
+    public ?array $smartCriteria = null;
+    public ?int $songCount = null;
+    public string $songId;
+    public ?array $songs = null;
+    public ?string $updatedAt = null;
 }
 
 /** Request payload for Playlist#load. */
@@ -123,41 +123,52 @@ class PlaylistLoadMatch
 /** Request payload for Playlist#list. */
 class PlaylistListMatch
 {
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $description = null;
     public ?string $id = null;
-    public ?bool $is_public = null;
-    public ?bool $is_smart = null;
+    public ?bool $isPublic = null;
+    public ?bool $isSmart = null;
     public ?string $name = null;
     public ?string $owner = null;
-    public ?array $smart_criterion = null;
-    public ?array $song = null;
-    public ?int $song_count = null;
-    public ?string $song_id = null;
-    public ?string $updated_at = null;
+    public ?array $smartCriteria = null;
+    public ?int $songCount = null;
+    public ?string $songId = null;
+    public ?array $songs = null;
+    public ?string $updatedAt = null;
 }
 
 /** Request payload for Playlist#create. */
 class PlaylistCreateData
 {
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $description = null;
     public ?string $id = null;
-    public ?bool $is_public = null;
-    public ?bool $is_smart = null;
+    public ?bool $isPublic = null;
+    public ?bool $isSmart = null;
     public ?string $name = null;
     public ?string $owner = null;
-    public ?array $smart_criterion = null;
-    public ?array $song = null;
-    public ?int $song_count = null;
-    public string $song_id;
-    public ?string $updated_at = null;
+    public ?array $smartCriteria = null;
+    public ?int $songCount = null;
+    public string $songId;
+    public ?array $songs = null;
+    public ?string $updatedAt = null;
 }
 
 /** Request payload for Playlist#update. */
 class PlaylistUpdateData
 {
     public string $id;
+    public ?string $createdAt = null;
+    public ?string $description = null;
+    public ?bool $isPublic = null;
+    public ?bool $isSmart = null;
+    public ?string $name = null;
+    public ?string $owner = null;
+    public ?array $smartCriteria = null;
+    public ?int $songCount = null;
+    public ?string $songId = null;
+    public ?array $songs = null;
+    public ?string $updatedAt = null;
 }
 
 /** Request payload for Playlist#remove. */
@@ -169,19 +180,19 @@ class PlaylistRemoveMatch
 /** Search entity data model. */
 class Search
 {
-    public ?int $limit = null;
-    public ?int $offset = null;
-    public ?array $result = null;
-    public ?int $total = null;
+    public ?array $albums = null;
+    public ?array $artists = null;
+    public ?array $playlists = null;
+    public ?array $songs = null;
 }
 
 /** Request payload for Search#load. */
 class SearchLoadMatch
 {
-    public ?int $limit = null;
-    public ?int $offset = null;
-    public ?array $result = null;
-    public ?int $total = null;
+    public ?array $albums = null;
+    public ?array $artists = null;
+    public ?array $playlists = null;
+    public ?array $songs = null;
 }
 
 /** Song entity data model. */
@@ -189,12 +200,12 @@ class Song
 {
     public ?string $album = null;
     public ?string $artist = null;
-    public ?string $cover_art = null;
+    public ?string $coverArt = null;
     public ?int $duration = null;
-    public ?array $genre = null;
-    public ?bool $has_video = null;
+    public ?array $genres = null;
+    public ?bool $hasVideo = null;
     public ?string $id = null;
-    public ?string $release_date = null;
+    public ?string $releaseDate = null;
     public ?string $title = null;
 }
 
@@ -208,9 +219,9 @@ class SongLoadMatch
 class Stream
 {
     public ?int $bitrate = null;
-    public ?string $expires_at = null;
+    public ?string $expiresAt = null;
     public ?string $quality = null;
-    public ?string $stream_url = null;
+    public ?string $streamUrl = null;
 }
 
 /** Request payload for Stream#load. */
@@ -223,8 +234,8 @@ class StreamLoadMatch
 class Video
 {
     public ?int $duration = null;
-    public ?string $thumbnail_url = null;
-    public ?string $video_url = null;
+    public ?string $thumbnailUrl = null;
+    public ?string $videoUrl = null;
 }
 
 /** Request payload for Video#load. */

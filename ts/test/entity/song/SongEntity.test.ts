@@ -63,7 +63,7 @@ describe('SongEntity', async () => {
     const song_ref01_ent = client.Song()
     const song_ref01_match_dt0: any = {}
     song_ref01_match_dt0.id = song_ref01_data.id
-    const song_ref01_data_dt0 = await song_ref01_ent.load(song_ref01_match_dt0)
+    const song_ref01_data_dt0 = (await song_ref01_ent.load(song_ref01_match_dt0)).data()
     assert(song_ref01_data_dt0.id === song_ref01_data.id)
 
 

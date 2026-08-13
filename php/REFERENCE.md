@@ -121,30 +121,30 @@ $listening_room = $client->ListeningRoom();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
-| `current_song` | `array` | No |  |
+| `createdAt` | `string` | No |  |
+| `currentSong` | `array` | No |  |
 | `description` | `string` | No |  |
 | `host` | `string` | No |  |
 | `id` | `string` | No |  |
-| `is_public` | `bool` | No |  |
-| `max_participant` | `int` | No |  |
+| `isPublic` | `bool` | No |  |
+| `maxParticipants` | `int` | No |  |
 | `name` | `string` | No |  |
-| `participant` | `array` | No |  |
+| `participants` | `array` | No |  |
 | `queue` | `array` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create |
 | --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `current_song` | - | - | - |
+| `createdAt` | - | - | - |
+| `currentSong` | - | - | - |
 | `description` | - | - | - |
 | `host` | - | - | - |
 | `id` | - | - | - |
-| `is_public` | - | - | - |
-| `max_participant` | - | - | - |
+| `isPublic` | - | - | - |
+| `maxParticipants` | - | - | - |
 | `name` | - | - | Yes |
-| `participant` | - | - | - |
+| `participants` | - | - | - |
 | `queue` | - | - | - |
 
 ### Operations
@@ -214,8 +214,8 @@ $music = $client->Music();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | `string` | No |  |
-| `expires_at` | `string` | No |  |
+| `downloadedAt` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `id` | `string` | No |  |
 | `progress` | `int` | No |  |
 | `song` | `array` | No |  |
@@ -271,7 +271,7 @@ $offline_download = $client->OfflineDownload();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | `string` | Yes |  |
+| `songId` | `string` | Yes |  |
 
 ### Operations
 
@@ -281,7 +281,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->OfflineDownload()->create([
-  "song_id" => null, // string
+  "songId" => null, // string
 ]);
 ```
 
@@ -325,35 +325,35 @@ $playlist = $client->Playlist();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `description` | `string` | No |  |
 | `id` | `string` | No |  |
-| `is_public` | `bool` | No |  |
-| `is_smart` | `bool` | No |  |
+| `isPublic` | `bool` | No |  |
+| `isSmart` | `bool` | No |  |
 | `name` | `string` | No |  |
 | `owner` | `string` | No |  |
-| `smart_criterion` | `array` | No |  |
-| `song` | `array` | No |  |
-| `song_count` | `int` | No |  |
-| `song_id` | `string` | Yes |  |
-| `updated_at` | `string` | No |  |
+| `smartCriteria` | `array` | No |  |
+| `songCount` | `int` | No |  |
+| `songId` | `string` | Yes |  |
+| `songs` | `array` | No |  |
+| `updatedAt` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `is_smart` | - | - | - | - | - |
+| `isPublic` | - | - | - | - | - |
+| `isSmart` | - | - | - | - | - |
 | `name` | - | - | Yes | - | - |
 | `owner` | - | - | - | - | - |
-| `smart_criterion` | - | - | - | - | - |
-| `song` | - | - | - | - | - |
-| `song_count` | - | - | - | - | - |
-| `song_id` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `smartCriteria` | - | - | - | - | - |
+| `songCount` | - | - | - | - | - |
+| `songId` | - | - | - | - | - |
+| `songs` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 
 ### Operations
 
@@ -363,7 +363,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Playlist()->create([
-  "song_id" => null, // string
+  "songId" => null, // string
 ]);
 ```
 
@@ -442,10 +442,10 @@ $search = $client->Search();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | `int` | No |  |
-| `offset` | `int` | No |  |
-| `result` | `array` | No |  |
-| `total` | `int` | No |  |
+| `albums` | `array` | No |  |
+| `artists` | `array` | No |  |
+| `playlists` | `array` | No |  |
+| `songs` | `array` | No |  |
 
 ### Operations
 
@@ -499,12 +499,12 @@ $song = $client->Song();
 | --- | --- | --- | --- |
 | `album` | `string` | No |  |
 | `artist` | `string` | No |  |
-| `cover_art` | `string` | No |  |
+| `coverArt` | `string` | No |  |
 | `duration` | `int` | No |  |
-| `genre` | `array` | No |  |
-| `has_video` | `bool` | No |  |
+| `genres` | `array` | No |  |
+| `hasVideo` | `bool` | No |  |
 | `id` | `string` | No |  |
-| `release_date` | `string` | No |  |
+| `releaseDate` | `string` | No |  |
 | `title` | `string` | No |  |
 
 ### Operations
@@ -558,9 +558,9 @@ $stream = $client->Stream();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bitrate` | `int` | No |  |
-| `expires_at` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `quality` | `string` | No |  |
-| `stream_url` | `string` | No |  |
+| `streamUrl` | `string` | No |  |
 
 ### Operations
 
@@ -613,8 +613,8 @@ $video = $client->Video();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `duration` | `int` | No |  |
-| `thumbnail_url` | `string` | No |  |
-| `video_url` | `string` | No |  |
+| `thumbnailUrl` | `string` | No |  |
+| `videoUrl` | `string` | No |  |
 
 ### Operations
 

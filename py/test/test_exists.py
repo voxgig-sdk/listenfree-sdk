@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Listenfree SDK exists test
 
 import pytest
 from listenfree_sdk import ListenfreeSDK

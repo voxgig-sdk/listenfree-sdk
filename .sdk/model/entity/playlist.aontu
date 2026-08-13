@@ -6,7 +6,7 @@ main: kit: entity: playlist: {
 
   fields: [
     {
-      name: "created_at"
+      name: "createdAt"
       req: false
       type: "`$STRING`"
     }
@@ -21,12 +21,12 @@ main: kit: entity: playlist: {
       type: "`$STRING`"
     }
     {
-      name: "is_public"
+      name: "isPublic"
       req: false
       type: "`$BOOLEAN`"
     }
     {
-      name: "is_smart"
+      name: "isSmart"
       req: false
       type: "`$BOOLEAN`"
     }
@@ -47,27 +47,27 @@ main: kit: entity: playlist: {
       type: "`$STRING`"
     }
     {
-      name: "smart_criterion"
+      name: "smartCriteria"
       req: false
       type: "`$OBJECT`"
     }
     {
-      name: "song"
-      req: false
-      type: "`$ARRAY`"
-    }
-    {
-      name: "song_count"
+      name: "songCount"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "song_id"
+      name: "songId"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "updated_at"
+      name: "songs"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "updatedAt"
       req: false
       type: "`$STRING`"
     }
@@ -142,7 +142,7 @@ main: kit: entity: playlist: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.playlists`"
           }
         }
       ]

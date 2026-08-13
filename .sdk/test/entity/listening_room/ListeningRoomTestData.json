@@ -2,39 +2,39 @@
   "existing": {
     "listening_room": {
       "LISTENING_ROOM00": {
-        "created_at": "s64",
-        "current_song": {},
+        "createdAt": "s64",
+        "currentSong": {},
         "description": "s66",
         "host": "s67",
         "id": "LISTENING_ROOM00",
-        "is_public": false,
-        "max_participant": "s6a",
+        "isPublic": false,
+        "maxParticipants": "s6a",
         "name": "s6b",
-        "participant": [],
+        "participants": [],
         "queue": []
       },
       "LISTENING_ROOM01": {
-        "created_at": "sc8",
-        "current_song": {},
+        "createdAt": "sc8",
+        "currentSong": {},
         "description": "sca",
         "host": "scb",
         "id": "LISTENING_ROOM01",
-        "is_public": false,
-        "max_participant": "sce",
+        "isPublic": false,
+        "maxParticipants": "sce",
         "name": "scf",
-        "participant": [],
+        "participants": [],
         "queue": []
       },
       "LISTENING_ROOM02": {
-        "created_at": "s12c",
-        "current_song": {},
+        "createdAt": "s12c",
+        "currentSong": {},
         "description": "s12e",
         "host": "s12f",
         "id": "LISTENING_ROOM02",
-        "is_public": false,
-        "max_participant": "s132",
+        "isPublic": false,
+        "maxParticipants": "s132",
         "name": "s133",
-        "participant": [],
+        "participants": [],
         "queue": []
       }
     }
@@ -42,14 +42,14 @@
   "new": {
     "listening_room": {
       "listening_room_ref01": {
-        "created_at": "s190",
-        "current_song": {},
+        "createdAt": "s190",
+        "currentSong": {},
         "description": "s192",
         "host": "s193",
-        "is_public": false,
-        "max_participant": "s196",
+        "isPublic": false,
+        "maxParticipants": "s196",
         "name": "s197",
-        "participant": [],
+        "participants": [],
         "queue": []
       }
     }

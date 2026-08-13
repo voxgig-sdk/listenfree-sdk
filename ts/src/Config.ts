@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'Listenfree',
   }
 
 
@@ -81,14 +81,14 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "created_at",
+          "name": "createdAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "current_song",
+          "name": "currentSong",
           "req": false,
           "type": "`$OBJECT`",
           "index$": 1
@@ -116,14 +116,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "is_public",
+          "name": "isPublic",
           "req": false,
           "type": "`$BOOLEAN`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "max_participant",
+          "name": "maxParticipants",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 6
@@ -143,7 +143,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "participant",
+          "name": "participants",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 8
@@ -177,6 +177,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/listening-rooms/{roomId}/join",
               "parts": [
@@ -204,6 +205,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/listening-rooms",
               "parts": [
@@ -238,6 +240,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/listening-rooms",
               "parts": [
@@ -250,7 +253,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.rooms`"
               },
               "index$": 0
             }
@@ -276,6 +279,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/listening-rooms/{roomId}",
               "parts": [
@@ -310,14 +314,14 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "downloaded_at",
+          "name": "downloadedAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "expires_at",
+          "name": "expiresAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
@@ -360,6 +364,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/offline/downloads",
               "parts": [
@@ -369,7 +374,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.downloads`"
               },
               "index$": 0
             }
@@ -385,7 +390,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "song_id",
+          "name": "songId",
           "req": true,
           "type": "`$STRING`",
           "index$": 0
@@ -400,6 +405,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/offline/downloads",
               "parts": [
@@ -409,7 +415,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.song`"
               },
               "index$": 0
             }
@@ -425,7 +431,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "created_at",
+          "name": "createdAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 0
@@ -446,14 +452,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "is_public",
+          "name": "isPublic",
           "req": false,
           "type": "`$BOOLEAN`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "is_smart",
+          "name": "isSmart",
           "req": false,
           "type": "`$BOOLEAN`",
           "index$": 4
@@ -480,35 +486,35 @@ class Config {
         },
         {
           "active": true,
-          "name": "smart_criterion",
+          "name": "smartCriteria",
           "req": false,
           "type": "`$OBJECT`",
           "index$": 7
         },
         {
           "active": true,
-          "name": "song",
+          "name": "songCount",
           "req": false,
-          "type": "`$ARRAY`",
+          "type": "`$INTEGER`",
           "index$": 8
         },
         {
           "active": true,
-          "name": "song_count",
-          "req": false,
-          "type": "`$INTEGER`",
+          "name": "songId",
+          "req": true,
+          "type": "`$STRING`",
           "index$": 9
         },
         {
           "active": true,
-          "name": "song_id",
-          "req": true,
-          "type": "`$STRING`",
+          "name": "songs",
+          "req": false,
+          "type": "`$ARRAY`",
           "index$": 10
         },
         {
           "active": true,
-          "name": "updated_at",
+          "name": "updatedAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 11
@@ -535,6 +541,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/playlists/{playlistId}/songs",
               "parts": [
@@ -562,6 +569,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/playlists",
               "parts": [
@@ -584,6 +592,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/playlists",
               "parts": [
@@ -592,7 +601,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.playlists`"
               },
               "index$": 0
             }
@@ -618,6 +627,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/playlists/{playlistId}",
               "parts": [
@@ -662,6 +672,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "DELETE",
               "orig": "/playlists/{playlistId}",
               "parts": [
@@ -706,6 +717,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "PUT",
               "orig": "/playlists/{playlistId}",
               "parts": [
@@ -740,30 +752,30 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "limit",
+          "name": "albums",
           "req": false,
-          "type": "`$INTEGER`",
+          "type": "`$ARRAY`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "offset",
+          "name": "artists",
           "req": false,
-          "type": "`$INTEGER`",
+          "type": "`$ARRAY`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "result",
+          "name": "playlists",
           "req": false,
-          "type": "`$OBJECT`",
+          "type": "`$ARRAY`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "total",
+          "name": "songs",
           "req": false,
-          "type": "`$INTEGER`",
+          "type": "`$ARRAY`",
           "index$": 3
         }
       ],
@@ -815,6 +827,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/search",
               "parts": [
@@ -830,7 +843,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.results`"
               },
               "index$": 0
             }
@@ -860,7 +873,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "cover_art",
+          "name": "coverArt",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
@@ -874,14 +887,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "genre",
+          "name": "genres",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "has_video",
+          "name": "hasVideo",
           "req": false,
           "type": "`$BOOLEAN`",
           "index$": 5
@@ -895,7 +908,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "release_date",
+          "name": "releaseDate",
           "req": false,
           "type": "`$STRING`",
           "index$": 7
@@ -929,6 +942,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/songs/{songId}",
               "parts": [
@@ -970,7 +984,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "expires_at",
+          "name": "expiresAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
@@ -984,7 +998,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "stream_url",
+          "name": "streamUrl",
           "req": false,
           "type": "`$STRING`",
           "index$": 3
@@ -1022,6 +1036,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/songs/{songId}/stream",
               "parts": [
@@ -1069,14 +1084,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "thumbnail_url",
+          "name": "thumbnailUrl",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "video_url",
+          "name": "videoUrl",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
@@ -1103,6 +1118,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/songs/{songId}/video",
               "parts": [

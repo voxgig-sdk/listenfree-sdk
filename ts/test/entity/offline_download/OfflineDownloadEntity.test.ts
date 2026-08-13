@@ -62,7 +62,7 @@ describe('OfflineDownloadEntity', async () => {
     const offline_download_ref01_ent = client.OfflineDownload()
     let offline_download_ref01_data = setup.data.new.offline_download['offline_download_ref01']
 
-    offline_download_ref01_data = await offline_download_ref01_ent.create(offline_download_ref01_data)
+    offline_download_ref01_data = (await offline_download_ref01_ent.create(offline_download_ref01_data)).data()
     assert(null != offline_download_ref01_data)
 
 

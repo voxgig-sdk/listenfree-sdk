@@ -119,30 +119,30 @@ local listening_room = client:ListeningRoom(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
-| `current_song` | `table` | No |  |
+| `createdAt` | `string` | No |  |
+| `currentSong` | `table` | No |  |
 | `description` | `string` | No |  |
 | `host` | `string` | No |  |
 | `id` | `string` | No |  |
-| `is_public` | `boolean` | No |  |
-| `max_participant` | `number` | No |  |
+| `isPublic` | `boolean` | No |  |
+| `maxParticipants` | `number` | No |  |
 | `name` | `string` | No |  |
-| `participant` | `table` | No |  |
+| `participants` | `table` | No |  |
 | `queue` | `table` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create |
 | --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `current_song` | - | - | - |
+| `createdAt` | - | - | - |
+| `currentSong` | - | - | - |
 | `description` | - | - | - |
 | `host` | - | - | - |
 | `id` | - | - | - |
-| `is_public` | - | - | - |
-| `max_participant` | - | - | - |
+| `isPublic` | - | - | - |
+| `maxParticipants` | - | - | - |
 | `name` | - | - | Yes |
-| `participant` | - | - | - |
+| `participants` | - | - | - |
 | `queue` | - | - | - |
 
 ### Operations
@@ -212,8 +212,8 @@ local music = client:Music(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | `string` | No |  |
-| `expires_at` | `string` | No |  |
+| `downloadedAt` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `id` | `string` | No |  |
 | `progress` | `number` | No |  |
 | `song` | `table` | No |  |
@@ -269,7 +269,7 @@ local offline_download = client:OfflineDownload(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | `string` | Yes |  |
+| `songId` | `string` | Yes |  |
 
 ### Operations
 
@@ -279,7 +279,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:OfflineDownload():create({
-  song_id = --[[ string ]],
+  songId = --[[ string ]],
 })
 ```
 
@@ -323,35 +323,35 @@ local playlist = client:Playlist(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `description` | `string` | No |  |
 | `id` | `string` | No |  |
-| `is_public` | `boolean` | No |  |
-| `is_smart` | `boolean` | No |  |
+| `isPublic` | `boolean` | No |  |
+| `isSmart` | `boolean` | No |  |
 | `name` | `string` | No |  |
 | `owner` | `string` | No |  |
-| `smart_criterion` | `table` | No |  |
-| `song` | `table` | No |  |
-| `song_count` | `number` | No |  |
-| `song_id` | `string` | Yes |  |
-| `updated_at` | `string` | No |  |
+| `smartCriteria` | `table` | No |  |
+| `songCount` | `number` | No |  |
+| `songId` | `string` | Yes |  |
+| `songs` | `table` | No |  |
+| `updatedAt` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `is_smart` | - | - | - | - | - |
+| `isPublic` | - | - | - | - | - |
+| `isSmart` | - | - | - | - | - |
 | `name` | - | - | Yes | - | - |
 | `owner` | - | - | - | - | - |
-| `smart_criterion` | - | - | - | - | - |
-| `song` | - | - | - | - | - |
-| `song_count` | - | - | - | - | - |
-| `song_id` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `smartCriteria` | - | - | - | - | - |
+| `songCount` | - | - | - | - | - |
+| `songId` | - | - | - | - | - |
+| `songs` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 
 ### Operations
 
@@ -361,7 +361,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Playlist():create({
-  song_id = --[[ string ]],
+  songId = --[[ string ]],
 })
 ```
 
@@ -440,10 +440,10 @@ local search = client:Search(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | `number` | No |  |
-| `offset` | `number` | No |  |
-| `result` | `table` | No |  |
-| `total` | `number` | No |  |
+| `albums` | `table` | No |  |
+| `artists` | `table` | No |  |
+| `playlists` | `table` | No |  |
+| `songs` | `table` | No |  |
 
 ### Operations
 
@@ -497,12 +497,12 @@ local song = client:Song(nil)
 | --- | --- | --- | --- |
 | `album` | `string` | No |  |
 | `artist` | `string` | No |  |
-| `cover_art` | `string` | No |  |
+| `coverArt` | `string` | No |  |
 | `duration` | `number` | No |  |
-| `genre` | `table` | No |  |
-| `has_video` | `boolean` | No |  |
+| `genres` | `table` | No |  |
+| `hasVideo` | `boolean` | No |  |
 | `id` | `string` | No |  |
-| `release_date` | `string` | No |  |
+| `releaseDate` | `string` | No |  |
 | `title` | `string` | No |  |
 
 ### Operations
@@ -556,9 +556,9 @@ local stream = client:Stream(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bitrate` | `number` | No |  |
-| `expires_at` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `quality` | `string` | No |  |
-| `stream_url` | `string` | No |  |
+| `streamUrl` | `string` | No |  |
 
 ### Operations
 
@@ -611,8 +611,8 @@ local video = client:Video(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `duration` | `number` | No |  |
-| `thumbnail_url` | `string` | No |  |
-| `video_url` | `string` | No |  |
+| `thumbnailUrl` | `string` | No |  |
+| `videoUrl` | `string` | No |  |
 
 ### Operations
 

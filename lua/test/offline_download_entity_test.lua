@@ -41,7 +41,7 @@ describe("OfflineDownloadEntity", function()
 
     local offline_download_ref01_data_result, err = offline_download_ref01_ent:create(offline_download_ref01_data, nil)
     assert.is_nil(err)
-    offline_download_ref01_data = helpers.to_map(offline_download_ref01_data_result)
+    offline_download_ref01_data = helpers.to_map(type(offline_download_ref01_data_result) == 'table' and offline_download_ref01_data_result.data_get and offline_download_ref01_data_result:data_get() or offline_download_ref01_data_result)
     assert.is_not_nil(offline_download_ref01_data)
 
   end)

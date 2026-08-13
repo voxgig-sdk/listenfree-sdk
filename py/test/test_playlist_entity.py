@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from listenfree_sdk.utility.voxgig_struct import voxgig_struct as vs
 from listenfree_sdk import ListenfreeSDK
-from core import helpers
+from listenfree_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -42,7 +42,7 @@ class TestPlaylistEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from config import make_config
+        from listenfree_sdk.config import make_config
         cfg = make_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = ListenfreeSDK.test(
@@ -78,7 +78,7 @@ class TestPlaylistEntity:
         playlist_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.playlist"), "playlist_ref01"))
 
-        playlist_ref01_data = helpers.to_map(playlist_ref01_ent.create(playlist_ref01_data, None))
+        playlist_ref01_data = helpers.to_map(runner.entity_data(playlist_ref01_ent.create(playlist_ref01_data, None)))
         assert playlist_ref01_data is not None
         assert playlist_ref01_data["id"] is not None
 
@@ -98,11 +98,11 @@ class TestPlaylistEntity:
             "id": playlist_ref01_data["id"],
         }
 
-        playlist_ref01_markdef_up0_name = "created_at"
+        playlist_ref01_markdef_up0_name = "createdAt"
         playlist_ref01_markdef_up0_value = "Mark01-playlist_ref01_" + str(setup["now"])
         playlist_ref01_data_up0_up[playlist_ref01_markdef_up0_name] = playlist_ref01_markdef_up0_value
 
-        playlist_ref01_resdata_up0 = helpers.to_map(playlist_ref01_ent.update(playlist_ref01_data_up0_up, None))
+        playlist_ref01_resdata_up0 = helpers.to_map(runner.entity_data(playlist_ref01_ent.update(playlist_ref01_data_up0_up, None)))
         assert playlist_ref01_resdata_up0 is not None
         assert playlist_ref01_resdata_up0["id"] == playlist_ref01_data_up0_up["id"]
         assert playlist_ref01_resdata_up0[playlist_ref01_markdef_up0_name] == playlist_ref01_markdef_up0_value
@@ -112,7 +112,7 @@ class TestPlaylistEntity:
             "id": playlist_ref01_data["id"],
         }
         playlist_ref01_data_dt0_loaded = playlist_ref01_ent.load(playlist_ref01_match_dt0, None)
-        playlist_ref01_data_dt0_load_result = helpers.to_map(playlist_ref01_data_dt0_loaded)
+        playlist_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(playlist_ref01_data_dt0_loaded))
         assert playlist_ref01_data_dt0_load_result is not None
         assert playlist_ref01_data_dt0_load_result["id"] == playlist_ref01_data["id"]
 

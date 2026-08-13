@@ -3,25 +3,25 @@
     "stream": {
       "STREAM00": {
         "bitrate": "s28",
-        "expires_at": "s29",
+        "expiresAt": "s29",
         "quality": "s2a",
-        "stream_url": "s2b",
+        "streamUrl": "s2b",
         "song_id": "SONG01",
         "id": "STREAM00"
       },
       "STREAM01": {
         "bitrate": "s50",
-        "expires_at": "s51",
+        "expiresAt": "s51",
         "quality": "s52",
-        "stream_url": "s53",
+        "streamUrl": "s53",
         "song_id": "SONG01",
         "id": "STREAM01"
       },
       "STREAM02": {
         "bitrate": "s78",
-        "expires_at": "s79",
+        "expiresAt": "s79",
         "quality": "s7a",
-        "stream_url": "s7b",
+        "streamUrl": "s7b",
         "song_id": "SONG01",
         "id": "STREAM02"
       }
@@ -31,9 +31,9 @@
     "stream": {
       "stream_ref01": {
         "bitrate": "sa0",
-        "expires_at": "sa1",
+        "expiresAt": "sa1",
         "quality": "sa2",
-        "stream_url": "sa3"
+        "streamUrl": "sa3"
       }
     }
   }

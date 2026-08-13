@@ -52,7 +52,7 @@ class SongEntityTest extends TestCase
             "id" => $song_ref01_data["id"],
         ];
         $song_ref01_data_dt0_loaded = $song_ref01_ent->load($song_ref01_match_dt0, null);
-        $song_ref01_data_dt0_load_result = Helpers::to_map($song_ref01_data_dt0_loaded);
+        $song_ref01_data_dt0_load_result = Helpers::to_map(is_object($song_ref01_data_dt0_loaded) && method_exists($song_ref01_data_dt0_loaded, 'data_get') ? $song_ref01_data_dt0_loaded->data_get() : $song_ref01_data_dt0_loaded);
         $this->assertNotNull($song_ref01_data_dt0_load_result);
         $this->assertEquals($song_ref01_data_dt0_load_result["id"], $song_ref01_data["id"]);
 

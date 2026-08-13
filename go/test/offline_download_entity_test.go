@@ -58,7 +58,7 @@ func TestOfflineDownloadEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		offlineDownloadRef01Data = core.ToMapAny(offlineDownloadRef01DataResult)
+		offlineDownloadRef01Data = core.ToMapAny(entityData(offlineDownloadRef01DataResult))
 		if offlineDownloadRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}

@@ -45,7 +45,7 @@ local listeningrooms, err = client:ListeningRoom():list()
 if err then error(err) end
 
 for _, item in ipairs(listeningrooms) do
-  print(item["id"], item["created_at"])
+  print(item["id"], item["createdAt"])
 end
 ```
 
@@ -63,7 +63,7 @@ print(stream)
 
 ```lua
 -- Create
-local created, err = client:ListeningRoom():create({ created_at = "example_created_at", current_song = {} })
+local created, err = client:ListeningRoom():create({ createdAt = "example_createdAt", currentSong = {} })
 if err then error(err) end
 
 ```
@@ -75,7 +75,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local listeningrooms, err = client:ListeningRoom():list()
+local musics, err = client:Music():list()
 if err then error(err) end
 ```
 
@@ -133,7 +133,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:ListeningRoom():list()
+local result, err = client:Music():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -266,15 +266,15 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
-| `current_song` |  |
+| `createdAt` |  |
+| `currentSong` |  |
 | `description` |  |
 | `host` |  |
 | `id` |  |
-| `is_public` |  |
-| `max_participant` |  |
+| `isPublic` |  |
+| `maxParticipants` |  |
 | `name` |  |
-| `participant` |  |
+| `participants` |  |
 | `queue` |  |
 
 Operations: Create, List, Load.
@@ -285,8 +285,8 @@ API path: `/listening-rooms/{roomId}/join`
 
 | Field | Description |
 | --- | --- |
-| `downloaded_at` |  |
-| `expires_at` |  |
+| `downloadedAt` |  |
+| `expiresAt` |  |
 | `id` |  |
 | `progress` |  |
 | `song` |  |
@@ -300,7 +300,7 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `song_id` |  |
+| `songId` |  |
 
 Operations: Create.
 
@@ -310,18 +310,18 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `id` |  |
-| `is_public` |  |
-| `is_smart` |  |
+| `isPublic` |  |
+| `isSmart` |  |
 | `name` |  |
 | `owner` |  |
-| `smart_criterion` |  |
-| `song` |  |
-| `song_count` |  |
-| `song_id` |  |
-| `updated_at` |  |
+| `smartCriteria` |  |
+| `songCount` |  |
+| `songId` |  |
+| `songs` |  |
+| `updatedAt` |  |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -331,10 +331,10 @@ API path: `/playlists/{playlistId}/songs`
 
 | Field | Description |
 | --- | --- |
-| `limit` |  |
-| `offset` |  |
-| `result` |  |
-| `total` |  |
+| `albums` |  |
+| `artists` |  |
+| `playlists` |  |
+| `songs` |  |
 
 Operations: Load.
 
@@ -346,12 +346,12 @@ API path: `/search`
 | --- | --- |
 | `album` |  |
 | `artist` |  |
-| `cover_art` |  |
+| `coverArt` |  |
 | `duration` |  |
-| `genre` |  |
-| `has_video` |  |
+| `genres` |  |
+| `hasVideo` |  |
 | `id` |  |
-| `release_date` |  |
+| `releaseDate` |  |
 | `title` |  |
 
 Operations: Load.
@@ -363,9 +363,9 @@ API path: `/songs/{songId}`
 | Field | Description |
 | --- | --- |
 | `bitrate` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `quality` |  |
-| `stream_url` |  |
+| `streamUrl` |  |
 
 Operations: Load.
 
@@ -376,8 +376,8 @@ API path: `/songs/{songId}/stream`
 | Field | Description |
 | --- | --- |
 | `duration` |  |
-| `thumbnail_url` |  |
-| `video_url` |  |
+| `thumbnailUrl` |  |
+| `videoUrl` |  |
 
 Operations: Load.
 
@@ -404,15 +404,15 @@ Create an instance: `local listening_room = client:ListeningRoom(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
-| `current_song` | `table` |  |
+| `createdAt` | `string` |  |
+| `currentSong` | `table` |  |
 | `description` | `string` |  |
 | `host` | `string` |  |
 | `id` | `string` |  |
-| `is_public` | `boolean` |  |
-| `max_participant` | `number` |  |
+| `isPublic` | `boolean` |  |
+| `maxParticipants` | `number` |  |
 | `name` | `string` |  |
-| `participant` | `table` |  |
+| `participants` | `table` |  |
 | `queue` | `table` |  |
 
 #### Example: Load
@@ -449,8 +449,8 @@ Create an instance: `local music = client:Music(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | `string` |  |
-| `expires_at` | `string` |  |
+| `downloadedAt` | `string` |  |
+| `expiresAt` | `string` |  |
 | `id` | `string` |  |
 | `progress` | `number` |  |
 | `song` | `table` |  |
@@ -477,13 +477,13 @@ Create an instance: `local offline_download = client:OfflineDownload(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | `string` |  |
+| `songId` | `string` |  |
 
 #### Example: Create
 
 ```lua
 local offline_download, err = client:OfflineDownload():create({
-  song_id = "example_song_id", -- string
+  songId = "example_songId", -- string
 })
 ```
 
@@ -506,18 +506,18 @@ Create an instance: `local playlist = client:Playlist(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `description` | `string` |  |
 | `id` | `string` |  |
-| `is_public` | `boolean` |  |
-| `is_smart` | `boolean` |  |
+| `isPublic` | `boolean` |  |
+| `isSmart` | `boolean` |  |
 | `name` | `string` |  |
 | `owner` | `string` |  |
-| `smart_criterion` | `table` |  |
-| `song` | `table` |  |
-| `song_count` | `number` |  |
-| `song_id` | `string` |  |
-| `updated_at` | `string` |  |
+| `smartCriteria` | `table` |  |
+| `songCount` | `number` |  |
+| `songId` | `string` |  |
+| `songs` | `table` |  |
+| `updatedAt` | `string` |  |
 
 #### Example: Load
 
@@ -535,7 +535,7 @@ local playlists, err = client:Playlist():list()
 
 ```lua
 local playlist, err = client:Playlist():create({
-  song_id = "example_song_id", -- string
+  songId = "example_songId", -- string
 })
 ```
 
@@ -554,10 +554,10 @@ Create an instance: `local search = client:Search(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | `number` |  |
-| `offset` | `number` |  |
-| `result` | `table` |  |
-| `total` | `number` |  |
+| `albums` | `table` |  |
+| `artists` | `table` |  |
+| `playlists` | `table` |  |
+| `songs` | `table` |  |
 
 #### Example: Load
 
@@ -582,12 +582,12 @@ Create an instance: `local song = client:Song(nil)`
 | --- | --- | --- |
 | `album` | `string` |  |
 | `artist` | `string` |  |
-| `cover_art` | `string` |  |
+| `coverArt` | `string` |  |
 | `duration` | `number` |  |
-| `genre` | `table` |  |
-| `has_video` | `boolean` |  |
+| `genres` | `table` |  |
+| `hasVideo` | `boolean` |  |
 | `id` | `string` |  |
-| `release_date` | `string` |  |
+| `releaseDate` | `string` |  |
 | `title` | `string` |  |
 
 #### Example: Load
@@ -612,9 +612,9 @@ Create an instance: `local stream = client:Stream(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bitrate` | `number` |  |
-| `expires_at` | `string` |  |
+| `expiresAt` | `string` |  |
 | `quality` | `string` |  |
-| `stream_url` | `string` |  |
+| `streamUrl` | `string` |  |
 
 #### Example: Load
 
@@ -638,8 +638,8 @@ Create an instance: `local video = client:Video(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `duration` | `number` |  |
-| `thumbnail_url` | `string` |  |
-| `video_url` | `string` |  |
+| `thumbnailUrl` | `string` |  |
+| `videoUrl` | `string` |  |
 
 #### Example: Load
 
@@ -724,11 +724,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local listeningroom = client:ListeningRoom()
-listeningroom:list()
+local music = client:Music()
+music:list()
 
--- listeningroom:data_get() now returns the listeningroom data from the last list
--- listeningroom:match_get() returns the last match criteria
+-- music:data_get() now returns the music data from the last list
+-- music:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

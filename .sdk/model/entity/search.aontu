@@ -6,24 +6,24 @@ main: kit: entity: search: {
 
   fields: [
     {
-      name: "limit"
+      name: "albums"
       req: false
-      type: "`$INTEGER`"
+      type: "`$ARRAY`"
     }
     {
-      name: "offset"
+      name: "artists"
       req: false
-      type: "`$INTEGER`"
+      type: "`$ARRAY`"
     }
     {
-      name: "result"
+      name: "playlists"
       req: false
-      type: "`$OBJECT`"
+      type: "`$ARRAY`"
     }
     {
-      name: "total"
+      name: "songs"
       req: false
-      type: "`$INTEGER`"
+      type: "`$ARRAY`"
     }
   ]
 
@@ -84,7 +84,7 @@ main: kit: entity: search: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.results`"
           }
         }
       ]

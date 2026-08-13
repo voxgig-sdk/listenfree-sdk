@@ -6,15 +6,15 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface ListeningRoom {
-  created_at?: string
-  current_song?: Record<string, any>
+  createdAt?: string
+  currentSong?: Record<string, any>
   description?: string
   host?: string
   id?: string
-  is_public?: boolean
-  max_participant?: number
+  isPublic?: boolean
+  maxParticipants?: number
   name?: string
-  participant?: any[]
+  participants?: any[]
   queue?: any[]
 }
 
@@ -23,34 +23,40 @@ export interface ListeningRoomLoadMatch {
 }
 
 export interface ListeningRoomListMatch {
-  created_at?: string
-  current_song?: Record<string, any>
+  createdAt?: string
+  currentSong?: Record<string, any>
   description?: string
   host?: string
   id?: string
-  is_public?: boolean
-  max_participant?: number
+  isPublic?: boolean
+  maxParticipants?: number
   name?: string
-  participant?: any[]
+  participants?: any[]
   queue?: any[]
 }
 
 export interface ListeningRoomCreateData {
-  created_at?: string
-  current_song?: Record<string, any>
+  createdAt?: string
+  currentSong?: Record<string, any>
   description?: string
   host?: string
   id?: string
-  is_public?: boolean
-  max_participant?: number
+  isPublic?: boolean
+  maxParticipants?: number
   name?: string
-  participant?: any[]
+  participants?: any[]
   queue?: any[]
+
+  // Selects a custom action instead of the plain create:
+  //   'join'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 
 export interface Music {
-  downloaded_at?: string
-  expires_at?: string
+  downloadedAt?: string
+  expiresAt?: string
   id?: string
   progress?: number
   song?: Record<string, any>
@@ -58,8 +64,8 @@ export interface Music {
 }
 
 export interface MusicListMatch {
-  downloaded_at?: string
-  expires_at?: string
+  downloadedAt?: string
+  expiresAt?: string
   id?: string
   progress?: number
   song?: Record<string, any>
@@ -67,26 +73,26 @@ export interface MusicListMatch {
 }
 
 export interface OfflineDownload {
-  song_id: string
+  songId: string
 }
 
 export interface OfflineDownloadCreateData {
-  song_id: string
+  songId: string
 }
 
 export interface Playlist {
-  created_at?: string
+  createdAt?: string
   description?: string
   id?: string
-  is_public?: boolean
-  is_smart?: boolean
+  isPublic?: boolean
+  isSmart?: boolean
   name?: string
   owner?: string
-  smart_criterion?: Record<string, any>
-  song?: any[]
-  song_count?: number
-  song_id: string
-  updated_at?: string
+  smartCriteria?: Record<string, any>
+  songCount?: number
+  songId: string
+  songs?: any[]
+  updatedAt?: string
 }
 
 export interface PlaylistLoadMatch {
@@ -94,37 +100,54 @@ export interface PlaylistLoadMatch {
 }
 
 export interface PlaylistListMatch {
-  created_at?: string
+  createdAt?: string
   description?: string
   id?: string
-  is_public?: boolean
-  is_smart?: boolean
+  isPublic?: boolean
+  isSmart?: boolean
   name?: string
   owner?: string
-  smart_criterion?: Record<string, any>
-  song?: any[]
-  song_count?: number
-  song_id?: string
-  updated_at?: string
+  smartCriteria?: Record<string, any>
+  songCount?: number
+  songId?: string
+  songs?: any[]
+  updatedAt?: string
 }
 
 export interface PlaylistCreateData {
-  created_at?: string
+  createdAt?: string
   description?: string
   id?: string
-  is_public?: boolean
-  is_smart?: boolean
+  isPublic?: boolean
+  isSmart?: boolean
   name?: string
   owner?: string
-  smart_criterion?: Record<string, any>
-  song?: any[]
-  song_count?: number
-  song_id: string
-  updated_at?: string
+  smartCriteria?: Record<string, any>
+  songCount?: number
+  songId: string
+  songs?: any[]
+  updatedAt?: string
+
+  // Selects a custom action instead of the plain create:
+  //   'song'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 
 export interface PlaylistUpdateData {
   id: string
+  createdAt?: string
+  description?: string
+  isPublic?: boolean
+  isSmart?: boolean
+  name?: string
+  owner?: string
+  smartCriteria?: Record<string, any>
+  songCount?: number
+  songId?: string
+  songs?: any[]
+  updatedAt?: string
 }
 
 export interface PlaylistRemoveMatch {
@@ -132,28 +155,28 @@ export interface PlaylistRemoveMatch {
 }
 
 export interface Search {
-  limit?: number
-  offset?: number
-  result?: Record<string, any>
-  total?: number
+  albums?: any[]
+  artists?: any[]
+  playlists?: any[]
+  songs?: any[]
 }
 
 export interface SearchLoadMatch {
-  limit?: number
-  offset?: number
-  result?: Record<string, any>
-  total?: number
+  albums?: any[]
+  artists?: any[]
+  playlists?: any[]
+  songs?: any[]
 }
 
 export interface Song {
   album?: string
   artist?: string
-  cover_art?: string
+  coverArt?: string
   duration?: number
-  genre?: any[]
-  has_video?: boolean
+  genres?: any[]
+  hasVideo?: boolean
   id?: string
-  release_date?: string
+  releaseDate?: string
   title?: string
 }
 
@@ -163,9 +186,9 @@ export interface SongLoadMatch {
 
 export interface Stream {
   bitrate?: number
-  expires_at?: string
+  expiresAt?: string
   quality?: string
-  stream_url?: string
+  streamUrl?: string
 }
 
 export interface StreamLoadMatch {
@@ -174,8 +197,8 @@ export interface StreamLoadMatch {
 
 export interface Video {
   duration?: number
-  thumbnail_url?: string
-  video_url?: string
+  thumbnailUrl?: string
+  videoUrl?: string
 }
 
 export interface VideoLoadMatch {

@@ -10,10 +10,10 @@
 
 # ListeningRoom entity data model.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
-# @!attribute [rw] current_song
+# @!attribute [rw] currentSong
 #   @return [Hash, nil]
 #
 # @!attribute [rw] description
@@ -25,30 +25,30 @@
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] is_public
+# @!attribute [rw] isPublic
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] max_participant
+# @!attribute [rw] maxParticipants
 #   @return [Integer, nil]
 #
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] participant
+# @!attribute [rw] participants
 #   @return [Array, nil]
 #
 # @!attribute [rw] queue
 #   @return [Array, nil]
 ListeningRoom = Struct.new(
-  :created_at,
-  :current_song,
+  :createdAt,
+  :currentSong,
   :description,
   :host,
   :id,
-  :is_public,
-  :max_participant,
+  :isPublic,
+  :maxParticipants,
   :name,
-  :participant,
+  :participants,
   :queue,
   keyword_init: true
 )
@@ -64,10 +64,10 @@ ListeningRoomLoadMatch = Struct.new(
 
 # Request payload for ListeningRoom#list.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
-# @!attribute [rw] current_song
+# @!attribute [rw] currentSong
 #   @return [Hash, nil]
 #
 # @!attribute [rw] description
@@ -79,40 +79,40 @@ ListeningRoomLoadMatch = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] is_public
+# @!attribute [rw] isPublic
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] max_participant
+# @!attribute [rw] maxParticipants
 #   @return [Integer, nil]
 #
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] participant
+# @!attribute [rw] participants
 #   @return [Array, nil]
 #
 # @!attribute [rw] queue
 #   @return [Array, nil]
 ListeningRoomListMatch = Struct.new(
-  :created_at,
-  :current_song,
+  :createdAt,
+  :currentSong,
   :description,
   :host,
   :id,
-  :is_public,
-  :max_participant,
+  :isPublic,
+  :maxParticipants,
   :name,
-  :participant,
+  :participants,
   :queue,
   keyword_init: true
 )
 
 # Request payload for ListeningRoom#create.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
-# @!attribute [rw] current_song
+# @!attribute [rw] currentSong
 #   @return [Hash, nil]
 #
 # @!attribute [rw] description
@@ -124,40 +124,40 @@ ListeningRoomListMatch = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] is_public
+# @!attribute [rw] isPublic
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] max_participant
+# @!attribute [rw] maxParticipants
 #   @return [Integer, nil]
 #
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] participant
+# @!attribute [rw] participants
 #   @return [Array, nil]
 #
 # @!attribute [rw] queue
 #   @return [Array, nil]
 ListeningRoomCreateData = Struct.new(
-  :created_at,
-  :current_song,
+  :createdAt,
+  :currentSong,
   :description,
   :host,
   :id,
-  :is_public,
-  :max_participant,
+  :isPublic,
+  :maxParticipants,
   :name,
-  :participant,
+  :participants,
   :queue,
   keyword_init: true
 )
 
 # Music entity data model.
 #
-# @!attribute [rw] downloaded_at
+# @!attribute [rw] downloadedAt
 #   @return [String, nil]
 #
-# @!attribute [rw] expires_at
+# @!attribute [rw] expiresAt
 #   @return [String, nil]
 #
 # @!attribute [rw] id
@@ -172,8 +172,8 @@ ListeningRoomCreateData = Struct.new(
 # @!attribute [rw] status
 #   @return [String, nil]
 Music = Struct.new(
-  :downloaded_at,
-  :expires_at,
+  :downloadedAt,
+  :expiresAt,
   :id,
   :progress,
   :song,
@@ -183,10 +183,10 @@ Music = Struct.new(
 
 # Request payload for Music#list.
 #
-# @!attribute [rw] downloaded_at
+# @!attribute [rw] downloadedAt
 #   @return [String, nil]
 #
-# @!attribute [rw] expires_at
+# @!attribute [rw] expiresAt
 #   @return [String, nil]
 #
 # @!attribute [rw] id
@@ -201,8 +201,8 @@ Music = Struct.new(
 # @!attribute [rw] status
 #   @return [String, nil]
 MusicListMatch = Struct.new(
-  :downloaded_at,
-  :expires_at,
+  :downloadedAt,
+  :expiresAt,
   :id,
   :progress,
   :song,
@@ -212,25 +212,25 @@ MusicListMatch = Struct.new(
 
 # OfflineDownload entity data model.
 #
-# @!attribute [rw] song_id
+# @!attribute [rw] songId
 #   @return [String]
 OfflineDownload = Struct.new(
-  :song_id,
+  :songId,
   keyword_init: true
 )
 
 # Request payload for OfflineDownload#create.
 #
-# @!attribute [rw] song_id
+# @!attribute [rw] songId
 #   @return [String]
 OfflineDownloadCreateData = Struct.new(
-  :song_id,
+  :songId,
   keyword_init: true
 )
 
 # Playlist entity data model.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] description
@@ -239,10 +239,10 @@ OfflineDownloadCreateData = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] is_public
+# @!attribute [rw] isPublic
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] is_smart
+# @!attribute [rw] isSmart
 #   @return [Boolean, nil]
 #
 # @!attribute [rw] name
@@ -251,33 +251,33 @@ OfflineDownloadCreateData = Struct.new(
 # @!attribute [rw] owner
 #   @return [String, nil]
 #
-# @!attribute [rw] smart_criterion
+# @!attribute [rw] smartCriteria
 #   @return [Hash, nil]
 #
-# @!attribute [rw] song
-#   @return [Array, nil]
-#
-# @!attribute [rw] song_count
+# @!attribute [rw] songCount
 #   @return [Integer, nil]
 #
-# @!attribute [rw] song_id
+# @!attribute [rw] songId
 #   @return [String]
 #
-# @!attribute [rw] updated_at
+# @!attribute [rw] songs
+#   @return [Array, nil]
+#
+# @!attribute [rw] updatedAt
 #   @return [String, nil]
 Playlist = Struct.new(
-  :created_at,
+  :createdAt,
   :description,
   :id,
-  :is_public,
-  :is_smart,
+  :isPublic,
+  :isSmart,
   :name,
   :owner,
-  :smart_criterion,
-  :song,
-  :song_count,
-  :song_id,
-  :updated_at,
+  :smartCriteria,
+  :songCount,
+  :songId,
+  :songs,
+  :updatedAt,
   keyword_init: true
 )
 
@@ -292,7 +292,7 @@ PlaylistLoadMatch = Struct.new(
 
 # Request payload for Playlist#list.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] description
@@ -301,10 +301,10 @@ PlaylistLoadMatch = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] is_public
+# @!attribute [rw] isPublic
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] is_smart
+# @!attribute [rw] isSmart
 #   @return [Boolean, nil]
 #
 # @!attribute [rw] name
@@ -313,39 +313,39 @@ PlaylistLoadMatch = Struct.new(
 # @!attribute [rw] owner
 #   @return [String, nil]
 #
-# @!attribute [rw] smart_criterion
+# @!attribute [rw] smartCriteria
 #   @return [Hash, nil]
 #
-# @!attribute [rw] song
-#   @return [Array, nil]
-#
-# @!attribute [rw] song_count
+# @!attribute [rw] songCount
 #   @return [Integer, nil]
 #
-# @!attribute [rw] song_id
+# @!attribute [rw] songId
 #   @return [String, nil]
 #
-# @!attribute [rw] updated_at
+# @!attribute [rw] songs
+#   @return [Array, nil]
+#
+# @!attribute [rw] updatedAt
 #   @return [String, nil]
 PlaylistListMatch = Struct.new(
-  :created_at,
+  :createdAt,
   :description,
   :id,
-  :is_public,
-  :is_smart,
+  :isPublic,
+  :isSmart,
   :name,
   :owner,
-  :smart_criterion,
-  :song,
-  :song_count,
-  :song_id,
-  :updated_at,
+  :smartCriteria,
+  :songCount,
+  :songId,
+  :songs,
+  :updatedAt,
   keyword_init: true
 )
 
 # Request payload for Playlist#create.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] description
@@ -354,10 +354,10 @@ PlaylistListMatch = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] is_public
+# @!attribute [rw] isPublic
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] is_smart
+# @!attribute [rw] isSmart
 #   @return [Boolean, nil]
 #
 # @!attribute [rw] name
@@ -366,33 +366,33 @@ PlaylistListMatch = Struct.new(
 # @!attribute [rw] owner
 #   @return [String, nil]
 #
-# @!attribute [rw] smart_criterion
+# @!attribute [rw] smartCriteria
 #   @return [Hash, nil]
 #
-# @!attribute [rw] song
-#   @return [Array, nil]
-#
-# @!attribute [rw] song_count
+# @!attribute [rw] songCount
 #   @return [Integer, nil]
 #
-# @!attribute [rw] song_id
+# @!attribute [rw] songId
 #   @return [String]
 #
-# @!attribute [rw] updated_at
+# @!attribute [rw] songs
+#   @return [Array, nil]
+#
+# @!attribute [rw] updatedAt
 #   @return [String, nil]
 PlaylistCreateData = Struct.new(
-  :created_at,
+  :createdAt,
   :description,
   :id,
-  :is_public,
-  :is_smart,
+  :isPublic,
+  :isSmart,
   :name,
   :owner,
-  :smart_criterion,
-  :song,
-  :song_count,
-  :song_id,
-  :updated_at,
+  :smartCriteria,
+  :songCount,
+  :songId,
+  :songs,
+  :updatedAt,
   keyword_init: true
 )
 
@@ -400,8 +400,52 @@ PlaylistCreateData = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] createdAt
+#   @return [String, nil]
+#
+# @!attribute [rw] description
+#   @return [String, nil]
+#
+# @!attribute [rw] isPublic
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] isSmart
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] name
+#   @return [String, nil]
+#
+# @!attribute [rw] owner
+#   @return [String, nil]
+#
+# @!attribute [rw] smartCriteria
+#   @return [Hash, nil]
+#
+# @!attribute [rw] songCount
+#   @return [Integer, nil]
+#
+# @!attribute [rw] songId
+#   @return [String, nil]
+#
+# @!attribute [rw] songs
+#   @return [Array, nil]
+#
+# @!attribute [rw] updatedAt
+#   @return [String, nil]
 PlaylistUpdateData = Struct.new(
   :id,
+  :createdAt,
+  :description,
+  :isPublic,
+  :isSmart,
+  :name,
+  :owner,
+  :smartCriteria,
+  :songCount,
+  :songId,
+  :songs,
+  :updatedAt,
   keyword_init: true
 )
 
@@ -416,43 +460,43 @@ PlaylistRemoveMatch = Struct.new(
 
 # Search entity data model.
 #
-# @!attribute [rw] limit
-#   @return [Integer, nil]
+# @!attribute [rw] albums
+#   @return [Array, nil]
 #
-# @!attribute [rw] offset
-#   @return [Integer, nil]
+# @!attribute [rw] artists
+#   @return [Array, nil]
 #
-# @!attribute [rw] result
-#   @return [Hash, nil]
+# @!attribute [rw] playlists
+#   @return [Array, nil]
 #
-# @!attribute [rw] total
-#   @return [Integer, nil]
+# @!attribute [rw] songs
+#   @return [Array, nil]
 Search = Struct.new(
-  :limit,
-  :offset,
-  :result,
-  :total,
+  :albums,
+  :artists,
+  :playlists,
+  :songs,
   keyword_init: true
 )
 
 # Request payload for Search#load.
 #
-# @!attribute [rw] limit
-#   @return [Integer, nil]
+# @!attribute [rw] albums
+#   @return [Array, nil]
 #
-# @!attribute [rw] offset
-#   @return [Integer, nil]
+# @!attribute [rw] artists
+#   @return [Array, nil]
 #
-# @!attribute [rw] result
-#   @return [Hash, nil]
+# @!attribute [rw] playlists
+#   @return [Array, nil]
 #
-# @!attribute [rw] total
-#   @return [Integer, nil]
+# @!attribute [rw] songs
+#   @return [Array, nil]
 SearchLoadMatch = Struct.new(
-  :limit,
-  :offset,
-  :result,
-  :total,
+  :albums,
+  :artists,
+  :playlists,
+  :songs,
   keyword_init: true
 )
 
@@ -464,22 +508,22 @@ SearchLoadMatch = Struct.new(
 # @!attribute [rw] artist
 #   @return [String, nil]
 #
-# @!attribute [rw] cover_art
+# @!attribute [rw] coverArt
 #   @return [String, nil]
 #
 # @!attribute [rw] duration
 #   @return [Integer, nil]
 #
-# @!attribute [rw] genre
+# @!attribute [rw] genres
 #   @return [Array, nil]
 #
-# @!attribute [rw] has_video
+# @!attribute [rw] hasVideo
 #   @return [Boolean, nil]
 #
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] release_date
+# @!attribute [rw] releaseDate
 #   @return [String, nil]
 #
 # @!attribute [rw] title
@@ -487,12 +531,12 @@ SearchLoadMatch = Struct.new(
 Song = Struct.new(
   :album,
   :artist,
-  :cover_art,
+  :coverArt,
   :duration,
-  :genre,
-  :has_video,
+  :genres,
+  :hasVideo,
   :id,
-  :release_date,
+  :releaseDate,
   :title,
   keyword_init: true
 )
@@ -511,19 +555,19 @@ SongLoadMatch = Struct.new(
 # @!attribute [rw] bitrate
 #   @return [Integer, nil]
 #
-# @!attribute [rw] expires_at
+# @!attribute [rw] expiresAt
 #   @return [String, nil]
 #
 # @!attribute [rw] quality
 #   @return [String, nil]
 #
-# @!attribute [rw] stream_url
+# @!attribute [rw] streamUrl
 #   @return [String, nil]
 Stream = Struct.new(
   :bitrate,
-  :expires_at,
+  :expiresAt,
   :quality,
-  :stream_url,
+  :streamUrl,
   keyword_init: true
 )
 
@@ -541,15 +585,15 @@ StreamLoadMatch = Struct.new(
 # @!attribute [rw] duration
 #   @return [Integer, nil]
 #
-# @!attribute [rw] thumbnail_url
+# @!attribute [rw] thumbnailUrl
 #   @return [String, nil]
 #
-# @!attribute [rw] video_url
+# @!attribute [rw] videoUrl
 #   @return [String, nil]
 Video = Struct.new(
   :duration,
-  :thumbnail_url,
-  :video_url,
+  :thumbnailUrl,
+  :videoUrl,
   keyword_init: true
 )
 

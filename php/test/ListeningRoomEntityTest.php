@@ -83,7 +83,7 @@ class ListeningRoomEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.listening_room"), "listening_room_ref01"));
 
         $listening_room_ref01_data_result = $listening_room_ref01_ent->create($listening_room_ref01_data, null);
-        $listening_room_ref01_data = Helpers::to_map($listening_room_ref01_data_result);
+        $listening_room_ref01_data = Helpers::to_map(is_object($listening_room_ref01_data_result) && method_exists($listening_room_ref01_data_result, 'data_get') ? $listening_room_ref01_data_result->data_get() : $listening_room_ref01_data_result);
         $this->assertNotNull($listening_room_ref01_data);
         $this->assertNotNull($listening_room_ref01_data["id"]);
 
@@ -103,7 +103,7 @@ class ListeningRoomEntityTest extends TestCase
             "id" => $listening_room_ref01_data["id"],
         ];
         $listening_room_ref01_data_dt0_loaded = $listening_room_ref01_ent->load($listening_room_ref01_match_dt0, null);
-        $listening_room_ref01_data_dt0_load_result = Helpers::to_map($listening_room_ref01_data_dt0_loaded);
+        $listening_room_ref01_data_dt0_load_result = Helpers::to_map(is_object($listening_room_ref01_data_dt0_loaded) && method_exists($listening_room_ref01_data_dt0_loaded, 'data_get') ? $listening_room_ref01_data_dt0_loaded->data_get() : $listening_room_ref01_data_dt0_loaded);
         $this->assertNotNull($listening_room_ref01_data_dt0_load_result);
         $this->assertEquals($listening_room_ref01_data_dt0_load_result["id"], $listening_room_ref01_data["id"]);
 

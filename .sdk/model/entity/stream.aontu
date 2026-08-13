@@ -11,7 +11,7 @@ main: kit: entity: stream: {
       type: "`$INTEGER`"
     }
     {
-      name: "expires_at"
+      name: "expiresAt"
       req: false
       type: "`$STRING`"
     }
@@ -21,7 +21,7 @@ main: kit: entity: stream: {
       type: "`$STRING`"
     }
     {
-      name: "stream_url"
+      name: "streamUrl"
       req: false
       type: "`$STRING`"
     }

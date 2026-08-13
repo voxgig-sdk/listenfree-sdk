@@ -116,30 +116,30 @@ listening_room = client.ListeningRoom()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `str` | No |  |
-| `current_song` | `dict` | No |  |
+| `createdAt` | `str` | No |  |
+| `currentSong` | `dict` | No |  |
 | `description` | `str` | No |  |
 | `host` | `str` | No |  |
 | `id` | `str` | No |  |
-| `is_public` | `bool` | No |  |
-| `max_participant` | `int` | No |  |
+| `isPublic` | `bool` | No |  |
+| `maxParticipants` | `int` | No |  |
 | `name` | `str` | No |  |
-| `participant` | `list` | No |  |
+| `participants` | `list` | No |  |
 | `queue` | `list` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create |
 | --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `current_song` | - | - | - |
+| `createdAt` | - | - | - |
+| `currentSong` | - | - | - |
 | `description` | - | - | - |
 | `host` | - | - | - |
 | `id` | - | - | - |
-| `is_public` | - | - | - |
-| `max_participant` | - | - | - |
+| `isPublic` | - | - | - |
+| `maxParticipants` | - | - | - |
 | `name` | - | - | Yes |
-| `participant` | - | - | - |
+| `participants` | - | - | - |
 | `queue` | - | - | - |
 
 ### Operations
@@ -210,8 +210,8 @@ music = client.Music()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | `str` | No |  |
-| `expires_at` | `str` | No |  |
+| `downloadedAt` | `str` | No |  |
+| `expiresAt` | `str` | No |  |
 | `id` | `str` | No |  |
 | `progress` | `int` | No |  |
 | `song` | `dict` | No |  |
@@ -268,7 +268,7 @@ offline_download = client.OfflineDownload()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | `str` | Yes |  |
+| `songId` | `str` | Yes |  |
 
 ### Operations
 
@@ -278,7 +278,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.OfflineDownload().create({
-    "song_id": "example_song_id",  # str
+    "songId": "example_songId",  # str
 })
 ```
 
@@ -321,35 +321,35 @@ playlist = client.Playlist()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `str` | No |  |
+| `createdAt` | `str` | No |  |
 | `description` | `str` | No |  |
 | `id` | `str` | No |  |
-| `is_public` | `bool` | No |  |
-| `is_smart` | `bool` | No |  |
+| `isPublic` | `bool` | No |  |
+| `isSmart` | `bool` | No |  |
 | `name` | `str` | No |  |
 | `owner` | `str` | No |  |
-| `smart_criterion` | `dict` | No |  |
-| `song` | `list` | No |  |
-| `song_count` | `int` | No |  |
-| `song_id` | `str` | Yes |  |
-| `updated_at` | `str` | No |  |
+| `smartCriteria` | `dict` | No |  |
+| `songCount` | `int` | No |  |
+| `songId` | `str` | Yes |  |
+| `songs` | `list` | No |  |
+| `updatedAt` | `str` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `is_smart` | - | - | - | - | - |
+| `isPublic` | - | - | - | - | - |
+| `isSmart` | - | - | - | - | - |
 | `name` | - | - | Yes | - | - |
 | `owner` | - | - | - | - | - |
-| `smart_criterion` | - | - | - | - | - |
-| `song` | - | - | - | - | - |
-| `song_count` | - | - | - | - | - |
-| `song_id` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `smartCriteria` | - | - | - | - | - |
+| `songCount` | - | - | - | - | - |
+| `songId` | - | - | - | - | - |
+| `songs` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 
 ### Operations
 
@@ -359,7 +359,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Playlist().create({
-    "song_id": "example_song_id",  # str
+    "songId": "example_songId",  # str
 })
 ```
 
@@ -439,10 +439,10 @@ search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | `int` | No |  |
-| `offset` | `int` | No |  |
-| `result` | `dict` | No |  |
-| `total` | `int` | No |  |
+| `albums` | `list` | No |  |
+| `artists` | `list` | No |  |
+| `playlists` | `list` | No |  |
+| `songs` | `list` | No |  |
 
 ### Operations
 
@@ -495,12 +495,12 @@ song = client.Song()
 | --- | --- | --- | --- |
 | `album` | `str` | No |  |
 | `artist` | `str` | No |  |
-| `cover_art` | `str` | No |  |
+| `coverArt` | `str` | No |  |
 | `duration` | `int` | No |  |
-| `genre` | `list` | No |  |
-| `has_video` | `bool` | No |  |
+| `genres` | `list` | No |  |
+| `hasVideo` | `bool` | No |  |
 | `id` | `str` | No |  |
-| `release_date` | `str` | No |  |
+| `releaseDate` | `str` | No |  |
 | `title` | `str` | No |  |
 
 ### Operations
@@ -553,9 +553,9 @@ stream = client.Stream()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bitrate` | `int` | No |  |
-| `expires_at` | `str` | No |  |
+| `expiresAt` | `str` | No |  |
 | `quality` | `str` | No |  |
-| `stream_url` | `str` | No |  |
+| `streamUrl` | `str` | No |  |
 
 ### Operations
 
@@ -607,8 +607,8 @@ video = client.Video()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `duration` | `int` | No |  |
-| `thumbnail_url` | `str` | No |  |
-| `video_url` | `str` | No |  |
+| `thumbnailUrl` | `str` | No |  |
+| `videoUrl` | `str` | No |  |
 
 ### Operations
 

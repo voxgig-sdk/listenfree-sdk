@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import ListenfreeControl
-from core.error import ListenfreeError
-from core.result import ListenfreeResult
-from core.spec import ListenfreeSpec
+from listenfree_sdk.config import make_config
+from listenfree_sdk.features import _make_feature
+from listenfree_sdk.core.control import ListenfreeControl
+from listenfree_sdk.core.error import ListenfreeError
+from listenfree_sdk.core.result import ListenfreeResult
+from listenfree_sdk.core.spec import ListenfreeSpec
 
 
 # True when this SDK was generated with the named feature.

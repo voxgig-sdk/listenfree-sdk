@@ -5,6 +5,10 @@
       "desc": ""
     },
     "kit": {
+      "author": {
+        "name": "",
+        "url": ""
+      },
       "config": {
         "docs_order": [
           "ts",
@@ -18,6 +22,7 @@
           "content-type": "application/json"
         }
       },
+      "contributor": {},
       "entity": {
         "listening_room": {
           "active": true,
@@ -27,13 +32,13 @@
           "fields": [
             {
               "active": true,
-              "name": "created_at",
+              "name": "createdAt",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "current_song",
+              "name": "currentSong",
               "req": false,
               "type": "`$OBJECT`"
             },
@@ -57,13 +62,13 @@
             },
             {
               "active": true,
-              "name": "is_public",
+              "name": "isPublic",
               "req": false,
               "type": "`$BOOLEAN`"
             },
             {
               "active": true,
-              "name": "max_participant",
+              "name": "maxParticipants",
               "req": false,
               "type": "`$INTEGER`"
             },
@@ -81,7 +86,7 @@
             },
             {
               "active": true,
-              "name": "participant",
+              "name": "participants",
               "req": false,
               "type": "`$ARRAY`"
             },
@@ -116,6 +121,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/listening-rooms/{roomId}/join",
                   "parts": [
@@ -142,6 +148,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/listening-rooms",
                   "parts": [
@@ -174,6 +181,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/listening-rooms",
                   "parts": [
@@ -186,7 +194,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.rooms`"
                   }
                 }
               ]
@@ -209,6 +217,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/listening-rooms/{roomId}",
                   "parts": [
@@ -245,13 +254,13 @@
           "fields": [
             {
               "active": true,
-              "name": "downloaded_at",
+              "name": "downloadedAt",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "expires_at",
+              "name": "expiresAt",
               "req": false,
               "type": "`$STRING`"
             },
@@ -293,6 +302,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/offline/downloads",
                   "parts": [
@@ -302,7 +312,7 @@
                   "select": {},
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.downloads`"
                   }
                 }
               ]
@@ -320,7 +330,7 @@
           "fields": [
             {
               "active": true,
-              "name": "song_id",
+              "name": "songId",
               "req": true,
               "type": "`$STRING`"
             }
@@ -334,6 +344,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/offline/downloads",
                   "parts": [
@@ -343,7 +354,7 @@
                   "select": {},
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.song`"
                   }
                 }
               ]
@@ -361,7 +372,7 @@
           "fields": [
             {
               "active": true,
-              "name": "created_at",
+              "name": "createdAt",
               "req": false,
               "type": "`$STRING`"
             },
@@ -379,13 +390,13 @@
             },
             {
               "active": true,
-              "name": "is_public",
+              "name": "isPublic",
               "req": false,
               "type": "`$BOOLEAN`"
             },
             {
               "active": true,
-              "name": "is_smart",
+              "name": "isSmart",
               "req": false,
               "type": "`$BOOLEAN`"
             },
@@ -409,31 +420,31 @@
             },
             {
               "active": true,
-              "name": "smart_criterion",
+              "name": "smartCriteria",
               "req": false,
               "type": "`$OBJECT`"
             },
             {
               "active": true,
-              "name": "song",
-              "req": false,
-              "type": "`$ARRAY`"
-            },
-            {
-              "active": true,
-              "name": "song_count",
+              "name": "songCount",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "song_id",
+              "name": "songId",
               "req": true,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "updated_at",
+              "name": "songs",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "updatedAt",
               "req": false,
               "type": "`$STRING`"
             }
@@ -462,6 +473,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/playlists/{playlistId}/songs",
                   "parts": [
@@ -488,6 +500,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/playlists",
                   "parts": [
@@ -508,6 +521,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/playlists",
                   "parts": [
@@ -516,7 +530,7 @@
                   "select": {},
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.playlists`"
                   }
                 }
               ]
@@ -539,6 +553,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/playlists/{playlistId}",
                   "parts": [
@@ -580,6 +595,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "DELETE",
                   "orig": "/playlists/{playlistId}",
                   "parts": [
@@ -621,6 +637,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PUT",
                   "orig": "/playlists/{playlistId}",
                   "parts": [
@@ -657,27 +674,27 @@
           "fields": [
             {
               "active": true,
-              "name": "limit",
+              "name": "albums",
               "req": false,
-              "type": "`$INTEGER`"
+              "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "offset",
+              "name": "artists",
               "req": false,
-              "type": "`$INTEGER`"
+              "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "result",
+              "name": "playlists",
               "req": false,
-              "type": "`$OBJECT`"
+              "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "total",
+              "name": "songs",
               "req": false,
-              "type": "`$INTEGER`"
+              "type": "`$ARRAY`"
             }
           ],
           "name": "search",
@@ -728,6 +745,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/search",
                   "parts": [
@@ -743,7 +761,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.results`"
                   }
                 }
               ]
@@ -773,7 +791,7 @@
             },
             {
               "active": true,
-              "name": "cover_art",
+              "name": "coverArt",
               "req": false,
               "type": "`$STRING`"
             },
@@ -785,13 +803,13 @@
             },
             {
               "active": true,
-              "name": "genre",
+              "name": "genres",
               "req": false,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "has_video",
+              "name": "hasVideo",
               "req": false,
               "type": "`$BOOLEAN`"
             },
@@ -803,7 +821,7 @@
             },
             {
               "active": true,
-              "name": "release_date",
+              "name": "releaseDate",
               "req": false,
               "type": "`$STRING`"
             },
@@ -838,6 +856,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/songs/{songId}",
                   "parts": [
@@ -880,7 +899,7 @@
             },
             {
               "active": true,
-              "name": "expires_at",
+              "name": "expiresAt",
               "req": false,
               "type": "`$STRING`"
             },
@@ -892,7 +911,7 @@
             },
             {
               "active": true,
-              "name": "stream_url",
+              "name": "streamUrl",
               "req": false,
               "type": "`$STRING`"
             }
@@ -928,6 +947,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/songs/{songId}/stream",
                   "parts": [
@@ -976,13 +996,13 @@
             },
             {
               "active": true,
-              "name": "thumbnail_url",
+              "name": "thumbnailUrl",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "video_url",
+              "name": "videoUrl",
               "req": false,
               "type": "`$STRING`"
             }
@@ -1007,6 +1027,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/songs/{songId}/video",
                   "parts": [
@@ -1283,7 +1304,7 @@
                 "ref": "playlist_ref01",
                 "srcdatavar": "playlist_ref01_data",
                 "suffix": "_up0",
-                "textfield": "created_at"
+                "textfield": "createdAt"
               },
               "match": {},
               "op": "update",
@@ -1505,18 +1526,41 @@
         "website": "https://listenfree.in"
       },
       "option": {},
+      "repo": {
+        "host": "github.com",
+        "path": ""
+      },
       "target": {
         "go": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [
+              "test/feature_test.go"
+            ],
+            "trim": true
+          },
           "module": {
-            "name": "listenfree"
+            "goversion": "",
+            "name": "listenfree",
+            "package": "",
+            "path": ""
           },
           "name": "go",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1538,22 +1582,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Golang"
         },
         "go-cli": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "listenfree"
+            "goversion": "",
+            "name": "listenfree",
+            "package": "",
+            "path": ""
           },
           "name": "go-cli",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -1592,21 +1654,39 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go CLI"
         },
         "go-mcp": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "listenfree"
+            "goversion": "",
+            "name": "listenfree",
+            "package": "",
+            "path": ""
           },
           "name": "go-mcp",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -1645,12 +1725,17 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go MCP server"
         },
         "lua": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "--"
           },
@@ -1662,10 +1747,23 @@
             }
           },
           "ext": "lua",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "listenfree"
+            "goversion": "",
+            "name": "listenfree",
+            "package": "",
+            "path": ""
           },
           "name": "lua",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1687,22 +1785,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Lua"
         },
         "php": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "php",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "listenfree"
+            "goversion": "",
+            "name": "listenfree",
+            "package": "",
+            "path": ""
           },
           "name": "php",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1724,13 +1840,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "PHP"
         },
         "py": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "#"
           },
@@ -1742,10 +1863,23 @@
             }
           },
           "ext": "py",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "listenfree"
+            "goversion": "",
+            "name": "listenfree",
+            "package": "",
+            "path": ""
           },
           "name": "py",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1767,13 +1901,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Python"
         },
         "rb": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "#"
           },
@@ -1790,10 +1929,23 @@
             }
           },
           "ext": "rb",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "listenfree"
+            "goversion": "",
+            "name": "listenfree",
+            "package": "",
+            "path": ""
           },
           "name": "rb",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1815,13 +1967,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Ruby"
         },
         "ts": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
@@ -1844,10 +2001,23 @@
             }
           },
           "ext": "ts",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "listenfree"
+            "goversion": "",
+            "name": "listenfree",
+            "package": "",
+            "path": ""
           },
           "name": "ts",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1869,9 +2039,17 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "TypeScript"
+        }
+      },
+      "test": {
+        "live": {
+          "app": false,
+          "base": "",
+          "strict": false
         }
       }
     }

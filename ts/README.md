@@ -37,7 +37,9 @@ const client = new ListenfreeSDK({
 
 ### 2. List listeningroom records
 
-`list()` resolves to an array of ListeningRoom objects — iterate it directly:
+`list()` resolves to an array of ListeningRoom ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const listeningrooms = await client.ListeningRoom().list()
@@ -66,10 +68,10 @@ try {
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created ListeningRoom
+// Create — returns the created ListeningRoom ENTITY (.data() for the record)
 const created = await client.ListeningRoom().create({
-  created_at: 'example_created_at',
-  current_song: {},
+  createdAt: 'example_createdAt',
+  currentSong: {},
 })
 
 ```
@@ -81,8 +83,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const listeningrooms = await client.ListeningRoom().list()
-  console.log(listeningrooms)
+  const musics = await client.Music().list()
+  console.log(musics)
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -148,9 +150,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ListenfreeSDK.test()
 
-const listeningroom = await client.ListeningRoom().list()
-// listeningroom is a bare entity populated with mock response data
-console.log(listeningroom)
+const music = await client.Music().list()
+// music is the entity, populated with mock response data
+// — call music.data() for the record itself
+console.log(music)
 ```
 
 You can also use the instance method:
@@ -165,7 +168,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.ListeningRoom()
+const entity = client.Music()
 
 // First call runs the operation and stores its result
 await entity.list()
@@ -330,15 +333,15 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
-| `current_song` |  |
+| `createdAt` |  |
+| `currentSong` |  |
 | `description` |  |
 | `host` |  |
 | `id` |  |
-| `is_public` |  |
-| `max_participant` |  |
+| `isPublic` |  |
+| `maxParticipants` |  |
 | `name` |  |
-| `participant` |  |
+| `participants` |  |
 | `queue` |  |
 
 Operations: create, list, load.
@@ -349,8 +352,8 @@ API path: `/listening-rooms/{roomId}/join`
 
 | Field | Description |
 | --- | --- |
-| `downloaded_at` |  |
-| `expires_at` |  |
+| `downloadedAt` |  |
+| `expiresAt` |  |
 | `id` |  |
 | `progress` |  |
 | `song` |  |
@@ -364,7 +367,7 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `song_id` |  |
+| `songId` |  |
 
 Operations: create.
 
@@ -374,18 +377,18 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `id` |  |
-| `is_public` |  |
-| `is_smart` |  |
+| `isPublic` |  |
+| `isSmart` |  |
 | `name` |  |
 | `owner` |  |
-| `smart_criterion` |  |
-| `song` |  |
-| `song_count` |  |
-| `song_id` |  |
-| `updated_at` |  |
+| `smartCriteria` |  |
+| `songCount` |  |
+| `songId` |  |
+| `songs` |  |
+| `updatedAt` |  |
 
 Operations: create, list, load, remove, update.
 
@@ -395,10 +398,10 @@ API path: `/playlists/{playlistId}/songs`
 
 | Field | Description |
 | --- | --- |
-| `limit` |  |
-| `offset` |  |
-| `result` |  |
-| `total` |  |
+| `albums` |  |
+| `artists` |  |
+| `playlists` |  |
+| `songs` |  |
 
 Operations: load.
 
@@ -410,12 +413,12 @@ API path: `/search`
 | --- | --- |
 | `album` |  |
 | `artist` |  |
-| `cover_art` |  |
+| `coverArt` |  |
 | `duration` |  |
-| `genre` |  |
-| `has_video` |  |
+| `genres` |  |
+| `hasVideo` |  |
 | `id` |  |
-| `release_date` |  |
+| `releaseDate` |  |
 | `title` |  |
 
 Operations: load.
@@ -427,9 +430,9 @@ API path: `/songs/{songId}`
 | Field | Description |
 | --- | --- |
 | `bitrate` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `quality` |  |
-| `stream_url` |  |
+| `streamUrl` |  |
 
 Operations: load.
 
@@ -440,8 +443,8 @@ API path: `/songs/{songId}/stream`
 | Field | Description |
 | --- | --- |
 | `duration` |  |
-| `thumbnail_url` |  |
-| `video_url` |  |
+| `thumbnailUrl` |  |
+| `videoUrl` |  |
 
 Operations: load.
 
@@ -468,15 +471,15 @@ Create an instance: `const listening_room = client.ListeningRoom()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
-| `current_song` | `Record<string, any>` |  |
+| `createdAt` | `string` |  |
+| `currentSong` | `Record<string, any>` |  |
 | `description` | `string` |  |
 | `host` | `string` |  |
 | `id` | `string` |  |
-| `is_public` | `boolean` |  |
-| `max_participant` | `number` |  |
+| `isPublic` | `boolean` |  |
+| `maxParticipants` | `number` |  |
 | `name` | `string` |  |
-| `participant` | `any[]` |  |
+| `participants` | `any[]` |  |
 | `queue` | `any[]` |  |
 
 #### Example: Load
@@ -513,8 +516,8 @@ Create an instance: `const music = client.Music()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | `string` |  |
-| `expires_at` | `string` |  |
+| `downloadedAt` | `string` |  |
+| `expiresAt` | `string` |  |
 | `id` | `string` |  |
 | `progress` | `number` |  |
 | `song` | `Record<string, any>` |  |
@@ -541,13 +544,13 @@ Create an instance: `const offline_download = client.OfflineDownload()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | `string` |  |
+| `songId` | `string` |  |
 
 #### Example: Create
 
 ```ts
 const offline_download = await client.OfflineDownload().create({
-  song_id: 'example_song_id',
+  songId: 'example_songId',
 })
 ```
 
@@ -570,18 +573,18 @@ Create an instance: `const playlist = client.Playlist()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `description` | `string` |  |
 | `id` | `string` |  |
-| `is_public` | `boolean` |  |
-| `is_smart` | `boolean` |  |
+| `isPublic` | `boolean` |  |
+| `isSmart` | `boolean` |  |
 | `name` | `string` |  |
 | `owner` | `string` |  |
-| `smart_criterion` | `Record<string, any>` |  |
-| `song` | `any[]` |  |
-| `song_count` | `number` |  |
-| `song_id` | `string` |  |
-| `updated_at` | `string` |  |
+| `smartCriteria` | `Record<string, any>` |  |
+| `songCount` | `number` |  |
+| `songId` | `string` |  |
+| `songs` | `any[]` |  |
+| `updatedAt` | `string` |  |
 
 #### Example: Load
 
@@ -599,7 +602,7 @@ const playlists = await client.Playlist().list()
 
 ```ts
 const playlist = await client.Playlist().create({
-  song_id: 'example_song_id',
+  songId: 'example_songId',
 })
 ```
 
@@ -618,10 +621,10 @@ Create an instance: `const search = client.Search()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | `number` |  |
-| `offset` | `number` |  |
-| `result` | `Record<string, any>` |  |
-| `total` | `number` |  |
+| `albums` | `any[]` |  |
+| `artists` | `any[]` |  |
+| `playlists` | `any[]` |  |
+| `songs` | `any[]` |  |
 
 #### Example: Load
 
@@ -646,12 +649,12 @@ Create an instance: `const song = client.Song()`
 | --- | --- | --- |
 | `album` | `string` |  |
 | `artist` | `string` |  |
-| `cover_art` | `string` |  |
+| `coverArt` | `string` |  |
 | `duration` | `number` |  |
-| `genre` | `any[]` |  |
-| `has_video` | `boolean` |  |
+| `genres` | `any[]` |  |
+| `hasVideo` | `boolean` |  |
 | `id` | `string` |  |
-| `release_date` | `string` |  |
+| `releaseDate` | `string` |  |
 | `title` | `string` |  |
 
 #### Example: Load
@@ -676,9 +679,9 @@ Create an instance: `const stream = client.Stream()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bitrate` | `number` |  |
-| `expires_at` | `string` |  |
+| `expiresAt` | `string` |  |
 | `quality` | `string` |  |
-| `stream_url` | `string` |  |
+| `streamUrl` | `string` |  |
 
 #### Example: Load
 
@@ -702,8 +705,8 @@ Create an instance: `const video = client.Video()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `duration` | `number` |  |
-| `thumbnail_url` | `string` |  |
-| `video_url` | `string` |  |
+| `thumbnailUrl` | `string` |  |
+| `videoUrl` | `string` |  |
 
 #### Example: Load
 
@@ -781,11 +784,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const listeningroom = client.ListeningRoom()
-await listeningroom.list()
+const music = client.Music()
+await music.list()
 
-// listeningroom.data() now returns the listeningroom data from the last `list`
-// listeningroom.match() returns the last match criteria
+// music.data() now returns the music data from the last `list`
+// music.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

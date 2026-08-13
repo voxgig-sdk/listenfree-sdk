@@ -201,31 +201,51 @@ const listening_room = client.ListeningRoom()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
-| `current_song` | `Record<string, any>` | No |  |
+| `createdAt` | `string` | No |  |
+| `currentSong` | `Record<string, any>` | No |  |
 | `description` | `string` | No |  |
 | `host` | `string` | No |  |
 | `id` | `string` | No |  |
-| `is_public` | `boolean` | No |  |
-| `max_participant` | `number` | No |  |
+| `isPublic` | `boolean` | No |  |
+| `maxParticipants` | `number` | No |  |
 | `name` | `string` | No |  |
-| `participant` | `any[]` | No |  |
+| `participants` | `any[]` | No |  |
 | `queue` | `any[]` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create |
 | --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `current_song` | - | - | - |
+| `createdAt` | - | - | - |
+| `currentSong` | - | - | - |
 | `description` | - | - | - |
 | `host` | - | - | - |
 | `id` | - | - | - |
-| `is_public` | - | - | - |
-| `max_participant` | - | - | - |
+| `isPublic` | - | - | - |
+| `maxParticipants` | - | - | - |
 | `name` | - | - | Yes |
-| `participant` | - | - | - |
+| `participants` | - | - | - |
 | `queue` | - | - | - |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `join` | `/listening-rooms/{roomId}/join` | `client.ListeningRoom().create({ $action: 'join', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+ListeningRoom record — check the API definition for its shape.
+
+```ts
+const result = await client.ListeningRoom().create({
+  $action: 'join',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -292,8 +312,8 @@ const music = client.Music()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | `string` | No |  |
-| `expires_at` | `string` | No |  |
+| `downloadedAt` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `id` | `string` | No |  |
 | `progress` | `number` | No |  |
 | `song` | `Record<string, any>` | No |  |
@@ -347,7 +367,7 @@ const offline_download = client.OfflineDownload()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | `string` | Yes |  |
+| `songId` | `string` | Yes |  |
 
 ### Operations
 
@@ -357,7 +377,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.OfflineDownload().create({
-  song_id: 'example_song_id',
+  songId: 'example_songId',
 })
 ```
 
@@ -399,35 +419,55 @@ const playlist = client.Playlist()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `description` | `string` | No |  |
 | `id` | `string` | No |  |
-| `is_public` | `boolean` | No |  |
-| `is_smart` | `boolean` | No |  |
+| `isPublic` | `boolean` | No |  |
+| `isSmart` | `boolean` | No |  |
 | `name` | `string` | No |  |
 | `owner` | `string` | No |  |
-| `smart_criterion` | `Record<string, any>` | No |  |
-| `song` | `any[]` | No |  |
-| `song_count` | `number` | No |  |
-| `song_id` | `string` | Yes |  |
-| `updated_at` | `string` | No |  |
+| `smartCriteria` | `Record<string, any>` | No |  |
+| `songCount` | `number` | No |  |
+| `songId` | `string` | Yes |  |
+| `songs` | `any[]` | No |  |
+| `updatedAt` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `is_smart` | - | - | - | - | - |
+| `isPublic` | - | - | - | - | - |
+| `isSmart` | - | - | - | - | - |
 | `name` | - | - | Yes | - | - |
 | `owner` | - | - | - | - | - |
-| `smart_criterion` | - | - | - | - | - |
-| `song` | - | - | - | - | - |
-| `song_count` | - | - | - | - | - |
-| `song_id` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `smartCriteria` | - | - | - | - | - |
+| `songCount` | - | - | - | - | - |
+| `songId` | - | - | - | - | - |
+| `songs` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `song` | `/playlists/{playlistId}/songs` | `client.Playlist().create({ $action: 'song', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Playlist record — check the API definition for its shape.
+
+```ts
+const result = await client.Playlist().create({
+  $action: 'song',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -437,7 +477,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Playlist().create({
-  song_id: 'example_song_id',
+  songId: 'example_songId',
 })
 ```
 
@@ -514,10 +554,10 @@ const search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | `number` | No |  |
-| `offset` | `number` | No |  |
-| `result` | `Record<string, any>` | No |  |
-| `total` | `number` | No |  |
+| `albums` | `any[]` | No |  |
+| `artists` | `any[]` | No |  |
+| `playlists` | `any[]` | No |  |
+| `songs` | `any[]` | No |  |
 
 ### Operations
 
@@ -569,12 +609,12 @@ const song = client.Song()
 | --- | --- | --- | --- |
 | `album` | `string` | No |  |
 | `artist` | `string` | No |  |
-| `cover_art` | `string` | No |  |
+| `coverArt` | `string` | No |  |
 | `duration` | `number` | No |  |
-| `genre` | `any[]` | No |  |
-| `has_video` | `boolean` | No |  |
+| `genres` | `any[]` | No |  |
+| `hasVideo` | `boolean` | No |  |
 | `id` | `string` | No |  |
-| `release_date` | `string` | No |  |
+| `releaseDate` | `string` | No |  |
 | `title` | `string` | No |  |
 
 ### Operations
@@ -626,9 +666,9 @@ const stream = client.Stream()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bitrate` | `number` | No |  |
-| `expires_at` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `quality` | `string` | No |  |
-| `stream_url` | `string` | No |  |
+| `streamUrl` | `string` | No |  |
 
 ### Operations
 
@@ -679,8 +719,8 @@ const video = client.Video()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `duration` | `number` | No |  |
-| `thumbnail_url` | `string` | No |  |
-| `video_url` | `string` | No |  |
+| `thumbnailUrl` | `string` | No |  |
+| `videoUrl` | `string` | No |  |
 
 ### Operations
 

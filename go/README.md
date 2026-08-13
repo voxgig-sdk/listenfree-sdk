@@ -70,7 +70,7 @@ func main() {
     fmt.Println(listeningRoom)
 
     // Create a listeningRoom.
-    created, err := client.ListeningRoom(nil).Create(map[string]any{"created_at": "example_created_at", "current_song": map[string]any{}}, nil)
+    created, err := client.ListeningRoom(nil).Create(map[string]any{"createdAt": "example_createdAt", "currentSong": map[string]any{}}, nil)
     if err != nil {
         panic(err)
     }
@@ -85,12 +85,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-listeningrooms, err := client.ListeningRoom(nil).List(nil, nil)
+musics, err := client.Music(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = listeningrooms
+_ = musics
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -154,13 +154,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-listeningRoom, err := client.ListeningRoom(nil).List(
+music, err := client.Music(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(listeningRoom) // the returned mock data
+fmt.Println(music) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -291,15 +291,15 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"created_at"` |  |
-| `"current_song"` |  |
+| `"createdAt"` |  |
+| `"currentSong"` |  |
 | `"description"` |  |
 | `"host"` |  |
 | `"id"` |  |
-| `"is_public"` |  |
-| `"max_participant"` |  |
+| `"isPublic"` |  |
+| `"maxParticipants"` |  |
 | `"name"` |  |
-| `"participant"` |  |
+| `"participants"` |  |
 | `"queue"` |  |
 
 Operations: Create, List, Load.
@@ -310,8 +310,8 @@ API path: `/listening-rooms/{roomId}/join`
 
 | Field | Description |
 | --- | --- |
-| `"downloaded_at"` |  |
-| `"expires_at"` |  |
+| `"downloadedAt"` |  |
+| `"expiresAt"` |  |
 | `"id"` |  |
 | `"progress"` |  |
 | `"song"` |  |
@@ -325,7 +325,7 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `"song_id"` |  |
+| `"songId"` |  |
 
 Operations: Create.
 
@@ -335,18 +335,18 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `"created_at"` |  |
+| `"createdAt"` |  |
 | `"description"` |  |
 | `"id"` |  |
-| `"is_public"` |  |
-| `"is_smart"` |  |
+| `"isPublic"` |  |
+| `"isSmart"` |  |
 | `"name"` |  |
 | `"owner"` |  |
-| `"smart_criterion"` |  |
-| `"song"` |  |
-| `"song_count"` |  |
-| `"song_id"` |  |
-| `"updated_at"` |  |
+| `"smartCriteria"` |  |
+| `"songCount"` |  |
+| `"songId"` |  |
+| `"songs"` |  |
+| `"updatedAt"` |  |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -356,10 +356,10 @@ API path: `/playlists/{playlistId}/songs`
 
 | Field | Description |
 | --- | --- |
-| `"limit"` |  |
-| `"offset"` |  |
-| `"result"` |  |
-| `"total"` |  |
+| `"albums"` |  |
+| `"artists"` |  |
+| `"playlists"` |  |
+| `"songs"` |  |
 
 Operations: Load.
 
@@ -371,12 +371,12 @@ API path: `/search`
 | --- | --- |
 | `"album"` |  |
 | `"artist"` |  |
-| `"cover_art"` |  |
+| `"coverArt"` |  |
 | `"duration"` |  |
-| `"genre"` |  |
-| `"has_video"` |  |
+| `"genres"` |  |
+| `"hasVideo"` |  |
 | `"id"` |  |
-| `"release_date"` |  |
+| `"releaseDate"` |  |
 | `"title"` |  |
 
 Operations: Load.
@@ -388,9 +388,9 @@ API path: `/songs/{songId}`
 | Field | Description |
 | --- | --- |
 | `"bitrate"` |  |
-| `"expires_at"` |  |
+| `"expiresAt"` |  |
 | `"quality"` |  |
-| `"stream_url"` |  |
+| `"streamUrl"` |  |
 
 Operations: Load.
 
@@ -401,8 +401,8 @@ API path: `/songs/{songId}/stream`
 | Field | Description |
 | --- | --- |
 | `"duration"` |  |
-| `"thumbnail_url"` |  |
-| `"video_url"` |  |
+| `"thumbnailUrl"` |  |
+| `"videoUrl"` |  |
 
 Operations: Load.
 
@@ -429,15 +429,15 @@ Create an instance: `listeningRoom := client.ListeningRoom(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
-| `current_song` | `map[string]any` |  |
+| `createdAt` | `string` |  |
+| `currentSong` | `map[string]any` |  |
 | `description` | `string` |  |
 | `host` | `string` |  |
 | `id` | `string` |  |
-| `is_public` | `bool` |  |
-| `max_participant` | `int` |  |
+| `isPublic` | `bool` |  |
+| `maxParticipants` | `int` |  |
 | `name` | `string` |  |
-| `participant` | `[]any` |  |
+| `participants` | `[]any` |  |
 | `queue` | `[]any` |  |
 
 #### Example: Load
@@ -486,8 +486,8 @@ Create an instance: `music := client.Music(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloaded_at` | `string` |  |
-| `expires_at` | `string` |  |
+| `downloadedAt` | `string` |  |
+| `expiresAt` | `string` |  |
 | `id` | `string` |  |
 | `progress` | `int` |  |
 | `song` | `map[string]any` |  |
@@ -518,13 +518,13 @@ Create an instance: `offlineDownload := client.OfflineDownload(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `song_id` | `string` |  |
+| `songId` | `string` |  |
 
 #### Example: Create
 
 ```go
 result, err := client.OfflineDownload(nil).Create(map[string]any{
-    "song_id": "example_song_id",
+    "songId": "example_songId",
 }, nil)
 if err != nil {
     panic(err)
@@ -551,18 +551,18 @@ Create an instance: `playlist := client.Playlist(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `description` | `string` |  |
 | `id` | `string` |  |
-| `is_public` | `bool` |  |
-| `is_smart` | `bool` |  |
+| `isPublic` | `bool` |  |
+| `isSmart` | `bool` |  |
 | `name` | `string` |  |
 | `owner` | `string` |  |
-| `smart_criterion` | `map[string]any` |  |
-| `song` | `[]any` |  |
-| `song_count` | `int` |  |
-| `song_id` | `string` |  |
-| `updated_at` | `string` |  |
+| `smartCriteria` | `map[string]any` |  |
+| `songCount` | `int` |  |
+| `songId` | `string` |  |
+| `songs` | `[]any` |  |
+| `updatedAt` | `string` |  |
 
 #### Example: Load
 
@@ -588,7 +588,7 @@ fmt.Println(playlists) // the array of records
 
 ```go
 result, err := client.Playlist(nil).Create(map[string]any{
-    "song_id": "example_song_id",
+    "songId": "example_songId",
 }, nil)
 if err != nil {
     panic(err)
@@ -611,10 +611,10 @@ Create an instance: `search := client.Search(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `limit` | `int` |  |
-| `offset` | `int` |  |
-| `result` | `map[string]any` |  |
-| `total` | `int` |  |
+| `albums` | `[]any` |  |
+| `artists` | `[]any` |  |
+| `playlists` | `[]any` |  |
+| `songs` | `[]any` |  |
 
 #### Example: Load
 
@@ -643,12 +643,12 @@ Create an instance: `song := client.Song(nil)`
 | --- | --- | --- |
 | `album` | `string` |  |
 | `artist` | `string` |  |
-| `cover_art` | `string` |  |
+| `coverArt` | `string` |  |
 | `duration` | `int` |  |
-| `genre` | `[]any` |  |
-| `has_video` | `bool` |  |
+| `genres` | `[]any` |  |
+| `hasVideo` | `bool` |  |
 | `id` | `string` |  |
-| `release_date` | `string` |  |
+| `releaseDate` | `string` |  |
 | `title` | `string` |  |
 
 #### Example: Load
@@ -677,9 +677,9 @@ Create an instance: `stream := client.Stream(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `bitrate` | `int` |  |
-| `expires_at` | `string` |  |
+| `expiresAt` | `string` |  |
 | `quality` | `string` |  |
-| `stream_url` | `string` |  |
+| `streamUrl` | `string` |  |
 
 #### Example: Load
 
@@ -707,8 +707,8 @@ Create an instance: `video := client.Video(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `duration` | `int` |  |
-| `thumbnail_url` | `string` |  |
-| `video_url` | `string` |  |
+| `thumbnailUrl` | `string` |  |
+| `videoUrl` | `string` |  |
 
 #### Example: Load
 
@@ -794,11 +794,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-listeningroom := client.ListeningRoom(nil)
-listeningroom.List(nil, nil)
+music := client.Music(nil)
+music.List(nil, nil)
 
-// listeningroom.Data() now returns the listeningroom data from the last list
-// listeningroom.Match() returns the last match criteria
+// music.Data() now returns the music data from the last list
+// music.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

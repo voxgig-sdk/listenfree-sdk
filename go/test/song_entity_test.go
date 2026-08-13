@@ -68,7 +68,7 @@ func TestSongEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		songRef01DataDt0LoadResult := core.ToMapAny(songRef01DataDt0Loaded)
+		songRef01DataDt0LoadResult := core.ToMapAny(entityData(songRef01DataDt0Loaded))
 		if songRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

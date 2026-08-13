@@ -127,30 +127,30 @@ fmt.Println(listeningRoom.GetName()) // "listening_room"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
-| `current_song` | `map[string]any` | No |  |
+| `createdAt` | `string` | No |  |
+| `currentSong` | `map[string]any` | No |  |
 | `description` | `string` | No |  |
 | `host` | `string` | No |  |
 | `id` | `string` | No |  |
-| `is_public` | `bool` | No |  |
-| `max_participant` | `int` | No |  |
+| `isPublic` | `bool` | No |  |
+| `maxParticipants` | `int` | No |  |
 | `name` | `string` | No |  |
-| `participant` | `[]any` | No |  |
+| `participants` | `[]any` | No |  |
 | `queue` | `[]any` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create |
 | --- | --- | --- | --- |
-| `created_at` | - | - | - |
-| `current_song` | - | - | - |
+| `createdAt` | - | - | - |
+| `currentSong` | - | - | - |
 | `description` | - | - | - |
 | `host` | - | - | - |
 | `id` | - | - | - |
-| `is_public` | - | - | - |
-| `max_participant` | - | - | - |
+| `isPublic` | - | - | - |
+| `maxParticipants` | - | - | - |
 | `name` | - | - | Yes |
-| `participant` | - | - | - |
+| `participants` | - | - | - |
 | `queue` | - | - | - |
 
 ### Operations
@@ -227,8 +227,8 @@ fmt.Println(music.GetName()) // "music"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloaded_at` | `string` | No |  |
-| `expires_at` | `string` | No |  |
+| `downloadedAt` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `id` | `string` | No |  |
 | `progress` | `int` | No |  |
 | `song` | `map[string]any` | No |  |
@@ -283,7 +283,7 @@ fmt.Println(offlineDownload.GetName()) // "offline_download"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `song_id` | `string` | Yes |  |
+| `songId` | `string` | Yes |  |
 
 ### Operations
 
@@ -293,7 +293,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.OfflineDownload(nil).Create(map[string]any{
-    "song_id": "example_song_id",
+    "songId": "example_songId",
 }, nil)
 if err != nil {
     panic(err)
@@ -336,35 +336,35 @@ fmt.Println(playlist.GetName()) // "playlist"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `description` | `string` | No |  |
 | `id` | `string` | No |  |
-| `is_public` | `bool` | No |  |
-| `is_smart` | `bool` | No |  |
+| `isPublic` | `bool` | No |  |
+| `isSmart` | `bool` | No |  |
 | `name` | `string` | No |  |
 | `owner` | `string` | No |  |
-| `smart_criterion` | `map[string]any` | No |  |
-| `song` | `[]any` | No |  |
-| `song_count` | `int` | No |  |
-| `song_id` | `string` | Yes |  |
-| `updated_at` | `string` | No |  |
+| `smartCriteria` | `map[string]any` | No |  |
+| `songCount` | `int` | No |  |
+| `songId` | `string` | Yes |  |
+| `songs` | `[]any` | No |  |
+| `updatedAt` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `id` | - | - | - | - | - |
-| `is_public` | - | - | - | - | - |
-| `is_smart` | - | - | - | - | - |
+| `isPublic` | - | - | - | - | - |
+| `isSmart` | - | - | - | - | - |
 | `name` | - | - | Yes | - | - |
 | `owner` | - | - | - | - | - |
-| `smart_criterion` | - | - | - | - | - |
-| `song` | - | - | - | - | - |
-| `song_count` | - | - | - | - | - |
-| `song_id` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `smartCriteria` | - | - | - | - | - |
+| `songCount` | - | - | - | - | - |
+| `songId` | - | - | - | - | - |
+| `songs` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 
 ### Operations
 
@@ -398,7 +398,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Playlist(nil).Create(map[string]any{
-    "song_id": "example_song_id",
+    "songId": "example_songId",
 }, nil)
 if err != nil {
     panic(err)
@@ -468,10 +468,10 @@ fmt.Println(search.GetName()) // "search"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `limit` | `int` | No |  |
-| `offset` | `int` | No |  |
-| `result` | `map[string]any` | No |  |
-| `total` | `int` | No |  |
+| `albums` | `[]any` | No |  |
+| `artists` | `[]any` | No |  |
+| `playlists` | `[]any` | No |  |
+| `songs` | `[]any` | No |  |
 
 ### Operations
 
@@ -524,12 +524,12 @@ fmt.Println(song.GetName()) // "song"
 | --- | --- | --- | --- |
 | `album` | `string` | No |  |
 | `artist` | `string` | No |  |
-| `cover_art` | `string` | No |  |
+| `coverArt` | `string` | No |  |
 | `duration` | `int` | No |  |
-| `genre` | `[]any` | No |  |
-| `has_video` | `bool` | No |  |
+| `genres` | `[]any` | No |  |
+| `hasVideo` | `bool` | No |  |
 | `id` | `string` | No |  |
-| `release_date` | `string` | No |  |
+| `releaseDate` | `string` | No |  |
 | `title` | `string` | No |  |
 
 ### Operations
@@ -582,9 +582,9 @@ fmt.Println(stream.GetName()) // "stream"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `bitrate` | `int` | No |  |
-| `expires_at` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `quality` | `string` | No |  |
-| `stream_url` | `string` | No |  |
+| `streamUrl` | `string` | No |  |
 
 ### Operations
 
@@ -636,8 +636,8 @@ fmt.Println(video.GetName()) // "video"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `duration` | `int` | No |  |
-| `thumbnail_url` | `string` | No |  |
-| `video_url` | `string` | No |  |
+| `thumbnailUrl` | `string` | No |  |
+| `videoUrl` | `string` | No |  |
 
 ### Operations
 

@@ -42,8 +42,8 @@ class TestListeningRoomEntity:
         assert len(seen) == 3
 
         # Inbound: streaming active -> yields each item from the feature.
-        from listenfree_sdk.config import make_config
-        cfg = make_config()
+        from listenfree_sdk.config import shared_config
+        cfg = shared_config()
         if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
             sdk = ListenfreeSDK.test(
                 seed, {"feature": {"streaming": {"active": True}}})

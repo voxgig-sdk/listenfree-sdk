@@ -28,7 +28,7 @@ class ListenfreeSDK
     utility = ListenfreeUtility.new
     @_utility = utility
 
-    config = ListenfreeConfig.make_config
+    config = ListenfreeConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

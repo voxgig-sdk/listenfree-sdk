@@ -15,7 +15,7 @@ require_relative "../Listenfree_sdk"
 module ListenfreeFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = ListenfreeConfig.make_config["feature"]
+    f = ListenfreeConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 

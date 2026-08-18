@@ -40,7 +40,7 @@ class ListenfreeSDK
         $utility = new ListenfreeUtility();
         $this->_utility = $utility;
 
-        $config = ListenfreeConfig::make_config();
+        $config = ListenfreeConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

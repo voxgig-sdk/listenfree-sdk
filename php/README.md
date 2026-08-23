@@ -286,12 +286,12 @@ On error, `ok` is `false` and `$err` contains the error value.
 | --- | --- |
 | `createdAt` |  |
 | `currentSong` |  |
-| `description` |  |
-| `host` |  |
-| `id` |  |
-| `isPublic` |  |
-| `maxParticipants` |  |
-| `name` |  |
+| `description` | Room description |
+| `host` | User ID of room host |
+| `id` | Unique identifier for the listening room |
+| `isPublic` | Whether room is public |
+| `maxParticipants` | Maximum number of participants |
+| `name` | Room name |
 | `participants` |  |
 | `queue` |  |
 
@@ -303,12 +303,12 @@ API path: `/listening-rooms/{roomId}/join`
 
 | Field | Description |
 | --- | --- |
-| `downloadedAt` |  |
-| `expiresAt` |  |
-| `id` |  |
-| `progress` |  |
+| `downloadedAt` | Download completion timestamp |
+| `expiresAt` | Offline availability expiration |
+| `id` | Download ID |
+| `progress` | Download progress percentage |
 | `song` |  |
-| `status` |  |
+| `status` | Download status |
 
 Operations: List.
 
@@ -318,7 +318,7 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `songId` |  |
+| `songId` | ID of the song to download |
 
 Operations: Create.
 
@@ -328,18 +328,18 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `description` |  |
-| `id` |  |
-| `isPublic` |  |
-| `isSmart` |  |
-| `name` |  |
-| `owner` |  |
-| `smartCriteria` |  |
-| `songCount` |  |
-| `songId` |  |
+| `createdAt` | Creation timestamp |
+| `description` | Playlist description |
+| `id` | Unique identifier for the playlist |
+| `isPublic` | Whether playlist is public |
+| `isSmart` | Whether playlist is a smart playlist |
+| `name` | Playlist name |
+| `owner` | User ID of playlist owner |
+| `smartCriteria` | Criteria for smart playlist generation |
+| `songCount` | Number of songs in playlist |
+| `songId` | ID of the song to add |
 | `songs` |  |
-| `updatedAt` |  |
+| `updatedAt` | Last update timestamp |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -362,15 +362,15 @@ API path: `/search`
 
 | Field | Description |
 | --- | --- |
-| `album` |  |
-| `artist` |  |
-| `coverArt` |  |
-| `duration` |  |
-| `genres` |  |
-| `hasVideo` |  |
-| `id` |  |
-| `releaseDate` |  |
-| `title` |  |
+| `album` | Album name |
+| `artist` | Artist name |
+| `coverArt` | URL to cover art image |
+| `duration` | Duration in seconds |
+| `genres` | Music genres |
+| `hasVideo` | Whether video preview is available |
+| `id` | Unique identifier for the song |
+| `releaseDate` | Release date |
+| `title` | Song title |
 
 Operations: Load.
 
@@ -380,10 +380,10 @@ API path: `/songs/{songId}`
 
 | Field | Description |
 | --- | --- |
-| `bitrate` |  |
-| `expiresAt` |  |
-| `quality` |  |
-| `streamUrl` |  |
+| `bitrate` | Audio bitrate in kbps |
+| `expiresAt` | Expiration time of the stream URL |
+| `quality` | Audio quality |
+| `streamUrl` | URL for streaming the song |
 
 Operations: Load.
 
@@ -393,9 +393,9 @@ API path: `/songs/{songId}/stream`
 
 | Field | Description |
 | --- | --- |
-| `duration` |  |
-| `thumbnailUrl` |  |
-| `videoUrl` |  |
+| `duration` | Video duration in seconds |
+| `thumbnailUrl` | Video thumbnail URL |
+| `videoUrl` | URL for video preview |
 
 Operations: Load.
 
@@ -424,12 +424,12 @@ Create an instance: `$listening_room = $client->ListeningRoom();`
 | --- | --- | --- |
 | `createdAt` | `string` |  |
 | `currentSong` | `array` |  |
-| `description` | `string` |  |
-| `host` | `string` |  |
-| `id` | `string` |  |
-| `isPublic` | `bool` |  |
-| `maxParticipants` | `int` |  |
-| `name` | `string` |  |
+| `description` | `string` | Room description |
+| `host` | `string` | User ID of room host |
+| `id` | `string` | Unique identifier for the listening room |
+| `isPublic` | `bool` | Whether room is public |
+| `maxParticipants` | `int` | Maximum number of participants |
+| `name` | `string` | Room name |
 | `participants` | `array` |  |
 | `queue` | `array` |  |
 
@@ -469,12 +469,12 @@ Create an instance: `$music = $client->Music();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloadedAt` | `string` |  |
-| `expiresAt` | `string` |  |
-| `id` | `string` |  |
-| `progress` | `int` |  |
+| `downloadedAt` | `string` | Download completion timestamp |
+| `expiresAt` | `string` | Offline availability expiration |
+| `id` | `string` | Download ID |
+| `progress` | `int` | Download progress percentage |
 | `song` | `array` |  |
-| `status` | `string` |  |
+| `status` | `string` | Download status |
 
 #### Example: List
 
@@ -498,7 +498,7 @@ Create an instance: `$offline_download = $client->OfflineDownload();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `songId` | `string` |  |
+| `songId` | `string` | ID of the song to download |
 
 #### Example: Create
 
@@ -527,18 +527,18 @@ Create an instance: `$playlist = $client->Playlist();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `string` |  |
-| `description` | `string` |  |
-| `id` | `string` |  |
-| `isPublic` | `bool` |  |
-| `isSmart` | `bool` |  |
-| `name` | `string` |  |
-| `owner` | `string` |  |
-| `smartCriteria` | `array` |  |
-| `songCount` | `int` |  |
-| `songId` | `string` |  |
+| `createdAt` | `string` | Creation timestamp |
+| `description` | `string` | Playlist description |
+| `id` | `string` | Unique identifier for the playlist |
+| `isPublic` | `bool` | Whether playlist is public |
+| `isSmart` | `bool` | Whether playlist is a smart playlist |
+| `name` | `string` | Playlist name |
+| `owner` | `string` | User ID of playlist owner |
+| `smartCriteria` | `array` | Criteria for smart playlist generation |
+| `songCount` | `int` | Number of songs in playlist |
+| `songId` | `string` | ID of the song to add |
 | `songs` | `array` |  |
-| `updatedAt` | `string` |  |
+| `updatedAt` | `string` | Last update timestamp |
 
 #### Example: Load
 
@@ -604,15 +604,15 @@ Create an instance: `$song = $client->Song();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | `string` |  |
-| `artist` | `string` |  |
-| `coverArt` | `string` |  |
-| `duration` | `int` |  |
-| `genres` | `array` |  |
-| `hasVideo` | `bool` |  |
-| `id` | `string` |  |
-| `releaseDate` | `string` |  |
-| `title` | `string` |  |
+| `album` | `string` | Album name |
+| `artist` | `string` | Artist name |
+| `coverArt` | `string` | URL to cover art image |
+| `duration` | `int` | Duration in seconds |
+| `genres` | `array` | Music genres |
+| `hasVideo` | `bool` | Whether video preview is available |
+| `id` | `string` | Unique identifier for the song |
+| `releaseDate` | `string` | Release date |
+| `title` | `string` | Song title |
 
 #### Example: Load
 
@@ -636,10 +636,10 @@ Create an instance: `$stream = $client->Stream();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bitrate` | `int` |  |
-| `expiresAt` | `string` |  |
-| `quality` | `string` |  |
-| `streamUrl` | `string` |  |
+| `bitrate` | `int` | Audio bitrate in kbps |
+| `expiresAt` | `string` | Expiration time of the stream URL |
+| `quality` | `string` | Audio quality |
+| `streamUrl` | `string` | URL for streaming the song |
 
 #### Example: Load
 
@@ -663,9 +663,9 @@ Create an instance: `$video = $client->Video();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `duration` | `int` |  |
-| `thumbnailUrl` | `string` |  |
-| `videoUrl` | `string` |  |
+| `duration` | `int` | Video duration in seconds |
+| `thumbnailUrl` | `string` | Video thumbnail URL |
+| `videoUrl` | `string` | URL for video preview |
 
 #### Example: Load
 

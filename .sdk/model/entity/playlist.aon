@@ -1,0 +1,279 @@
+# Entity: playlist
+
+main: kit: entity: playlist: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "createdAt"
+      req: false
+      short: "Creation timestamp"
+      type: "`$STRING`"
+    }
+    {
+      name: "description"
+      req: false
+      short: "Playlist description"
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      short: "Unique identifier for the playlist"
+      type: "`$STRING`"
+    }
+    {
+      name: "isPublic"
+      req: false
+      short: "Whether playlist is public"
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "isSmart"
+      req: false
+      short: "Whether playlist is a smart playlist"
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "name"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
+      req: false
+      short: "Playlist name"
+      type: "`$STRING`"
+    }
+    {
+      name: "owner"
+      req: false
+      short: "User ID of playlist owner"
+      type: "`$STRING`"
+    }
+    {
+      name: "smartCriteria"
+      req: false
+      short: "Criteria for smart playlist generation"
+      type: "`$OBJECT`"
+    }
+    {
+      name: "songCount"
+      req: false
+      short: "Number of songs in playlist"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "songId"
+      req: true
+      short: "ID of the song to add"
+      type: "`$STRING`"
+    }
+    {
+      name: "songs"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "updatedAt"
+      req: false
+      short: "Last update timestamp"
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "playlist"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "playlist_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/playlists/{playlistId}/songs"
+          parts: [
+            "playlists"
+            "{id}"
+            "songs"
+          ]
+          rename: {
+            param: {
+              playlistId: "id"
+            }
+          }
+          select: {
+            "$action": "song"
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "POST"
+          orig: "/playlists"
+          parts: [
+            "playlists"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/playlists"
+          parts: [
+            "playlists"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body.playlists`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "playlist_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/playlists/{playlistId}"
+          parts: [
+            "playlists"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              playlistId: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "playlist_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/playlists/{playlistId}"
+          parts: [
+            "playlists"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              playlistId: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "playlist_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "PUT"
+          orig: "/playlists/{playlistId}"
+          parts: [
+            "playlists"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              playlistId: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

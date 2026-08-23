@@ -48,30 +48,35 @@
               "active": true,
               "name": "description",
               "req": false,
+              "short": "Room description",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "host",
               "req": false,
+              "short": "User ID of room host",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the listening room",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "isPublic",
               "req": false,
+              "short": "Whether room is public",
               "type": "`$BOOLEAN`"
             },
             {
               "active": true,
               "name": "maxParticipants",
               "req": false,
+              "short": "Maximum number of participants",
               "type": "`$INTEGER`"
             },
             {
@@ -84,6 +89,7 @@
                 }
               },
               "req": false,
+              "short": "Room name",
               "type": "`$STRING`"
             },
             {
@@ -258,24 +264,28 @@
               "active": true,
               "name": "downloadedAt",
               "req": false,
+              "short": "Download completion timestamp",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "expiresAt",
               "req": false,
+              "short": "Offline availability expiration",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Download ID",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "progress",
               "req": false,
+              "short": "Download progress percentage",
               "type": "`$INTEGER`"
             },
             {
@@ -288,6 +298,7 @@
               "active": true,
               "name": "status",
               "req": false,
+              "short": "Download status",
               "type": "`$STRING`"
             }
           ],
@@ -334,6 +345,7 @@
               "active": true,
               "name": "songId",
               "req": true,
+              "short": "ID of the song to download",
               "type": "`$STRING`"
             }
           ],
@@ -376,30 +388,35 @@
               "active": true,
               "name": "createdAt",
               "req": false,
+              "short": "Creation timestamp",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "description",
               "req": false,
+              "short": "Playlist description",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the playlist",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "isPublic",
               "req": false,
+              "short": "Whether playlist is public",
               "type": "`$BOOLEAN`"
             },
             {
               "active": true,
               "name": "isSmart",
               "req": false,
+              "short": "Whether playlist is a smart playlist",
               "type": "`$BOOLEAN`"
             },
             {
@@ -412,30 +429,35 @@
                 }
               },
               "req": false,
+              "short": "Playlist name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "owner",
               "req": false,
+              "short": "User ID of playlist owner",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "smartCriteria",
               "req": false,
+              "short": "Criteria for smart playlist generation",
               "type": "`$OBJECT`"
             },
             {
               "active": true,
               "name": "songCount",
               "req": false,
+              "short": "Number of songs in playlist",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "songId",
               "req": true,
+              "short": "ID of the song to add",
               "type": "`$STRING`"
             },
             {
@@ -448,6 +470,7 @@
               "active": true,
               "name": "updatedAt",
               "req": false,
+              "short": "Last update timestamp",
               "type": "`$STRING`"
             }
           ],
@@ -783,54 +806,63 @@
               "active": true,
               "name": "album",
               "req": false,
+              "short": "Album name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "artist",
               "req": false,
+              "short": "Artist name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "coverArt",
               "req": false,
+              "short": "URL to cover art image",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "duration",
               "req": false,
+              "short": "Duration in seconds",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "genres",
               "req": false,
+              "short": "Music genres",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "hasVideo",
               "req": false,
+              "short": "Whether video preview is available",
               "type": "`$BOOLEAN`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the song",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "releaseDate",
               "req": false,
+              "short": "Release date",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "title",
               "req": false,
+              "short": "Song title",
               "type": "`$STRING`"
             }
           ],
@@ -897,24 +929,28 @@
               "active": true,
               "name": "bitrate",
               "req": false,
+              "short": "Audio bitrate in kbps",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "expiresAt",
               "req": false,
+              "short": "Expiration time of the stream URL",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "quality",
               "req": false,
+              "short": "Audio quality",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "streamUrl",
               "req": false,
+              "short": "URL for streaming the song",
               "type": "`$STRING`"
             }
           ],
@@ -994,18 +1030,21 @@
               "active": true,
               "name": "duration",
               "req": false,
+              "short": "Video duration in seconds",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "thumbnailUrl",
               "req": false,
+              "short": "Video thumbnail URL",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "videoUrl",
               "req": false,
+              "short": "URL for video preview",
               "type": "`$STRING`"
             }
           ],

@@ -1,0 +1,81 @@
+# Entity: video
+
+main: kit: entity: video: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "duration"
+      req: false
+      short: "Video duration in seconds"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "thumbnailUrl"
+      req: false
+      short: "Video thumbnail URL"
+      type: "`$STRING`"
+    }
+    {
+      name: "videoUrl"
+      req: false
+      short: "URL for video preview"
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "video"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "song_id"
+                orig: "song_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/songs/{songId}/video"
+          parts: [
+            "songs"
+            "{song_id}"
+            "video"
+          ]
+          rename: {
+            param: {
+              songId: "song_id"
+            }
+          }
+          select: {
+            exist: [
+              "song_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "song"
+      ]
+    ]
+  }
+
+
+
+}

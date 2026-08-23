@@ -124,12 +124,12 @@ listening_room = client.ListeningRoom
 | --- | --- | --- | --- |
 | `createdAt` | `String` | No |  |
 | `currentSong` | `Hash` | No |  |
-| `description` | `String` | No |  |
-| `host` | `String` | No |  |
-| `id` | `String` | No |  |
-| `isPublic` | `Boolean` | No |  |
-| `maxParticipants` | `Integer` | No |  |
-| `name` | `String` | No |  |
+| `description` | `String` | No | Room description |
+| `host` | `String` | No | User ID of room host |
+| `id` | `String` | No | Unique identifier for the listening room |
+| `isPublic` | `Boolean` | No | Whether room is public |
+| `maxParticipants` | `Integer` | No | Maximum number of participants |
+| `name` | `String` | No | Room name |
 | `participants` | `Array` | No |  |
 | `queue` | `Array` | No |  |
 
@@ -215,12 +215,12 @@ music = client.Music
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloadedAt` | `String` | No |  |
-| `expiresAt` | `String` | No |  |
-| `id` | `String` | No |  |
-| `progress` | `Integer` | No |  |
+| `downloadedAt` | `String` | No | Download completion timestamp |
+| `expiresAt` | `String` | No | Offline availability expiration |
+| `id` | `String` | No | Download ID |
+| `progress` | `Integer` | No | Download progress percentage |
 | `song` | `Hash` | No |  |
-| `status` | `String` | No |  |
+| `status` | `String` | No | Download status |
 
 ### Operations
 
@@ -272,7 +272,7 @@ offline_download = client.OfflineDownload
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `songId` | `String` | Yes |  |
+| `songId` | `String` | Yes | ID of the song to download |
 
 ### Operations
 
@@ -326,18 +326,18 @@ playlist = client.Playlist
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `String` | No |  |
-| `description` | `String` | No |  |
-| `id` | `String` | No |  |
-| `isPublic` | `Boolean` | No |  |
-| `isSmart` | `Boolean` | No |  |
-| `name` | `String` | No |  |
-| `owner` | `String` | No |  |
-| `smartCriteria` | `Hash` | No |  |
-| `songCount` | `Integer` | No |  |
-| `songId` | `String` | Yes |  |
+| `createdAt` | `String` | No | Creation timestamp |
+| `description` | `String` | No | Playlist description |
+| `id` | `String` | No | Unique identifier for the playlist |
+| `isPublic` | `Boolean` | No | Whether playlist is public |
+| `isSmart` | `Boolean` | No | Whether playlist is a smart playlist |
+| `name` | `String` | No | Playlist name |
+| `owner` | `String` | No | User ID of playlist owner |
+| `smartCriteria` | `Hash` | No | Criteria for smart playlist generation |
+| `songCount` | `Integer` | No | Number of songs in playlist |
+| `songId` | `String` | Yes | ID of the song to add |
 | `songs` | `Array` | No |  |
-| `updatedAt` | `String` | No |  |
+| `updatedAt` | `String` | No | Last update timestamp |
 
 ### Field Usage by Operation
 
@@ -498,15 +498,15 @@ song = client.Song
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | `String` | No |  |
-| `artist` | `String` | No |  |
-| `coverArt` | `String` | No |  |
-| `duration` | `Integer` | No |  |
-| `genres` | `Array` | No |  |
-| `hasVideo` | `Boolean` | No |  |
-| `id` | `String` | No |  |
-| `releaseDate` | `String` | No |  |
-| `title` | `String` | No |  |
+| `album` | `String` | No | Album name |
+| `artist` | `String` | No | Artist name |
+| `coverArt` | `String` | No | URL to cover art image |
+| `duration` | `Integer` | No | Duration in seconds |
+| `genres` | `Array` | No | Music genres |
+| `hasVideo` | `Boolean` | No | Whether video preview is available |
+| `id` | `String` | No | Unique identifier for the song |
+| `releaseDate` | `String` | No | Release date |
+| `title` | `String` | No | Song title |
 
 ### Operations
 
@@ -558,10 +558,10 @@ stream = client.Stream
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bitrate` | `Integer` | No |  |
-| `expiresAt` | `String` | No |  |
-| `quality` | `String` | No |  |
-| `streamUrl` | `String` | No |  |
+| `bitrate` | `Integer` | No | Audio bitrate in kbps |
+| `expiresAt` | `String` | No | Expiration time of the stream URL |
+| `quality` | `String` | No | Audio quality |
+| `streamUrl` | `String` | No | URL for streaming the song |
 
 ### Operations
 
@@ -613,9 +613,9 @@ video = client.Video
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `duration` | `Integer` | No |  |
-| `thumbnailUrl` | `String` | No |  |
-| `videoUrl` | `String` | No |  |
+| `duration` | `Integer` | No | Video duration in seconds |
+| `thumbnailUrl` | `String` | No | Video thumbnail URL |
+| `videoUrl` | `String` | No | URL for video preview |
 
 ### Operations
 

@@ -118,12 +118,12 @@ listening_room = client.ListeningRoom()
 | --- | --- | --- | --- |
 | `createdAt` | `str` | No |  |
 | `currentSong` | `dict` | No |  |
-| `description` | `str` | No |  |
-| `host` | `str` | No |  |
-| `id` | `str` | No |  |
-| `isPublic` | `bool` | No |  |
-| `maxParticipants` | `int` | No |  |
-| `name` | `str` | No |  |
+| `description` | `str` | No | Room description |
+| `host` | `str` | No | User ID of room host |
+| `id` | `str` | No | Unique identifier for the listening room |
+| `isPublic` | `bool` | No | Whether room is public |
+| `maxParticipants` | `int` | No | Maximum number of participants |
+| `name` | `str` | No | Room name |
 | `participants` | `list` | No |  |
 | `queue` | `list` | No |  |
 
@@ -210,12 +210,12 @@ music = client.Music()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloadedAt` | `str` | No |  |
-| `expiresAt` | `str` | No |  |
-| `id` | `str` | No |  |
-| `progress` | `int` | No |  |
+| `downloadedAt` | `str` | No | Download completion timestamp |
+| `expiresAt` | `str` | No | Offline availability expiration |
+| `id` | `str` | No | Download ID |
+| `progress` | `int` | No | Download progress percentage |
 | `song` | `dict` | No |  |
-| `status` | `str` | No |  |
+| `status` | `str` | No | Download status |
 
 ### Operations
 
@@ -268,7 +268,7 @@ offline_download = client.OfflineDownload()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `songId` | `str` | Yes |  |
+| `songId` | `str` | Yes | ID of the song to download |
 
 ### Operations
 
@@ -321,18 +321,18 @@ playlist = client.Playlist()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `str` | No |  |
-| `description` | `str` | No |  |
-| `id` | `str` | No |  |
-| `isPublic` | `bool` | No |  |
-| `isSmart` | `bool` | No |  |
-| `name` | `str` | No |  |
-| `owner` | `str` | No |  |
-| `smartCriteria` | `dict` | No |  |
-| `songCount` | `int` | No |  |
-| `songId` | `str` | Yes |  |
+| `createdAt` | `str` | No | Creation timestamp |
+| `description` | `str` | No | Playlist description |
+| `id` | `str` | No | Unique identifier for the playlist |
+| `isPublic` | `bool` | No | Whether playlist is public |
+| `isSmart` | `bool` | No | Whether playlist is a smart playlist |
+| `name` | `str` | No | Playlist name |
+| `owner` | `str` | No | User ID of playlist owner |
+| `smartCriteria` | `dict` | No | Criteria for smart playlist generation |
+| `songCount` | `int` | No | Number of songs in playlist |
+| `songId` | `str` | Yes | ID of the song to add |
 | `songs` | `list` | No |  |
-| `updatedAt` | `str` | No |  |
+| `updatedAt` | `str` | No | Last update timestamp |
 
 ### Field Usage by Operation
 
@@ -493,15 +493,15 @@ song = client.Song()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | `str` | No |  |
-| `artist` | `str` | No |  |
-| `coverArt` | `str` | No |  |
-| `duration` | `int` | No |  |
-| `genres` | `list` | No |  |
-| `hasVideo` | `bool` | No |  |
-| `id` | `str` | No |  |
-| `releaseDate` | `str` | No |  |
-| `title` | `str` | No |  |
+| `album` | `str` | No | Album name |
+| `artist` | `str` | No | Artist name |
+| `coverArt` | `str` | No | URL to cover art image |
+| `duration` | `int` | No | Duration in seconds |
+| `genres` | `list` | No | Music genres |
+| `hasVideo` | `bool` | No | Whether video preview is available |
+| `id` | `str` | No | Unique identifier for the song |
+| `releaseDate` | `str` | No | Release date |
+| `title` | `str` | No | Song title |
 
 ### Operations
 
@@ -552,10 +552,10 @@ stream = client.Stream()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bitrate` | `int` | No |  |
-| `expiresAt` | `str` | No |  |
-| `quality` | `str` | No |  |
-| `streamUrl` | `str` | No |  |
+| `bitrate` | `int` | No | Audio bitrate in kbps |
+| `expiresAt` | `str` | No | Expiration time of the stream URL |
+| `quality` | `str` | No | Audio quality |
+| `streamUrl` | `str` | No | URL for streaming the song |
 
 ### Operations
 
@@ -606,9 +606,9 @@ video = client.Video()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `duration` | `int` | No |  |
-| `thumbnailUrl` | `str` | No |  |
-| `videoUrl` | `str` | No |  |
+| `duration` | `int` | No | Video duration in seconds |
+| `thumbnailUrl` | `str` | No | Video thumbnail URL |
+| `videoUrl` | `str` | No | URL for video preview |
 
 ### Operations
 

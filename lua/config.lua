@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "Listenfree",
+      slug = "listenfree",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {
@@ -47,22 +50,27 @@ local function make_config()
           },
           {
             ["name"] = "description",
+            ["short"] = "Room description",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "host",
+            ["short"] = "User ID of room host",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "id",
+            ["short"] = "Unique identifier for the listening room",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "isPublic",
+            ["short"] = "Whether room is public",
             ["type"] = "`$BOOLEAN`",
           },
           {
             ["name"] = "maxParticipants",
+            ["short"] = "Maximum number of participants",
             ["type"] = "`$INTEGER`",
           },
           {
@@ -73,6 +81,7 @@ local function make_config()
                 ["type"] = "`$STRING`",
               },
             },
+            ["short"] = "Room name",
             ["type"] = "`$STRING`",
           },
           {
@@ -225,18 +234,22 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "downloadedAt",
+            ["short"] = "Download completion timestamp",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "expiresAt",
+            ["short"] = "Offline availability expiration",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "id",
+            ["short"] = "Download ID",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "progress",
+            ["short"] = "Download progress percentage",
             ["type"] = "`$INTEGER`",
           },
           {
@@ -245,6 +258,7 @@ local function make_config()
           },
           {
             ["name"] = "status",
+            ["short"] = "Download status",
             ["type"] = "`$STRING`",
           },
         },
@@ -281,6 +295,7 @@ local function make_config()
           {
             ["name"] = "songId",
             ["req"] = true,
+            ["short"] = "ID of the song to download",
             ["type"] = "`$STRING`",
           },
         },
@@ -316,22 +331,27 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "createdAt",
+            ["short"] = "Creation timestamp",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "description",
+            ["short"] = "Playlist description",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "id",
+            ["short"] = "Unique identifier for the playlist",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "isPublic",
+            ["short"] = "Whether playlist is public",
             ["type"] = "`$BOOLEAN`",
           },
           {
             ["name"] = "isSmart",
+            ["short"] = "Whether playlist is a smart playlist",
             ["type"] = "`$BOOLEAN`",
           },
           {
@@ -342,23 +362,28 @@ local function make_config()
                 ["type"] = "`$STRING`",
               },
             },
+            ["short"] = "Playlist name",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "owner",
+            ["short"] = "User ID of playlist owner",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "smartCriteria",
+            ["short"] = "Criteria for smart playlist generation",
             ["type"] = "`$OBJECT`",
           },
           {
             ["name"] = "songCount",
+            ["short"] = "Number of songs in playlist",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "songId",
             ["req"] = true,
+            ["short"] = "ID of the song to add",
             ["type"] = "`$STRING`",
           },
           {
@@ -367,6 +392,7 @@ local function make_config()
           },
           {
             ["name"] = "updatedAt",
+            ["short"] = "Last update timestamp",
             ["type"] = "`$STRING`",
           },
         },
@@ -662,38 +688,47 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "album",
+            ["short"] = "Album name",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "artist",
+            ["short"] = "Artist name",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "coverArt",
+            ["short"] = "URL to cover art image",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "duration",
+            ["short"] = "Duration in seconds",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "genres",
+            ["short"] = "Music genres",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "hasVideo",
+            ["short"] = "Whether video preview is available",
             ["type"] = "`$BOOLEAN`",
           },
           {
             ["name"] = "id",
+            ["short"] = "Unique identifier for the song",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "releaseDate",
+            ["short"] = "Release date",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "title",
+            ["short"] = "Song title",
             ["type"] = "`$STRING`",
           },
         },
@@ -748,18 +783,22 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "bitrate",
+            ["short"] = "Audio bitrate in kbps",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "expiresAt",
+            ["short"] = "Expiration time of the stream URL",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "quality",
+            ["short"] = "Audio quality",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "streamUrl",
+            ["short"] = "URL for streaming the song",
             ["type"] = "`$STRING`",
           },
         },
@@ -829,14 +868,17 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "duration",
+            ["short"] = "Video duration in seconds",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "thumbnailUrl",
+            ["short"] = "Video thumbnail URL",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "videoUrl",
+            ["short"] = "URL for video preview",
             ["type"] = "`$STRING`",
           },
         },

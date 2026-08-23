@@ -276,12 +276,12 @@ returns a result `Hash` with these keys:
 | --- | --- |
 | `createdAt` |  |
 | `currentSong` |  |
-| `description` |  |
-| `host` |  |
-| `id` |  |
-| `isPublic` |  |
-| `maxParticipants` |  |
-| `name` |  |
+| `description` | Room description |
+| `host` | User ID of room host |
+| `id` | Unique identifier for the listening room |
+| `isPublic` | Whether room is public |
+| `maxParticipants` | Maximum number of participants |
+| `name` | Room name |
 | `participants` |  |
 | `queue` |  |
 
@@ -293,12 +293,12 @@ API path: `/listening-rooms/{roomId}/join`
 
 | Field | Description |
 | --- | --- |
-| `downloadedAt` |  |
-| `expiresAt` |  |
-| `id` |  |
-| `progress` |  |
+| `downloadedAt` | Download completion timestamp |
+| `expiresAt` | Offline availability expiration |
+| `id` | Download ID |
+| `progress` | Download progress percentage |
 | `song` |  |
-| `status` |  |
+| `status` | Download status |
 
 Operations: List.
 
@@ -308,7 +308,7 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `songId` |  |
+| `songId` | ID of the song to download |
 
 Operations: Create.
 
@@ -318,18 +318,18 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `description` |  |
-| `id` |  |
-| `isPublic` |  |
-| `isSmart` |  |
-| `name` |  |
-| `owner` |  |
-| `smartCriteria` |  |
-| `songCount` |  |
-| `songId` |  |
+| `createdAt` | Creation timestamp |
+| `description` | Playlist description |
+| `id` | Unique identifier for the playlist |
+| `isPublic` | Whether playlist is public |
+| `isSmart` | Whether playlist is a smart playlist |
+| `name` | Playlist name |
+| `owner` | User ID of playlist owner |
+| `smartCriteria` | Criteria for smart playlist generation |
+| `songCount` | Number of songs in playlist |
+| `songId` | ID of the song to add |
 | `songs` |  |
-| `updatedAt` |  |
+| `updatedAt` | Last update timestamp |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -352,15 +352,15 @@ API path: `/search`
 
 | Field | Description |
 | --- | --- |
-| `album` |  |
-| `artist` |  |
-| `coverArt` |  |
-| `duration` |  |
-| `genres` |  |
-| `hasVideo` |  |
-| `id` |  |
-| `releaseDate` |  |
-| `title` |  |
+| `album` | Album name |
+| `artist` | Artist name |
+| `coverArt` | URL to cover art image |
+| `duration` | Duration in seconds |
+| `genres` | Music genres |
+| `hasVideo` | Whether video preview is available |
+| `id` | Unique identifier for the song |
+| `releaseDate` | Release date |
+| `title` | Song title |
 
 Operations: Load.
 
@@ -370,10 +370,10 @@ API path: `/songs/{songId}`
 
 | Field | Description |
 | --- | --- |
-| `bitrate` |  |
-| `expiresAt` |  |
-| `quality` |  |
-| `streamUrl` |  |
+| `bitrate` | Audio bitrate in kbps |
+| `expiresAt` | Expiration time of the stream URL |
+| `quality` | Audio quality |
+| `streamUrl` | URL for streaming the song |
 
 Operations: Load.
 
@@ -383,9 +383,9 @@ API path: `/songs/{songId}/stream`
 
 | Field | Description |
 | --- | --- |
-| `duration` |  |
-| `thumbnailUrl` |  |
-| `videoUrl` |  |
+| `duration` | Video duration in seconds |
+| `thumbnailUrl` | Video thumbnail URL |
+| `videoUrl` | URL for video preview |
 
 Operations: Load.
 
@@ -414,12 +414,12 @@ Create an instance: `listening_room = client.ListeningRoom`
 | --- | --- | --- |
 | `createdAt` | `String` |  |
 | `currentSong` | `Hash` |  |
-| `description` | `String` |  |
-| `host` | `String` |  |
-| `id` | `String` |  |
-| `isPublic` | `Boolean` |  |
-| `maxParticipants` | `Integer` |  |
-| `name` | `String` |  |
+| `description` | `String` | Room description |
+| `host` | `String` | User ID of room host |
+| `id` | `String` | Unique identifier for the listening room |
+| `isPublic` | `Boolean` | Whether room is public |
+| `maxParticipants` | `Integer` | Maximum number of participants |
+| `name` | `String` | Room name |
 | `participants` | `Array` |  |
 | `queue` | `Array` |  |
 
@@ -459,12 +459,12 @@ Create an instance: `music = client.Music`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloadedAt` | `String` |  |
-| `expiresAt` | `String` |  |
-| `id` | `String` |  |
-| `progress` | `Integer` |  |
+| `downloadedAt` | `String` | Download completion timestamp |
+| `expiresAt` | `String` | Offline availability expiration |
+| `id` | `String` | Download ID |
+| `progress` | `Integer` | Download progress percentage |
 | `song` | `Hash` |  |
-| `status` | `String` |  |
+| `status` | `String` | Download status |
 
 #### Example: List
 
@@ -488,7 +488,7 @@ Create an instance: `offline_download = client.OfflineDownload`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `songId` | `String` |  |
+| `songId` | `String` | ID of the song to download |
 
 #### Example: Create
 
@@ -517,18 +517,18 @@ Create an instance: `playlist = client.Playlist`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `String` |  |
-| `description` | `String` |  |
-| `id` | `String` |  |
-| `isPublic` | `Boolean` |  |
-| `isSmart` | `Boolean` |  |
-| `name` | `String` |  |
-| `owner` | `String` |  |
-| `smartCriteria` | `Hash` |  |
-| `songCount` | `Integer` |  |
-| `songId` | `String` |  |
+| `createdAt` | `String` | Creation timestamp |
+| `description` | `String` | Playlist description |
+| `id` | `String` | Unique identifier for the playlist |
+| `isPublic` | `Boolean` | Whether playlist is public |
+| `isSmart` | `Boolean` | Whether playlist is a smart playlist |
+| `name` | `String` | Playlist name |
+| `owner` | `String` | User ID of playlist owner |
+| `smartCriteria` | `Hash` | Criteria for smart playlist generation |
+| `songCount` | `Integer` | Number of songs in playlist |
+| `songId` | `String` | ID of the song to add |
 | `songs` | `Array` |  |
-| `updatedAt` | `String` |  |
+| `updatedAt` | `String` | Last update timestamp |
 
 #### Example: Load
 
@@ -594,15 +594,15 @@ Create an instance: `song = client.Song`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | `String` |  |
-| `artist` | `String` |  |
-| `coverArt` | `String` |  |
-| `duration` | `Integer` |  |
-| `genres` | `Array` |  |
-| `hasVideo` | `Boolean` |  |
-| `id` | `String` |  |
-| `releaseDate` | `String` |  |
-| `title` | `String` |  |
+| `album` | `String` | Album name |
+| `artist` | `String` | Artist name |
+| `coverArt` | `String` | URL to cover art image |
+| `duration` | `Integer` | Duration in seconds |
+| `genres` | `Array` | Music genres |
+| `hasVideo` | `Boolean` | Whether video preview is available |
+| `id` | `String` | Unique identifier for the song |
+| `releaseDate` | `String` | Release date |
+| `title` | `String` | Song title |
 
 #### Example: Load
 
@@ -626,10 +626,10 @@ Create an instance: `stream = client.Stream`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bitrate` | `Integer` |  |
-| `expiresAt` | `String` |  |
-| `quality` | `String` |  |
-| `streamUrl` | `String` |  |
+| `bitrate` | `Integer` | Audio bitrate in kbps |
+| `expiresAt` | `String` | Expiration time of the stream URL |
+| `quality` | `String` | Audio quality |
+| `streamUrl` | `String` | URL for streaming the song |
 
 #### Example: Load
 
@@ -653,9 +653,9 @@ Create an instance: `video = client.Video`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `duration` | `Integer` |  |
-| `thumbnailUrl` | `String` |  |
-| `videoUrl` | `String` |  |
+| `duration` | `Integer` | Video duration in seconds |
+| `thumbnailUrl` | `String` | Video thumbnail URL |
+| `videoUrl` | `String` | URL for video preview |
 
 #### Example: Load
 

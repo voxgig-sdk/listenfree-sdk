@@ -121,12 +121,12 @@ local listening_room = client:ListeningRoom(nil)
 | --- | --- | --- | --- |
 | `createdAt` | `string` | No |  |
 | `currentSong` | `table` | No |  |
-| `description` | `string` | No |  |
-| `host` | `string` | No |  |
-| `id` | `string` | No |  |
-| `isPublic` | `boolean` | No |  |
-| `maxParticipants` | `number` | No |  |
-| `name` | `string` | No |  |
+| `description` | `string` | No | Room description |
+| `host` | `string` | No | User ID of room host |
+| `id` | `string` | No | Unique identifier for the listening room |
+| `isPublic` | `boolean` | No | Whether room is public |
+| `maxParticipants` | `number` | No | Maximum number of participants |
+| `name` | `string` | No | Room name |
 | `participants` | `table` | No |  |
 | `queue` | `table` | No |  |
 
@@ -212,12 +212,12 @@ local music = client:Music(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloadedAt` | `string` | No |  |
-| `expiresAt` | `string` | No |  |
-| `id` | `string` | No |  |
-| `progress` | `number` | No |  |
+| `downloadedAt` | `string` | No | Download completion timestamp |
+| `expiresAt` | `string` | No | Offline availability expiration |
+| `id` | `string` | No | Download ID |
+| `progress` | `number` | No | Download progress percentage |
 | `song` | `table` | No |  |
-| `status` | `string` | No |  |
+| `status` | `string` | No | Download status |
 
 ### Operations
 
@@ -269,7 +269,7 @@ local offline_download = client:OfflineDownload(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `songId` | `string` | Yes |  |
+| `songId` | `string` | Yes | ID of the song to download |
 
 ### Operations
 
@@ -323,18 +323,18 @@ local playlist = client:Playlist(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `string` | No |  |
-| `description` | `string` | No |  |
-| `id` | `string` | No |  |
-| `isPublic` | `boolean` | No |  |
-| `isSmart` | `boolean` | No |  |
-| `name` | `string` | No |  |
-| `owner` | `string` | No |  |
-| `smartCriteria` | `table` | No |  |
-| `songCount` | `number` | No |  |
-| `songId` | `string` | Yes |  |
+| `createdAt` | `string` | No | Creation timestamp |
+| `description` | `string` | No | Playlist description |
+| `id` | `string` | No | Unique identifier for the playlist |
+| `isPublic` | `boolean` | No | Whether playlist is public |
+| `isSmart` | `boolean` | No | Whether playlist is a smart playlist |
+| `name` | `string` | No | Playlist name |
+| `owner` | `string` | No | User ID of playlist owner |
+| `smartCriteria` | `table` | No | Criteria for smart playlist generation |
+| `songCount` | `number` | No | Number of songs in playlist |
+| `songId` | `string` | Yes | ID of the song to add |
 | `songs` | `table` | No |  |
-| `updatedAt` | `string` | No |  |
+| `updatedAt` | `string` | No | Last update timestamp |
 
 ### Field Usage by Operation
 
@@ -495,15 +495,15 @@ local song = client:Song(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | `string` | No |  |
-| `artist` | `string` | No |  |
-| `coverArt` | `string` | No |  |
-| `duration` | `number` | No |  |
-| `genres` | `table` | No |  |
-| `hasVideo` | `boolean` | No |  |
-| `id` | `string` | No |  |
-| `releaseDate` | `string` | No |  |
-| `title` | `string` | No |  |
+| `album` | `string` | No | Album name |
+| `artist` | `string` | No | Artist name |
+| `coverArt` | `string` | No | URL to cover art image |
+| `duration` | `number` | No | Duration in seconds |
+| `genres` | `table` | No | Music genres |
+| `hasVideo` | `boolean` | No | Whether video preview is available |
+| `id` | `string` | No | Unique identifier for the song |
+| `releaseDate` | `string` | No | Release date |
+| `title` | `string` | No | Song title |
 
 ### Operations
 
@@ -555,10 +555,10 @@ local stream = client:Stream(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bitrate` | `number` | No |  |
-| `expiresAt` | `string` | No |  |
-| `quality` | `string` | No |  |
-| `streamUrl` | `string` | No |  |
+| `bitrate` | `number` | No | Audio bitrate in kbps |
+| `expiresAt` | `string` | No | Expiration time of the stream URL |
+| `quality` | `string` | No | Audio quality |
+| `streamUrl` | `string` | No | URL for streaming the song |
 
 ### Operations
 
@@ -610,9 +610,9 @@ local video = client:Video(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `duration` | `number` | No |  |
-| `thumbnailUrl` | `string` | No |  |
-| `videoUrl` | `string` | No |  |
+| `duration` | `number` | No | Video duration in seconds |
+| `thumbnailUrl` | `string` | No | Video thumbnail URL |
+| `videoUrl` | `string` | No | URL for video preview |
 
 ### Operations
 

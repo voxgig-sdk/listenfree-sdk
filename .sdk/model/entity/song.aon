@@ -1,0 +1,113 @@
+# Entity: song
+
+main: kit: entity: song: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "album"
+      req: false
+      short: "Album name"
+      type: "`$STRING`"
+    }
+    {
+      name: "artist"
+      req: false
+      short: "Artist name"
+      type: "`$STRING`"
+    }
+    {
+      name: "coverArt"
+      req: false
+      short: "URL to cover art image"
+      type: "`$STRING`"
+    }
+    {
+      name: "duration"
+      req: false
+      short: "Duration in seconds"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "genres"
+      req: false
+      short: "Music genres"
+      type: "`$ARRAY`"
+    }
+    {
+      name: "hasVideo"
+      req: false
+      short: "Whether video preview is available"
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "id"
+      req: false
+      short: "Unique identifier for the song"
+      type: "`$STRING`"
+    }
+    {
+      name: "releaseDate"
+      req: false
+      short: "Release date"
+      type: "`$STRING`"
+    }
+    {
+      name: "title"
+      req: false
+      short: "Song title"
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "song"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "song_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/songs/{songId}"
+          parts: [
+            "songs"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              songId: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -123,12 +123,12 @@ $listening_room = $client->ListeningRoom();
 | --- | --- | --- | --- |
 | `createdAt` | `string` | No |  |
 | `currentSong` | `array` | No |  |
-| `description` | `string` | No |  |
-| `host` | `string` | No |  |
-| `id` | `string` | No |  |
-| `isPublic` | `bool` | No |  |
-| `maxParticipants` | `int` | No |  |
-| `name` | `string` | No |  |
+| `description` | `string` | No | Room description |
+| `host` | `string` | No | User ID of room host |
+| `id` | `string` | No | Unique identifier for the listening room |
+| `isPublic` | `bool` | No | Whether room is public |
+| `maxParticipants` | `int` | No | Maximum number of participants |
+| `name` | `string` | No | Room name |
 | `participants` | `array` | No |  |
 | `queue` | `array` | No |  |
 
@@ -214,12 +214,12 @@ $music = $client->Music();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `downloadedAt` | `string` | No |  |
-| `expiresAt` | `string` | No |  |
-| `id` | `string` | No |  |
-| `progress` | `int` | No |  |
+| `downloadedAt` | `string` | No | Download completion timestamp |
+| `expiresAt` | `string` | No | Offline availability expiration |
+| `id` | `string` | No | Download ID |
+| `progress` | `int` | No | Download progress percentage |
 | `song` | `array` | No |  |
-| `status` | `string` | No |  |
+| `status` | `string` | No | Download status |
 
 ### Operations
 
@@ -271,7 +271,7 @@ $offline_download = $client->OfflineDownload();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `songId` | `string` | Yes |  |
+| `songId` | `string` | Yes | ID of the song to download |
 
 ### Operations
 
@@ -325,18 +325,18 @@ $playlist = $client->Playlist();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `string` | No |  |
-| `description` | `string` | No |  |
-| `id` | `string` | No |  |
-| `isPublic` | `bool` | No |  |
-| `isSmart` | `bool` | No |  |
-| `name` | `string` | No |  |
-| `owner` | `string` | No |  |
-| `smartCriteria` | `array` | No |  |
-| `songCount` | `int` | No |  |
-| `songId` | `string` | Yes |  |
+| `createdAt` | `string` | No | Creation timestamp |
+| `description` | `string` | No | Playlist description |
+| `id` | `string` | No | Unique identifier for the playlist |
+| `isPublic` | `bool` | No | Whether playlist is public |
+| `isSmart` | `bool` | No | Whether playlist is a smart playlist |
+| `name` | `string` | No | Playlist name |
+| `owner` | `string` | No | User ID of playlist owner |
+| `smartCriteria` | `array` | No | Criteria for smart playlist generation |
+| `songCount` | `int` | No | Number of songs in playlist |
+| `songId` | `string` | Yes | ID of the song to add |
 | `songs` | `array` | No |  |
-| `updatedAt` | `string` | No |  |
+| `updatedAt` | `string` | No | Last update timestamp |
 
 ### Field Usage by Operation
 
@@ -497,15 +497,15 @@ $song = $client->Song();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | `string` | No |  |
-| `artist` | `string` | No |  |
-| `coverArt` | `string` | No |  |
-| `duration` | `int` | No |  |
-| `genres` | `array` | No |  |
-| `hasVideo` | `bool` | No |  |
-| `id` | `string` | No |  |
-| `releaseDate` | `string` | No |  |
-| `title` | `string` | No |  |
+| `album` | `string` | No | Album name |
+| `artist` | `string` | No | Artist name |
+| `coverArt` | `string` | No | URL to cover art image |
+| `duration` | `int` | No | Duration in seconds |
+| `genres` | `array` | No | Music genres |
+| `hasVideo` | `bool` | No | Whether video preview is available |
+| `id` | `string` | No | Unique identifier for the song |
+| `releaseDate` | `string` | No | Release date |
+| `title` | `string` | No | Song title |
 
 ### Operations
 
@@ -557,10 +557,10 @@ $stream = $client->Stream();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `bitrate` | `int` | No |  |
-| `expiresAt` | `string` | No |  |
-| `quality` | `string` | No |  |
-| `streamUrl` | `string` | No |  |
+| `bitrate` | `int` | No | Audio bitrate in kbps |
+| `expiresAt` | `string` | No | Expiration time of the stream URL |
+| `quality` | `string` | No | Audio quality |
+| `streamUrl` | `string` | No | URL for streaming the song |
 
 ### Operations
 
@@ -612,9 +612,9 @@ $video = $client->Video();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `duration` | `int` | No |  |
-| `thumbnailUrl` | `string` | No |  |
-| `videoUrl` | `string` | No |  |
+| `duration` | `int` | No | Video duration in seconds |
+| `thumbnailUrl` | `string` | No | Video thumbnail URL |
+| `videoUrl` | `string` | No | URL for video preview |
 
 ### Operations
 

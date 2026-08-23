@@ -1,0 +1,98 @@
+# Entity: stream
+
+main: kit: entity: stream: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "bitrate"
+      req: false
+      short: "Audio bitrate in kbps"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "expiresAt"
+      req: false
+      short: "Expiration time of the stream URL"
+      type: "`$STRING`"
+    }
+    {
+      name: "quality"
+      req: false
+      short: "Audio quality"
+      type: "`$STRING`"
+    }
+    {
+      name: "streamUrl"
+      req: false
+      short: "URL for streaming the song"
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "stream"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "song_id"
+                orig: "song_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "high"
+                kind: "query"
+                name: "quality"
+                orig: "quality"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/songs/{songId}/stream"
+          parts: [
+            "songs"
+            "{song_id}"
+            "stream"
+          ]
+          rename: {
+            param: {
+              songId: "song_id"
+            }
+          }
+          select: {
+            exist: [
+              "quality"
+              "song_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "song"
+      ]
+    ]
+  }
+
+
+
+}

@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -335,12 +335,12 @@ The `prepare()` method returns:
 | --- | --- |
 | `createdAt` |  |
 | `currentSong` |  |
-| `description` |  |
-| `host` |  |
-| `id` |  |
-| `isPublic` |  |
-| `maxParticipants` |  |
-| `name` |  |
+| `description` | Room description |
+| `host` | User ID of room host |
+| `id` | Unique identifier for the listening room |
+| `isPublic` | Whether room is public |
+| `maxParticipants` | Maximum number of participants |
+| `name` | Room name |
 | `participants` |  |
 | `queue` |  |
 
@@ -352,12 +352,12 @@ API path: `/listening-rooms/{roomId}/join`
 
 | Field | Description |
 | --- | --- |
-| `downloadedAt` |  |
-| `expiresAt` |  |
-| `id` |  |
-| `progress` |  |
+| `downloadedAt` | Download completion timestamp |
+| `expiresAt` | Offline availability expiration |
+| `id` | Download ID |
+| `progress` | Download progress percentage |
 | `song` |  |
-| `status` |  |
+| `status` | Download status |
 
 Operations: list.
 
@@ -367,7 +367,7 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `songId` |  |
+| `songId` | ID of the song to download |
 
 Operations: create.
 
@@ -377,18 +377,18 @@ API path: `/offline/downloads`
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `description` |  |
-| `id` |  |
-| `isPublic` |  |
-| `isSmart` |  |
-| `name` |  |
-| `owner` |  |
-| `smartCriteria` |  |
-| `songCount` |  |
-| `songId` |  |
+| `createdAt` | Creation timestamp |
+| `description` | Playlist description |
+| `id` | Unique identifier for the playlist |
+| `isPublic` | Whether playlist is public |
+| `isSmart` | Whether playlist is a smart playlist |
+| `name` | Playlist name |
+| `owner` | User ID of playlist owner |
+| `smartCriteria` | Criteria for smart playlist generation |
+| `songCount` | Number of songs in playlist |
+| `songId` | ID of the song to add |
 | `songs` |  |
-| `updatedAt` |  |
+| `updatedAt` | Last update timestamp |
 
 Operations: create, list, load, remove, update.
 
@@ -411,15 +411,15 @@ API path: `/search`
 
 | Field | Description |
 | --- | --- |
-| `album` |  |
-| `artist` |  |
-| `coverArt` |  |
-| `duration` |  |
-| `genres` |  |
-| `hasVideo` |  |
-| `id` |  |
-| `releaseDate` |  |
-| `title` |  |
+| `album` | Album name |
+| `artist` | Artist name |
+| `coverArt` | URL to cover art image |
+| `duration` | Duration in seconds |
+| `genres` | Music genres |
+| `hasVideo` | Whether video preview is available |
+| `id` | Unique identifier for the song |
+| `releaseDate` | Release date |
+| `title` | Song title |
 
 Operations: load.
 
@@ -429,10 +429,10 @@ API path: `/songs/{songId}`
 
 | Field | Description |
 | --- | --- |
-| `bitrate` |  |
-| `expiresAt` |  |
-| `quality` |  |
-| `streamUrl` |  |
+| `bitrate` | Audio bitrate in kbps |
+| `expiresAt` | Expiration time of the stream URL |
+| `quality` | Audio quality |
+| `streamUrl` | URL for streaming the song |
 
 Operations: load.
 
@@ -442,9 +442,9 @@ API path: `/songs/{songId}/stream`
 
 | Field | Description |
 | --- | --- |
-| `duration` |  |
-| `thumbnailUrl` |  |
-| `videoUrl` |  |
+| `duration` | Video duration in seconds |
+| `thumbnailUrl` | Video thumbnail URL |
+| `videoUrl` | URL for video preview |
 
 Operations: load.
 
@@ -473,12 +473,12 @@ Create an instance: `const listening_room = client.ListeningRoom()`
 | --- | --- | --- |
 | `createdAt` | `string` |  |
 | `currentSong` | `Record<string, any>` |  |
-| `description` | `string` |  |
-| `host` | `string` |  |
-| `id` | `string` |  |
-| `isPublic` | `boolean` |  |
-| `maxParticipants` | `number` |  |
-| `name` | `string` |  |
+| `description` | `string` | Room description |
+| `host` | `string` | User ID of room host |
+| `id` | `string` | Unique identifier for the listening room |
+| `isPublic` | `boolean` | Whether room is public |
+| `maxParticipants` | `number` | Maximum number of participants |
+| `name` | `string` | Room name |
 | `participants` | `any[]` |  |
 | `queue` | `any[]` |  |
 
@@ -516,12 +516,12 @@ Create an instance: `const music = client.Music()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `downloadedAt` | `string` |  |
-| `expiresAt` | `string` |  |
-| `id` | `string` |  |
-| `progress` | `number` |  |
+| `downloadedAt` | `string` | Download completion timestamp |
+| `expiresAt` | `string` | Offline availability expiration |
+| `id` | `string` | Download ID |
+| `progress` | `number` | Download progress percentage |
 | `song` | `Record<string, any>` |  |
-| `status` | `string` |  |
+| `status` | `string` | Download status |
 
 #### Example: List
 
@@ -544,7 +544,7 @@ Create an instance: `const offline_download = client.OfflineDownload()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `songId` | `string` |  |
+| `songId` | `string` | ID of the song to download |
 
 #### Example: Create
 
@@ -573,18 +573,18 @@ Create an instance: `const playlist = client.Playlist()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `string` |  |
-| `description` | `string` |  |
-| `id` | `string` |  |
-| `isPublic` | `boolean` |  |
-| `isSmart` | `boolean` |  |
-| `name` | `string` |  |
-| `owner` | `string` |  |
-| `smartCriteria` | `Record<string, any>` |  |
-| `songCount` | `number` |  |
-| `songId` | `string` |  |
+| `createdAt` | `string` | Creation timestamp |
+| `description` | `string` | Playlist description |
+| `id` | `string` | Unique identifier for the playlist |
+| `isPublic` | `boolean` | Whether playlist is public |
+| `isSmart` | `boolean` | Whether playlist is a smart playlist |
+| `name` | `string` | Playlist name |
+| `owner` | `string` | User ID of playlist owner |
+| `smartCriteria` | `Record<string, any>` | Criteria for smart playlist generation |
+| `songCount` | `number` | Number of songs in playlist |
+| `songId` | `string` | ID of the song to add |
 | `songs` | `any[]` |  |
-| `updatedAt` | `string` |  |
+| `updatedAt` | `string` | Last update timestamp |
 
 #### Example: Load
 
@@ -647,15 +647,15 @@ Create an instance: `const song = client.Song()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | `string` |  |
-| `artist` | `string` |  |
-| `coverArt` | `string` |  |
-| `duration` | `number` |  |
-| `genres` | `any[]` |  |
-| `hasVideo` | `boolean` |  |
-| `id` | `string` |  |
-| `releaseDate` | `string` |  |
-| `title` | `string` |  |
+| `album` | `string` | Album name |
+| `artist` | `string` | Artist name |
+| `coverArt` | `string` | URL to cover art image |
+| `duration` | `number` | Duration in seconds |
+| `genres` | `any[]` | Music genres |
+| `hasVideo` | `boolean` | Whether video preview is available |
+| `id` | `string` | Unique identifier for the song |
+| `releaseDate` | `string` | Release date |
+| `title` | `string` | Song title |
 
 #### Example: Load
 
@@ -678,10 +678,10 @@ Create an instance: `const stream = client.Stream()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `bitrate` | `number` |  |
-| `expiresAt` | `string` |  |
-| `quality` | `string` |  |
-| `streamUrl` | `string` |  |
+| `bitrate` | `number` | Audio bitrate in kbps |
+| `expiresAt` | `string` | Expiration time of the stream URL |
+| `quality` | `string` | Audio quality |
+| `streamUrl` | `string` | URL for streaming the song |
 
 #### Example: Load
 
@@ -704,9 +704,9 @@ Create an instance: `const video = client.Video()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `duration` | `number` |  |
-| `thumbnailUrl` | `string` |  |
-| `videoUrl` | `string` |  |
+| `duration` | `number` | Video duration in seconds |
+| `thumbnailUrl` | `string` | Video thumbnail URL |
+| `videoUrl` | `string` | URL for video preview |
 
 #### Example: Load
 

@@ -64,46 +64,10 @@ ListeningRoomLoadMatch = Struct.new(
 
 # Request payload for ListeningRoom#list.
 #
-# @!attribute [rw] createdAt
-#   @return [String, nil]
-#
-# @!attribute [rw] currentSong
-#   @return [Hash, nil]
-#
-# @!attribute [rw] description
-#   @return [String, nil]
-#
-# @!attribute [rw] host
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] isPublic
-#   @return [Boolean, nil]
-#
-# @!attribute [rw] maxParticipants
+# @!attribute [rw] limit
 #   @return [Integer, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-#
-# @!attribute [rw] participants
-#   @return [Array, nil]
-#
-# @!attribute [rw] queue
-#   @return [Array, nil]
 ListeningRoomListMatch = Struct.new(
-  :createdAt,
-  :currentSong,
-  :description,
-  :host,
-  :id,
-  :isPublic,
-  :maxParticipants,
-  :name,
-  :participants,
-  :queue,
+  :limit,
   keyword_init: true
 )
 
@@ -481,22 +445,22 @@ Search = Struct.new(
 
 # Request payload for Search#load.
 #
-# @!attribute [rw] albums
-#   @return [Array, nil]
+# @!attribute [rw] limit
+#   @return [Integer, nil]
 #
-# @!attribute [rw] artists
-#   @return [Array, nil]
+# @!attribute [rw] offset
+#   @return [Integer, nil]
 #
-# @!attribute [rw] playlists
-#   @return [Array, nil]
+# @!attribute [rw] q
+#   @return [String]
 #
-# @!attribute [rw] songs
-#   @return [Array, nil]
+# @!attribute [rw] type
+#   @return [String, nil]
 SearchLoadMatch = Struct.new(
-  :albums,
-  :artists,
-  :playlists,
-  :songs,
+  :limit,
+  :offset,
+  :q,
+  :type,
   keyword_init: true
 )
 
@@ -575,8 +539,12 @@ Stream = Struct.new(
 #
 # @!attribute [rw] song_id
 #   @return [String]
+#
+# @!attribute [rw] quality
+#   @return [String, nil]
 StreamLoadMatch = Struct.new(
   :song_id,
+  :quality,
   keyword_init: true
 )
 

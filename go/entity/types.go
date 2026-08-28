@@ -33,16 +33,7 @@ type ListeningRoomLoadMatch struct {
 
 // ListeningRoomListMatch is the typed request payload for ListeningRoom.ListTyped.
 type ListeningRoomListMatch struct {
-	CreatedAt *string `json:"createdAt,omitempty"`
-	CurrentSong *map[string]any `json:"currentSong,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Host *string `json:"host,omitempty"`
-	Id *string `json:"id,omitempty"`
-	IsPublic *bool `json:"isPublic,omitempty"`
-	MaxParticipants *int `json:"maxParticipants,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Participants *[]any `json:"participants,omitempty"`
-	Queue *[]any `json:"queue,omitempty"`
+	Limit *int `json:"limit,omitempty"`
 }
 
 // ListeningRoomCreateData is the typed request payload for ListeningRoom.CreateTyped.
@@ -173,10 +164,10 @@ type Search struct {
 
 // SearchLoadMatch is the typed request payload for Search.LoadTyped.
 type SearchLoadMatch struct {
-	Albums *[]any `json:"albums,omitempty"`
-	Artists *[]any `json:"artists,omitempty"`
-	Playlists *[]any `json:"playlists,omitempty"`
-	Songs *[]any `json:"songs,omitempty"`
+	Limit *int `json:"limit,omitempty"`
+	Offset *int `json:"offset,omitempty"`
+	Q string `json:"q"`
+	Type *string `json:"type,omitempty"`
 }
 
 // Song is the typed data model for the song entity.
@@ -208,6 +199,7 @@ type Stream struct {
 // StreamLoadMatch is the typed request payload for Stream.LoadTyped.
 type StreamLoadMatch struct {
 	SongId string `json:"song_id"`
+	Quality *string `json:"quality,omitempty"`
 }
 
 // Video is the typed data model for the video entity.

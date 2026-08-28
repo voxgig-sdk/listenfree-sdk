@@ -34,16 +34,7 @@ class ListeningRoomLoadMatch(TypedDict):
 
 
 class ListeningRoomListMatch(TypedDict, total=False):
-    createdAt: str
-    currentSong: dict
-    description: str
-    host: str
-    id: str
-    isPublic: bool
-    maxParticipants: int
-    name: str
-    participants: list
-    queue: list
+    limit: int
 
 
 class ListeningRoomCreateData(TypedDict, total=False):
@@ -169,11 +160,14 @@ class Search(TypedDict, total=False):
     songs: list
 
 
-class SearchLoadMatch(TypedDict, total=False):
-    albums: list
-    artists: list
-    playlists: list
-    songs: list
+class SearchLoadMatchRequired(TypedDict):
+    q: str
+
+
+class SearchLoadMatch(SearchLoadMatchRequired, total=False):
+    limit: int
+    offset: int
+    type: str
 
 
 class Song(TypedDict, total=False):
@@ -199,8 +193,12 @@ class Stream(TypedDict, total=False):
     streamUrl: str
 
 
-class StreamLoadMatch(TypedDict):
+class StreamLoadMatchRequired(TypedDict):
     song_id: str
+
+
+class StreamLoadMatch(StreamLoadMatchRequired, total=False):
+    quality: str
 
 
 class Video(TypedDict, total=False):

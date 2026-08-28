@@ -22,16 +22,7 @@
 ---@field id string
 
 ---@class ListeningRoomListMatch
----@field createdAt? string
----@field currentSong? table
----@field description? string
----@field host? string
----@field id? string
----@field isPublic? boolean
----@field maxParticipants? number
----@field name? string
----@field participants? table
----@field queue? table
+---@field limit? number
 
 ---@class ListeningRoomCreateData
 ---@field createdAt? string
@@ -136,10 +127,10 @@
 ---@field songs? table
 
 ---@class SearchLoadMatch
----@field albums? table
----@field artists? table
----@field playlists? table
----@field songs? table
+---@field limit? number
+---@field offset? number
+---@field q string
+---@field type? string
 
 ---@class Song
 ---@field album? string
@@ -163,6 +154,7 @@
 
 ---@class StreamLoadMatch
 ---@field song_id string
+---@field quality? string
 
 ---@class Video
 ---@field duration? number

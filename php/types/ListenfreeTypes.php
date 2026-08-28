@@ -36,16 +36,7 @@ class ListeningRoomLoadMatch
 /** Request payload for ListeningRoom#list. */
 class ListeningRoomListMatch
 {
-    public ?string $createdAt = null;
-    public ?array $currentSong = null;
-    public ?string $description = null;
-    public ?string $host = null;
-    public ?string $id = null;
-    public ?bool $isPublic = null;
-    public ?int $maxParticipants = null;
-    public ?string $name = null;
-    public ?array $participants = null;
-    public ?array $queue = null;
+    public ?int $limit = null;
 }
 
 /** Request payload for ListeningRoom#create. */
@@ -189,10 +180,10 @@ class Search
 /** Request payload for Search#load. */
 class SearchLoadMatch
 {
-    public ?array $albums = null;
-    public ?array $artists = null;
-    public ?array $playlists = null;
-    public ?array $songs = null;
+    public ?int $limit = null;
+    public ?int $offset = null;
+    public string $q;
+    public ?string $type = null;
 }
 
 /** Song entity data model. */
@@ -228,6 +219,7 @@ class Stream
 class StreamLoadMatch
 {
     public string $song_id;
+    public ?string $quality = null;
 }
 
 /** Video entity data model. */

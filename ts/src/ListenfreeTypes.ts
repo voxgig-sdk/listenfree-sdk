@@ -23,16 +23,7 @@ export interface ListeningRoomLoadMatch {
 }
 
 export interface ListeningRoomListMatch {
-  createdAt?: string
-  currentSong?: Record<string, any>
-  description?: string
-  host?: string
-  id?: string
-  isPublic?: boolean
-  maxParticipants?: number
-  name?: string
-  participants?: any[]
-  queue?: any[]
+  limit?: number
 }
 
 export interface ListeningRoomCreateData {
@@ -162,10 +153,10 @@ export interface Search {
 }
 
 export interface SearchLoadMatch {
-  albums?: any[]
-  artists?: any[]
-  playlists?: any[]
-  songs?: any[]
+  limit?: number
+  offset?: number
+  q: string
+  type?: string
 }
 
 export interface Song {
@@ -193,6 +184,7 @@ export interface Stream {
 
 export interface StreamLoadMatch {
   song_id: string
+  quality?: string
 }
 
 export interface Video {

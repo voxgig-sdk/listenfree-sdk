@@ -50,7 +50,7 @@ func TestSongEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		songRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.song", setup.data)))
+		songRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.song")))
 		var songRef01Data map[string]any
 		if len(songRef01DataRaw) > 0 {
 			songRef01Data = core.ToMapAny(songRef01DataRaw[0][1])
@@ -103,7 +103,7 @@ func songBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"song01", "song02", "song03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -123,7 +123,7 @@ func songBasicSetup(extra map[string]any) *entityTestSetup {
 		"LISTENFREE_TEST_SONG_ENTID": idmap,
 		"LISTENFREE_TEST_LIVE":      "FALSE",
 		"LISTENFREE_TEST_EXPLAIN":   "FALSE",
-		"LISTENFREE_APIKEY":         "NONE",
+		"LISTENFREE_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["LISTENFREE_TEST_SONG_ENTID"])
@@ -132,11 +132,23 @@ func songBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["LISTENFREE_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["LISTENFREE_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewListenfreeSDK(core.ToMapAny(mergedOpts))
 	}

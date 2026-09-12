@@ -81,7 +81,7 @@ def search_basic_setup(extra)
     "LISTENFREE_TEST_SEARCH_ENTID" => idmap,
     "LISTENFREE_TEST_LIVE" => "FALSE",
     "LISTENFREE_TEST_EXPLAIN" => "FALSE",
-    "LISTENFREE_APIKEY" => "NONE",
+    "LISTENFREE_APIKEY" => "",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -92,6 +92,9 @@ def search_basic_setup(extra)
 
   if env["LISTENFREE_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
         "apikey" => env["LISTENFREE_APIKEY"],
       },

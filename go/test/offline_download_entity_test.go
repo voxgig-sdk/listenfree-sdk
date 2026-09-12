@@ -52,7 +52,7 @@ func TestOfflineDownloadEntity(t *testing.T) {
 		// CREATE
 		offlineDownloadRef01Ent := client.OfflineDownload(nil)
 		offlineDownloadRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "offline_download"}, setup.data), "offline_download_ref01"))
+			vs.GetPath(setup.data, []any{"new", "offline_download"}), "offline_download_ref01"))
 
 		offlineDownloadRef01DataResult, err := offlineDownloadRef01Ent.Create(offlineDownloadRef01Data, nil)
 		if err != nil {
@@ -90,7 +90,7 @@ func offline_downloadBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"offline_download01", "offline_download02", "offline_download03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -110,7 +110,7 @@ func offline_downloadBasicSetup(extra map[string]any) *entityTestSetup {
 		"LISTENFREE_TEST_OFFLINE_DOWNLOAD_ENTID": idmap,
 		"LISTENFREE_TEST_LIVE":      "FALSE",
 		"LISTENFREE_TEST_EXPLAIN":   "FALSE",
-		"LISTENFREE_APIKEY":         "NONE",
+		"LISTENFREE_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["LISTENFREE_TEST_OFFLINE_DOWNLOAD_ENTID"])
@@ -119,11 +119,23 @@ func offline_downloadBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["LISTENFREE_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["LISTENFREE_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewListenfreeSDK(core.ToMapAny(mergedOpts))
 	}

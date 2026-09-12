@@ -42,6 +42,7 @@ local function make_config()
       ["listening_room"] = {
         ["fields"] = {
           {
+            ["format"] = "date-time",
             ["name"] = "createdAt",
             ["type"] = "`$STRING`",
           },
@@ -94,6 +95,10 @@ local function make_config()
             ["type"] = "`$ARRAY`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "listening_room",
         ["op"] = {
           ["create"] = {
@@ -115,14 +120,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/listening-rooms/{roomId}/join",
-                ["parts"] = {
-                  "listening-rooms",
-                  "{id}",
-                  "join",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["roomId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "listening-rooms",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                  {
+                    ["lit"] = "join",
                   },
                 },
                 ["select"] = {
@@ -135,19 +146,29 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {
+                  "listening-rooms",
+                  "{id}",
+                  "join",
+                },
               },
               {
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/listening-rooms",
-                ["parts"] = {
-                  "listening-rooms",
+                ["segments"] = {
+                  {
+                    ["lit"] = "listening-rooms",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "listening-rooms",
                 },
               },
             },
@@ -171,8 +192,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/listening-rooms",
-                ["parts"] = {
-                  "listening-rooms",
+                ["segments"] = {
+                  {
+                    ["lit"] = "listening-rooms",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -182,6 +205,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.rooms`",
+                },
+                ["parts"] = {
+                  "listening-rooms",
                 },
               },
             },
@@ -205,13 +231,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/listening-rooms/{roomId}",
-                ["parts"] = {
-                  "listening-rooms",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["roomId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "listening-rooms",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -222,6 +252,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "listening-rooms",
+                  "{id}",
                 },
               },
             },
@@ -234,11 +268,13 @@ local function make_config()
       ["music"] = {
         ["fields"] = {
           {
+            ["format"] = "date-time",
             ["name"] = "downloadedAt",
             ["short"] = "Download completion timestamp",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "expiresAt",
             ["short"] = "Offline availability expiration",
             ["type"] = "`$STRING`",
@@ -263,6 +299,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "music",
         ["op"] = {
           ["list"] = {
@@ -274,14 +314,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/offline/downloads",
-                ["parts"] = {
-                  "offline",
-                  "downloads",
+                ["segments"] = {
+                  {
+                    ["lit"] = "offline",
+                  },
+                  {
+                    ["lit"] = "downloads",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.downloads`",
+                },
+                ["parts"] = {
+                  "offline",
+                  "downloads",
                 },
               },
             },
@@ -311,14 +359,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/offline/downloads",
-                ["parts"] = {
-                  "offline",
-                  "downloads",
+                ["segments"] = {
+                  {
+                    ["lit"] = "offline",
+                  },
+                  {
+                    ["lit"] = "downloads",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.song`",
+                },
+                ["parts"] = {
+                  "offline",
+                  "downloads",
                 },
               },
             },
@@ -331,6 +387,7 @@ local function make_config()
       ["playlist"] = {
         ["fields"] = {
           {
+            ["format"] = "date-time",
             ["name"] = "createdAt",
             ["short"] = "Creation timestamp",
             ["type"] = "`$STRING`",
@@ -392,10 +449,15 @@ local function make_config()
             ["type"] = "`$ARRAY`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updatedAt",
             ["short"] = "Last update timestamp",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "playlist",
         ["op"] = {
@@ -418,14 +480,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/playlists/{playlistId}/songs",
-                ["parts"] = {
-                  "playlists",
-                  "{id}",
-                  "songs",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["playlistId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "playlists",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                  {
+                    ["lit"] = "songs",
                   },
                 },
                 ["select"] = {
@@ -438,19 +506,29 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {
+                  "playlists",
+                  "{id}",
+                  "songs",
+                },
               },
               {
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/playlists",
-                ["parts"] = {
-                  "playlists",
+                ["segments"] = {
+                  {
+                    ["lit"] = "playlists",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "playlists",
                 },
               },
             },
@@ -464,13 +542,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/playlists",
-                ["parts"] = {
-                  "playlists",
+                ["segments"] = {
+                  {
+                    ["lit"] = "playlists",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.playlists`",
+                },
+                ["parts"] = {
+                  "playlists",
                 },
               },
             },
@@ -494,13 +577,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/playlists/{playlistId}",
-                ["parts"] = {
-                  "playlists",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["playlistId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "playlists",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -511,6 +598,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "playlists",
+                  "{id}",
                 },
               },
             },
@@ -534,13 +625,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/playlists/{playlistId}",
-                ["parts"] = {
-                  "playlists",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["playlistId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "playlists",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -551,6 +646,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "playlists",
+                  "{id}",
                 },
               },
             },
@@ -574,13 +673,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "PUT",
                 ["orig"] = "/playlists/{playlistId}",
-                ["parts"] = {
-                  "playlists",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["playlistId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "playlists",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -591,6 +694,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "playlists",
+                  "{id}",
                 },
               },
             },
@@ -662,8 +769,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/search",
-                ["parts"] = {
-                  "search",
+                ["segments"] = {
+                  {
+                    ["lit"] = "search",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -676,6 +785,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.results`",
+                },
+                ["parts"] = {
+                  "search",
                 },
               },
             },
@@ -698,6 +810,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "coverArt",
             ["short"] = "URL to cover art image",
             ["type"] = "`$STRING`",
@@ -723,6 +836,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date",
             ["name"] = "releaseDate",
             ["short"] = "Release date",
             ["type"] = "`$STRING`",
@@ -732,6 +846,10 @@ local function make_config()
             ["short"] = "Song title",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "song",
         ["op"] = {
@@ -754,13 +872,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/songs/{songId}",
-                ["parts"] = {
-                  "songs",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["songId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "songs",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -771,6 +893,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "songs",
+                  "{id}",
                 },
               },
             },
@@ -788,6 +914,7 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "expiresAt",
             ["short"] = "Expiration time of the stream URL",
             ["type"] = "`$STRING`",
@@ -798,6 +925,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "streamUrl",
             ["short"] = "URL for streaming the song",
             ["type"] = "`$STRING`",
@@ -833,14 +961,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/songs/{songId}/stream",
-                ["parts"] = {
-                  "songs",
-                  "{song_id}",
-                  "stream",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["songId"] = "song_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "songs",
+                  },
+                  {
+                    ["var"] = "song_id",
+                  },
+                  {
+                    ["lit"] = "stream",
                   },
                 },
                 ["select"] = {
@@ -852,6 +986,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "songs",
+                  "{song_id}",
+                  "stream",
                 },
               },
             },
@@ -873,11 +1012,13 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "thumbnailUrl",
             ["short"] = "Video thumbnail URL",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "videoUrl",
             ["short"] = "URL for video preview",
             ["type"] = "`$STRING`",
@@ -904,14 +1045,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/songs/{songId}/video",
-                ["parts"] = {
-                  "songs",
-                  "{song_id}",
-                  "video",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["songId"] = "song_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "songs",
+                  },
+                  {
+                    ["var"] = "song_id",
+                  },
+                  {
+                    ["lit"] = "video",
                   },
                 },
                 ["select"] = {
@@ -922,6 +1069,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "songs",
+                  "{song_id}",
+                  "video",
                 },
               },
             },

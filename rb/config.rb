@@ -54,6 +54,7 @@ module ListenfreeConfig
         "listening_room" => {
           "fields" => [
             {
+              "format" => "date-time",
               "name" => "createdAt",
               "type" => "`$STRING`",
             },
@@ -106,6 +107,10 @@ module ListenfreeConfig
               "type" => "`$ARRAY`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "listening_room",
           "op" => {
             "create" => {
@@ -127,16 +132,22 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/listening-rooms/{roomId}/join",
-                  "parts" => [
-                    "listening-rooms",
-                    "{id}",
-                    "join",
-                  ],
                   "rename" => {
                     "param" => {
                       "roomId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "listening-rooms",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                    {
+                      "lit" => "join",
+                    },
+                  ],
                   "select" => {
                     "$action" => "join",
                     "exist" => [
@@ -147,20 +158,30 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "listening-rooms",
+                    "{id}",
+                    "join",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/listening-rooms",
-                  "parts" => [
-                    "listening-rooms",
+                  "segments" => [
+                    {
+                      "lit" => "listening-rooms",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "listening-rooms",
+                  ],
                 },
               ],
             },
@@ -183,8 +204,10 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/listening-rooms",
-                  "parts" => [
-                    "listening-rooms",
+                  "segments" => [
+                    {
+                      "lit" => "listening-rooms",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -195,6 +218,9 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body.rooms`",
                   },
+                  "parts" => [
+                    "listening-rooms",
+                  ],
                 },
               ],
             },
@@ -217,15 +243,19 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/listening-rooms/{roomId}",
-                  "parts" => [
-                    "listening-rooms",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "roomId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "listening-rooms",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -235,6 +265,10 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "listening-rooms",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -246,11 +280,13 @@ module ListenfreeConfig
         "music" => {
           "fields" => [
             {
+              "format" => "date-time",
               "name" => "downloadedAt",
               "short" => "Download completion timestamp",
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "expiresAt",
               "short" => "Offline availability expiration",
               "type" => "`$STRING`",
@@ -275,6 +311,10 @@ module ListenfreeConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "music",
           "op" => {
             "list" => {
@@ -286,15 +326,23 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/offline/downloads",
-                  "parts" => [
-                    "offline",
-                    "downloads",
+                  "segments" => [
+                    {
+                      "lit" => "offline",
+                    },
+                    {
+                      "lit" => "downloads",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.downloads`",
                   },
+                  "parts" => [
+                    "offline",
+                    "downloads",
+                  ],
                 },
               ],
             },
@@ -323,15 +371,23 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/offline/downloads",
-                  "parts" => [
-                    "offline",
-                    "downloads",
+                  "segments" => [
+                    {
+                      "lit" => "offline",
+                    },
+                    {
+                      "lit" => "downloads",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.song`",
                   },
+                  "parts" => [
+                    "offline",
+                    "downloads",
+                  ],
                 },
               ],
             },
@@ -343,6 +399,7 @@ module ListenfreeConfig
         "playlist" => {
           "fields" => [
             {
+              "format" => "date-time",
               "name" => "createdAt",
               "short" => "Creation timestamp",
               "type" => "`$STRING`",
@@ -404,11 +461,16 @@ module ListenfreeConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "date-time",
               "name" => "updatedAt",
               "short" => "Last update timestamp",
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "playlist",
           "op" => {
             "create" => {
@@ -430,16 +492,22 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/playlists/{playlistId}/songs",
-                  "parts" => [
-                    "playlists",
-                    "{id}",
-                    "songs",
-                  ],
                   "rename" => {
                     "param" => {
                       "playlistId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "playlists",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                    {
+                      "lit" => "songs",
+                    },
+                  ],
                   "select" => {
                     "$action" => "song",
                     "exist" => [
@@ -450,20 +518,30 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "playlists",
+                    "{id}",
+                    "songs",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/playlists",
-                  "parts" => [
-                    "playlists",
+                  "segments" => [
+                    {
+                      "lit" => "playlists",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "playlists",
+                  ],
                 },
               ],
             },
@@ -476,14 +554,19 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/playlists",
-                  "parts" => [
-                    "playlists",
+                  "segments" => [
+                    {
+                      "lit" => "playlists",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body.playlists`",
                   },
+                  "parts" => [
+                    "playlists",
+                  ],
                 },
               ],
             },
@@ -506,15 +589,19 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/playlists/{playlistId}",
-                  "parts" => [
-                    "playlists",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "playlistId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "playlists",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -524,6 +611,10 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "playlists",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -546,15 +637,19 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/playlists/{playlistId}",
-                  "parts" => [
-                    "playlists",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "playlistId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "playlists",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -564,6 +659,10 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "playlists",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -586,15 +685,19 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "PUT",
                   "orig" => "/playlists/{playlistId}",
-                  "parts" => [
-                    "playlists",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "playlistId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "playlists",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -604,6 +707,10 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "playlists",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -674,8 +781,10 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/search",
-                  "parts" => [
-                    "search",
+                  "segments" => [
+                    {
+                      "lit" => "search",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -689,6 +798,9 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body.results`",
                   },
+                  "parts" => [
+                    "search",
+                  ],
                 },
               ],
             },
@@ -710,6 +822,7 @@ module ListenfreeConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "coverArt",
               "short" => "URL to cover art image",
               "type" => "`$STRING`",
@@ -735,6 +848,7 @@ module ListenfreeConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date",
               "name" => "releaseDate",
               "short" => "Release date",
               "type" => "`$STRING`",
@@ -745,6 +859,10 @@ module ListenfreeConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "song",
           "op" => {
             "load" => {
@@ -766,15 +884,19 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/songs/{songId}",
-                  "parts" => [
-                    "songs",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "songId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "songs",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -784,6 +906,10 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "songs",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -800,6 +926,7 @@ module ListenfreeConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "date-time",
               "name" => "expiresAt",
               "short" => "Expiration time of the stream URL",
               "type" => "`$STRING`",
@@ -810,6 +937,7 @@ module ListenfreeConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "streamUrl",
               "short" => "URL for streaming the song",
               "type" => "`$STRING`",
@@ -845,16 +973,22 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/songs/{songId}/stream",
-                  "parts" => [
-                    "songs",
-                    "{song_id}",
-                    "stream",
-                  ],
                   "rename" => {
                     "param" => {
                       "songId" => "song_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "songs",
+                    },
+                    {
+                      "var" => "song_id",
+                    },
+                    {
+                      "lit" => "stream",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "quality",
@@ -865,6 +999,11 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "songs",
+                    "{song_id}",
+                    "stream",
+                  ],
                 },
               ],
             },
@@ -885,11 +1024,13 @@ module ListenfreeConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "uri",
               "name" => "thumbnailUrl",
               "short" => "Video thumbnail URL",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "videoUrl",
               "short" => "URL for video preview",
               "type" => "`$STRING`",
@@ -916,16 +1057,22 @@ module ListenfreeConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/songs/{songId}/video",
-                  "parts" => [
-                    "songs",
-                    "{song_id}",
-                    "video",
-                  ],
                   "rename" => {
                     "param" => {
                       "songId" => "song_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "songs",
+                    },
+                    {
+                      "var" => "song_id",
+                    },
+                    {
+                      "lit" => "video",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "song_id",
@@ -935,6 +1082,11 @@ module ListenfreeConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "songs",
+                    "{song_id}",
+                    "video",
+                  ],
                 },
               ],
             },

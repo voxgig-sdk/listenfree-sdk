@@ -100,7 +100,7 @@ func TestListeningRoomEntity(t *testing.T) {
 		// CREATE
 		listeningRoomRef01Ent := client.ListeningRoom(nil)
 		listeningRoomRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "listening_room"}, setup.data), "listening_room_ref01"))
+			vs.GetPath(setup.data, []any{"new", "listening_room"}), "listening_room_ref01"))
 
 		listeningRoomRef01DataResult, err := listeningRoomRef01Ent.Create(listeningRoomRef01Data, nil)
 		if err != nil {
@@ -174,7 +174,7 @@ func listening_roomBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"listening_room01", "listening_room02", "listening_room03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -194,7 +194,7 @@ func listening_roomBasicSetup(extra map[string]any) *entityTestSetup {
 		"LISTENFREE_TEST_LISTENING_ROOM_ENTID": idmap,
 		"LISTENFREE_TEST_LIVE":      "FALSE",
 		"LISTENFREE_TEST_EXPLAIN":   "FALSE",
-		"LISTENFREE_APIKEY":         "NONE",
+		"LISTENFREE_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["LISTENFREE_TEST_LISTENING_ROOM_ENTID"])
@@ -203,11 +203,23 @@ func listening_roomBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["LISTENFREE_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["LISTENFREE_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewListenfreeSDK(core.ToMapAny(mergedOpts))
 	}

@@ -6,12 +6,14 @@ main: kit: entity: music: {
 
   fields: [
     {
+      format: "date-time"
       name: "downloadedAt"
       req: false
       short: "Download completion timestamp"
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "expiresAt"
       req: false
       short: "Offline availability expiration"
@@ -55,9 +57,13 @@ main: kit: entity: music: {
         {
           method: "GET"
           orig: "/offline/downloads"
-          parts: [
-            "offline"
-            "downloads"
+          segments: [
+            {
+              lit: "offline"
+            }
+            {
+              lit: "downloads"
+            }
           ]
           transform: {
             req: "`reqdata`"

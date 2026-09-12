@@ -6,6 +6,7 @@ main: kit: entity: listening_room: {
 
   fields: [
     {
+      format: "date-time"
       name: "createdAt"
       req: false
       type: "`$STRING`"
@@ -93,16 +94,22 @@ main: kit: entity: listening_room: {
           }
           method: "POST"
           orig: "/listening-rooms/{roomId}/join"
-          parts: [
-            "listening-rooms"
-            "{id}"
-            "join"
-          ]
           rename: {
             param: {
               roomId: "id"
             }
           }
+          segments: [
+            {
+              lit: "listening-rooms"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "join"
+            }
+          ]
           select: {
             "$action": "join"
             exist: [
@@ -117,8 +124,10 @@ main: kit: entity: listening_room: {
         {
           method: "POST"
           orig: "/listening-rooms"
-          parts: [
-            "listening-rooms"
+          segments: [
+            {
+              lit: "listening-rooms"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -145,8 +154,10 @@ main: kit: entity: listening_room: {
           }
           method: "GET"
           orig: "/listening-rooms"
-          parts: [
-            "listening-rooms"
+          segments: [
+            {
+              lit: "listening-rooms"
+            }
           ]
           select: {
             exist: [
@@ -177,15 +188,19 @@ main: kit: entity: listening_room: {
           }
           method: "GET"
           orig: "/listening-rooms/{roomId}"
-          parts: [
-            "listening-rooms"
-            "{id}"
-          ]
           rename: {
             param: {
               roomId: "id"
             }
           }
+          segments: [
+            {
+              lit: "listening-rooms"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

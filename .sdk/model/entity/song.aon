@@ -18,6 +18,7 @@ main: kit: entity: song: {
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "coverArt"
       req: false
       short: "URL to cover art image"
@@ -48,6 +49,7 @@ main: kit: entity: song: {
       type: "`$STRING`"
     }
     {
+      format: "date"
       name: "releaseDate"
       req: false
       short: "Release date"
@@ -85,15 +87,19 @@ main: kit: entity: song: {
           }
           method: "GET"
           orig: "/songs/{songId}"
-          parts: [
-            "songs"
-            "{id}"
-          ]
           rename: {
             param: {
               songId: "id"
             }
           }
+          segments: [
+            {
+              lit: "songs"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

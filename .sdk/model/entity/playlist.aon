@@ -6,6 +6,7 @@ main: kit: entity: playlist: {
 
   fields: [
     {
+      format: "date-time"
       name: "createdAt"
       req: false
       short: "Creation timestamp"
@@ -77,6 +78,7 @@ main: kit: entity: playlist: {
       type: "`$ARRAY`"
     }
     {
+      format: "date-time"
       name: "updatedAt"
       req: false
       short: "Last update timestamp"
@@ -108,16 +110,22 @@ main: kit: entity: playlist: {
           }
           method: "POST"
           orig: "/playlists/{playlistId}/songs"
-          parts: [
-            "playlists"
-            "{id}"
-            "songs"
-          ]
           rename: {
             param: {
               playlistId: "id"
             }
           }
+          segments: [
+            {
+              lit: "playlists"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "songs"
+            }
+          ]
           select: {
             "$action": "song"
             exist: [
@@ -132,8 +140,10 @@ main: kit: entity: playlist: {
         {
           method: "POST"
           orig: "/playlists"
-          parts: [
-            "playlists"
+          segments: [
+            {
+              lit: "playlists"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -148,8 +158,10 @@ main: kit: entity: playlist: {
         {
           method: "GET"
           orig: "/playlists"
-          parts: [
-            "playlists"
+          segments: [
+            {
+              lit: "playlists"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -175,15 +187,19 @@ main: kit: entity: playlist: {
           }
           method: "GET"
           orig: "/playlists/{playlistId}"
-          parts: [
-            "playlists"
-            "{id}"
-          ]
           rename: {
             param: {
               playlistId: "id"
             }
           }
+          segments: [
+            {
+              lit: "playlists"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -213,15 +229,19 @@ main: kit: entity: playlist: {
           }
           method: "DELETE"
           orig: "/playlists/{playlistId}"
-          parts: [
-            "playlists"
-            "{id}"
-          ]
           rename: {
             param: {
               playlistId: "id"
             }
           }
+          segments: [
+            {
+              lit: "playlists"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -251,15 +271,19 @@ main: kit: entity: playlist: {
           }
           method: "PUT"
           orig: "/playlists/{playlistId}"
-          parts: [
-            "playlists"
-            "{id}"
-          ]
           rename: {
             param: {
               playlistId: "id"
             }
           }
+          segments: [
+            {
+              lit: "playlists"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

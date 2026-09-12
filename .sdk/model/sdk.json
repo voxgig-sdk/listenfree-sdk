@@ -34,6 +34,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "createdAt",
               "req": false,
               "type": "`$STRING`"
@@ -132,16 +133,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/listening-rooms/{roomId}/join",
-                  "parts": [
-                    "listening-rooms",
-                    "{id}",
-                    "join"
-                  ],
                   "rename": {
                     "param": {
                       "roomId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "listening-rooms"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "join"
+                    }
+                  ],
                   "select": {
                     "$action": "join",
                     "exist": [
@@ -159,8 +166,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/listening-rooms",
-                  "parts": [
-                    "listening-rooms"
+                  "segments": [
+                    {
+                      "lit": "listening-rooms"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -192,8 +201,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/listening-rooms",
-                  "parts": [
-                    "listening-rooms"
+                  "segments": [
+                    {
+                      "lit": "listening-rooms"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -228,15 +239,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/listening-rooms/{roomId}",
-                  "parts": [
-                    "listening-rooms",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "roomId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "listening-rooms"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -262,6 +277,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "downloadedAt",
               "req": false,
               "short": "Download completion timestamp",
@@ -269,6 +285,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "expiresAt",
               "req": false,
               "short": "Offline availability expiration",
@@ -318,9 +335,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/offline/downloads",
-                  "parts": [
-                    "offline",
-                    "downloads"
+                  "segments": [
+                    {
+                      "lit": "offline"
+                    },
+                    {
+                      "lit": "downloads"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -361,9 +382,13 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/offline/downloads",
-                  "parts": [
-                    "offline",
-                    "downloads"
+                  "segments": [
+                    {
+                      "lit": "offline"
+                    },
+                    {
+                      "lit": "downloads"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -386,6 +411,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "createdAt",
               "req": false,
               "short": "Creation timestamp",
@@ -468,6 +494,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updatedAt",
               "req": false,
               "short": "Last update timestamp",
@@ -501,16 +528,22 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/playlists/{playlistId}/songs",
-                  "parts": [
-                    "playlists",
-                    "{id}",
-                    "songs"
-                  ],
                   "rename": {
                     "param": {
                       "playlistId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "playlists"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "songs"
+                    }
+                  ],
                   "select": {
                     "$action": "song",
                     "exist": [
@@ -528,8 +561,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/playlists",
-                  "parts": [
-                    "playlists"
+                  "segments": [
+                    {
+                      "lit": "playlists"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -549,8 +584,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/playlists",
-                  "parts": [
-                    "playlists"
+                  "segments": [
+                    {
+                      "lit": "playlists"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -581,15 +618,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/playlists/{playlistId}",
-                  "parts": [
-                    "playlists",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "playlistId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "playlists"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -623,15 +664,19 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/playlists/{playlistId}",
-                  "parts": [
-                    "playlists",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "playlistId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "playlists"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -665,15 +710,19 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/playlists/{playlistId}",
-                  "parts": [
-                    "playlists",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "playlistId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "playlists"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -773,8 +822,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/search",
-                  "parts": [
-                    "search"
+                  "segments": [
+                    {
+                      "lit": "search"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -818,6 +869,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "coverArt",
               "req": false,
               "short": "URL to cover art image",
@@ -853,6 +905,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "releaseDate",
               "req": false,
               "short": "Release date",
@@ -893,15 +946,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/songs/{songId}",
-                  "parts": [
-                    "songs",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "songId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "songs"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -934,6 +991,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "expiresAt",
               "req": false,
               "short": "Expiration time of the stream URL",
@@ -948,6 +1006,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "streamUrl",
               "req": false,
               "short": "URL for streaming the song",
@@ -988,16 +1047,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/songs/{songId}/stream",
-                  "parts": [
-                    "songs",
-                    "{song_id}",
-                    "stream"
-                  ],
                   "rename": {
                     "param": {
                       "songId": "song_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "songs"
+                    },
+                    {
+                      "var": "song_id"
+                    },
+                    {
+                      "lit": "stream"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "quality",
@@ -1035,6 +1100,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "thumbnailUrl",
               "req": false,
               "short": "Video thumbnail URL",
@@ -1042,6 +1108,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "videoUrl",
               "req": false,
               "short": "URL for video preview",
@@ -1071,16 +1138,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/songs/{songId}/video",
-                  "parts": [
-                    "songs",
-                    "{song_id}",
-                    "video"
-                  ],
                   "rename": {
                     "param": {
                       "songId": "song_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "songs"
+                    },
+                    {
+                      "var": "song_id"
+                    },
+                    {
+                      "lit": "video"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "song_id"
@@ -1167,8 +1240,11 @@
             }
           },
           "name": "test",
+          "needs": {},
           "origname": "",
           "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
           "target": {
             "go": {
               "deps": {}
@@ -1610,6 +1686,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1635,6 +1714,10 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
           "title": "Golang"
         },
         "go-cli": {
@@ -1686,6 +1769,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -1710,6 +1794,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go CLI"
         },
         "go-mcp": {
@@ -1761,6 +1846,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -1785,6 +1871,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go MCP server"
         },
         "lua": {
@@ -1825,6 +1912,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1850,6 +1940,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
           "title": "Lua"
         },
         "php": {
@@ -1884,6 +1977,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1909,6 +2005,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
           "title": "PHP"
         },
         "py": {
@@ -1949,6 +2048,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1974,6 +2076,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
           "title": "Python"
         },
         "rb": {
@@ -2019,6 +2124,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2044,6 +2152,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.rb"
+          ],
           "title": "Ruby"
         },
         "ts": {
@@ -2061,11 +2172,6 @@
               "active": true,
               "kind": "dev",
               "version": "^25.6.0"
-            },
-            "dotenv": {
-              "active": true,
-              "kind": "dev",
-              "version": "^17.4.2"
             },
             "typescript": {
               "active": true,
@@ -2094,6 +2200,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2118,6 +2227,14 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
           "title": "TypeScript"
         }
       },

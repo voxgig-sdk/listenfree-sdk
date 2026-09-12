@@ -12,12 +12,14 @@ main: kit: entity: video: {
       type: "`$INTEGER`"
     }
     {
+      format: "uri"
       name: "thumbnailUrl"
       req: false
       short: "Video thumbnail URL"
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "videoUrl"
       req: false
       short: "URL for video preview"
@@ -44,16 +46,22 @@ main: kit: entity: video: {
           }
           method: "GET"
           orig: "/songs/{songId}/video"
-          parts: [
-            "songs"
-            "{song_id}"
-            "video"
-          ]
           rename: {
             param: {
               songId: "song_id"
             }
           }
+          segments: [
+            {
+              lit: "songs"
+            }
+            {
+              var: "song_id"
+            }
+            {
+              lit: "video"
+            }
+          ]
           select: {
             exist: [
               "song_id"

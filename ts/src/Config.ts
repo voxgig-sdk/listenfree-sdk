@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -92,6 +103,7 @@ class Config {
     "listening_room": {
       "fields": [
         {
+          "format": "date-time",
           "name": "createdAt",
           "type": "`$STRING`"
         },
@@ -144,6 +156,10 @@ class Config {
           "type": "`$ARRAY`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "listening_room",
       "op": {
         "create": {
@@ -165,16 +181,22 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/listening-rooms/{roomId}/join",
-              "parts": [
-                "listening-rooms",
-                "{id}",
-                "join"
-              ],
               "rename": {
                 "param": {
                   "roomId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "listening-rooms"
+                },
+                {
+                  "var": "id"
+                },
+                {
+                  "lit": "join"
+                }
+              ],
               "select": {
                 "$action": "join",
                 "exist": [
@@ -184,21 +206,31 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "listening-rooms",
+                "{id}",
+                "join"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/listening-rooms",
-              "parts": [
-                "listening-rooms"
+              "segments": [
+                {
+                  "lit": "listening-rooms"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "listening-rooms"
+              ]
             }
           ]
         },
@@ -221,8 +253,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/listening-rooms",
-              "parts": [
-                "listening-rooms"
+              "segments": [
+                {
+                  "lit": "listening-rooms"
+                }
               ],
               "select": {
                 "exist": [
@@ -232,7 +266,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.rooms`"
-              }
+              },
+              "parts": [
+                "listening-rooms"
+              ]
             }
           ]
         },
@@ -255,15 +292,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/listening-rooms/{roomId}",
-              "parts": [
-                "listening-rooms",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "roomId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "listening-rooms"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -272,7 +313,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "listening-rooms",
+                "{id}"
+              ]
             }
           ]
         }
@@ -284,11 +329,13 @@ class Config {
     "music": {
       "fields": [
         {
+          "format": "date-time",
           "name": "downloadedAt",
           "short": "Download completion timestamp",
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "expiresAt",
           "short": "Offline availability expiration",
           "type": "`$STRING`"
@@ -313,6 +360,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "music",
       "op": {
         "list": {
@@ -324,15 +375,23 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/offline/downloads",
-              "parts": [
-                "offline",
-                "downloads"
+              "segments": [
+                {
+                  "lit": "offline"
+                },
+                {
+                  "lit": "downloads"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.downloads`"
-              }
+              },
+              "parts": [
+                "offline",
+                "downloads"
+              ]
             }
           ]
         }
@@ -361,15 +420,23 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/offline/downloads",
-              "parts": [
-                "offline",
-                "downloads"
+              "segments": [
+                {
+                  "lit": "offline"
+                },
+                {
+                  "lit": "downloads"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.song`"
-              }
+              },
+              "parts": [
+                "offline",
+                "downloads"
+              ]
             }
           ]
         }
@@ -381,6 +448,7 @@ class Config {
     "playlist": {
       "fields": [
         {
+          "format": "date-time",
           "name": "createdAt",
           "short": "Creation timestamp",
           "type": "`$STRING`"
@@ -442,11 +510,16 @@ class Config {
           "type": "`$ARRAY`"
         },
         {
+          "format": "date-time",
           "name": "updatedAt",
           "short": "Last update timestamp",
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "playlist",
       "op": {
         "create": {
@@ -468,16 +541,22 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/playlists/{playlistId}/songs",
-              "parts": [
-                "playlists",
-                "{id}",
-                "songs"
-              ],
               "rename": {
                 "param": {
                   "playlistId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "playlists"
+                },
+                {
+                  "var": "id"
+                },
+                {
+                  "lit": "songs"
+                }
+              ],
               "select": {
                 "$action": "song",
                 "exist": [
@@ -487,21 +566,31 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "playlists",
+                "{id}",
+                "songs"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/playlists",
-              "parts": [
-                "playlists"
+              "segments": [
+                {
+                  "lit": "playlists"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "playlists"
+              ]
             }
           ]
         },
@@ -514,14 +603,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/playlists",
-              "parts": [
-                "playlists"
+              "segments": [
+                {
+                  "lit": "playlists"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.playlists`"
-              }
+              },
+              "parts": [
+                "playlists"
+              ]
             }
           ]
         },
@@ -544,15 +638,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/playlists/{playlistId}",
-              "parts": [
-                "playlists",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "playlistId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "playlists"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -561,7 +659,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "playlists",
+                "{id}"
+              ]
             }
           ]
         },
@@ -584,15 +686,19 @@ class Config {
               "kind": "http",
               "method": "DELETE",
               "orig": "/playlists/{playlistId}",
-              "parts": [
-                "playlists",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "playlistId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "playlists"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -601,7 +707,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "playlists",
+                "{id}"
+              ]
             }
           ]
         },
@@ -624,15 +734,19 @@ class Config {
               "kind": "http",
               "method": "PUT",
               "orig": "/playlists/{playlistId}",
-              "parts": [
-                "playlists",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "playlistId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "playlists"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -641,7 +755,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "playlists",
+                "{id}"
+              ]
             }
           ]
         }
@@ -712,8 +830,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/search",
-              "parts": [
-                "search"
+              "segments": [
+                {
+                  "lit": "search"
+                }
               ],
               "select": {
                 "exist": [
@@ -726,7 +846,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.results`"
-              }
+              },
+              "parts": [
+                "search"
+              ]
             }
           ]
         }
@@ -748,6 +871,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "coverArt",
           "short": "URL to cover art image",
           "type": "`$STRING`"
@@ -773,6 +897,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date",
           "name": "releaseDate",
           "short": "Release date",
           "type": "`$STRING`"
@@ -783,6 +908,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "song",
       "op": {
         "load": {
@@ -804,15 +933,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/songs/{songId}",
-              "parts": [
-                "songs",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "songId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "songs"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -821,7 +954,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "songs",
+                "{id}"
+              ]
             }
           ]
         }
@@ -838,6 +975,7 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "date-time",
           "name": "expiresAt",
           "short": "Expiration time of the stream URL",
           "type": "`$STRING`"
@@ -848,6 +986,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "streamUrl",
           "short": "URL for streaming the song",
           "type": "`$STRING`"
@@ -883,16 +1022,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/songs/{songId}/stream",
-              "parts": [
-                "songs",
-                "{song_id}",
-                "stream"
-              ],
               "rename": {
                 "param": {
                   "songId": "song_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "songs"
+                },
+                {
+                  "var": "song_id"
+                },
+                {
+                  "lit": "stream"
+                }
+              ],
               "select": {
                 "exist": [
                   "quality",
@@ -902,7 +1047,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "songs",
+                "{song_id}",
+                "stream"
+              ]
             }
           ]
         }
@@ -923,11 +1073,13 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "uri",
           "name": "thumbnailUrl",
           "short": "Video thumbnail URL",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "videoUrl",
           "short": "URL for video preview",
           "type": "`$STRING`"
@@ -954,16 +1106,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/songs/{songId}/video",
-              "parts": [
-                "songs",
-                "{song_id}",
-                "video"
-              ],
               "rename": {
                 "param": {
                   "songId": "song_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "songs"
+                },
+                {
+                  "var": "song_id"
+                },
+                {
+                  "lit": "video"
+                }
+              ],
               "select": {
                 "exist": [
                   "song_id"
@@ -972,7 +1130,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "songs",
+                "{song_id}",
+                "video"
+              ]
             }
           ]
         }
@@ -992,6 +1155,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

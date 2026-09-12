@@ -68,15 +68,18 @@ def _song_direct_setup(mockres):
     env = runner.env_override({
         "LISTENFREE_TEST_SONG_ENTID": {},
         "LISTENFREE_TEST_LIVE": "FALSE",
-        "LISTENFREE_APIKEY": "NONE",
+        "LISTENFREE_APIKEY": "",
     })
 
     live = env.get("LISTENFREE_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
             "apikey": env.get("LISTENFREE_APIKEY"),
-        }
+        })
         client = ListenfreeSDK(merged_opts)
         return {
             "client": client,

@@ -21,9 +21,13 @@ main: kit: entity: offline_download: {
         {
           method: "POST"
           orig: "/offline/downloads"
-          parts: [
-            "offline"
-            "downloads"
+          segments: [
+            {
+              lit: "offline"
+            }
+            {
+              lit: "downloads"
+            }
           ]
           transform: {
             req: "`reqdata`"

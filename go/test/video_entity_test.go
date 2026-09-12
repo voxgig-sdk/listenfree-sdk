@@ -50,7 +50,7 @@ func TestVideoEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		videoRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.video", setup.data)))
+		videoRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.video")))
 		var videoRef01Data map[string]any
 		if len(videoRef01DataRaw) > 0 {
 			videoRef01Data = core.ToMapAny(videoRef01DataRaw[0][1])
@@ -97,7 +97,7 @@ func videoBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"video01", "video02", "video03", "song01", "song02", "song03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -117,7 +117,7 @@ func videoBasicSetup(extra map[string]any) *entityTestSetup {
 		"LISTENFREE_TEST_VIDEO_ENTID": idmap,
 		"LISTENFREE_TEST_LIVE":      "FALSE",
 		"LISTENFREE_TEST_EXPLAIN":   "FALSE",
-		"LISTENFREE_APIKEY":         "NONE",
+		"LISTENFREE_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["LISTENFREE_TEST_VIDEO_ENTID"])
@@ -126,11 +126,23 @@ func videoBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["LISTENFREE_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["LISTENFREE_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewListenfreeSDK(core.ToMapAny(mergedOpts))
 	}

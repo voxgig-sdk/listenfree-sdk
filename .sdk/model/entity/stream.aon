@@ -12,6 +12,7 @@ main: kit: entity: stream: {
       type: "`$INTEGER`"
     }
     {
+      format: "date-time"
       name: "expiresAt"
       req: false
       short: "Expiration time of the stream URL"
@@ -24,6 +25,7 @@ main: kit: entity: stream: {
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "streamUrl"
       req: false
       short: "URL for streaming the song"
@@ -60,16 +62,22 @@ main: kit: entity: stream: {
           }
           method: "GET"
           orig: "/songs/{songId}/stream"
-          parts: [
-            "songs"
-            "{song_id}"
-            "stream"
-          ]
           rename: {
             param: {
               songId: "song_id"
             }
           }
+          segments: [
+            {
+              lit: "songs"
+            }
+            {
+              var: "song_id"
+            }
+            {
+              lit: "stream"
+            }
+          ]
           select: {
             exist: [
               "quality"

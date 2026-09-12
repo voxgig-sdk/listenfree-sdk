@@ -118,14 +118,22 @@ func songDirectSetup(mockres any) *songDirectSetupResult {
 	env := envOverride(map[string]any{
 		"LISTENFREE_TEST_SONG_ENTID": map[string]any{},
 		"LISTENFREE_TEST_LIVE":    "FALSE",
-		"LISTENFREE_APIKEY":       "NONE",
+		"LISTENFREE_APIKEY":       "",
 	})
 
 	live := env["LISTENFREE_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["LISTENFREE_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewListenfreeSDK(mergedOpts)
 

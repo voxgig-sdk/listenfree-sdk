@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { ListenfreeSDK } from '@voxgig-sdk/listenfree'
+import { ListenfreeSDK } from '@voxgig-sdk/listenfree-sdk'
 
 const client = new ListenfreeSDK({
   apikey: process.env.LISTENFREE_APIKEY,
@@ -797,7 +797,7 @@ listenfree/
 Import the SDK from the package root:
 
 ```ts
-import { ListenfreeSDK } from '@voxgig-sdk/listenfree'
+import { ListenfreeSDK } from '@voxgig-sdk/listenfree-sdk'
 ```
 
 ### Entity state

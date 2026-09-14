@@ -105,7 +105,7 @@ local results, err = client:Music():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/releases) |
+| TypeScript | `@voxgig-sdk/listenfree-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/releases) |
 | Python | `voxgig-sdk-listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/releases) |
 | PHP | `voxgig-sdk/listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/listenfree-sdk/go` | `go get github.com/voxgig-sdk/listenfree-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Music():list()
 ### TypeScript
 
 ```ts
-import { ListenfreeSDK } from '@voxgig-sdk/listenfree'
+import { ListenfreeSDK } from '@voxgig-sdk/listenfree-sdk'
 
 const client = new ListenfreeSDK({
   apikey: process.env.LISTENFREE_APIKEY,

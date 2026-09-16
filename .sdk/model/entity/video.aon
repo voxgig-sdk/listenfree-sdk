@@ -44,6 +44,12 @@ main: kit: entity: video: {
               }
             ]
           }
+          contract: {
+            id: "GET /songs/{songId}/video"
+            json: "{\"operationId\":\"getSongVideo\",\"parameters\":[{\"description\":\"Unique identifier of the song\",\"in\":\"path\",\"name\":\"songId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"duration\":{\"description\":\"Video duration in seconds\",\"type\":\"integer\"},\"thumbnailUrl\":{\"description\":\"Video thumbnail URL\",\"format\":\"uri\",\"type\":\"string\"},\"videoUrl\":{\"description\":\"URL for video preview\",\"format\":\"uri\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Video preview URL retrieved successfully\"},\"404\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"details\":{\"description\":\"Additional error details\",\"type\":\"object\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Video not available for this song\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/songs/{songId}/video"
           rename: {

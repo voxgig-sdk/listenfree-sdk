@@ -1,12 +1,18 @@
 # Listenfree SDK feature factory
 
 from listenfree_sdk.feature.base_feature import ListenfreeBaseFeature
+from listenfree_sdk.feature.ratelimit_feature import ListenfreeRatelimitFeature
+from listenfree_sdk.feature.retry_feature import ListenfreeRetryFeature
 from listenfree_sdk.feature.test_feature import ListenfreeTestFeature
+from listenfree_sdk.feature.timeout_feature import ListenfreeTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: ListenfreeBaseFeature(),
+    "ratelimit": lambda: ListenfreeRatelimitFeature(),
+    "retry": lambda: ListenfreeRetryFeature(),
     "test": lambda: ListenfreeTestFeature(),
+    "timeout": lambda: ListenfreeTimeoutFeature(),
 }
 
 

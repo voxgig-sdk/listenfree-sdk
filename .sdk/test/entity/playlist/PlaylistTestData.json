@@ -10,7 +10,7 @@
         "name": "s7d",
         "owner": "s7e",
         "smartCriteria": {},
-        "songCount": "s80",
+        "songCount": 128,
         "songId": "s81",
         "songs": [],
         "updatedAt": "s83"
@@ -24,7 +24,7 @@
         "name": "sf5",
         "owner": "sf6",
         "smartCriteria": {},
-        "songCount": "sf8",
+        "songCount": 248,
         "songId": "sf9",
         "songs": [],
         "updatedAt": "sfb"
@@ -38,7 +38,7 @@
         "name": "s16d",
         "owner": "s16e",
         "smartCriteria": {},
-        "songCount": "s170",
+        "songCount": 368,
         "songId": "s171",
         "songs": [],
         "updatedAt": "s173"
@@ -55,10 +55,1043 @@
         "name": "s1e5",
         "owner": "s1e6",
         "smartCriteria": {},
-        "songCount": "s1e8",
+        "songCount": 488,
         "songId": "s1e9",
         "songs": [],
         "updatedAt": "s1eb"
+      }
+    }
+  },
+  "requests": {
+    "POST /playlists/{playlistId}/songs": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "addSongToPlaylist",
+        "parameters": [
+          {
+            "description": "Unique identifier of the playlist",
+            "in": "path",
+            "name": "playlistId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "songId": {
+                    "description": "ID of the song to add",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "songId"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "createdAt": {
+                      "description": "Creation timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Playlist description",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the playlist",
+                      "type": "string"
+                    },
+                    "isPublic": {
+                      "description": "Whether playlist is public",
+                      "type": "boolean"
+                    },
+                    "isSmart": {
+                      "description": "Whether playlist is a smart playlist",
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "description": "Playlist name",
+                      "type": "string"
+                    },
+                    "owner": {
+                      "description": "User ID of playlist owner",
+                      "type": "string"
+                    },
+                    "songCount": {
+                      "description": "Number of songs in playlist",
+                      "type": "integer"
+                    },
+                    "songs": {
+                      "items": {
+                        "properties": {
+                          "album": {
+                            "description": "Album name",
+                            "type": "string"
+                          },
+                          "artist": {
+                            "description": "Artist name",
+                            "type": "string"
+                          },
+                          "coverArt": {
+                            "description": "URL to cover art image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "duration": {
+                            "description": "Duration in seconds",
+                            "type": "integer"
+                          },
+                          "genres": {
+                            "description": "Music genres",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "hasVideo": {
+                            "description": "Whether video preview is available",
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the song",
+                            "type": "string"
+                          },
+                          "releaseDate": {
+                            "description": "Release date",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Song title",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "updatedAt": {
+                      "description": "Last update timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Song added to playlist successfully"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Playlist or song not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "POST /playlists": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "createPlaylist",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "description": {
+                    "description": "Playlist description",
+                    "maxLength": 500,
+                    "type": "string"
+                  },
+                  "isPublic": {
+                    "default": false,
+                    "description": "Whether playlist should be public",
+                    "type": "boolean"
+                  },
+                  "isSmart": {
+                    "default": false,
+                    "description": "Whether to create a smart playlist",
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "description": "Playlist name",
+                    "maxLength": 100,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "smartCriteria": {
+                    "description": "Criteria for smart playlist generation",
+                    "properties": {
+                      "artists": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "genres": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "maxDuration": {
+                        "type": "integer"
+                      },
+                      "minDuration": {
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "createdAt": {
+                      "description": "Creation timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Playlist description",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the playlist",
+                      "type": "string"
+                    },
+                    "isPublic": {
+                      "description": "Whether playlist is public",
+                      "type": "boolean"
+                    },
+                    "isSmart": {
+                      "description": "Whether playlist is a smart playlist",
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "description": "Playlist name",
+                      "type": "string"
+                    },
+                    "owner": {
+                      "description": "User ID of playlist owner",
+                      "type": "string"
+                    },
+                    "songCount": {
+                      "description": "Number of songs in playlist",
+                      "type": "integer"
+                    },
+                    "songs": {
+                      "items": {
+                        "properties": {
+                          "album": {
+                            "description": "Album name",
+                            "type": "string"
+                          },
+                          "artist": {
+                            "description": "Artist name",
+                            "type": "string"
+                          },
+                          "coverArt": {
+                            "description": "URL to cover art image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "duration": {
+                            "description": "Duration in seconds",
+                            "type": "integer"
+                          },
+                          "genres": {
+                            "description": "Music genres",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "hasVideo": {
+                            "description": "Whether video preview is available",
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the song",
+                            "type": "string"
+                          },
+                          "releaseDate": {
+                            "description": "Release date",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Song title",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "updatedAt": {
+                      "description": "Last update timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Playlist created successfully"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Invalid request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /playlists": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "listPlaylists",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "playlists": {
+                      "items": {
+                        "properties": {
+                          "createdAt": {
+                            "description": "Creation timestamp",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "description": {
+                            "description": "Playlist description",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the playlist",
+                            "type": "string"
+                          },
+                          "isPublic": {
+                            "description": "Whether playlist is public",
+                            "type": "boolean"
+                          },
+                          "isSmart": {
+                            "description": "Whether playlist is a smart playlist",
+                            "type": "boolean"
+                          },
+                          "name": {
+                            "description": "Playlist name",
+                            "type": "string"
+                          },
+                          "owner": {
+                            "description": "User ID of playlist owner",
+                            "type": "string"
+                          },
+                          "songCount": {
+                            "description": "Number of songs in playlist",
+                            "type": "integer"
+                          },
+                          "songs": {
+                            "items": {
+                              "properties": {
+                                "album": {
+                                  "description": "Album name",
+                                  "type": "string"
+                                },
+                                "artist": {
+                                  "description": "Artist name",
+                                  "type": "string"
+                                },
+                                "coverArt": {
+                                  "description": "URL to cover art image",
+                                  "format": "uri",
+                                  "type": "string"
+                                },
+                                "duration": {
+                                  "description": "Duration in seconds",
+                                  "type": "integer"
+                                },
+                                "genres": {
+                                  "description": "Music genres",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                },
+                                "hasVideo": {
+                                  "description": "Whether video preview is available",
+                                  "type": "boolean"
+                                },
+                                "id": {
+                                  "description": "Unique identifier for the song",
+                                  "type": "string"
+                                },
+                                "releaseDate": {
+                                  "description": "Release date",
+                                  "format": "date",
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "description": "Song title",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "updatedAt": {
+                            "description": "Last update timestamp",
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "List of playlists"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /playlists/{playlistId}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getPlaylist",
+        "parameters": [
+          {
+            "description": "Unique identifier of the playlist",
+            "in": "path",
+            "name": "playlistId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "createdAt": {
+                      "description": "Creation timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Playlist description",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the playlist",
+                      "type": "string"
+                    },
+                    "isPublic": {
+                      "description": "Whether playlist is public",
+                      "type": "boolean"
+                    },
+                    "isSmart": {
+                      "description": "Whether playlist is a smart playlist",
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "description": "Playlist name",
+                      "type": "string"
+                    },
+                    "owner": {
+                      "description": "User ID of playlist owner",
+                      "type": "string"
+                    },
+                    "songCount": {
+                      "description": "Number of songs in playlist",
+                      "type": "integer"
+                    },
+                    "songs": {
+                      "items": {
+                        "properties": {
+                          "album": {
+                            "description": "Album name",
+                            "type": "string"
+                          },
+                          "artist": {
+                            "description": "Artist name",
+                            "type": "string"
+                          },
+                          "coverArt": {
+                            "description": "URL to cover art image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "duration": {
+                            "description": "Duration in seconds",
+                            "type": "integer"
+                          },
+                          "genres": {
+                            "description": "Music genres",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "hasVideo": {
+                            "description": "Whether video preview is available",
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the song",
+                            "type": "string"
+                          },
+                          "releaseDate": {
+                            "description": "Release date",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Song title",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "updatedAt": {
+                      "description": "Last update timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Playlist details retrieved successfully"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Playlist not found"
+          }
+        },
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "DELETE /playlists/{playlistId}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "deletePlaylist",
+        "parameters": [
+          {
+            "description": "Unique identifier of the playlist",
+            "in": "path",
+            "name": "playlistId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "204": {
+            "description": "Playlist deleted successfully"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Playlist not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "PUT /playlists/{playlistId}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "updatePlaylist",
+        "parameters": [
+          {
+            "description": "Unique identifier of the playlist",
+            "in": "path",
+            "name": "playlistId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "description": {
+                    "description": "Playlist description",
+                    "maxLength": 500,
+                    "type": "string"
+                  },
+                  "isPublic": {
+                    "description": "Whether playlist should be public",
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "description": "Playlist name",
+                    "maxLength": 100,
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "createdAt": {
+                      "description": "Creation timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "Playlist description",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the playlist",
+                      "type": "string"
+                    },
+                    "isPublic": {
+                      "description": "Whether playlist is public",
+                      "type": "boolean"
+                    },
+                    "isSmart": {
+                      "description": "Whether playlist is a smart playlist",
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "description": "Playlist name",
+                      "type": "string"
+                    },
+                    "owner": {
+                      "description": "User ID of playlist owner",
+                      "type": "string"
+                    },
+                    "songCount": {
+                      "description": "Number of songs in playlist",
+                      "type": "integer"
+                    },
+                    "songs": {
+                      "items": {
+                        "properties": {
+                          "album": {
+                            "description": "Album name",
+                            "type": "string"
+                          },
+                          "artist": {
+                            "description": "Artist name",
+                            "type": "string"
+                          },
+                          "coverArt": {
+                            "description": "URL to cover art image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "duration": {
+                            "description": "Duration in seconds",
+                            "type": "integer"
+                          },
+                          "genres": {
+                            "description": "Music genres",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "hasVideo": {
+                            "description": "Whether video preview is available",
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the song",
+                            "type": "string"
+                          },
+                          "releaseDate": {
+                            "description": "Release date",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Song title",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "updatedAt": {
+                      "description": "Last update timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Playlist updated successfully"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Playlist not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
       }
     }
   }

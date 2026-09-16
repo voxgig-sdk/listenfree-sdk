@@ -5,7 +5,7 @@
         "album": "s5a",
         "artist": "s5b",
         "coverArt": "s5c",
-        "duration": "s5d",
+        "duration": 93,
         "genres": [],
         "hasVideo": false,
         "id": "SONG00",
@@ -16,7 +16,7 @@
         "album": "sb4",
         "artist": "sb5",
         "coverArt": "sb6",
-        "duration": "sb7",
+        "duration": 183,
         "genres": [],
         "hasVideo": false,
         "id": "SONG01",
@@ -27,7 +27,7 @@
         "album": "s10e",
         "artist": "s10f",
         "coverArt": "s110",
-        "duration": "s111",
+        "duration": 273,
         "genres": [],
         "hasVideo": false,
         "id": "SONG02",
@@ -42,11 +42,119 @@
         "album": "s168",
         "artist": "s169",
         "coverArt": "s16a",
-        "duration": "s16b",
+        "duration": 363,
         "genres": [],
         "hasVideo": false,
         "releaseDate": "s16f",
         "title": "s170"
+      }
+    }
+  },
+  "requests": {
+    "GET /songs/{songId}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getSong",
+        "parameters": [
+          {
+            "description": "Unique identifier of the song",
+            "in": "path",
+            "name": "songId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "album": {
+                      "description": "Album name",
+                      "type": "string"
+                    },
+                    "artist": {
+                      "description": "Artist name",
+                      "type": "string"
+                    },
+                    "coverArt": {
+                      "description": "URL to cover art image",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "duration": {
+                      "description": "Duration in seconds",
+                      "type": "integer"
+                    },
+                    "genres": {
+                      "description": "Music genres",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "hasVideo": {
+                      "description": "Whether video preview is available",
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the song",
+                      "type": "string"
+                    },
+                    "releaseDate": {
+                      "description": "Release date",
+                      "format": "date",
+                      "type": "string"
+                    },
+                    "title": {
+                      "description": "Song title",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Song details retrieved successfully"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Song not found"
+          }
+        },
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

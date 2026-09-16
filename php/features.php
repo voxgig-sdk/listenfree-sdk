@@ -4,7 +4,10 @@ declare(strict_types=1);
 // Listenfree SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class ListenfreeFeatures
@@ -14,8 +17,14 @@ class ListenfreeFeatures
         switch ($name) {
             case "base":
                 return new ListenfreeBaseFeature();
+            case "ratelimit":
+                return new ListenfreeRatelimitFeature();
+            case "retry":
+                return new ListenfreeRetryFeature();
             case "test":
                 return new ListenfreeTestFeature();
+            case "timeout":
+                return new ListenfreeTimeoutFeature();
             default:
                 return new ListenfreeBaseFeature();
         }
@@ -31,7 +40,10 @@ class ListenfreeFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

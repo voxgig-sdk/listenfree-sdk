@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { ListenfreeSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('StreamEntity', async () => {
 
     const live = 'TRUE' === process.env.LISTENFREE_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'stream.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'stream.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set LISTENFREE_TEST_STREAM_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"bitrate","req":false,"short":"Audio bitrate in kbps","type":"`$INTEGER`","index$":0},{"active":true,"format":"date-time","name":"expiresAt","req":false,"short":"Expiration time of the stream URL","type":"`$STRING`","index$":1},{"active":true,"name":"quality","req":false,"short":"Audio quality","type":"`$STRING`","index$":2},{"active":true,"format":"uri","name":"streamUrl","req":false,"short":"URL for streaming the song","type":"`$STRING`","index$":3}],"name":"stream","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"song_id","orig":"song_id","reqd":true,"type":"`$STRING`","index$":0}],"query":[{"active":true,"example":"high","kind":"query","name":"quality","orig":"quality","reqd":false,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /songs/{songId}/stream","json":"{\"operationId\":\"streamSong\",\"parameters\":[{\"description\":\"Unique identifier of the song\",\"in\":\"path\",\"name\":\"songId\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Audio quality preference\",\"in\":\"query\",\"name\":\"quality\",\"required\":false,\"schema\":{\"default\":\"high\",\"enum\":[\"low\",\"medium\",\"high\"],\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"bitrate\":{\"description\":\"Audio bitrate in kbps\",\"type\":\"integer\"},\"expiresAt\":{\"description\":\"Expiration time of the stream URL\",\"format\":\"date-time\",\"type\":\"string\"},\"quality\":{\"description\":\"Audio quality\",\"enum\":[\"low\",\"medium\",\"high\"],\"type\":\"string\"},\"streamUrl\":{\"description\":\"URL for streaming the song\",\"format\":\"uri\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Stream URL retrieved successfully\"},\"404\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"details\":{\"description\":\"Additional error details\",\"type\":\"object\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Song not found\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/songs/{songId}/stream","rename":{"param":{"songId":"song_id"}},"segments":[{"lit":"songs"},{"var":"song_id"},{"lit":"stream"}],"select":{"exist":["quality","song_id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["song"]]},"key$":"stream","name__orig":"stream","Name":"Stream","name_":"stream","name-":"stream","NAME":"STREAM","index$":6}, {"active":true,"entity":"stream","key$":"BasicStreamFlow","kind":"basic","name":"BasicStreamFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"stream_ref01","srcdatavar":"stream_ref01_data","suffix":"_dt0"},"match":{"id":"stream01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-stream_ref01"}}],"index$":0}]}, 'Stream')
     }
     const client = setup.client
     const struct = setup.struct
@@ -107,13 +106,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['LISTENFREE_TEST_STREAM_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'LISTENFREE_TEST_STREAM_ENTID': idmap,
     'LISTENFREE_TEST_LIVE': 'FALSE',
@@ -125,7 +117,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.LISTENFREE_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['LISTENFREE_TEST_STREAM_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new ListenfreeSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -138,7 +136,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -151,7 +150,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.LISTENFREE_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

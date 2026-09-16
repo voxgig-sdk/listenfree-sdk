@@ -8,7 +8,7 @@
         "host": "s67",
         "id": "LISTENING_ROOM00",
         "isPublic": false,
-        "maxParticipants": "s6a",
+        "maxParticipants": 106,
         "name": "s6b",
         "participants": [],
         "queue": []
@@ -20,7 +20,7 @@
         "host": "scb",
         "id": "LISTENING_ROOM01",
         "isPublic": false,
-        "maxParticipants": "sce",
+        "maxParticipants": 206,
         "name": "scf",
         "participants": [],
         "queue": []
@@ -32,7 +32,7 @@
         "host": "s12f",
         "id": "LISTENING_ROOM02",
         "isPublic": false,
-        "maxParticipants": "s132",
+        "maxParticipants": 306,
         "name": "s133",
         "participants": [],
         "queue": []
@@ -47,10 +47,893 @@
         "description": "s192",
         "host": "s193",
         "isPublic": false,
-        "maxParticipants": "s196",
+        "maxParticipants": 406,
         "name": "s197",
         "participants": [],
         "queue": []
+      }
+    }
+  },
+  "requests": {
+    "POST /listening-rooms/{roomId}/join": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "joinListeningRoom",
+        "parameters": [
+          {
+            "description": "Unique identifier of the listening room",
+            "in": "path",
+            "name": "roomId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "createdAt": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "currentSong": {
+                      "properties": {
+                        "album": {
+                          "description": "Album name",
+                          "type": "string"
+                        },
+                        "artist": {
+                          "description": "Artist name",
+                          "type": "string"
+                        },
+                        "coverArt": {
+                          "description": "URL to cover art image",
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "duration": {
+                          "description": "Duration in seconds",
+                          "type": "integer"
+                        },
+                        "genres": {
+                          "description": "Music genres",
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "hasVideo": {
+                          "description": "Whether video preview is available",
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "description": "Unique identifier for the song",
+                          "type": "string"
+                        },
+                        "releaseDate": {
+                          "description": "Release date",
+                          "format": "date",
+                          "type": "string"
+                        },
+                        "title": {
+                          "description": "Song title",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "description": {
+                      "description": "Room description",
+                      "type": "string"
+                    },
+                    "host": {
+                      "description": "User ID of room host",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the listening room",
+                      "type": "string"
+                    },
+                    "isPublic": {
+                      "description": "Whether room is public",
+                      "type": "boolean"
+                    },
+                    "maxParticipants": {
+                      "description": "Maximum number of participants",
+                      "type": "integer"
+                    },
+                    "name": {
+                      "description": "Room name",
+                      "type": "string"
+                    },
+                    "participants": {
+                      "items": {
+                        "properties": {
+                          "userId": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "queue": {
+                      "items": {
+                        "properties": {
+                          "album": {
+                            "description": "Album name",
+                            "type": "string"
+                          },
+                          "artist": {
+                            "description": "Artist name",
+                            "type": "string"
+                          },
+                          "coverArt": {
+                            "description": "URL to cover art image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "duration": {
+                            "description": "Duration in seconds",
+                            "type": "integer"
+                          },
+                          "genres": {
+                            "description": "Music genres",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "hasVideo": {
+                            "description": "Whether video preview is available",
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the song",
+                            "type": "string"
+                          },
+                          "releaseDate": {
+                            "description": "Release date",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Song title",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successfully joined the room"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Listening room not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "POST /listening-rooms": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "createListeningRoom",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "description": {
+                    "description": "Room description",
+                    "maxLength": 500,
+                    "type": "string"
+                  },
+                  "isPublic": {
+                    "default": true,
+                    "description": "Whether room should be public",
+                    "type": "boolean"
+                  },
+                  "maxParticipants": {
+                    "default": 10,
+                    "description": "Maximum number of participants",
+                    "maximum": 100,
+                    "minimum": 2,
+                    "type": "integer"
+                  },
+                  "name": {
+                    "description": "Room name",
+                    "maxLength": 100,
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "createdAt": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "currentSong": {
+                      "properties": {
+                        "album": {
+                          "description": "Album name",
+                          "type": "string"
+                        },
+                        "artist": {
+                          "description": "Artist name",
+                          "type": "string"
+                        },
+                        "coverArt": {
+                          "description": "URL to cover art image",
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "duration": {
+                          "description": "Duration in seconds",
+                          "type": "integer"
+                        },
+                        "genres": {
+                          "description": "Music genres",
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "hasVideo": {
+                          "description": "Whether video preview is available",
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "description": "Unique identifier for the song",
+                          "type": "string"
+                        },
+                        "releaseDate": {
+                          "description": "Release date",
+                          "format": "date",
+                          "type": "string"
+                        },
+                        "title": {
+                          "description": "Song title",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "description": {
+                      "description": "Room description",
+                      "type": "string"
+                    },
+                    "host": {
+                      "description": "User ID of room host",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the listening room",
+                      "type": "string"
+                    },
+                    "isPublic": {
+                      "description": "Whether room is public",
+                      "type": "boolean"
+                    },
+                    "maxParticipants": {
+                      "description": "Maximum number of participants",
+                      "type": "integer"
+                    },
+                    "name": {
+                      "description": "Room name",
+                      "type": "string"
+                    },
+                    "participants": {
+                      "items": {
+                        "properties": {
+                          "userId": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "queue": {
+                      "items": {
+                        "properties": {
+                          "album": {
+                            "description": "Album name",
+                            "type": "string"
+                          },
+                          "artist": {
+                            "description": "Artist name",
+                            "type": "string"
+                          },
+                          "coverArt": {
+                            "description": "URL to cover art image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "duration": {
+                            "description": "Duration in seconds",
+                            "type": "integer"
+                          },
+                          "genres": {
+                            "description": "Music genres",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "hasVideo": {
+                            "description": "Whether video preview is available",
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the song",
+                            "type": "string"
+                          },
+                          "releaseDate": {
+                            "description": "Release date",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Song title",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Listening room created successfully"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Invalid request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /listening-rooms": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "listListeningRooms",
+        "parameters": [
+          {
+            "description": "Maximum number of rooms to return",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "rooms": {
+                      "items": {
+                        "properties": {
+                          "createdAt": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "currentSong": {
+                            "properties": {
+                              "album": {
+                                "description": "Album name",
+                                "type": "string"
+                              },
+                              "artist": {
+                                "description": "Artist name",
+                                "type": "string"
+                              },
+                              "coverArt": {
+                                "description": "URL to cover art image",
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "duration": {
+                                "description": "Duration in seconds",
+                                "type": "integer"
+                              },
+                              "genres": {
+                                "description": "Music genres",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "hasVideo": {
+                                "description": "Whether video preview is available",
+                                "type": "boolean"
+                              },
+                              "id": {
+                                "description": "Unique identifier for the song",
+                                "type": "string"
+                              },
+                              "releaseDate": {
+                                "description": "Release date",
+                                "format": "date",
+                                "type": "string"
+                              },
+                              "title": {
+                                "description": "Song title",
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "description": {
+                            "description": "Room description",
+                            "type": "string"
+                          },
+                          "host": {
+                            "description": "User ID of room host",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the listening room",
+                            "type": "string"
+                          },
+                          "isPublic": {
+                            "description": "Whether room is public",
+                            "type": "boolean"
+                          },
+                          "maxParticipants": {
+                            "description": "Maximum number of participants",
+                            "type": "integer"
+                          },
+                          "name": {
+                            "description": "Room name",
+                            "type": "string"
+                          },
+                          "participants": {
+                            "items": {
+                              "properties": {
+                                "userId": {
+                                  "type": "string"
+                                },
+                                "username": {
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "queue": {
+                            "items": {
+                              "properties": {
+                                "album": {
+                                  "description": "Album name",
+                                  "type": "string"
+                                },
+                                "artist": {
+                                  "description": "Artist name",
+                                  "type": "string"
+                                },
+                                "coverArt": {
+                                  "description": "URL to cover art image",
+                                  "format": "uri",
+                                  "type": "string"
+                                },
+                                "duration": {
+                                  "description": "Duration in seconds",
+                                  "type": "integer"
+                                },
+                                "genres": {
+                                  "description": "Music genres",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                },
+                                "hasVideo": {
+                                  "description": "Whether video preview is available",
+                                  "type": "boolean"
+                                },
+                                "id": {
+                                  "description": "Unique identifier for the song",
+                                  "type": "string"
+                                },
+                                "releaseDate": {
+                                  "description": "Release date",
+                                  "format": "date",
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "description": "Song title",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "List of listening rooms"
+          }
+        },
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /listening-rooms/{roomId}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getListeningRoom",
+        "parameters": [
+          {
+            "description": "Unique identifier of the listening room",
+            "in": "path",
+            "name": "roomId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "createdAt": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "currentSong": {
+                      "properties": {
+                        "album": {
+                          "description": "Album name",
+                          "type": "string"
+                        },
+                        "artist": {
+                          "description": "Artist name",
+                          "type": "string"
+                        },
+                        "coverArt": {
+                          "description": "URL to cover art image",
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "duration": {
+                          "description": "Duration in seconds",
+                          "type": "integer"
+                        },
+                        "genres": {
+                          "description": "Music genres",
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "hasVideo": {
+                          "description": "Whether video preview is available",
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "description": "Unique identifier for the song",
+                          "type": "string"
+                        },
+                        "releaseDate": {
+                          "description": "Release date",
+                          "format": "date",
+                          "type": "string"
+                        },
+                        "title": {
+                          "description": "Song title",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "description": {
+                      "description": "Room description",
+                      "type": "string"
+                    },
+                    "host": {
+                      "description": "User ID of room host",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the listening room",
+                      "type": "string"
+                    },
+                    "isPublic": {
+                      "description": "Whether room is public",
+                      "type": "boolean"
+                    },
+                    "maxParticipants": {
+                      "description": "Maximum number of participants",
+                      "type": "integer"
+                    },
+                    "name": {
+                      "description": "Room name",
+                      "type": "string"
+                    },
+                    "participants": {
+                      "items": {
+                        "properties": {
+                          "userId": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "queue": {
+                      "items": {
+                        "properties": {
+                          "album": {
+                            "description": "Album name",
+                            "type": "string"
+                          },
+                          "artist": {
+                            "description": "Artist name",
+                            "type": "string"
+                          },
+                          "coverArt": {
+                            "description": "URL to cover art image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "duration": {
+                            "description": "Duration in seconds",
+                            "type": "integer"
+                          },
+                          "genres": {
+                            "description": "Music genres",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "hasVideo": {
+                            "description": "Whether video preview is available",
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the song",
+                            "type": "string"
+                          },
+                          "releaseDate": {
+                            "description": "Release date",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Song title",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Listening room details"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Listening room not found"
+          }
+        },
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

@@ -60,6 +60,12 @@ main: kit: entity: stream: {
               }
             ]
           }
+          contract: {
+            id: "GET /songs/{songId}/stream"
+            json: "{\"operationId\":\"streamSong\",\"parameters\":[{\"description\":\"Unique identifier of the song\",\"in\":\"path\",\"name\":\"songId\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Audio quality preference\",\"in\":\"query\",\"name\":\"quality\",\"required\":false,\"schema\":{\"default\":\"high\",\"enum\":[\"low\",\"medium\",\"high\"],\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"bitrate\":{\"description\":\"Audio bitrate in kbps\",\"type\":\"integer\"},\"expiresAt\":{\"description\":\"Expiration time of the stream URL\",\"format\":\"date-time\",\"type\":\"string\"},\"quality\":{\"description\":\"Audio quality\",\"enum\":[\"low\",\"medium\",\"high\"],\"type\":\"string\"},\"streamUrl\":{\"description\":\"URL for streaming the song\",\"format\":\"uri\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Stream URL retrieved successfully\"},\"404\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"details\":{\"description\":\"Additional error details\",\"type\":\"object\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Song not found\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/songs/{songId}/stream"
           rename: {

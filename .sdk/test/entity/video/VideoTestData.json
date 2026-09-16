@@ -2,21 +2,21 @@
   "existing": {
     "video": {
       "VIDEO00": {
-        "duration": "s1e",
+        "duration": 30,
         "thumbnailUrl": "s1f",
         "videoUrl": "s20",
         "song_id": "SONG01",
         "id": "VIDEO00"
       },
       "VIDEO01": {
-        "duration": "s3c",
+        "duration": 60,
         "thumbnailUrl": "s3d",
         "videoUrl": "s3e",
         "song_id": "SONG01",
         "id": "VIDEO01"
       },
       "VIDEO02": {
-        "duration": "s5a",
+        "duration": 90,
         "thumbnailUrl": "s5b",
         "videoUrl": "s5c",
         "song_id": "SONG01",
@@ -27,9 +27,90 @@
   "new": {
     "video": {
       "video_ref01": {
-        "duration": "s78",
+        "duration": 120,
         "thumbnailUrl": "s79",
         "videoUrl": "s7a"
+      }
+    }
+  },
+  "requests": {
+    "GET /songs/{songId}/video": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getSongVideo",
+        "parameters": [
+          {
+            "description": "Unique identifier of the song",
+            "in": "path",
+            "name": "songId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "duration": {
+                      "description": "Video duration in seconds",
+                      "type": "integer"
+                    },
+                    "thumbnailUrl": {
+                      "description": "Video thumbnail URL",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "videoUrl": {
+                      "description": "URL for video preview",
+                      "format": "uri",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Video preview URL retrieved successfully"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Video not available for this song"
+          }
+        },
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

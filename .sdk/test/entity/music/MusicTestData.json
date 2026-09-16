@@ -5,7 +5,7 @@
         "downloadedAt": "s3c",
         "expiresAt": "s3d",
         "id": "MUSIC00",
-        "progress": "s3f",
+        "progress": 63,
         "song": {},
         "status": "s41"
       },
@@ -13,7 +13,7 @@
         "downloadedAt": "s78",
         "expiresAt": "s79",
         "id": "MUSIC01",
-        "progress": "s7b",
+        "progress": 123,
         "song": {},
         "status": "s7d"
       },
@@ -21,7 +21,7 @@
         "downloadedAt": "sb4",
         "expiresAt": "sb5",
         "id": "MUSIC02",
-        "progress": "sb7",
+        "progress": 183,
         "song": {},
         "status": "sb9"
       }
@@ -32,9 +32,155 @@
       "music_ref01": {
         "downloadedAt": "sf0",
         "expiresAt": "sf1",
-        "progress": "sf3",
+        "progress": 243,
         "song": {},
         "status": "sf5"
+      }
+    }
+  },
+  "requests": {
+    "GET /offline/downloads": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "listOfflineDownloads",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "downloads": {
+                      "items": {
+                        "properties": {
+                          "downloadedAt": {
+                            "description": "Download completion timestamp",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "expiresAt": {
+                            "description": "Offline availability expiration",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "Download ID",
+                            "type": "string"
+                          },
+                          "progress": {
+                            "description": "Download progress percentage",
+                            "maximum": 100,
+                            "minimum": 0,
+                            "type": "integer"
+                          },
+                          "song": {
+                            "properties": {
+                              "album": {
+                                "description": "Album name",
+                                "type": "string"
+                              },
+                              "artist": {
+                                "description": "Artist name",
+                                "type": "string"
+                              },
+                              "coverArt": {
+                                "description": "URL to cover art image",
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "duration": {
+                                "description": "Duration in seconds",
+                                "type": "integer"
+                              },
+                              "genres": {
+                                "description": "Music genres",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "hasVideo": {
+                                "description": "Whether video preview is available",
+                                "type": "boolean"
+                              },
+                              "id": {
+                                "description": "Unique identifier for the song",
+                                "type": "string"
+                              },
+                              "releaseDate": {
+                                "description": "Release date",
+                                "format": "date",
+                                "type": "string"
+                              },
+                              "title": {
+                                "description": "Song title",
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "status": {
+                            "description": "Download status",
+                            "enum": [
+                              "pending",
+                              "downloading",
+                              "completed",
+                              "failed"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "List of downloaded songs"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
       }
     }
   }

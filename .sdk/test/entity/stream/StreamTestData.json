@@ -2,7 +2,7 @@
   "existing": {
     "stream": {
       "STREAM00": {
-        "bitrate": "s28",
+        "bitrate": 40,
         "expiresAt": "s29",
         "quality": "s2a",
         "streamUrl": "s2b",
@@ -10,7 +10,7 @@
         "id": "STREAM00"
       },
       "STREAM01": {
-        "bitrate": "s50",
+        "bitrate": 80,
         "expiresAt": "s51",
         "quality": "s52",
         "streamUrl": "s53",
@@ -18,7 +18,7 @@
         "id": "STREAM01"
       },
       "STREAM02": {
-        "bitrate": "s78",
+        "bitrate": 120,
         "expiresAt": "s79",
         "quality": "s7a",
         "streamUrl": "s7b",
@@ -30,10 +30,115 @@
   "new": {
     "stream": {
       "stream_ref01": {
-        "bitrate": "sa0",
+        "bitrate": 160,
         "expiresAt": "sa1",
         "quality": "sa2",
         "streamUrl": "sa3"
+      }
+    }
+  },
+  "requests": {
+    "GET /songs/{songId}/stream": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "streamSong",
+        "parameters": [
+          {
+            "description": "Unique identifier of the song",
+            "in": "path",
+            "name": "songId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Audio quality preference",
+            "in": "query",
+            "name": "quality",
+            "required": false,
+            "schema": {
+              "default": "high",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "bitrate": {
+                      "description": "Audio bitrate in kbps",
+                      "type": "integer"
+                    },
+                    "expiresAt": {
+                      "description": "Expiration time of the stream URL",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "quality": {
+                      "description": "Audio quality",
+                      "enum": [
+                        "low",
+                        "medium",
+                        "high"
+                      ],
+                      "type": "string"
+                    },
+                    "streamUrl": {
+                      "description": "URL for streaming the song",
+                      "format": "uri",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Stream URL retrieved successfully"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Song not found"
+          }
+        },
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

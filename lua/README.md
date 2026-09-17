@@ -319,7 +319,6 @@ API path: `/offline/downloads`
 | `owner` | User ID of playlist owner |
 | `smartCriteria` | Criteria for smart playlist generation |
 | `songCount` | Number of songs in playlist |
-| `songId` | ID of the song to add |
 | `songs` |  |
 | `updatedAt` | Last update timestamp |
 
@@ -515,7 +514,6 @@ Create an instance: `local playlist = client:Playlist(nil)`
 | `owner` | `string` | User ID of playlist owner |
 | `smartCriteria` | `table` | Criteria for smart playlist generation |
 | `songCount` | `number` | Number of songs in playlist |
-| `songId` | `string` | ID of the song to add |
 | `songs` | `table` |  |
 | `updatedAt` | `string` | Last update timestamp |
 
@@ -535,7 +533,6 @@ local playlists, err = client:Playlist():list()
 
 ```lua
 local playlist, err = client:Playlist():create({
-  songId = "example_songId", -- string
 })
 ```
 
@@ -790,6 +787,7 @@ Use `helpers.to_map()` to safely validate that a value is a table.
 lua/
 ├── listenfree_sdk.lua    -- Main SDK module
 ├── config.lua               -- Configuration
+├── schema.lua               -- Generated option + entity specs
 ├── features.lua             -- Feature factory
 ├── core/                    -- Core types and context
 ├── entity/                  -- Entity implementations

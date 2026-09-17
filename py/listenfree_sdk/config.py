@@ -522,12 +522,6 @@ def make_config():
             "type": "`$INTEGER`",
           },
           {
-            "name": "songId",
-            "req": True,
-            "short": "ID of the song to add",
-            "type": "`$STRING`",
-          },
-          {
             "name": "songs",
             "type": "`$ARRAY`",
           },

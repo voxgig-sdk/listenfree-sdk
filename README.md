@@ -105,12 +105,12 @@ local results, err = client:Music():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/listenfree-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/releases) |
-| Python | `voxgig-sdk-listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/releases) |
-| PHP | `voxgig-sdk/listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/releases) |
+| TypeScript | `@voxgig-sdk/listenfree-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/tags) |
+| Python | `voxgig-sdk-listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/tags) |
+| PHP | `voxgig-sdk/listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/listenfree-sdk/go` | `go get github.com/voxgig-sdk/listenfree-sdk/go@latest` |
-| Ruby | `voxgig-sdk-listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/releases) |
-| Lua | `voxgig-sdk-listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/releases) |
+| Ruby | `voxgig-sdk-listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/tags) |
+| Lua | `voxgig-sdk-listenfree` | publish pending — [install from git tag](https://github.com/voxgig-sdk/listenfree-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/listenfree-sdk/go-cli` | `go install github.com/voxgig-sdk/listenfree-sdk/go-cli/cmd/listenfree@latest` |
 | Go MCP server | `github.com/voxgig-sdk/listenfree-sdk/go-mcp` | `go get github.com/voxgig-sdk/listenfree-sdk/go-mcp@latest` |
 

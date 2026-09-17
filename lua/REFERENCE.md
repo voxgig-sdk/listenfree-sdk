@@ -332,7 +332,6 @@ local playlist = client:Playlist(nil)
 | `owner` | `string` | No | User ID of playlist owner |
 | `smartCriteria` | `table` | No | Criteria for smart playlist generation |
 | `songCount` | `number` | No | Number of songs in playlist |
-| `songId` | `string` | Yes | ID of the song to add |
 | `songs` | `table` | No |  |
 | `updatedAt` | `string` | No | Last update timestamp |
 
@@ -349,7 +348,6 @@ local playlist = client:Playlist(nil)
 | `owner` | - | - | - | - | - |
 | `smartCriteria` | - | - | - | - | - |
 | `songCount` | - | - | - | - | - |
-| `songId` | - | - | - | - | - |
 | `songs` | - | - | - | - | - |
 | `updatedAt` | - | - | - | - | - |
 
@@ -361,7 +359,6 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Playlist():create({
-  songId = --[[ string ]],
 })
 ```
 

@@ -62,7 +62,6 @@ export interface Playlist {
     owner?: string;
     smartCriteria?: Record<string, any>;
     songCount?: number;
-    songId: string;
     songs?: any[];
     updatedAt?: string;
 }
@@ -79,7 +78,6 @@ export interface PlaylistListMatch {
     owner?: string;
     smartCriteria?: Record<string, any>;
     songCount?: number;
-    songId?: string;
     songs?: any[];
     updatedAt?: string;
 }
@@ -93,7 +91,6 @@ export interface PlaylistCreateData {
     owner?: string;
     smartCriteria?: Record<string, any>;
     songCount?: number;
-    songId: string;
     songs?: any[];
     updatedAt?: string;
     $action?: string;
@@ -109,7 +106,6 @@ export interface PlaylistUpdateData {
     owner?: string;
     smartCriteria?: Record<string, any>;
     songCount?: number;
-    songId?: string;
     songs?: any[];
     updatedAt?: string;
 }

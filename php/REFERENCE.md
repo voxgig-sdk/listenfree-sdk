@@ -334,7 +334,6 @@ $playlist = $client->Playlist();
 | `owner` | `string` | No | User ID of playlist owner |
 | `smartCriteria` | `array` | No | Criteria for smart playlist generation |
 | `songCount` | `int` | No | Number of songs in playlist |
-| `songId` | `string` | Yes | ID of the song to add |
 | `songs` | `array` | No |  |
 | `updatedAt` | `string` | No | Last update timestamp |
 
@@ -351,7 +350,6 @@ $playlist = $client->Playlist();
 | `owner` | - | - | - | - | - |
 | `smartCriteria` | - | - | - | - | - |
 | `songCount` | - | - | - | - | - |
-| `songId` | - | - | - | - | - |
 | `songs` | - | - | - | - | - |
 | `updatedAt` | - | - | - | - | - |
 
@@ -363,7 +361,6 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Playlist()->create([
-  "songId" => null, // string
 ]);
 ```
 

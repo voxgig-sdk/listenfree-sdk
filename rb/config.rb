@@ -505,12 +505,6 @@ module ListenfreeConfig
               "type" => "`$INTEGER`",
             },
             {
-              "name" => "songId",
-              "req" => true,
-              "short" => "ID of the song to add",
-              "type" => "`$STRING`",
-            },
-            {
               "name" => "songs",
               "type" => "`$ARRAY`",
             },

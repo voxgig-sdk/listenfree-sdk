@@ -338,14 +338,12 @@ declare class Config {
                 short: string;
                 type: string;
                 op?: undefined;
-                req?: undefined;
             } | {
                 name: string;
                 short: string;
                 type: string;
                 format?: undefined;
                 op?: undefined;
-                req?: undefined;
             } | {
                 name: string;
                 op: {
@@ -357,21 +355,12 @@ declare class Config {
                 short: string;
                 type: string;
                 format?: undefined;
-                req?: undefined;
-            } | {
-                name: string;
-                req: boolean;
-                short: string;
-                type: string;
-                format?: undefined;
-                op?: undefined;
             } | {
                 name: string;
                 type: string;
                 format?: undefined;
                 short?: undefined;
                 op?: undefined;
-                req?: undefined;
             })[];
             id: {
                 field: string;

@@ -345,7 +345,6 @@ fmt.Println(playlist.GetName()) // "playlist"
 | `owner` | `string` | No | User ID of playlist owner |
 | `smartCriteria` | `map[string]any` | No | Criteria for smart playlist generation |
 | `songCount` | `int` | No | Number of songs in playlist |
-| `songId` | `string` | Yes | ID of the song to add |
 | `songs` | `[]any` | No |  |
 | `updatedAt` | `string` | No | Last update timestamp |
 
@@ -362,7 +361,6 @@ fmt.Println(playlist.GetName()) // "playlist"
 | `owner` | - | - | - | - | - |
 | `smartCriteria` | - | - | - | - | - |
 | `songCount` | - | - | - | - | - |
-| `songId` | - | - | - | - | - |
 | `songs` | - | - | - | - | - |
 | `updatedAt` | - | - | - | - | - |
 
@@ -398,7 +396,6 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Playlist(nil).Create(map[string]any{
-    "songId": "example_songId",
 }, nil)
 if err != nil {
     panic(err)

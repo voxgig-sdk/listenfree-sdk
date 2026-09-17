@@ -76,11 +76,7 @@ class OfflineDownloadCreateData(TypedDict):
     songId: str
 
 
-class PlaylistRequired(TypedDict):
-    songId: str
-
-
-class Playlist(PlaylistRequired, total=False):
+class Playlist(TypedDict, total=False):
     createdAt: str
     description: str
     id: str
@@ -108,16 +104,11 @@ class PlaylistListMatch(TypedDict, total=False):
     owner: str
     smartCriteria: dict
     songCount: int
-    songId: str
     songs: list
     updatedAt: str
 
 
-class PlaylistCreateDataRequired(TypedDict):
-    songId: str
-
-
-class PlaylistCreateData(PlaylistCreateDataRequired, total=False):
+class PlaylistCreateData(TypedDict, total=False):
     createdAt: str
     description: str
     id: str
@@ -144,7 +135,6 @@ class PlaylistUpdateData(PlaylistUpdateDataRequired, total=False):
     owner: str
     smartCriteria: dict
     songCount: int
-    songId: str
     songs: list
     updatedAt: str
 

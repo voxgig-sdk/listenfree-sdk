@@ -131,30 +131,30 @@ class Config {
 
     entity: {
       
-      listening_room: {
-      },
-
-      music: {
-      },
-
-      offline_download: {
-      },
-
-      playlist: {
-      },
-
-      search: {
-      },
-
-      song: {
-      },
-
-      stream: {
-      },
-
-      video: {
-      },
-
+        listening_room: {
+        },
+  
+        music: {
+        },
+  
+        offline_download: {
+        },
+  
+        playlist: {
+        },
+  
+        search: {
+        },
+  
+        song: {
+        },
+  
+        stream: {
+        },
+  
+        video: {
+        },
+  
     }
   }
 
@@ -558,12 +558,6 @@ class Config {
           "name": "songCount",
           "short": "Number of songs in playlist",
           "type": "`$INTEGER`"
-        },
-        {
-          "name": "songId",
-          "req": true,
-          "short": "ID of the song to add",
-          "type": "`$STRING`"
         },
         {
           "name": "songs",

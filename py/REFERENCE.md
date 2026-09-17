@@ -330,7 +330,6 @@ playlist = client.Playlist()
 | `owner` | `str` | No | User ID of playlist owner |
 | `smartCriteria` | `dict` | No | Criteria for smart playlist generation |
 | `songCount` | `int` | No | Number of songs in playlist |
-| `songId` | `str` | Yes | ID of the song to add |
 | `songs` | `list` | No |  |
 | `updatedAt` | `str` | No | Last update timestamp |
 
@@ -347,7 +346,6 @@ playlist = client.Playlist()
 | `owner` | - | - | - | - | - |
 | `smartCriteria` | - | - | - | - | - |
 | `songCount` | - | - | - | - | - |
-| `songId` | - | - | - | - | - |
 | `songs` | - | - | - | - | - |
 | `updatedAt` | - | - | - | - | - |
 
@@ -359,7 +357,6 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Playlist().create({
-    "songId": "example_songId",  # str
 })
 ```
 

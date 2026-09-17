@@ -221,9 +221,6 @@ OfflineDownloadCreateData = Struct.new(
 # @!attribute [rw] songCount
 #   @return [Integer, nil]
 #
-# @!attribute [rw] songId
-#   @return [String]
-#
 # @!attribute [rw] songs
 #   @return [Array, nil]
 #
@@ -239,7 +236,6 @@ Playlist = Struct.new(
   :owner,
   :smartCriteria,
   :songCount,
-  :songId,
   :songs,
   :updatedAt,
   keyword_init: true
@@ -283,9 +279,6 @@ PlaylistLoadMatch = Struct.new(
 # @!attribute [rw] songCount
 #   @return [Integer, nil]
 #
-# @!attribute [rw] songId
-#   @return [String, nil]
-#
 # @!attribute [rw] songs
 #   @return [Array, nil]
 #
@@ -301,7 +294,6 @@ PlaylistListMatch = Struct.new(
   :owner,
   :smartCriteria,
   :songCount,
-  :songId,
   :songs,
   :updatedAt,
   keyword_init: true
@@ -336,9 +328,6 @@ PlaylistListMatch = Struct.new(
 # @!attribute [rw] songCount
 #   @return [Integer, nil]
 #
-# @!attribute [rw] songId
-#   @return [String]
-#
 # @!attribute [rw] songs
 #   @return [Array, nil]
 #
@@ -354,7 +343,6 @@ PlaylistCreateData = Struct.new(
   :owner,
   :smartCriteria,
   :songCount,
-  :songId,
   :songs,
   :updatedAt,
   keyword_init: true
@@ -389,9 +377,6 @@ PlaylistCreateData = Struct.new(
 # @!attribute [rw] songCount
 #   @return [Integer, nil]
 #
-# @!attribute [rw] songId
-#   @return [String, nil]
-#
 # @!attribute [rw] songs
 #   @return [Array, nil]
 #
@@ -407,7 +392,6 @@ PlaylistUpdateData = Struct.new(
   :owner,
   :smartCriteria,
   :songCount,
-  :songId,
   :songs,
   :updatedAt,
   keyword_init: true

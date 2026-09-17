@@ -91,7 +91,6 @@ type Playlist struct {
 	Owner *string `json:"owner,omitempty"`
 	SmartCriteria *map[string]any `json:"smartCriteria,omitempty"`
 	SongCount *int `json:"songCount,omitempty"`
-	SongId string `json:"songId"`
 	Songs *[]any `json:"songs,omitempty"`
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
@@ -112,7 +111,6 @@ type PlaylistListMatch struct {
 	Owner *string `json:"owner,omitempty"`
 	SmartCriteria *map[string]any `json:"smartCriteria,omitempty"`
 	SongCount *int `json:"songCount,omitempty"`
-	SongId *string `json:"songId,omitempty"`
 	Songs *[]any `json:"songs,omitempty"`
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
@@ -128,7 +126,6 @@ type PlaylistCreateData struct {
 	Owner *string `json:"owner,omitempty"`
 	SmartCriteria *map[string]any `json:"smartCriteria,omitempty"`
 	SongCount *int `json:"songCount,omitempty"`
-	SongId string `json:"songId"`
 	Songs *[]any `json:"songs,omitempty"`
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
@@ -144,7 +141,6 @@ type PlaylistUpdateData struct {
 	Owner *string `json:"owner,omitempty"`
 	SmartCriteria *map[string]any `json:"smartCriteria,omitempty"`
 	SongCount *int `json:"songCount,omitempty"`
-	SongId *string `json:"songId,omitempty"`
 	Songs *[]any `json:"songs,omitempty"`
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }

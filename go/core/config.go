@@ -497,12 +497,6 @@ func MakeConfig() map[string]any {
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
-						"name": "songId",
-						"req": true,
-						"short": "ID of the song to add",
-						"type": "`$STRING`",
-					},
-					map[string]any{
 						"name": "songs",
 						"type": "`$ARRAY`",
 					},

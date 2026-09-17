@@ -344,7 +344,6 @@ API path: `/offline/downloads`
 | `"owner"` | User ID of playlist owner |
 | `"smartCriteria"` | Criteria for smart playlist generation |
 | `"songCount"` | Number of songs in playlist |
-| `"songId"` | ID of the song to add |
 | `"songs"` |  |
 | `"updatedAt"` | Last update timestamp |
 
@@ -560,7 +559,6 @@ Create an instance: `playlist := client.Playlist(nil)`
 | `owner` | `string` | User ID of playlist owner |
 | `smartCriteria` | `map[string]any` | Criteria for smart playlist generation |
 | `songCount` | `int` | Number of songs in playlist |
-| `songId` | `string` | ID of the song to add |
 | `songs` | `[]any` |  |
 | `updatedAt` | `string` | Last update timestamp |
 
@@ -588,7 +586,6 @@ fmt.Println(playlists) // the array of records
 
 ```go
 result, err := client.Playlist(nil).Create(map[string]any{
-    "songId": "example_songId",
 }, nil)
 if err != nil {
     panic(err)

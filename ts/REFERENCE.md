@@ -428,7 +428,6 @@ const playlist = client.Playlist()
 | `owner` | `string` | No | User ID of playlist owner |
 | `smartCriteria` | `Record<string, any>` | No | Criteria for smart playlist generation |
 | `songCount` | `number` | No | Number of songs in playlist |
-| `songId` | `string` | Yes | ID of the song to add |
 | `songs` | `any[]` | No |  |
 | `updatedAt` | `string` | No | Last update timestamp |
 
@@ -445,7 +444,6 @@ const playlist = client.Playlist()
 | `owner` | - | - | - | - | - |
 | `smartCriteria` | - | - | - | - | - |
 | `songCount` | - | - | - | - | - |
-| `songId` | - | - | - | - | - |
 | `songs` | - | - | - | - | - |
 | `updatedAt` | - | - | - | - | - |
 
@@ -477,7 +475,6 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Playlist().create({
-  songId: 'example_songId',
 })
 ```
 

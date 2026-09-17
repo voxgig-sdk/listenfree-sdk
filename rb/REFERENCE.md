@@ -335,7 +335,6 @@ playlist = client.Playlist
 | `owner` | `String` | No | User ID of playlist owner |
 | `smartCriteria` | `Hash` | No | Criteria for smart playlist generation |
 | `songCount` | `Integer` | No | Number of songs in playlist |
-| `songId` | `String` | Yes | ID of the song to add |
 | `songs` | `Array` | No |  |
 | `updatedAt` | `String` | No | Last update timestamp |
 
@@ -352,7 +351,6 @@ playlist = client.Playlist
 | `owner` | - | - | - | - | - |
 | `smartCriteria` | - | - | - | - | - |
 | `songCount` | - | - | - | - | - |
-| `songId` | - | - | - | - | - |
 | `songs` | - | - | - | - | - |
 | `updatedAt` | - | - | - | - | - |
 
@@ -364,7 +362,6 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Playlist.create({
-  "songId" => "example_songId", # String
 })
 ```
 

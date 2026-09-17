@@ -341,7 +341,6 @@ API path: `/offline/downloads`
 | `owner` | User ID of playlist owner |
 | `smartCriteria` | Criteria for smart playlist generation |
 | `songCount` | Number of songs in playlist |
-| `songId` | ID of the song to add |
 | `songs` |  |
 | `updatedAt` | Last update timestamp |
 
@@ -540,7 +539,6 @@ Create an instance: `$playlist = $client->Playlist();`
 | `owner` | `string` | User ID of playlist owner |
 | `smartCriteria` | `array` | Criteria for smart playlist generation |
 | `songCount` | `int` | Number of songs in playlist |
-| `songId` | `string` | ID of the song to add |
 | `songs` | `array` |  |
 | `updatedAt` | `string` | Last update timestamp |
 
@@ -562,7 +560,6 @@ $playlists = $client->Playlist()->list();
 
 ```php
 $playlist = $client->Playlist()->create([
-    "songId" => null, // string
 ]);
 ```
 
@@ -821,6 +818,7 @@ Use `Helpers::to_map()` to safely validate that a value is an array.
 php/
 ├── listenfree_sdk.php          -- Main SDK class
 ├── config.php                     -- Configuration
+├── schema.php                     -- Generated option + entity specs
 ├── features.php                   -- Feature factory
 ├── core/                          -- Core types and context
 ├── entity/                        -- Entity implementations

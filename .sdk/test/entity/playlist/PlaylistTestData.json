@@ -2,63 +2,59 @@
   "existing": {
     "playlist": {
       "PLAYLIST00": {
-        "createdAt": "s78",
-        "description": "s79",
+        "createdAt": "s6e",
+        "description": "s6f",
         "id": "PLAYLIST00",
         "isPublic": false,
         "isSmart": true,
-        "name": "s7d",
-        "owner": "s7e",
+        "name": "s73",
+        "owner": "s74",
         "smartCriteria": {},
-        "songCount": 128,
-        "songId": "s81",
+        "songCount": 118,
         "songs": [],
-        "updatedAt": "s83"
+        "updatedAt": "s78"
       },
       "PLAYLIST01": {
-        "createdAt": "sf0",
-        "description": "sf1",
+        "createdAt": "sdc",
+        "description": "sdd",
         "id": "PLAYLIST01",
         "isPublic": false,
         "isSmart": true,
-        "name": "sf5",
-        "owner": "sf6",
+        "name": "se1",
+        "owner": "se2",
         "smartCriteria": {},
-        "songCount": 248,
-        "songId": "sf9",
+        "songCount": 228,
         "songs": [],
-        "updatedAt": "sfb"
+        "updatedAt": "se6"
       },
       "PLAYLIST02": {
-        "createdAt": "s168",
-        "description": "s169",
+        "createdAt": "s14a",
+        "description": "s14b",
         "id": "PLAYLIST02",
         "isPublic": false,
         "isSmart": true,
-        "name": "s16d",
-        "owner": "s16e",
+        "name": "s14f",
+        "owner": "s150",
         "smartCriteria": {},
-        "songCount": 368,
-        "songId": "s171",
+        "songCount": 338,
         "songs": [],
-        "updatedAt": "s173"
+        "updatedAt": "s154"
       }
     }
   },
   "new": {
     "playlist": {
       "playlist_ref01": {
-        "createdAt": "s1e0",
-        "description": "s1e1",
+        "createdAt": "s1b8",
+        "description": "s1b9",
         "isPublic": false,
         "isSmart": true,
-        "name": "s1e5",
-        "owner": "s1e6",
+        "name": "s1bd",
+        "owner": "s1be",
         "smartCriteria": {},
-        "songCount": 488,
-        "songId": "s1e9",
+        "songCount": 448,
         "songs": [],
-        "updatedAt": "s1eb"
+        "updatedAt": "s1c2"
       }
     }
   },

@@ -327,7 +327,6 @@ API path: `/offline/downloads`
 | `owner` | User ID of playlist owner |
 | `smartCriteria` | Criteria for smart playlist generation |
 | `songCount` | Number of songs in playlist |
-| `songId` | ID of the song to add |
 | `songs` |  |
 | `updatedAt` | Last update timestamp |
 
@@ -526,7 +525,6 @@ Create an instance: `playlist = client.Playlist`
 | `owner` | `String` | User ID of playlist owner |
 | `smartCriteria` | `Hash` | Criteria for smart playlist generation |
 | `songCount` | `Integer` | Number of songs in playlist |
-| `songId` | `String` | ID of the song to add |
 | `songs` | `Array` |  |
 | `updatedAt` | `String` | Last update timestamp |
 
@@ -548,7 +546,6 @@ playlists = client.Playlist.list
 
 ```ruby
 playlist = client.Playlist.create({
-  "songId" => "example_songId", # String
 })
 ```
 
@@ -807,6 +804,7 @@ Use `Helpers.to_map()` to safely validate that a value is a hash.
 rb/
 ├── Listenfree_sdk.rb       -- Main SDK module
 ├── config.rb                  -- Configuration
+├── schema.rb                  -- Generated option + entity specs
 ├── features.rb                -- Feature factory
 ├── core/                      -- Core types and context
 ├── entity/                    -- Entity implementations

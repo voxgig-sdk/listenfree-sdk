@@ -68,7 +68,6 @@
 ---@field owner? string
 ---@field smartCriteria? table
 ---@field songCount? number
----@field songId string
 ---@field songs? table
 ---@field updatedAt? string
 
@@ -85,7 +84,6 @@
 ---@field owner? string
 ---@field smartCriteria? table
 ---@field songCount? number
----@field songId? string
 ---@field songs? table
 ---@field updatedAt? string
 
@@ -99,7 +97,6 @@
 ---@field owner? string
 ---@field smartCriteria? table
 ---@field songCount? number
----@field songId string
 ---@field songs? table
 ---@field updatedAt? string
 
@@ -113,7 +110,6 @@
 ---@field owner? string
 ---@field smartCriteria? table
 ---@field songCount? number
----@field songId? string
 ---@field songs? table
 ---@field updatedAt? string
 

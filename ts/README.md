@@ -391,7 +391,6 @@ API path: `/offline/downloads`
 | `owner` | User ID of playlist owner |
 | `smartCriteria` | Criteria for smart playlist generation |
 | `songCount` | Number of songs in playlist |
-| `songId` | ID of the song to add |
 | `songs` |  |
 | `updatedAt` | Last update timestamp |
 
@@ -587,7 +586,6 @@ Create an instance: `const playlist = client.Playlist()`
 | `owner` | `string` | User ID of playlist owner |
 | `smartCriteria` | `Record<string, any>` | Criteria for smart playlist generation |
 | `songCount` | `number` | Number of songs in playlist |
-| `songId` | `string` | ID of the song to add |
 | `songs` | `any[]` |  |
 | `updatedAt` | `string` | Last update timestamp |
 
@@ -607,7 +605,6 @@ const playlists = await client.Playlist().list()
 
 ```ts
 const playlist = await client.Playlist().create({
-  songId: 'example_songId',
 })
 ```
 

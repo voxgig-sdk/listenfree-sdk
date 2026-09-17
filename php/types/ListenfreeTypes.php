@@ -100,7 +100,6 @@ class Playlist
     public ?string $owner = null;
     public ?array $smartCriteria = null;
     public ?int $songCount = null;
-    public string $songId;
     public ?array $songs = null;
     public ?string $updatedAt = null;
 }
@@ -123,7 +122,6 @@ class PlaylistListMatch
     public ?string $owner = null;
     public ?array $smartCriteria = null;
     public ?int $songCount = null;
-    public ?string $songId = null;
     public ?array $songs = null;
     public ?string $updatedAt = null;
 }
@@ -140,7 +138,6 @@ class PlaylistCreateData
     public ?string $owner = null;
     public ?array $smartCriteria = null;
     public ?int $songCount = null;
-    public string $songId;
     public ?array $songs = null;
     public ?string $updatedAt = null;
 }
@@ -157,7 +154,6 @@ class PlaylistUpdateData
     public ?string $owner = null;
     public ?array $smartCriteria = null;
     public ?int $songCount = null;
-    public ?string $songId = null;
     public ?array $songs = null;
     public ?string $updatedAt = null;
 }

@@ -333,7 +333,6 @@ API path: `/offline/downloads`
 | `owner` | User ID of playlist owner |
 | `smartCriteria` | Criteria for smart playlist generation |
 | `songCount` | Number of songs in playlist |
-| `songId` | ID of the song to add |
 | `songs` |  |
 | `updatedAt` | Last update timestamp |
 
@@ -529,7 +528,6 @@ Create an instance: `playlist = client.Playlist()`
 | `owner` | `str` | User ID of playlist owner |
 | `smartCriteria` | `dict` | Criteria for smart playlist generation |
 | `songCount` | `int` | Number of songs in playlist |
-| `songId` | `str` | ID of the song to add |
 | `songs` | `list` |  |
 | `updatedAt` | `str` | Last update timestamp |
 
@@ -549,7 +547,6 @@ playlists = client.Playlist().list()
 
 ```python
 playlist = client.Playlist().create({
-    "songId": "example_songId",  # str
 })
 ```
 
@@ -804,6 +801,7 @@ Use `helpers.to_map()` to safely validate that a value is a dict.
 py/
 ├── listenfree_sdk.py         -- Main SDK module
 ├── config.py                    -- Configuration
+├── schema.py                    -- Generated option + entity specs
 ├── features.py                  -- Feature factory
 ├── core/                        -- Core types and context
 ├── entity/                      -- Entity implementations
